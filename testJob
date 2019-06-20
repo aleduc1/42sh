@@ -1,0 +1,1 @@
+d=0; while true; do ps au | grep "/usr/bin/find /Users/sbelondr" | grep -v "grep" && d=$((d+1)) && echo "[$d]"; done

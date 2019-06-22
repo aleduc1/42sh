@@ -38,8 +38,10 @@ int		mark_process_status(pid_t pid, int status)
 					if (WIFSTOPPED(status))
 					{
 						p->stopped = 1;
-						ft_dprintf(p->r->error, "\n[%d]%c\tStopped(%d)\t%s\n",
-						j->first_process->process_id, '+', WSTOPSIG(status), j->first_process->cmd[0]);
+						if (!j->notified)
+							ft_dprintf(p->r->error, "\n[%d]%c\tStopped(%d)\t%s\n",
+								j->first_process->process_id, '+', WSTOPSIG(status), j->first_process->cmd[0]);
+						j->notified = 1;
 					}
 					else
 					{
@@ -60,6 +62,7 @@ int		mark_process_status(pid_t pid, int status)
 
 void	update_status(void)
 {
+	t_job	*j;
 	int		status;
 	pid_t	pid;
 
@@ -69,6 +72,13 @@ void	update_status(void)
 		if (mark_process_status(pid, status))
 			break ;
 	}
+	j = get_first_job(NULL);
+	while (j)
+	{
+		j->notified = 0;
+		j = j->next;
+	}
+
 }
 
 void	wait_for_jobs(t_job *j)
@@ -79,6 +89,8 @@ void	wait_for_jobs(t_job *j)
 	while (1)
 	{
 		pid = waitpid(-j->pgid, &status, WUNTRACED);
+		if (pid != -1 && status != 13)
+			gest_return(status);
 		if (mark_process_status(pid, status) || job_is_stop(j) ||
 			job_is_completed(j))
 			break ;

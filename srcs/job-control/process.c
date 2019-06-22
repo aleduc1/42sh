@@ -12,11 +12,12 @@
 
 #include "job.h"
 
-int		launch_process(t_process *p, pid_t pgid, t_redirection *r, int fg)
+int		launch_process(t_process *p, pid_t pgid, int fg)
 {
 	pid_t	pid;
 	char	**environ;
 	t_shell	*s;
+	int		verif;
 
 	s = get_shell();
 	dfl_signaux();
@@ -30,11 +31,11 @@ int		launch_process(t_process *p, pid_t pgid, t_redirection *r, int fg)
 		if (fg)
 			tcsetpgrp(s->term, pgid);
 	}
-	redirection_fd(r);
-	execve(p->cmd_path, p->cmd, environ);
-	ft_dprintf(r->error, "21sh: command not found: %s\n", p->cmd[0]);
+	redirection_fd(p->r);
+	verif = execve(p->cmd_path, p->cmd, environ);
+	ft_dprintf(p->r->error, "21sh: command not found: %s\n", p->cmd[0]);
 	execve("/bin/test", NULL, NULL);
-	exit(0);
+	exit(verif);
 }
 
 void	act_job(t_job *j, int fg)
@@ -57,13 +58,15 @@ int			launch_job(t_job *j, int fg)
 {
 	t_process	*p;
 	pid_t		pid;
+	int			verif;
 
 	p = j->first_process;
+	verif = 0;
 	while (p)
 	{
 		pid = fork();
 		if (pid == 0)
-			launch_process(p, j->pgid, p->r, fg);
+			verif = launch_process(p, j->pgid, fg);
 		else if (pid < 0)
 			ft_dprintf(p->r->error, "Error fork\n");
 		else
@@ -80,10 +83,10 @@ int			launch_job(t_job *j, int fg)
 		p = p->next;
 	}
 	act_job(j, fg);
-	return (0);
+	return (verif);
 }
 
-static int	is_first_process(t_job *j, t_process *p, int in)
+static int	is_not_end(t_job *j, t_process *p, int in, int fg)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -93,16 +96,23 @@ static int	is_first_process(t_job *j, t_process *p, int in)
 	if (p->r->in == STDIN_FILENO)
 		p->r->in = in;
 	p->r->fd_pipe = fd[0];
+	if (check_is_exec(p->cmd[0], p->r) == 0)
+	{
+		if (in != 0)
+			close(in);
+		close(fd[1]);
+		return (fd[0]);
+	}
 	pid = fork();
 	if (pid == 0)
 	{
-		if (p->r->out == STDOUT_FILENO)
-			p->r->out = fd[1];
 		dup2(fd[1], STDOUT_FILENO);
+	if (p->r->out == STDOUT_FILENO)
+		p->r->out = fd[1];
 		if ((verif = is_builtin(j, p, NULL)) == -1)
 		{
 			p->cmd_path = is_in_path(p->cmd[0]);
-			verif = (p->cmd_path) ? launch_job(j, 1) : gest_error_path(p->cmd[0], p->r);
+			verif = (p->cmd_path) ? launch_process(p, j->pgid, fg) : gest_error_path(p->cmd[0], p->r);
 		}
 		execve("/bin/test", NULL, NULL);
 	}
@@ -124,48 +134,7 @@ static int	is_first_process(t_job *j, t_process *p, int in)
 	return (fd[0]);
 }
 
-static int	is_not_end(t_job *j, t_process *p, int in)
-{
-	int		fd[2];
-	pid_t	pid;
-	int		verif;
-
-	pipe(fd);
-	if (p->r->in == STDIN_FILENO)
-		p->r->in = in;
-	p->r->fd_pipe = fd[0];
-	pid = fork();
-	if (pid == 0)
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		if (p->r->out == STDOUT_FILENO)
-			p->r->out = fd[1];
-		if ((verif = is_builtin(j, p, NULL)) == -1)
-		{
-			p->cmd_path = is_in_path(p->cmd[0]);
-			verif = (p->cmd_path) ? launch_job(j, 1) : gest_error_path(p->cmd[0], p->r);
-		}
-		execve("/bin/test", NULL, NULL);
-	}
-	else if (pid < 0)
-		ft_dprintf(p->r->error, "Error fork\n");
-	else
-	{
-		p->pid = pid;
-		if (get_shell()->interactive)
-		{
-			if (!(j->pgid))
-				j->pgid = pid;
-			setpgid(pid, j->pgid);
-		}
-	}
-	if (in != 0)
-		close(in);
-	close(fd[1]);
-	return (fd[0]);
-}
-
-static int	is_end(t_job *j, t_process *p, int in)
+static int	is_end(t_job *j, t_process *p, int in, int fg)
 {
 	pid_t	pid;
 	int		verif;
@@ -173,13 +142,18 @@ static int	is_end(t_job *j, t_process *p, int in)
 	if (p->r->in == STDIN_FILENO)
 		p->r->in = in;
 	p->r->fd_pipe = -1;
+	if (check_is_exec(p->cmd[0], p->r) == 0)
+	{
+		close(in);
+		return (-1);
+	}
 	pid = fork();
 	if (pid == 0)
 	{
 		if ((verif = is_builtin(j, p, NULL)) == -1)
 		{
 			p->cmd_path = is_in_path(p->cmd[0]);
-			verif = (p->cmd_path) ? launch_job(j, 1) : gest_error_path(p->cmd[0], p->r);
+			verif = (p->cmd_path) ? launch_process(p, j->pgid, fg) : gest_error_path(p->cmd[0], p->r);
 		}
 		execve("/bin/test", NULL, NULL);
 	}
@@ -204,27 +178,19 @@ int			launch_job_pipe(t_job *j, int fg)
 	t_process	*p;
 	int			in;
 	int			ret;
-	int			first;
 
 	in = 0;
 	ret = 0;
 	p = j->first_process;
-	first = 1;
 	while (p)
 	{
-		if (first)
-		{
-			in = is_first_process(j, p, in);
-			first = 0;
-		}
-		else if (p->next)
-			in = is_not_end(j, p, in);
+		if (p->next)
+			in = is_not_end(j, p, in, fg);
 		else
-			in = is_end(j, p, in);
+			in = is_end(j, p, in, fg);
 		p = p->next;
 	}
 	act_job(j, fg);
 	update_status();
-	gest_return(ret);
 	return (0);
 }

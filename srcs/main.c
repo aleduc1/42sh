@@ -74,6 +74,20 @@ void	run(char *input, t_pos *pos)
 	}
 }
 
+void	script_test(char **av, t_pos pos)
+{
+	int		i;
+	char	*str;
+
+	i = -1;
+	while (av[++i])
+	{
+		str = ft_strdup(av[i]);
+		run(str, &pos);
+	}
+	exit(0);
+}
+
 int		main(int argc, char **argv, char **environ)
 {
 	t_multi	*multi_input;
@@ -83,9 +97,11 @@ int		main(int argc, char **argv, char **environ)
 	input = NULL;
 	multi_input = NULL;
 //	ign_signaux();
-	welcome();
+	(argc == 1) ? welcome() : 0;
 	flags(argc, argv);
 	init_prompt(&pos);
+	if (argc > 1)
+		script_test(argv + 1, pos);
 	while (21)
 	{
 		if (argc && argv && environ)

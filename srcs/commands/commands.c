@@ -155,7 +155,6 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 	}
 	if (p->completed == 1 || p->pid == 0)
 		clean_fuck_list();
-	gest_return(verif);
 	return (verif);
 }
 
@@ -174,7 +173,10 @@ int			ft_simple_command_redirection(char **av, t_redirection *r)
 	if ((verif = is_builtin(j, p, NULL)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
-		verif = (p->cmd_path) ? launch_job(j, 1) : gest_error_path(p->cmd[0], p->r);
+		if (p->cmd_path)
+			verif = launch_job(j, 1);
+		else
+			verif = gest_error_path(p->cmd[0], p->r);
 	}
 	ft_arraydel(&p->cmd);
 	free(p);

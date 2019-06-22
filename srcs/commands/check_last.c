@@ -30,8 +30,10 @@ int	check_is_exec(char *src, t_redirection *r)
 	if (ft_strequ(src, "env") || ft_strequ(src, "set")
 		|| ft_strequ(src, "setenv") || ft_strequ(src, "unsetenv")
 		|| ft_strequ(src, "export") || ft_strequ(src, "unset")
-		|| ft_strequ(src, "exit") || ft_strequ(src, "editset")
-		|| ft_strequ(src, "echo") || ft_strequ(src, "cd"))
+		|| ft_strequ(src, "exit") || ft_strchr_exist(src, '=')
+		|| ft_strequ(src, "echo") || ft_strequ(src, "cd")
+		|| ft_strequ(src, "jobs") || ft_strequ(src, "fg")
+		|| ft_strequ(src, "bg") || ft_strequ(src, "fc"))
 		return (1);
 	str = is_in_path(src);
 	if (!str)

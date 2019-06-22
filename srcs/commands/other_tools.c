@@ -19,9 +19,11 @@ int			gest_error_path(char *cmd, t_redirection *r)
 	if (check_last_command() == -6)
 	{
 		ft_dprintf(r->error, "21sh: %s: Permission denied\n", cmd);
+		gest_return(126);
 		return (126);
 	}
 	ft_dprintf(r->error, "21sh: command not found: %s\n", cmd);
+	gest_return(127);
 	return (127);
 }
 
@@ -32,14 +34,14 @@ int			gest_error_path(char *cmd, t_redirection *r)
 **	return -1 if it's not a builtin
 */
 
-int			is_builtin_env(t_job *j, char **av)
+int			is_builtin_env(t_process *p, char **av)
 {
 	int	verif;
 
 	if (ft_strequ(av[0], "env"))
-		verif = builtin_env(j->first_process->r, av);
+		verif = builtin_env(p->r, av);
 	else if (ft_strequ(av[0], "set"))
-		verif = builtin_set(j->first_process->r);
+		verif = builtin_set(p->r);
 	else if (ft_strequ(av[0], "setenv"))
 		verif = edit_setenv(av[1], av[2]);
 	else if (ft_strequ(av[0], "unsetenv"))
@@ -49,7 +51,7 @@ int			is_builtin_env(t_job *j, char **av)
 	else if (ft_strequ(av[0], "unset"))
 		verif = ft_unset(av[1]);
 	else if (ft_strchr_exist(av[0], '='))
-		verif = edit_set(av, j->first_process->r);
+		verif = edit_set(av, p->r);
 	else
 		verif = -1;
 	return (verif);
@@ -61,7 +63,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	char	**av;
 
 	av = p->cmd;
-	verif = is_builtin_env(j, av);
+	verif = is_builtin_env(p, av);
 	if (verif != -1)
 		return (verif);
 	if (ft_strequ(av[0], "echo"))

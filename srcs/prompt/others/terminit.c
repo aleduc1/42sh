@@ -26,7 +26,7 @@ void				welcome(void)
 	ft_putstr("╚════██║██╔═══╝ ╚════██║██╔══██║    \n");
 	ft_putstr("     ██║███████╗███████║██║  ██║    \n");
 	ft_putstr("     ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝    \n");
-	ft_putstr("\033[0m");
+	ft_putendl("\033[0m");
 }
 
 void				default_term_mode(void)

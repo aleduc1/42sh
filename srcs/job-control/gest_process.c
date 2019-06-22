@@ -19,7 +19,32 @@
 ** not terminated, but has stopped and can be restarted.
 */
 
-int		mark_process_status(pid_t pid, int status)
+/*
+** if (WIFSIGNALED(status))
+**	ft_dprintf(p->r->error, "\nProcess end pid = %d %d",
+**		(int)pid, status);
+*/
+
+static void	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
+{
+	if (pid == p->pid)
+	{
+		p->status = status;
+		if (WIFSTOPPED(status))
+		{
+			p->stopped = 1;
+			if (!j->notified)
+				ft_dprintf(p->r->error, "\n[%d]%c\tStopped(%d)\t%s\n",
+					j->first_process->process_id, '+', WSTOPSIG(status),
+					j->first_process->cmd[0]);
+			j->notified = 1;
+		}
+		else
+			p->completed = 1;
+	}
+}
+
+int			mark_process_status(pid_t pid, int status)
 {
 	t_job		*j;
 	t_process	*p;
@@ -32,26 +57,7 @@ int		mark_process_status(pid_t pid, int status)
 			p = j->first_process;
 			while (p)
 			{
-				if (pid == p->pid)
-				{
-					p->status = status;
-					if (WIFSTOPPED(status))
-					{
-						p->stopped = 1;
-						if (!j->notified)
-							ft_dprintf(p->r->error, "\n[%d]%c\tStopped(%d)\t%s\n",
-								j->first_process->process_id, '+', WSTOPSIG(status), j->first_process->cmd[0]);
-						j->notified = 1;
-					}
-					else
-					{
-						p->completed = 1;
-					//	if (WIFSIGNALED(status))
-						//	ft_dprintf(p->r->error, "\nProcess end pid = %d %d",
-						//	(int)pid, status);
-					}
-					return (0);
-				}
+				action_process_status(pid, status, j, p);
 				p = p->next;
 			}
 			j = j->next;
@@ -60,7 +66,7 @@ int		mark_process_status(pid_t pid, int status)
 	return (-1);
 }
 
-void	update_status(void)
+void		update_status(void)
 {
 	t_job	*j;
 	int		status;
@@ -78,10 +84,9 @@ void	update_status(void)
 		j->notified = 0;
 		j = j->next;
 	}
-
 }
 
-void	wait_for_jobs(t_job *j)
+void		wait_for_jobs(t_job *j)
 {
 	int		status;
 	pid_t	pid;
@@ -91,19 +96,19 @@ void	wait_for_jobs(t_job *j)
 		pid = waitpid(-j->pgid, &status, WUNTRACED);
 		if (pid != -1 && status != 13)
 			gest_return(status);
-		if (mark_process_status(pid, status) || job_is_stop(j) ||
-			job_is_completed(j))
+		if (mark_process_status(pid, status) || job_is_stop(j)
+			|| job_is_completed(j))
 			break ;
 	}
 }
 
-void	job_info(t_job *j, char *status)
+void		job_info(t_job *j, char *status)
 {
-	ft_dprintf(j->first_process->r->error, "%s [%d]: %s\n", j->first_process->cmd[0],
-		(int)j->pgid, status);
+	ft_dprintf(j->first_process->r->error, "%s [%d]: %s\n",
+		j->first_process->cmd[0], (int)j->pgid, status);
 }
 
-void	job_notif(void)
+void		job_notif(void)
 {
 	t_job	*j;
 	t_job	*last;
@@ -133,7 +138,7 @@ void	job_notif(void)
 	}
 }
 
-void	job_running(t_job *j)
+void		job_running(t_job *j)
 {
 	t_process	*p;
 
@@ -146,7 +151,7 @@ void	job_running(t_job *j)
 	j->notified = 0;
 }
 
-void	continue_job(t_job *j, int fg)
+void		continue_job(t_job *j, int fg)
 {
 	job_running(j);
 	if (fg)

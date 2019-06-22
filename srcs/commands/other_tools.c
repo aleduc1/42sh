@@ -79,7 +79,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	else if (ft_strequ(av[0], "bg"))
 		verif = bt_bg();
 	else if (ft_strequ(av[0], "fc"))
-		verif = builtin_fc(av, pos); // -2 si erreur ou 0 si ok
+		verif = builtin_fc(av, pos);
 	else
 		verif = -1;
 	return (verif);

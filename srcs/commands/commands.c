@@ -42,8 +42,9 @@ void		display_lst_job(t_job *j)
 		while (p)
 		{
 			ft_arraydisplay(p->cmd);
-			ft_printf("pointeur cmd = %p\npid = %d\ncompleted = %d\nstopped = %d\nstatus = %d\n",
-			&p->cmd, p->pid, p->completed, p->stopped, p->status);
+			ft_printf("pointeur cmd = %p\npid = %d\ncompleted = %d\n",
+				&p->cmd, p->pid, p->completed);
+			ft_printf("stopped = %d\nstatus = %d\n", p->stopped, p->status);
 			p = p->next;
 		}
 		ft_printf("pgpid = %d\nnotified = %d\n", sv->pgid, sv->notified);
@@ -65,8 +66,8 @@ void		clean_fuck_list(void)
 	while (*j)
 	{
 		next = (*j)->next;
-		if (((*j)->first_process->completed == 1 ||
-		(*j)->first_process->pid == 0) && (*j)->first_process->stopped == 0)
+		if (((*j)->first_process->completed || (*j)->first_process->pid == 0)
+		&& (*j)->first_process->stopped == 0)
 		{
 			if (last)
 				last->next = next;
@@ -81,21 +82,11 @@ void		clean_fuck_list(void)
 	(*j) = h;
 }
 
-int			file_to_close(t_token *t, t_job *j)
+static int	file_to_close_bis(t_token *t, t_job *j)
 {
 	t_lex	*lex;
 	int		i;
 
-	lex = t->command;
-	while (lex)
-	{
-		if (lex->token->type == REDIR && lex->redir &&
-				lex->redir->dest_fd &&
-				ft_atoi(lex->redir->dest_fd) != -1)
-			if (lex->redir->filename || lex->redir->close == 1)
-				j->len_close++;
-		lex = lex->next;
-	}
 	lex = t->command;
 	if (!(j->close_fd = (int*)malloc(sizeof(int) * (j->len_close + 1))))
 		return (-1);
@@ -110,6 +101,25 @@ int			file_to_close(t_token *t, t_job *j)
 		lex = lex->next;
 	}
 	return (0);
+}
+
+int			file_to_close(t_token *t, t_job *j)
+{
+	t_lex	*lex;
+	int		verif;
+
+	lex = t->command;
+	while (lex)
+	{
+		if (lex->token->type == REDIR && lex->redir &&
+				lex->redir->dest_fd &&
+				ft_atoi(lex->redir->dest_fd) != -1)
+			if (lex->redir->filename || lex->redir->close == 1)
+				j->len_close++;
+		lex = lex->next;
+	}
+	verif = file_to_close_bis(t, j);
+	return (verif);
 }
 
 t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
@@ -151,7 +161,10 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 	if ((verif = is_builtin(j, p, pos)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
-		verif = (p->cmd_path) ? launch_job(j, 1) : gest_error_path(p->cmd[0], p->r);
+		if (p->cmd_path)
+			verif = launch_job(j, 1);
+		else
+			verif = gest_error_path(p->cmd[0], p->r);
 	}
 	if (p->completed == 1 || p->pid == 0)
 		clean_fuck_list();
@@ -221,7 +234,10 @@ int			ft_ampersand(char **argv, t_token *token)
 	if ((verif = is_builtin(j, p, NULL)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
-		verif = (p->cmd_path) ? launch_job(j, 1) : gest_error_path(p->cmd[0], p->r);
+		if (p->cmd_path)
+			verif = launch_job(j, 1);
+		else
+			verif = gest_error_path(p->cmd[0], p->r);
 	}
 	if (p->completed == 1 || p->pid == 0)
 		clean_fuck_list();

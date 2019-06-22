@@ -45,7 +45,7 @@ t_job		*init_job(void)
 	return (j);
 }
 
-t_job	**static_job(void)
+t_job		**static_job(void)
 {
 	static t_job	*job;
 
@@ -69,8 +69,8 @@ void		free_process(t_process **p)
 
 void		clean_file(t_job *j)
 {
-	int	i;
-	t_process *p;
+	int			i;
+	t_process	*p;
 
 	if (j->len_close > 0)
 	{
@@ -110,13 +110,13 @@ void		free_all_job(void)
 	while (*j)
 	{
 		h = (*j)->next;
-		//close_file_command((*j)->t->command, &(*j)->r);
+		// close_file_command((*j)->t->command, &(*j)->r);
 		free_job(&(*j));
 		(*j) = h;
 	}
 }
 
-t_job	*get_first_job(t_job *new_job)
+t_job		*get_first_job(t_job *new_job)
 {
 	t_job	**job;
 
@@ -126,7 +126,7 @@ t_job	*get_first_job(t_job *new_job)
 	return (*job);
 }
 
-t_job	*find_job(pid_t pid)
+t_job		*find_job(pid_t pid)
 {
 	t_job	*job;
 
@@ -140,7 +140,7 @@ t_job	*find_job(pid_t pid)
 	return (NULL);
 }
 
-int		job_is_stop(t_job *job)
+int			job_is_stop(t_job *job)
 {
 	t_process	*p;
 
@@ -154,7 +154,7 @@ int		job_is_stop(t_job *job)
 	return (1);
 }
 
-int		job_is_completed(t_job *job)
+int			job_is_completed(t_job *job)
 {
 	t_process	*p;
 

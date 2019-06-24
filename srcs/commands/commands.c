@@ -38,18 +38,20 @@ void		display_lst_job(t_job *j)
 	while (sv)
 	{
 		ft_printf("===========================\n");
+		ft_printf("pgpid = %d\nnotified = %d\n", sv->pgid, sv->notified);
 		p = sv->first_process;
+		ft_printf("___________________________\n");
 		while (p)
 		{
 			ft_arraydisplay(p->cmd);
-			ft_printf("pointeur cmd = %p\npid = %d\ncompleted = %d\n",
-				&p->cmd, p->pid, p->completed);
+			ft_printf("pointeur:\n cmd = %p\n cmd_path = %p\n redirection = %p\n",
+				&p->cmd, &p->cmd_path, &p->r);
+			ft_printf("pid = %d\ncompleted = %d\n", p->pid, p->completed);
 			ft_printf("stopped = %d\nstatus = %d\n", p->stopped, p->status);
 			p = p->next;
 		}
-		ft_printf("pgpid = %d\nnotified = %d\n", sv->pgid, sv->notified);
 		sv = sv->next;
-		ft_printf("___________________________\n");
+		ft_printf("===========================\n");
 	}
 }
 
@@ -138,6 +140,7 @@ t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
 		j = j->next;
 	}
 	file_to_close(t, j);
+	j->pgid = 0;
 	p = j->first_process;
 	p->cmd = ft_arraydup(argv);
 	p->process_id = process_id + 1;
@@ -166,7 +169,7 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 		else
 			verif = gest_error_path(p->cmd[0], p->r);
 	}
-	if (p->completed == 1 || p->pid == 0)
+	if (p->completed == 1 || p->pid == 0 || p->stopped == 0)
 		clean_fuck_list();
 	return (verif);
 }

@@ -81,7 +81,7 @@ char			*input_search(t_node **input, char *passed_input, t_pos *pos, int *ret)
 	current_input = NULL;
 	ft_bzero(buffer, 4096);
 	current_choice = search_and_print(passed_input, pos);
-	while (read(STDIN_FILENO, &buffer, 4095) < 4095 && \
+	while (read(g_in, &buffer, 4095) < 4095 && \
 		  (PRINTABLE || BACKSPACE || CTRL_C || CTRL_D))
 	{
 		*ret = search_keyhook(input, buffer, current_choice);

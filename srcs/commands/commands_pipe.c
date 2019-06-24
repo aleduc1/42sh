@@ -25,6 +25,8 @@ int			ft_pipe(char **argv, t_token *t, int end_pipe)
 	{
 		j = get_end_job();
 		launch_job_pipe(j, 1);
+		act_job(j, 1);
+		
 		if (j->first_process->completed == 1 || j->first_process->pid == 0)
 			clean_fuck_list();
 	}

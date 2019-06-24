@@ -96,7 +96,10 @@ int		main(int argc, char **argv, char **environ)
 
 	input = NULL;
 	multi_input = NULL;
-//	ign_signaux();
+	g_in = STDIN_FILENO;//open(ttyname(STDIN_FILENO), O_WRONLY);
+	// if ((dup2(STDIN_FILENO, g_in)) == -1)
+	// 	exit(1);
+	// ign_signaux();
 	(argc == 1) ? welcome() : 0;
 	flags(argc, argv);
 	init_prompt(&pos);

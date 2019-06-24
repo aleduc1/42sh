@@ -142,6 +142,14 @@ t_job		*find_job(pid_t pid)
 
 int			job_is_stop(t_job *job)
 {
+t_process *p;
+
+  for (p = job->first_process; p; p = p->next)
+    if (!p->completed && !p->stopped)
+      return 0;
+  return 1;
+
+/*
 	t_process	*p;
 
 	p = job->first_process;
@@ -151,11 +159,18 @@ int			job_is_stop(t_job *job)
 			return (0);
 		p = p->next;
 	}
-	return (1);
+	return (1);*/
 }
 
 int			job_is_completed(t_job *job)
 {
+t_process *p;
+
+  for (p = job->first_process; p; p = p->next)
+    if (!p->completed)
+      return 0;
+  return 1;
+	/*
 	t_process	*p;
 
 	p = job->first_process;
@@ -165,5 +180,5 @@ int			job_is_completed(t_job *job)
 			return (0);
 		p = p->next;
 	}
-	return (1);
+	return (1);*/
 }

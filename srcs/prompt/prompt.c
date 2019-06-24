@@ -71,7 +71,7 @@ t_node			*read_input(t_node **input, t_pos *pos)
 	reset_multi(pos);
 	ft_bzero(buffer, 4096);
 	ft_putstr(tgetstr("im", NULL));
-	while (read(STDIN_FILENO, &buffer, 4095) < 4095 && !ENTER)
+	while (read(g_in, &buffer, 4095) < 4095 && !ENTER)
 	{
 		lstcursor = editline(pos, lstcursor, input, buffer);
 		stalk_cursor(pos);
@@ -98,7 +98,7 @@ char			*check_prompt(char *inputstr, t_multi **multi)
 	else
 	{
 		ft_putstr("\n\033[31m[DUMB_MODE] &> \033[0m");
-		if ((get_next_line(STDIN_FILENO, &inputstr) != -1)\
+		if ((get_next_line(g_in, &inputstr) != -1)\
 			&& !ft_strequ(inputstr, ""))
 			return (inputstr);
 	}

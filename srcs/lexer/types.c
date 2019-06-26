@@ -24,13 +24,19 @@ void	set_tab_types_2(t_tab_type **tab_of_types)
 	(*tab_of_types)[11].type = LESSAMPHYPH;
 	(*tab_of_types)[12].str = ">&-";
 	(*tab_of_types)[12].type = GREATAMPHYPH;
-	(*tab_of_types)[13].str = NULL;
-	(*tab_of_types)[13].type = NUL;
+	(*tab_of_types)[13].str = "&";
+	(*tab_of_types)[13].type = AMP;
+	(*tab_of_types)[14].str = "&&";
+	(*tab_of_types)[14].type = DAMP;
+	(*tab_of_types)[15].str = "||";
+	(*tab_of_types)[15].type = DPIPE;
+	(*tab_of_types)[16].str = NULL;
+	(*tab_of_types)[16].type = NUL;
 }
 
 void	set_tab_types(t_tab_type **tab_of_types)
 {
-	if (!((*tab_of_types) = (t_tab_type *)ft_memalloc(sizeof(t_tab_type) * 14)))
+	if (!((*tab_of_types) = (t_tab_type *)ft_memalloc(sizeof(t_tab_type) * 17)))
 		return ;
 	(*tab_of_types)[0].str = "|";
 	(*tab_of_types)[0].type = SPIPE;

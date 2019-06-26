@@ -18,7 +18,7 @@
 
 int		is_operator(t_type type)
 {
-	if (type == SPIPE || type == SCOLON)
+	if (type == SPIPE || type == DPIPE || type == AMP || type == DAMP || type == SCOLON)
 		return (1);
 	return (0);
 }

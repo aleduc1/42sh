@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   other_tools.c                                      :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/02 18:24:02 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:37:58 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
+extern t_ht_hash	*g_hash_table;
+
 /*
 ** split is all the path
 */
+
+static char	*get_hash(char *command)
+{
+	char	*str;
+
+	str = ht_hash_search(g_hash_table, command);
+	if (!str)
+		return (NULL);
+	return (ft_strdup(str));
+}
 
 static void	check_exec_path(char **str)
 {
@@ -77,9 +89,14 @@ char		*is_in_path(char *command)
 	result = NULL;
 	if (!command)
 		return (NULL);
+	if ((result = get_hash(command)))
+		return (result);
 	result = check_env_path(command);
 	if (result)
+	{
+		ht_hash_insert(g_hash_table, command, result);
 		return (result);
+	}
 	if (access(command, F_OK) >= 0)
 	{
 		result = ft_strdup(command);

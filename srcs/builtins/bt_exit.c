@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   bt_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 13:52:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/05/27 10:48:03 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:27:48 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "job.h"
+#include "builtins.h"
+
+extern t_ht_hash	*g_alias_table;
+extern t_ht_hash	*g_hash_table;
 
 /*
 ** exit [n]
@@ -63,16 +67,24 @@
 ** valeur de retour du shell
 */
 
-int		bt_exit(t_job *j)
+static void		bt_exit_utils(void)
 {
-	int	rt;
-
-	get_env(1, NULL);
-	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
-	{
 		free_all_job();
 		delete_shell();
 		default_term_mode();
+		get_env(1, NULL);
+		ht_hash_del(g_alias_table);
+		ht_hash_del(g_hash_table);
+}
+
+
+int				bt_exit(t_job *j)
+{
+	int	rt;
+
+	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
+	{
+		bt_exit_utils();
 		ft_dprintf(2, "exit\n");
 		exit(0);
 	}
@@ -81,9 +93,7 @@ int		bt_exit(t_job *j)
 		if (!j->first_process->cmd[2])
 		{
 			rt = ft_atoi(j->first_process->cmd[1]);
-			free_all_job();
-			delete_shell();
-			default_term_mode();
+			bt_exit_utils();
 			ft_dprintf(2, "exit\n");
 			exit(rt);
 		}
@@ -91,8 +101,6 @@ int		bt_exit(t_job *j)
 		return (1);
 	}
 	ft_dprintf(2, "21sh: exit: %s: numeric argument required\n", j->first_process->cmd[1]);
-	free_all_job();
-	delete_shell();
-	default_term_mode();
+	bt_exit_utils();
 	exit(255);
 }

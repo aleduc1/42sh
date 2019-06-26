@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/15 18:32:36 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:16:58 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	if (ft_strequ(av[0], "echo"))
 		verif = bt_echo(av, p->r);
 	else if (ft_strequ(av[0], "cd"))
-		verif = (builtin_cd(av) < 0) ? -2 : 0;
+		verif = (bt_cd(av)) ? -2 : 0;
 	else if (ft_strequ(av[0], "exit"))
 		verif = bt_exit(j);
 	else if (ft_strequ(av[0], "jobs"))
@@ -80,6 +80,14 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = bt_bg();
 	else if (ft_strequ(av[0], "fc"))
 		verif = builtin_fc(av, pos);
+	else if (ft_strequ(av[0], "alias"))
+		verif = bt_alias(av);
+	else if (ft_strequ(av[0], "unalias"))
+		verif = bt_unalias(av);
+	else if (ft_strequ(av[0], "hash"))
+		verif = bt_hash(av);
+	else if (ft_strequ(av[0], "type"))
+		verif = bt_type(av);
 	else
 		verif = -1;
 	return (verif);

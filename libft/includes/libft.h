@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 16:33:26 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/08 16:13:09 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:01:38 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,9 @@ void				ft_deplace(char (*lst)[BUF_S]);
 int					ft_isstrnum(char *s);
 char				*ft_jointhree(char *s1, char *s2, char *s3);
 void				ft_remove_last_chr(char **str);
+long				ft_lpow(long a, long b);
+int					ft_sqrt(int x);
+int					ft_isprime(const int x);
+int					ft_nextprime(int x);
 
 #	endif

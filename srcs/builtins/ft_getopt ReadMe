@@ -1,0 +1,97 @@
+int		ft_getopt(int ac, char *const *av, const char *optstring)
+
+extern int	g_optind;	// index du prochain argv à tester
+extern int	g_opterr;	// 0 pour ne pas avoir de message d'erreur, autre valeur pour en avoir un (default 1)
+extern int	g_optopt;	// dernier caractere testé comme option
+extern int	g_optreset;	// mettre a 1 pour recommencer a tester les options
+extern char g_optarg;	// argument lié à une option ex: foo [-x argument] argument
+
+Seul g_optind est essentiel, les autres sont optionnels
+Avec g_optarg, c'est le pointeur vers l'argument, le modifier modifie donc av
+
+ft_getopt
+
+	fonction qui recupere les options d'un programme
+	Le int ac correspond au argc de la fonction main
+	le const char **av correspond au argv de la fonction main
+	le const char *optstring correspond a la liste des options valides du binaire 
+
+	mettre ':' apres une option dans optstring (ex : "abc:d") feras que l'option demandera un argument
+			l'exemple donné donnerais en usage foo [-abd] [-c arg] arg
+			l'argument sera sous forme -c argument ou -cargument
+
+	Dans le cas d'un builtin non fork, reinitialiser g_optind a 1 et g_optreset a 1
+	ou appeler fonction ft_getopt_reset(void)
+	ne pas hésiter à remettre g_optarg à NULL pour éviter des problèmes (normalement c'es ok sans si on fais pas de conneries)
+
+	Retourne -1 lorsque toutes les options ont été testées
+	Retourne '?' quand :
+		- getopt detecte un argument non écris dans optstring
+		- getopt detecte un argument d'option manquant
+	Si optstring commence par ':' getopt retourne ':' au lieu de '?'
+
+exemple d'utilisation :
+
+	while ((arg = ft_getopt(ac, av, "avcle")) != -1)
+	{
+		if (arg == 'a')
+			ft_printf("Je vois un a\n");
+		else if (arg == 'v')
+			ft_printf("Je vois un v\n");
+		else if (arg == 'c')
+			ft_printf("Je vois un c\n");
+		else if (arg == 'l')
+			ft_printf("Je vois un l\n");
+		else if (arg == 'e')
+			ft_printf("Je vois un e\n");
+		else if (arg == '?')
+		{
+			ft_printf("usage: lel [-%s]\n", "avcle");
+			ft_getopt_reset();
+			return (1);
+		}
+	}
+	i = g_optind;
+	ft_getopt_reset();
+
+Cet exemple dans une fonction complete :
+
+int		bt_lel(char **av)
+{
+	int ac = 1;
+	int	i;
+	char arg;
+
+	while (av[ac])
+		ac++;
+	while ((arg = ft_getopt(ac, av, "av:cle")) != -1)
+	{
+		if (arg == 'a')
+			ft_printf("Je vois un a\n");
+		else if (arg == 'v')
+			ft_printf("Je vois un v avec %s\n", g_optarg);
+		else if (arg == 'c')
+			ft_printf("Je vois un c\n");
+		else if (arg == 'l')
+			ft_printf("Je vois un l\n");
+		else if (arg == 'e')
+			ft_printf("Je vois un e\n");
+		else if (arg == '?')
+		{
+			ft_printf("usage: lel [-%s]\n", "avcle");
+			ft_getopt_reset();
+			return (1);
+		}
+		else
+			ft_printf("what le %c\n", (char)arg);
+	}
+	i = g_optind;
+	ft_getopt_reset();
+	ft_printf("Tous les arguments passés sont corrects\nLes arguments suivants ne sont pas des options :\n");
+	while (i < ac)
+	{
+		ft_printf("%s\n", av[i]);
+		++i;
+	}
+	return (0);
+}

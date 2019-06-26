@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/23 09:50:25 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:03:30 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include "parser.h"
 #include "env.h"
 #include "job.h"
+
+t_ht_hash	*g_hash_table;
+t_ht_hash	*g_alias_table;
 
 int		siginthandler(int signum)
 {
@@ -100,6 +103,8 @@ int		main(int argc, char **argv, char **environ)
 	(argc == 1) ? welcome() : 0;
 	flags(argc, argv);
 	init_prompt(&pos);
+	g_hash_table = ht_hash_new();
+	g_alias_table = ht_hash_new();
 	if (argc > 1)
 		script_test(argv + 1, pos);
 	while (21)

@@ -60,7 +60,7 @@ SRCS_NAMES = ft_atoi.c ft_bzero.c ft_fill_str.c ft_isalnum.c ft_isalpha.c ft_isa
 			 ft_strtrim.c ft_swap.c ft_tolower.c ft_toupper.c get_next_line.c get_end_line.c split_once.c ft_dlstnew.c ft_dlstinserts.c \
 			 ft_dlstdel.c ft_dlstprint.c ft_madeby.c ft_debug.c ft_arraydel.c ft_arraydelline.c ft_arraydisplay.c ft_arraydup.c ft_arrayjoin.c \
 			 ft_arraylen.c ft_arraysub.c ft_chr_index.c ft_strchr_exist.c ft_numlen.c ft_pow_array_fix.c ft_reverse_tablo.c ft_strsub_tab_fix.c \
-			 ft_deplace.c ft_isstrnum.c ft_jointhree.c ft_remove_last_chr.c
+			 ft_deplace.c ft_isstrnum.c ft_jointhree.c ft_remove_last_chr.c ft_lpow.c ft_sqrt.c ft_prime.c
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 HEADERS_NAMES = libft.h ft_printf.h get_next_line.h ft_printf.h
 

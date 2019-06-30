@@ -78,6 +78,7 @@ typedef struct	s_job
 {
 	t_process		*first_process;
 	pid_t			pgid;
+	int				fg;
 	int				notified;
 	struct termios	tmodes;
 	int				len_close;

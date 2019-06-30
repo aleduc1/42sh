@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/23 09:50:25 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/06/30 19:40:36 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int		main(int argc, char **argv, char **environ)
 
 	input = NULL;
 	multi_input = NULL;
+	if (isatty(STDIN_FILENO) == 0)
+		return (1);
 	g_in = STDIN_FILENO;//open(ttyname(STDIN_FILENO), O_WRONLY);
 	// if ((dup2(STDIN_FILENO, g_in)) == -1)
 	// 	exit(1);

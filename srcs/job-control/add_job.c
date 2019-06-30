@@ -22,31 +22,6 @@
 
 void	add_in_fg(t_job *j, int value)
 {
-	t_shell *s = get_shell();
-	 /* Put the job into the foreground.  */
-  tcsetpgrp (g_in, j->pgid);
-
-
-  /* Send the job a continue signal, if necessary.  */
-  if (value)
-    {
-      tcsetattr (g_in, TCSADRAIN, &j->tmodes);
-      if (kill (- j->pgid, SIGCONT) < 0)
-        perror ("kill (SIGCONT)");
-    }
-
-
-  /* Wait for it to report.  */
-  wait_for_job (j);
-
-  /* Put the shell back in the foreground.  */
-  tcsetpgrp (g_in, s->pgid);
-
-  /* Restore the shell’s terminal modes.  */
-  tcgetattr (g_in, &j->tmodes);
-  tcsetattr (g_in, TCSADRAIN, &s->term_shell);
-
-	/*
 	t_shell	*shell;
 
 	shell = get_shell();
@@ -60,7 +35,7 @@ void	add_in_fg(t_job *j, int value)
 	wait_for_job(j);
 	tcsetpgrp(shell->term, shell->pgid);
 	tcgetattr(shell->term, &j->tmodes);
-	tcsetattr(shell->term, TCSADRAIN, &(shell->term_shell));*/
+	tcsetattr(shell->term, TCSADRAIN, &(shell->term_shell));
 }
 
 void	add_in_bg(t_job *j, int value)

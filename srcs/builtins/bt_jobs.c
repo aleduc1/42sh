@@ -86,9 +86,7 @@ int		bt_jobs(char **av, t_redirection *r)
 	t_job	*j;
 	void	(*p)(t_job*, int, t_redirection*);
 
-
 	update_status();
-	// display_redirection(r);
 	p = &bt_jobs_s;
 	while (*(++av))
 	{
@@ -107,7 +105,7 @@ int		bt_jobs(char **av, t_redirection *r)
 	while (j)
 	{
 		if (job_is_completed(j))
-			(*p)(j, 0, r);
+			;//(*p)(j, 0, r);
 		else if (job_is_stop(j) && (!j->notified))
 			(*p)(j, 1, r);
 		j = j->next;

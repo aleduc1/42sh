@@ -75,8 +75,9 @@ void			wait_for_job(t_job *j);
 void			update_status(void);
 int				mark_process_status(pid_t pid, int status);
 
-void		display_lst_job(t_job *j);
 
-void		clean_fuck_list(void);
+
+void		display_lst_job(t_job *j);
+void		clean_fuck_list(pid_t pid);
 
 #	endif

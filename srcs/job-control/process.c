@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 11:28:20 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:47:29 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,27 +90,6 @@ int			launch_job(t_job *j, int fg)
 	}
 	act_job(j, fg);
 	return (verif);
-}
-
-
-static void	dup_pipe(int fd[2], int in, t_redirection *r)
-{
-	if (in != STDIN_FILENO)
-	{
-		dup2(in, STDIN_FILENO);
-		close(in);
-	}
-	if (fd[1] != STDOUT_FILENO)
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-	}
-	if (fd[0] > 2)
-		close(fd[0]);
-	if (r->in == STDIN_FILENO)
-		r->in = in;
-	if (r->out == STDOUT_FILENO)
-		r->out = fd[1];
 }
 
 void	config_pid_process(pid_t pid, pid_t pgid, int fg)

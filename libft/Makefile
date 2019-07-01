@@ -2,7 +2,7 @@
 # Debug mode #
 # ---------- #
 
-DEBUG = no
+DEBUG = yes
 
 # ----- #
 # Shell #
@@ -33,9 +33,9 @@ VPATH = .:\
 
 CC = gcc
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+	CFLAGS = -Wall -Wextra -Werror -g3
 else
-	CFLAGS = -Wall -Wextra
+	CFLAGS = -Wall -Wextra -Werror
 endif
 CPPFLAGS = -I $(INCDIR)
 

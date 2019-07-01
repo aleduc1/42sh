@@ -127,6 +127,19 @@ int			file_to_close(t_token *t, t_job *j)
 	return (verif);
 }
 
+t_redirection	*base_redirection(void)
+{
+	t_redirection	*r;
+
+	if (!(r = (t_redirection*)malloc(sizeof(t_redirection) * 1)))
+		return (NULL);
+	r->in = STDIN_FILENO;
+	r->out = STDOUT_FILENO;
+	r->error = STDERR_FILENO;
+	r->redirect = NULL;
+	return (r);
+}
+
 t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
 {
 	t_job			*j;
@@ -144,6 +157,7 @@ t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
 	}
 	file_to_close(t, j);
 	j->pgid = 0;
+	j->r = base_redirection();
 	p = j->first_process;
 	p->cmd = ft_arraydup(argv);
 	p->process_id = process_id + 1;

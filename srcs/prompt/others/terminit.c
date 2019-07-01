@@ -36,6 +36,20 @@ void				default_term_mode(void)
 	term.c_lflag |= (ECHO | ICANON | ISIG);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &term);
 	ft_putstr(tgetstr("ei", NULL));
+
+
+t_shell			*s;
+int	pgid;
+
+ign_signaux();
+		pgid = getpid();
+		if (setpgid (pgid, pgid) < 0)
+			exit(1);
+	s = get_shell();
+		s->pgid = pgid;
+		s->term = STDIN_FILENO;
+		s->interactive = isatty(STDIN_FILENO);
+		s->term_shell = term;
 }
 
 void				raw_term_mode(void)
@@ -59,8 +73,6 @@ void				raw_term_mode(void)
 	// s->term_shell = term;
 
 
-
-
 	struct termios	term;
 	t_shell			*s;
 	int				pgid;
@@ -70,8 +82,8 @@ void				raw_term_mode(void)
 	interactive = isatty(STDIN_FILENO);
 	if (interactive)
 	{
-		while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp ()))
-			kill (-pgid, SIGTTIN);
+		// while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp ()))
+		// 	kill (-pgid, SIGTTIN);
 		ign_signaux();
 		
 		pgid = getpid();

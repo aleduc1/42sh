@@ -64,7 +64,7 @@ int			mark_process_status(pid_t pid, int status)
 			}
 			j = j->next;
 		}
-		// ft_dprintf (STDERR_FILENO, "No child process %d.\n", pid);
+		ft_dprintf (STDERR_FILENO, "No child process %d.\n", pid);
 		return (-1);
 	}
 	else if (pid == 0 || errno == ECHILD)

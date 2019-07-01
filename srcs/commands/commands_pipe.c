@@ -13,33 +13,6 @@
 #include "env.h"
 #include "job.h"
 
-
-// int			exec_pipe(t_process *p, int in, int out)
-// {
-// 	char	**environ;
-// 	char	*str;
-
-// 	str = is_in_path(p->av[0]);
-// 	if (!str)
-// 	{
-// 		gest_return(gest_error_path(p->av[0], p->r));
-// 		return (-1);
-// 	}
-// 	if (p->r->in == STDIN_FILENO)
-// 		p->r->in = in;
-// 	if (p->r->out == STDOUT_FILENO)
-// 		p->r->out = out;
-// 	environ = create_list_env(get_env(0, NULL), 0);
-// 	redirection_fd(p->r);
-// 	execve(str, p->av, environ);
-// 	ft_dprintf(p->r->error, "21sh: command not found: %s\n", p->av[0]);
-// 	ft_arraydel(&environ);
-// 	ft_strdel(&str);
-// 	execve("/bin/test", NULL, NULL);
-// 	exit(0);
-// 	return (0);
-// }
-
 int			ft_pipe(char **argv, t_token *token, int end_pipe)
 {
 	t_job		*j;

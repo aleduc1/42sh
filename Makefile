@@ -49,7 +49,7 @@ CC = gcc
 ifeq ($(DEBUG), yes)
 	CFLAGS = -Wall -Wextra -g3
 else
-	CFLAGS = -Wall -Wextra -g3
+	CFLAGS = -Wall -Wextra -Werror
 endif
 CPPFLAGS = -I $(INCDIR) -I $(INCLIBDIR)
 LDLIBS = -lft
@@ -158,8 +158,9 @@ SRCS_NAMES = main.c \
 			 formats_parameter_bis.c\
 			 delete_redirection.c\
 			 redirection_bis.c\
-			 apply_parser_var.c
-
+			 apply_parser_var.c\
+			 free_job.c\
+			 list_job.c
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 HEADERS_NAMES = sh21.h lexer.h parser.h env.h builtins.h job.h

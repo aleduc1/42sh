@@ -32,7 +32,7 @@ NAME = libftprintf.a
 
 OBJ = $(FILE:%.c=$(DIROBJ)/%.o)
 
-FLAGS = -Wall -Wextra -Wextra
+FLAGS = -Wall -Wextra -g3
 
 all: $(NAME)
 

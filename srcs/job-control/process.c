@@ -62,7 +62,7 @@ static void	edit_pid_shell(int pid, t_job *j, t_process *p)
 	{
 		if (!(j->pgid))
 			j->pgid = pid;
-		setpgid(pid, j->pgid);
+		ft_printf("\n%d\n", setpgid(pid, j->pgid));
 	}
 }
 
@@ -111,14 +111,11 @@ static void	dup_pipe(int fd[2], int in, t_redirection *r)
 		r->out = fd[1];
 }
 
-void	launch_process_test (t_process *p, pid_t pgid, int fg)
+void	config_pid_process(pid_t pid, pid_t pgid, int fg)
 {
-	pid_t	pid;
-	char	**environ;
 	t_shell	*s;
 
-	s = get_shell();	
-	environ = create_list_env(get_env(0, NULL), 0);
+	s = get_shell();
 	if (s->interactive)
 	{
 		pid = getpid();
@@ -129,179 +126,82 @@ void	launch_process_test (t_process *p, pid_t pgid, int fg)
 			tcsetpgrp(s->term, pgid);
 		dfl_signaux();
 	}
-	redirection_fd(p->r);
+}
+
+void	launch_process_test(t_process *p)
+{
+	char	**environ;
+	
+	environ = create_list_env(get_env(0, NULL), 0);
 	execve(p->cmd_path, p->cmd, environ);
 	perror ("execve");
 	exit (1);
 }
 
-static int	exec_pipe(t_job *j, t_process *p, int fg)
+static int	exec_pipe(t_job *j, t_process *p, int fg, pid_t pid)
 {
 	int	verif;
 
 	verif = 0;
+	config_pid_process(pid, j->pgid, fg);
 	if ((verif = is_builtin(j, p, NULL)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
 		if (p->cmd_path)
-			launch_process_test(p, j->pgid, fg);
+		{
+			redirection_fd(p->r);
+			launch_process_test(p);
+		}
 		else
 			verif = gest_error_path(p->cmd[0], p->r);
 	}
 	execve("/bin/test", NULL, NULL);
-	return (verif);
+	exit(verif);
 }
 
-void	is_not_end(t_job *j, t_process *p, int in, int fd[2], int fg)
+void	fork_pipe(t_job *j, t_process *p, int fg)
 {
-	pid_t	pid;
-
-	pid = fork ();
-	if (pid == 0)
-	{
-		dup_pipe(fd, in, p->r);
-		exec_pipe(j, p, fg);
-	}
-	else if (pid < 0)
-	{
-		ft_dprintf(STDOUT_FILENO, "42sh: error fork\n");
-		exit (1);
-	}
-	else
-	{
-		if (fd[1] > 2)
-			close(fd[1]);
-		if (in != STDIN_FILENO)
-			close(in);
-		p->pid = pid;
-		if (get_shell()->interactive)
-		{
-			if (!j->pgid)
-				j->pgid = pid;
-			setpgid(pid, j->pgid);
-		}
-	}
-}
-
-void	is_end(t_job *j, t_process *p, int fd[2], int fg)
-{
-	int		status;
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == 0)
-		exec_pipe(j, p, fg);
+		exec_pipe(j, p, fg, pid);
 	else if (pid < 0)
 	{
-		ft_dprintf(STDOUT_FILENO, "42sh: error fork\n");
+		ft_dprintf(j->r->error, "42sh: error fork\n");
 		exit(1);
 	}
 	else
-	{
-		waitpid(pid, &status, 0);
-		if (fd[0] > 2)
-			close(fd[0]);
-		// while ((pid = wait(&status)) > 0)
-		// 	j->pgid = pid;
-		p->pid = pid;
-		if (get_shell()->interactive)
-		{
-			if (!j->pgid)
-				j->pgid = pid;
-			setpgid(pid, j->pgid);
-		}
-	}
+		edit_pid_shell(pid, j, p);
 }
-
 
 void	launch_job_pipe(t_job *j, int fg)
 {
 	t_process	*p;
 	int			fd[2];
-	int			in;
 
-	in = STDIN_FILENO;
 	p = j->first_process;
-	dfl_signaux();
 	while (p)
 	{
 		if (p->next)
 		{
 			if (pipe(fd) == -1)
 			{
-				perror ("pipe");
-				exit (1);
+				ft_dprintf(j->r->error, "42sh: error pipe\n");
+				exit(1);
 			}
-			is_not_end(j, p, in, fd, fg);
-			in = fd[0];
+			p->r->out = fd[1];
 		}
 		else
-		{
-			if (p->r->in == STDIN_FILENO)
-				p->r->in = in;
-			is_end(j, p, fd, fg);
-		}
+			p->r->out = j->r->out;
+		fork_pipe(j, p, fg);
+		if (p->r->in != j->r->in)
+			close(p->r->in);
+		if (p->r->out != j->r->out)
+			close(p->r->out);
 		p = p->next;
+		if (p)
+			p->r->in = fd[0];
 	}
 	act_job(j, fg);
-	ign_signaux();
 }
-
-
-// void		launch_job_pipe(t_job *j, int fg)
-// {
-// 	t_process		*p;
-// 	int				in;
-// 	int				out;
-// 	t_redirection	*r;
-// 	pid_t			pid;
-// 	int				fd[2];
-
-// 	r = init_redirection();
-// 	p = j->first_process;
-// 	in = r->in;
-// 	while (p)
-// 	{
-// 		if (p->next)
-// 		{
-// 			if (pipe(fd) < 0)
-// 				exit (1);
-// 			out = fd[1];
-// 		}
-// 		else
-// 			out = p->r->out;
-// 		ft_printf("in = %d, out = %d, fd[0] = %d, fd[1] = %d, r->in = %d, r->out = %d\n",
-// 			in, out, fd[0], fd[1], r->in, r->out);
-// 		pid = fork();
-// 		if (pid == 0)
-// 		{
-
-// 			p->cmd_path = is_in_path(p->cmd[0]);
-// 			if (p->cmd_path)
-// 				launch_process_test(p, j->pgid, in, out, p->r->error, fg);
-// 			else
-// 				gest_error_path(p->cmd[0], p->r);
-// 		}
-// 		else if (pid < 0)
-// 			ft_dprintf(p->r->error, "Error fork\n");
-// 		else
-// 		{
-// 			p->pid = pid;
-// 			if (get_shell()->interactive)
-// 			{
-// 				if (!j->pgid)
-// 					j->pgid = pid;
-// 				setpgid (pid, j->pgid);
-// 			}
-// 		}
-// 		if (in != r->in)
-// 			ft_printf("in %d\n", close(in));
-// 		if (out != r->out)
-// 			ft_printf("out %d\n", close(out));
-// 		in = fd[0];
-// 		p = p->next;
-// 	}
-// 	act_job(j, fg);
-// 	update_status();
-// 	delete_redirection(&r);
-// }

@@ -25,6 +25,7 @@ void	ign_signaux(void)
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
+	signal(SIGPIPE, SIG_IGN);
 }
 
 void	dfl_signaux(void)
@@ -33,5 +34,6 @@ void	dfl_signaux(void)
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
-//	signal(SIGTTOU, SIG_DFL);
+	// signal(SIGTTOU, SIG_DFL);
+	signal(SIGPIPE, SIG_DFL);
 }

@@ -31,9 +31,11 @@ int			job_is_stop(t_job *job)
 	t_process	*p;
 
 	p = job->first_process;
+	if (!p)
+		return (0);
 	while (p)
 	{
-		if (!p->completed && !p->stopped)
+		if (!p->stopped)
 			return (0);
 		p = p->next;
 	}

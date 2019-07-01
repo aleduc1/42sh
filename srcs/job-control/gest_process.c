@@ -32,6 +32,8 @@ static int	action_process_status(pid_t pid, int status, t_process *p)
 	if (p->pid == pid)
 	{
 		p->status = status;
+		if (WIFCONTINUED(status))
+			p->stopped = 0;
 		if (WIFSTOPPED(status))
 			p->stopped = 1;
 		else
@@ -67,13 +69,7 @@ int			mark_process_status(pid_t pid, int status)
 		ft_dprintf (STDERR_FILENO, "No child process %d.\n", pid);
 		return (-1);
 	}
-	else if (pid == 0 || errno == ECHILD)
-		return (-1);
-	else
-	{
-		ft_dprintf(STDERR_FILENO, "42sh: waitpid: error");
-		return (-1);
-	}
+	return (-1);
 }
 
 /*
@@ -87,7 +83,7 @@ void		update_status(void)
 
 	while (1)
 	{
-		pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
+		pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG | WCONTINUED);
 		if (mark_process_status(pid, status))
 			break ;
 	}
@@ -100,10 +96,18 @@ void		wait_for_job(t_job *j)
 
 	while (1)
 	{
-		pid = waitpid(WAIT_ANY, &status, WUNTRACED);
+		pid = waitpid(WAIT_ANY , &status, WUNTRACED);
+		// ft_dprintf(j->r->error, "pid = %d\n", (int)pid);
 		if (mark_process_status(pid, status) || job_is_stop(j)
 			|| job_is_completed(j))
 			break ;
+		// else
+		// {
+		// 	ft_dprintf(j->r->error, "----------> wait: status = %d pid = %d pgid = %d\n",
+		// 		status, pid, j->pgid);
+		// 	// if (status == 0 && pid != j->pgid)
+		// 	// 	break ;
+		// }
 	}
 }
 

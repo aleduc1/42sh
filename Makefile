@@ -45,7 +45,7 @@ VPATH = objs:\
 # Compiler and flags #
 # ------------------ #
 
-CC = gcc
+CC = cc
 ifeq ($(DEBUG), yes)
 	CFLAGS = -Wall -Wextra -g3
 else

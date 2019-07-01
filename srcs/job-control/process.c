@@ -28,7 +28,8 @@ int			launch_process(t_process *p, pid_t pgid, int fg)
 		pid = getpid();
 		if (pgid == 0)
 			pgid = pid;
-		setpgid(pid, pgid);
+		if (setpgid(pid, pgid) == -1)
+			exit(1);
 		if (fg)
 			tcsetpgrp(s->term, pgid);
 	}
@@ -62,7 +63,8 @@ static void	edit_pid_shell(int pid, t_job *j, t_process *p)
 	{
 		if (!(j->pgid))
 			j->pgid = pid;
-		ft_printf("\n%d\n", setpgid(pid, j->pgid));
+		if (setpgid(pid, j->pgid) == -1)
+			exit(1);
 	}
 }
 
@@ -80,7 +82,7 @@ int			launch_job(t_job *j, int fg)
 		if (pid == 0)
 			verif = launch_process(p, j->pgid, fg);
 		else if (pid < 0)
-			ft_dprintf(p->r->error, "Error fork\n");
+			ft_dprintf(p->r->error, "42sh: Error fork\n");
 		else
 			edit_pid_shell(pid, j, p);
 		update_status();
@@ -121,7 +123,8 @@ void	config_pid_process(pid_t pid, pid_t pgid, int fg)
 		pid = getpid();
 		if (pgid == 0)
 			pgid = pid;
-		setpgid(pid, pgid);
+		if (setpgid(pid, pgid) == -1)
+			exit(1);
 		if (fg)
 			tcsetpgrp(s->term, pgid);
 		dfl_signaux();
@@ -159,20 +162,26 @@ static int	exec_pipe(t_job *j, t_process *p, int fg, pid_t pid)
 	exit(verif);
 }
 
-void	fork_pipe(t_job *j, t_process *p, int fg)
+void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == 0)
+	{
+		if (fd[0] != p->r->in)
+				close(fd[0]);
 		exec_pipe(j, p, fg, pid);
+	}
 	else if (pid < 0)
 	{
 		ft_dprintf(j->r->error, "42sh: error fork\n");
 		exit(1);
 	}
 	else
+	{
 		edit_pid_shell(pid, j, p);
+	}
 }
 
 void	launch_job_pipe(t_job *j, int fg)
@@ -194,7 +203,7 @@ void	launch_job_pipe(t_job *j, int fg)
 		}
 		else
 			p->r->out = j->r->out;
-		fork_pipe(j, p, fg);
+		fork_pipe(j, p, fg, fd);
 		if (p->r->in != j->r->in)
 			close(p->r->in);
 		if (p->r->out != j->r->out)

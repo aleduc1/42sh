@@ -82,8 +82,8 @@ void				raw_term_mode(void)
 	interactive = isatty(STDIN_FILENO);
 	if (interactive)
 	{
-		// while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp ()))
-		// 	kill (-pgid, SIGTTIN);
+		while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp ()))
+			kill (-pgid, SIGTTIN);
 		ign_signaux();
 		
 		pgid = getpid();

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/15 18:32:36 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:13:04 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = bt_bg();
 	else if (ft_strequ(av[0], "fc"))
 		verif = builtin_fc(av, pos);
+	else if (ft_strequ(av[0], "test"))
+		verif = builtin_fc(av, p->r);
 	else
 		verif = -1;
 	return (verif);

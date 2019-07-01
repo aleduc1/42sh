@@ -75,7 +75,6 @@ void		free_all_job(void)
 	while (*j)
 	{
 		h = (*j)->next;
-		// close_file_command((*j)->t->command, &(*j)->r);
 		free_job(&(*j));
 		(*j) = h;
 	}

@@ -53,8 +53,16 @@ void		display_lst_job(t_job *j)
 			p = p->next;
 		}
 		sv = sv->next;
-		ft_printf("===========================\n");
 	}
+}
+
+int			condition_clean_list(t_job *j, pid_t pid)
+{
+	if ((((j->first_process->completed || j->first_process->pid == 0)
+		&& j->first_process->stopped == 0))
+		|| j->first_process->pid == pid)
+		return (1);
+	return (0);
 }
 
 void		clean_fuck_list(pid_t pid)
@@ -70,9 +78,7 @@ void		clean_fuck_list(pid_t pid)
 	while (*j)
 	{
 		next = (*j)->next;
-		if (((((*j)->first_process->completed || (*j)->first_process->pid == 0)
-		&& (*j)->first_process->stopped == 0))
-		|| (*j)->first_process->pid == pid)
+		if (condition_clean_list(*j, pid))
 		{
 			if (last)
 				last->next = next;
@@ -125,19 +131,6 @@ int			file_to_close(t_token *t, t_job *j)
 	}
 	verif = file_to_close_bis(t, j);
 	return (verif);
-}
-
-t_redirection	*base_redirection(void)
-{
-	t_redirection	*r;
-
-	if (!(r = (t_redirection*)malloc(sizeof(t_redirection) * 1)))
-		return (NULL);
-	r->in = STDIN_FILENO;
-	r->out = STDOUT_FILENO;
-	r->error = STDERR_FILENO;
-	r->redirect = NULL;
-	return (r);
 }
 
 t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)

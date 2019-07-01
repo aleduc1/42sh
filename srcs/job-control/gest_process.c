@@ -75,7 +75,7 @@ int			mark_process_status(pid_t pid, int status)
 			}
 			j = j->next;
 		}
-		ft_dprintf (STDERR_FILENO, "No child process %d.\n", pid);
+		ft_dprintf(STDERR_FILENO, "No child process %d.\n", pid);
 		return (-1);
 	}
 	return (-1);
@@ -105,7 +105,7 @@ void		wait_for_job(t_job *j)
 
 	while (1)
 	{
-		pid = waitpid(WAIT_ANY , &status, WUNTRACED);
+		pid = waitpid(WAIT_ANY, &status, WUNTRACED);
 		if (mark_process_status(pid, status) || job_is_stop(j)
 			|| job_is_completed(j))
 			break ;
@@ -116,6 +116,16 @@ void		job_info(t_job *j, char *status)
 {
 	ft_dprintf(j->first_process->r->error, "%s [%d]: %s\n",
 		j->first_process->cmd[0], (int)j->pgid, status);
+}
+
+/*
+** supprimer?
+*/
+
+void		notif_stop(t_job *j)
+{
+	job_info(j, "stopped");
+	j->notified = 1;
 }
 
 void		job_notif(void)
@@ -138,8 +148,7 @@ void		job_notif(void)
 		}
 		else if (job_is_stop(j) && !j->notified)
 		{
-			job_info(j, "stopped");
-			j->notified = 1;
+			notif_stop(j);
 			last = j;
 		}
 		else

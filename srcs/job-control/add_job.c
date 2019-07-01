@@ -20,9 +20,18 @@
 ** kill(-pgid, SIG) -> kill un grp d'id
 */
 
-void	add_in_fg(t_job *j, int value)
+static void	kill_pgid(t_shell *shell, t_job *j)
 {
-	t_shell	*shell;
+	if (tcsetattr(shell->term, TCSADRAIN, &(j->tmodes)) == -1)
+		ft_dprintf(STDERR_FILENO, "error: tcsetattr\n");
+	if (kill(-j->pgid, SIGCONT) < 0)
+		ft_dprintf(j->first_process->r->error,
+			"42sh: fg: Kill not work!\n");
+}
+
+void		add_in_fg(t_job *j, int value)
+{
+	t_shell		*shell;
 	t_process	*p;
 
 	p = j->first_process;
@@ -30,12 +39,7 @@ void	add_in_fg(t_job *j, int value)
 	if (tcsetpgrp(shell->term, j->pgid) == -1)
 		ft_dprintf(STDERR_FILENO, "error: tcsetpgrp\n");
 	if (value)
-	{
-		if (tcsetattr(shell->term, TCSADRAIN, &(j->tmodes)) == -1)
-			ft_dprintf(STDERR_FILENO, "error: tcsetattr\n");
-		if (kill(-j->pgid, SIGCONT) < 0)
-			ft_dprintf(j->first_process->r->error, "42sh: fg: Kill not work!\n");
-	}
+		kill_pgid(shell, j);
 	while (p)
 	{
 		p->stopped = 0;
@@ -51,7 +55,7 @@ void	add_in_fg(t_job *j, int value)
 		ft_dprintf(STDERR_FILENO, "error: tcsetattr\n");
 }
 
-void	add_in_bg(t_job *j, int value)
+void		add_in_bg(t_job *j, int value)
 {
 	t_shell	*shell;
 	char	*itoa_pid;

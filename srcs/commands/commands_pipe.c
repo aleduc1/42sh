@@ -13,15 +13,20 @@
 #include "env.h"
 #include "job.h"
 
+static void	stock_process(char **argv, t_token *token, int end_pipe)
+{
+	if (end_pipe == 0)
+		create_new_job(argv, token);
+	else
+		add_process(argv, token);
+}
+
 int			ft_pipe(char **argv, t_token *token, int end_pipe)
 {
 	t_job		*j;
 	t_process	*p;
 
-	if (end_pipe == 0)
-		create_new_job(argv, token);
-	else
-		add_process(argv, token);
+	stock_process(argv, token, end_pipe);
 	if (end_pipe == 2)
 	{
 		j = get_end_job();

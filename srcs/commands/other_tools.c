@@ -34,7 +34,7 @@ int			gest_error_path(char *cmd, t_redirection *r)
 **	return -1 if it's not a builtin
 */
 
-int			is_builtin_env(t_process *p, char **av)
+static int	is_builtin_env(t_process *p, char **av)
 {
 	int	verif;
 
@@ -57,6 +57,20 @@ int			is_builtin_env(t_process *p, char **av)
 	return (verif);
 }
 
+static int	is_builtin_jobs(t_process *p, char **av)
+{
+	int	verif;
+
+	verif = -1;
+	if (ft_strequ(av[0], "jobs"))
+		verif = bt_jobs(av, p->r);
+	else if (ft_strequ(av[0], "fg"))
+		verif = bt_fg();
+	else if (ft_strequ(av[0], "bg"))
+		verif = bt_bg();
+	return (verif);
+}
+
 int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 {
 	int		verif;
@@ -72,12 +86,8 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = (builtin_cd(av) < 0) ? -2 : 0;
 	else if (ft_strequ(av[0], "exit"))
 		verif = bt_exit(j);
-	else if (ft_strequ(av[0], "jobs"))
-		verif = bt_jobs(av, p->r);
-	else if (ft_strequ(av[0], "fg"))
-		verif = bt_fg();
-	else if (ft_strequ(av[0], "bg"))
-		verif = bt_bg();
+	else if ((verif = is_builtin_jobs(p, av)) != -1)
+		;
 	else if (ft_strequ(av[0], "fc"))
 		verif = builtin_fc(av, pos);
 	else if (ft_strequ(av[0], "test"))

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 11:28:20 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:49:15 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,7 @@ int			launch_job(t_job *j, int fg)
 	return (verif);
 }
 
-
-static void	dup_pipe(int fd[2], int in, t_redirection *r)
-{
-	if (in != STDIN_FILENO)
-	{
-		dup2(in, STDIN_FILENO);
-		close(in);
-	}
-	if (fd[1] != STDOUT_FILENO)
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-	}
-	if (fd[0] > 2)
-		close(fd[0]);
-	if (r->in == STDIN_FILENO)
-		r->in = in;
-	if (r->out == STDOUT_FILENO)
-		r->out = fd[1];
-}
-
-void	config_pid_process(pid_t pid, pid_t pgid, int fg)
+void		config_pid_process(pid_t pid, pid_t pgid, int fg)
 {
 	t_shell	*s;
 
@@ -131,14 +110,14 @@ void	config_pid_process(pid_t pid, pid_t pgid, int fg)
 	}
 }
 
-void	launch_process_test(t_process *p)
+void		launch_process_test(t_process *p)
 {
 	char	**environ;
-	
+
 	environ = create_list_env(get_env(0, NULL), 0);
 	execve(p->cmd_path, p->cmd, environ);
-	perror ("execve");
-	exit (1);
+	perror("execve");
+	exit(1);
 }
 
 static int	exec_pipe(t_job *j, t_process *p, int fg, pid_t pid)
@@ -162,7 +141,7 @@ static int	exec_pipe(t_job *j, t_process *p, int fg, pid_t pid)
 	exit(verif);
 }
 
-void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
+void		fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 {
 	pid_t	pid;
 
@@ -170,7 +149,7 @@ void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 	if (pid == 0)
 	{
 		if (fd[0] != p->r->in)
-				close(fd[0]);
+			close(fd[0]);
 		exec_pipe(j, p, fg, pid);
 	}
 	else if (pid < 0)
@@ -184,7 +163,13 @@ void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 	}
 }
 
-void	launch_job_pipe(t_job *j, int fg)
+static void	pipe_error(int error)
+{
+	ft_dprintf(error, "42sh: error pipe\n");
+	exit(1);
+}
+
+void		launch_job_pipe(t_job *j, int fg)
 {
 	t_process	*p;
 	int			fd[2];
@@ -195,10 +180,7 @@ void	launch_job_pipe(t_job *j, int fg)
 		if (p->next)
 		{
 			if (pipe(fd) == -1)
-			{
-				ft_dprintf(j->r->error, "42sh: error pipe\n");
-				exit(1);
-			}
+				pipe_error(j->r->error);
 			p->r->out = fd[1];
 		}
 		else

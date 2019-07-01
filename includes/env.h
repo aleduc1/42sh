@@ -52,15 +52,15 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef struct	s_shell
+typedef struct		s_shell
 {
 	pid_t			pgid;
 	struct termios	term_shell;
 	int				interactive;
 	int				term;
-}				t_shell;
+}					t_shell;
 
-typedef struct	s_process
+typedef struct		s_process
 {
 	char				*cmd_path;
 	char				**cmd;
@@ -71,9 +71,9 @@ typedef struct	s_process
 	int					status;
 	t_redirection		*r;
 	struct s_process	*next;
-}				t_process;
+}					t_process;
 
-typedef struct	s_job
+typedef struct		s_job
 {
 	t_process		*first_process;
 	pid_t			pgid;
@@ -85,9 +85,9 @@ typedef struct	s_job
 	int				*close_fd;
 	t_redirection	*r;
 	struct s_job	*next;
-}				t_job;
+}					t_job;
 
-int			gest_error_path(char *cmd, t_redirection *r);
+int					gest_error_path(char *cmd, t_redirection *r);
 
 /*
 ** redirection.c
@@ -111,7 +111,6 @@ void				other_redir(int src, int new_fd);
 int					check_last_command(void);
 int					check_is_exec(char *src, t_redirection *r);
 
-
 /*
 ** manage_variable.c
 */
@@ -126,6 +125,7 @@ int					modify_dst(char *tmp, char **dst);
 
 t_redirection		*init_redirection(void);
 t_redirection		*fill_redirection(t_token *t);
+t_redirection		*base_redirection(void);
 
 /*
 ** delete_redirection.c
@@ -235,7 +235,7 @@ int					file_exist(char *name);
 void				display_error_command(t_redirection *r, char **cmd);
 int					ft_simple_command(char **argv, t_token *lex, t_pos *pos);
 int					ft_simple_command_redirection(char **argv,
-		t_redirection *r);
+						t_redirection *r);
 int					ft_pipe_double(char **argv, t_token *token);
 int					ft_ampersand(char **argv, t_token *token);
 int					ft_ampersand_double(char **argv, t_token *token);
@@ -254,14 +254,17 @@ int					add_pipe_process(char **cmd, t_redirection *r);
 void				ft_remove_quote(char **str);
 int					ft_apply_dquote(char ***value, int index);
 
+/*
+** main.c
+*/
 
-void	run(char *input, t_pos *pos);
+void				run(char *input, t_pos *pos);
 
 /*
 ** parameter_expansion.c
 */
 
-void			    parameter_expansion(char *tmp, char **dst);
+void				parameter_expansion(char *tmp, char **dst);
 
 /*
 ** formats_parameter_bis.c
@@ -293,13 +296,14 @@ int					ft_fd_redirect_exist(t_redirect *r, int base);
 ** add_process.c
 */
 
-t_job	*get_end_job(void);
-void	create_new_job(char **av, t_token *t);
-void	add_process(char **av, t_token *t);
+t_job				*get_end_job(void);
+void				create_new_job(char **av, t_token *t);
+void				add_process(char **av, t_token *t);
 
+/*
+**  debug
+*/
 
-
-///////
-void		display_redirection(t_redirection *r);
+void				display_redirection(t_redirection *r);
 
 #	endif

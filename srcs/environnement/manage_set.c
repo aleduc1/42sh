@@ -39,19 +39,17 @@ int			add_set_value(char *key, char *value)
 
 int			edit_set_no_command(char **value)
 {
-	int		verif;
 	char	*key;
 	int		i;
 	int		cnt;
 
 	i = -1;
-	verif = 0;
 	while (value[++i])
 	{
 		if ((cnt = ft_chr_index(value[i], '=')) > 0)
 		{
 			key = ft_strsub(value[i], 0, cnt);
-			verif = add_set_value(key, value[i] + cnt + 1);
+			add_set_value(key, value[i] + cnt + 1);
 			ft_strdel(&key);
 		}
 		else

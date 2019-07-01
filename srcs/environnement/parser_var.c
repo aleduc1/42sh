@@ -80,9 +80,7 @@ void		parser_var(char ***value)
 void		parser_var_simple(char **value)
 {
 	char	*tmp;
-	int		index;
 
-	index = -1;
 	if (*value)
 	{
 		if ((*value)[0] == '"')

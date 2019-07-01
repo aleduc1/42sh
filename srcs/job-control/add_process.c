@@ -34,13 +34,11 @@ void	add_process(char **av, t_token *t)
 {
 	t_job		*j;
 	t_process	*p;
-	t_process	*last;
 
 	j = get_end_job();
 	p = j->first_process;
 	while (p)
 	{
-		last = p;
 		if (!p->next)
 		{
 			p->next = init_process();

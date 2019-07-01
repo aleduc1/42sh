@@ -30,26 +30,23 @@ void				welcome(void)
 void				default_term_mode(void)
 {
 	struct termios	term;
+	t_shell			*s;
+	int				pgid;
 
 	// g_in = STDIN_FILENO;//open(ttyname(STDIN_FILENO), O_WRONLY);
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag |= (ECHO | ICANON | ISIG);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &term);
 	ft_putstr(tgetstr("ei", NULL));
-
-
-t_shell			*s;
-int	pgid;
-
-ign_signaux();
-		pgid = getpid();
-		if (setpgid (pgid, pgid) < 0)
-			exit(1);
+	ign_signaux();
+	pgid = getpid();
+	if (setpgid (pgid, pgid) < 0)
+		exit(1);
 	s = get_shell();
-		s->pgid = pgid;
-		s->term = STDIN_FILENO;
-		s->interactive = isatty(STDIN_FILENO);
-		s->term_shell = term;
+	s->pgid = pgid;
+	s->term = STDIN_FILENO;
+	s->interactive = isatty(STDIN_FILENO);
+	s->term_shell = term;
 }
 
 void				raw_term_mode(void)
@@ -85,14 +82,11 @@ void				raw_term_mode(void)
 		while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp ()))
 			kill (-pgid, SIGTTIN);
 		ign_signaux();
-		
 		pgid = getpid();
 		if (setpgid (pgid, pgid) < 0)
 			exit(1);
-
 		tcsetpgrp (STDIN_FILENO, getpid());
 		tcgetattr(STDIN_FILENO, &term);
-
 		term.c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG);
 		term.c_cc[VMIN] = 1;
 		term.c_cc[VTIME] = 0;

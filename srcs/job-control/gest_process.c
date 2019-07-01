@@ -27,18 +27,27 @@
 **		(int)pid, status);
 */
 
-static int	action_process_status(pid_t pid, int status, t_process *p)
+static int	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
 {
 	if (p->pid == pid)
 	{
 		p->status = status;
 		if (WIFCONTINUED(status))
+		{
 			p->stopped = 0;
+			j->notif_stop = 0;
+		}
 		if (WIFSTOPPED(status))
+		{
+			if (j->notif_stop == 0)
+				ft_printf("\n[1]+  Stopped(SIGTSTP)\t%s\n", p->cmd[0]);
 			p->stopped = 1;
+			j->notif_stop = 1;
+		}
 		else
 		{
 			p->completed = 1;
+			j->notif_stop = 0;
 			if (WIFSIGNALED(status))
 				gest_return(WTERMSIG(p->status));
 		}
@@ -60,7 +69,7 @@ int			mark_process_status(pid_t pid, int status)
 			p = j->first_process;
 			while (p)
 			{
-				if (action_process_status(pid, status, p) == 0)
+				if (action_process_status(pid, status, j, p) == 0)
 					return (0);
 				p = p->next;
 			}
@@ -97,17 +106,9 @@ void		wait_for_job(t_job *j)
 	while (1)
 	{
 		pid = waitpid(WAIT_ANY , &status, WUNTRACED);
-		// ft_dprintf(j->r->error, "pid = %d\n", (int)pid);
 		if (mark_process_status(pid, status) || job_is_stop(j)
 			|| job_is_completed(j))
 			break ;
-		// else
-		// {
-		// 	ft_dprintf(j->r->error, "----------> wait: status = %d pid = %d pgid = %d\n",
-		// 		status, pid, j->pgid);
-		// 	// if (status == 0 && pid != j->pgid)
-		// 	// 	break ;
-		// }
 	}
 }
 
@@ -163,6 +164,7 @@ void		job_running(t_job *j)
 void		continue_job(t_job *j, int fg)
 {
 	job_running(j);
+	j->notif_stop = 0;
 	if (fg)
 		add_in_fg(j, 1);
 	else

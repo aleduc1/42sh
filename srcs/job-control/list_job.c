@@ -39,6 +39,7 @@ t_job		*init_job(void)
 	j->first_process = init_process();
 	j->pgid = 0;
 	j->notified = 0;
+	j->notif_stop = 0;
 	j->len_close = 0;
 	j->r = NULL;
 	j->close_fd = NULL;

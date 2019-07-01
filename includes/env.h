@@ -79,6 +79,7 @@ typedef struct	s_job
 	pid_t			pgid;
 	int				fg;
 	int				notified;
+	int				notif_stop;
 	struct termios	tmodes;
 	int				len_close;
 	int				*close_fd;

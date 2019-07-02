@@ -48,7 +48,7 @@ int		fc_usage(int return_value, t_fc *fc, int error)
 	if (error == 1)
 		ft_dprintf(2, "fc: usage: fc -e [ename] [cmd]\n\t   fc [-l(nr)] [first] [last]\n\t   fc -s [pat=rep] [cmd]\n");
 	if (error == 2)
-		ft_dprintf(2, "21sh: fc: history specification our of range\n");
+		ft_dprintf(2, "42sh: fc: history specification our of range\n");
 	ft_strdel(&fc->pat_rep);
 	ft_strdel(&fc->first);
 	ft_strdel(&fc->last);

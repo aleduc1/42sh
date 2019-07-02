@@ -18,11 +18,11 @@ int			gest_error_path(char *cmd, t_redirection *r)
 {
 	if (check_last_command() == -6)
 	{
-		ft_dprintf(r->error, "21sh: %s: Permission denied\n", cmd);
+		ft_dprintf(r->error, "42sh: %s: Permission denied\n", cmd);
 		gest_return(126);
 		return (126);
 	}
-	ft_dprintf(r->error, "21sh: command not found: %s\n", cmd);
+	ft_dprintf(r->error, "42sh: command not found: %s\n", cmd);
 	gest_return(127);
 	return (127);
 }

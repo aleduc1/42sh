@@ -61,7 +61,7 @@ char	*parameter_interrogation(char *parameter, char *word)
 		error = ft_strdup(word);
 	if (!src)
 	{
-		ft_dprintf(2, "21sh: %s: %s\n", parameter, error);
+		ft_dprintf(2, "42sh: %s: %s\n", parameter, error);
 		gest_return(-5);
 		src = NULL;
 	}

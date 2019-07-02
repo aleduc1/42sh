@@ -87,10 +87,10 @@ int		bt_exit(t_job *j)
 			ft_dprintf(2, "exit\n");
 			exit(rt);
 		}
-		ft_dprintf(2, "21sh: exit: too many arguments\n");
+		ft_dprintf(2, "42sh: exit: too many arguments\n");
 		return (1);
 	}
-	ft_dprintf(2, "21sh: exit: %s: numeric argument required\n", j->first_process->cmd[1]);
+	ft_dprintf(2, "42sh: exit: %s: numeric argument required\n", j->first_process->cmd[1]);
 	free_all_job();
 	delete_shell();
 	default_term_mode();

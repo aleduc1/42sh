@@ -15,7 +15,7 @@
 void	ft_error(int code_error)
 {
 	if (code_error == 0)
-		ft_putendl("21sh: syntax error near unexpected token `r_token'");
+		ft_putendl("42sh: syntax error near unexpected token `r_token'");
 }
 
 int		handle_tok(t_token **tok, t_lex **lex)

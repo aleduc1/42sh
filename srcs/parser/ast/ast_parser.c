@@ -20,7 +20,7 @@ t_ast			*nud(t_token *t)
 		return (node_ast(t, NULL, NULL));
 	else if (OPERATORS)
 	{
-		ft_putstr("21sh: parse error near: ");
+		ft_putstr("42sh: parse error near: ");
 		ft_putendl(t->data);
 		g_out = 1;
 		return (node_ast(t, NULL, NULL));
@@ -37,7 +37,7 @@ t_ast			*led(t_ast *left, t_token *t)
 		return (node_ast(t, left, expr(30 - 1)));
 	else if (t->type == CMD || t->type == DELIM)
 	{
-		ft_putstr("21sh: parse error near: ");
+		ft_putstr("42sh: parse error near: ");
 		ft_putendl(t->data);
 		g_out = 1;
 		return (left);

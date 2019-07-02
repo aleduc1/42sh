@@ -29,7 +29,7 @@ int			file_exist(char *name)
 		close(fd);
 		return (1);
 	}
-	ft_printf("21sh: error create file: %s\n", name);
+	ft_printf("42sh: error create file: %s\n", name);
 	return (-1);
 }
 
@@ -65,7 +65,7 @@ static int	open_file_dless(t_redir *redir, t_pos *pos)
 
 	if (!(redir->heredoc))
 		return (-1);
-	name = ft_strdup("/tmp/.21sh0");
+	name = ft_strdup("/tmp/.42sh0");
 	redir->filename = name;
 	tmp = ft_strdup(redir->heredoc);
 	str = heredoc(tmp, pos);

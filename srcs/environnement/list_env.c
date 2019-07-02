@@ -28,7 +28,7 @@ t_env		*init_maillon_env(void)
 void		init_variable(void)
 {
 	add_set_value("?", "0");
-	add_set_value("0", "21sh");
+	add_set_value("0", "42sh");
 	add_set_value("-", "");
 	add_set_value("#", "0");
 	add_set_value("FD_OUTPUT", "1");

@@ -14,7 +14,7 @@
 
 void	start_grammar_great(t_lex **start)
 {
-	if ((*start)->prev->token->type == NUMBER)
+	if ((*start)->prev && (*start)->prev->token->type == NUMBER)
 		(*start) = (*start)->prev;
 }
 

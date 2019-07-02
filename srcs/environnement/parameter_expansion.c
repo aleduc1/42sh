@@ -72,7 +72,7 @@ int				is_other_expansion(char *tmp, char **dst)
 
 static void		display_error_expansion(char *src)
 {
-	ft_dprintf(STDERR_FILENO, "21sh: ${%s}: bad substitution\n", src);
+	ft_dprintf(STDERR_FILENO, "42sh: ${%s}: bad substitution\n", src);
 	gest_return(-5);
 }
 

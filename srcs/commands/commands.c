@@ -20,7 +20,7 @@
 
 void		display_error_command(t_redirection *r, char **cmd)
 {
-	ft_dprintf(r->error, "21sh: command not found: %s\n", cmd[0]);
+	ft_dprintf(r->error, "42sh: command not found: %s\n", cmd[0]);
 }
 
 /*

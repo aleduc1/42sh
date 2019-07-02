@@ -35,7 +35,7 @@ int			launch_process(t_process *p, pid_t pgid, int fg)
 	}
 	redirection_fd(p->r);
 	verif = execve(p->cmd_path, p->cmd, environ);
-	ft_dprintf(p->r->error, "21sh: command not found: %s\n", p->cmd[0]);
+	ft_dprintf(p->r->error, "42sh: command not found: %s\n", p->cmd[0]);
 	execve("/bin/test", NULL, NULL);
 	exit(verif);
 }
@@ -169,6 +169,14 @@ static void	pipe_error(int error)
 	exit(1);
 }
 
+int			edit_fd(int base, int origin, int new)
+{
+	if (base == origin)
+		return (new);
+	close(new);
+	return (base);
+}
+
 void		launch_job_pipe(t_job *j, int fg)
 {
 	t_process	*p;
@@ -181,7 +189,8 @@ void		launch_job_pipe(t_job *j, int fg)
 		{
 			if (pipe(fd) == -1)
 				pipe_error(j->r->error);
-			p->r->out = fd[1];
+			
+			p->r->out = edit_fd(p->r->out, j->r->out, fd[1]);//fd[1];
 		}
 		else
 			p->r->out = j->r->out;

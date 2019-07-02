@@ -57,10 +57,8 @@ void		add_in_fg(t_job *j, int value)
 
 void		add_in_bg(t_job *j, int value)
 {
-	t_shell	*shell;
 	char	*itoa_pid;
 
-	shell = get_shell();
 	itoa_pid = ft_itoa(j->first_process->pid);
 	add_set_value("!", itoa_pid);
 	if (value && (kill(-j->pgid, SIGCONT) < 0))

@@ -25,12 +25,7 @@ t_job	*get_end_job(void)
 	return (j);
 }
 
-void	create_new_job(char **av, t_token *t)
-{
-	edit_lst_job(av, t, NULL);
-}
-
-void	add_process(char **av, t_token *t)
+void	add_process(char **av, t_token *t, int fg)
 {
 	t_job		*j;
 	t_process	*p;
@@ -49,5 +44,6 @@ void	add_process(char **av, t_token *t)
 	}
 	p->cmd = ft_arraydup(av);
 	parser_var(&p->cmd);
+	p->fg = fg;
 	p->r = fill_redirection(t);
 }

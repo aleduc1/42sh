@@ -69,6 +69,7 @@ typedef struct		s_process
 	int					completed;
 	int					stopped;
 	int					status;
+	int					fg;
 	t_redirection		*r;
 	struct s_process	*next;
 }					t_process;
@@ -297,8 +298,7 @@ int					ft_fd_redirect_exist(t_redirect *r, int base);
 */
 
 t_job				*get_end_job(void);
-void				create_new_job(char **av, t_token *t);
-void				add_process(char **av, t_token *t);
+void				add_process(char **av, t_token *t, int fg);
 
 /*
 **  debug

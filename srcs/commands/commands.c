@@ -133,7 +133,7 @@ int			file_to_close(t_token *t, t_job *j)
 	return (verif);
 }
 
-t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
+t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 {
 	t_job			*j;
 	t_process		*p;
@@ -155,6 +155,7 @@ t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
 	p->cmd = ft_arraydup(argv);
 	p->process_id = process_id + 1;
 	parser_var(&p->cmd);
+	p->fg = fg;
 	if (t)
 		p->r = fill_redirection(t);
 	else
@@ -169,7 +170,7 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 	t_process		*p;
 
 	verif = 0;
-	j = edit_lst_job(argv, t, NULL);
+	j = create_new_job(argv, t, NULL, 1);
 	p = j->first_process;
 	if ((verif = is_builtin(j, p, pos)) == -1)
 	{
@@ -242,7 +243,7 @@ int			ft_ampersand(char **argv, t_token *token)
 	t_process		*p;
 
 	verif = 0;
-	j = edit_lst_job(argv, token, NULL);
+	j = create_new_job(argv, token, NULL, 1);
 	p = j->first_process;
 	if ((verif = is_builtin(j, p, NULL)) == -1)
 	{

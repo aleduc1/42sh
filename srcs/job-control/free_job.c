@@ -30,7 +30,7 @@ void		clean_file(t_job *j)
 	int			i;
 	t_process	*p;
 
-	if (j->len_close > 0)
+	if (j->len_close && j->len_close > 0)
 	{
 		i = -1;
 		while (++i < j->len_close)
@@ -58,8 +58,8 @@ void		free_job(t_job **j)
 	{
 		clean_file(*j);
 		free_process(&((*j)->first_process));
-		free((*j)->first_process);
-		(*j)->first_process = NULL;
+		// free((*j)->first_process);
+		// (*j)->first_process = NULL;
 		free_redirection(&((*j)->r));
 		free(*j);
 		(*j) = NULL;

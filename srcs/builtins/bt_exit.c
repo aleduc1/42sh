@@ -68,6 +68,7 @@ int		bt_exit(t_job *j)
 	int	rt;
 
 	get_env(1, NULL);
+	close(g_in);
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
 	{
 		free_all_job();

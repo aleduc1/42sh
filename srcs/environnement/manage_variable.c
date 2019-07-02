@@ -25,9 +25,14 @@ int		modify_dst(char *src, char **dst)
 		final = ft_strjoin(*dst, stock);
 		ft_strdel(&stock);
 	}
-	ft_strdel(&(*dst));
 	if (final)
+	{
+		ft_printf("dst = %s\n", *dst);
+		// stock = ft_strjoin(*dst, final);
+		ft_strdel(dst);
+		// ft_strdel(&final);
 		(*dst) = final;
+	}
 	return (0);
 }
 
@@ -46,6 +51,7 @@ char	*manage_var(char *str)
 
 int		manage_home(char *src, char **dst, int index)
 {
+	char	*tmp;
 	char	*data;
 
 	index += 1;
@@ -61,7 +67,9 @@ int		manage_home(char *src, char **dst, int index)
 	}
 	else
 		data = manage_var("HOME");
-	ft_strdel(&(*dst));
-	(*dst) = data;
+	tmp = ft_strjoin(*dst, data);
+	ft_strdel(dst);
+	ft_strdel(&data);
+	(*dst) = tmp;
 	return (index);
 }

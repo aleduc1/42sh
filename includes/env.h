@@ -78,6 +78,7 @@ typedef struct		s_job
 {
 	t_process		*first_process;
 	pid_t			pgid;
+	char			*cmd;
 	int				fg;
 	int				notified;
 	int				notif_stop;
@@ -87,6 +88,8 @@ typedef struct		s_job
 	t_redirection	*r;
 	struct s_job	*next;
 }					t_job;
+
+void				parser_var_test(char **value);
 
 int					gest_error_path(char *cmd, t_redirection *r);
 

@@ -49,7 +49,9 @@ static int	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
 			p->completed = 1;
 			j->notif_stop = 0;
 			if (WIFSIGNALED(status))
+			{
 				gest_return(WTERMSIG(p->status));
+			}
 		}
 		return (0);
 	}
@@ -114,6 +116,7 @@ void		wait_for_job(t_job *j)
 
 void		job_info(t_job *j, char *status)
 {
+	if (j->first_process)
 	ft_dprintf(j->first_process->r->error, "%s [%d]: %s\n",
 		j->first_process->cmd[0], (int)j->pgid, status);
 }
@@ -143,7 +146,17 @@ void		job_notif(void)
 		if (job_is_completed(j))
 		{
 			job_info(j, "completed");
-			(last) ? last->next = next : get_first_job(next);
+			if (last)
+				last->next = next;
+			else if (next)
+				get_first_job(next);
+			else
+			{
+				free_job(&j);
+				next = init_job();
+				get_first_job(next);
+				break ;
+			}
 			free_job(&j);
 		}
 		else if (job_is_stop(j) && !j->notified)
@@ -178,4 +191,10 @@ void		continue_job(t_job *j, int fg)
 		add_in_fg(j, 1);
 	else
 		add_in_bg(j, 1);
+	clean_fuck_list(0);
+	if (!j)
+	{
+		j = init_job();
+		get_first_job(j);
+	}
 }

@@ -83,9 +83,20 @@ void	script_test(char **av, t_pos pos)
 	while (av[++i])
 	{
 		str = ft_strdup(av[i]);
+		parser_var_test(&str);
 		run(str, &pos);
 	}
 	exit(0);
+}
+
+static void	edit_shell(void)
+{
+	g_in = open(ttyname(STDIN_FILENO), O_WRONLY);
+	if ((dup2(STDIN_FILENO, g_in)) == -1)
+		exit(1);
+	// int out = open(ttyname(STDOUT_FILENO), O_WRONLY);
+	// if ((dup2(STDOUT_FILENO, out)) == -1)
+	// 	exit(1);
 }
 
 int		main(int argc, char **argv, char **environ)
@@ -98,13 +109,7 @@ int		main(int argc, char **argv, char **environ)
 	multi_input = NULL;
 	if (isatty(STDIN_FILENO) == 0)
 		return (1);
-	g_in = STDIN_FILENO;//open(ttyname(STDIN_FILENO), O_WRONLY);
-	// if ((dup2(STDIN_FILENO, g_in)) == -1)
-	// 	exit(1);
-	// int out = open(ttyname(STDOUT_FILENO), O_WRONLY);
-	// if ((dup2(STDOUT_FILENO, out)) == -1)
-	// 	exit(1);
-	// ign_signaux();
+	edit_shell();
 	(argc == 1) ? welcome() : 0;
 	flags(argc, argv);
 	init_prompt(&pos);
@@ -114,7 +119,11 @@ int		main(int argc, char **argv, char **environ)
 	{
 		if (argc && argv && environ)
 			if ((input = prompt(multi_input, &pos)))
+			{
+				parser_var_test(&input);
 				run(input, &pos);
+			}
+		job_notif();
 	}
 	return (0);
 }

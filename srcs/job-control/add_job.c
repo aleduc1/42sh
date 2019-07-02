@@ -63,4 +63,5 @@ void		add_in_bg(t_job *j, int value)
 	add_set_value("!", itoa_pid);
 	if (value && (kill(-j->pgid, SIGCONT) < 0))
 		ft_dprintf(j->first_process->r->error, "42sh: bg: Kill not work!\n");
+	ft_strdel(&itoa_pid);
 }

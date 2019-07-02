@@ -38,9 +38,9 @@ static int	is_builtin_env(t_process *p, char **av)
 {
 	int	verif;
 
-	if (ft_strequ(av[0], "env"))
-		verif = builtin_env(p->r, av);
-	else if (ft_strequ(av[0], "set"))
+	// if (ft_strequ(av[0], "env"))
+	// 	verif = builtin_env(p->r, av);
+	if (ft_strequ(av[0], "set"))
 		verif = builtin_set(p->r);
 	else if (ft_strequ(av[0], "setenv"))
 		verif = edit_setenv(av[1], av[2]);

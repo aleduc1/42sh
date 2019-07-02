@@ -116,7 +116,7 @@ void		launch_process_test(t_process *p)
 
 	environ = create_list_env(get_env(0, NULL), 0);
 	execve(p->cmd_path, p->cmd, environ);
-	perror("execve");
+	ft_dprintf(p->r->error, "42sh: command not found\n");
 	exit(1);
 }
 
@@ -150,6 +150,8 @@ void		fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 	{
 		if (fd[0] != p->r->in)
 			close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
 		exec_pipe(j, p, fg, pid);
 	}
 	else if (pid < 0)
@@ -158,9 +160,7 @@ void		fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 		exit(1);
 	}
 	else
-	{
 		edit_pid_shell(pid, j, p);
-	}
 }
 
 static void	pipe_error(int error)
@@ -186,19 +186,13 @@ void		launch_job_pipe(t_job *j, int fg)
 	while (p)
 	{
 		if (p->next)
-		{
 			if (pipe(fd) == -1)
 				pipe_error(j->r->error);
-			
-			p->r->out = edit_fd(p->r->out, j->r->out, fd[1]);//fd[1];
-		}
-		else
-			p->r->out = j->r->out;
 		fork_pipe(j, p, fg, fd);
 		if (p->r->in != j->r->in)
 			close(p->r->in);
-		if (p->r->out != j->r->out)
-			close(p->r->out);
+		if (fd[1] != j->r->out)
+			close(fd[1]);
 		p = p->next;
 		if (p)
 			p->r->in = fd[0];

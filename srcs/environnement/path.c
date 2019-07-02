@@ -75,6 +75,8 @@ char		*is_in_path(char *command)
 	char	*result;
 
 	result = NULL;
+	if (access(command, O_DIRECTORY) == 0)
+		return (NULL);
 	if (!command)
 		return (NULL);
 	result = check_env_path(command);

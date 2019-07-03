@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/26 16:52:36 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/07/03 18:34:37 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ typedef struct		s_hash_tree
 	struct s_hash_tree	*right;
 
 }					t_hash_tree;
+
+typedef struct		s_repalias
+{
+	char				*key;
+	char				*value;
+	struct s_repalias	*next;
+}					t_repalias;
 
 # define HT_HASH_HASH_ONE 3
 # define HT_HASH_HASH_TWO 7
@@ -111,5 +118,7 @@ int					bt_fg(void);
 int					bt_export(char **value);
 
 int					builtin_fc(char **av, t_pos *pos);
+
+char				*alias_replace(char *input);
 
 #	endif

@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:09:25 by apruvost          #+#    #+#             */
-/*   Updated: 2019/06/25 17:59:17 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/07/03 18:38:46 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,29 @@ static int			type_alias_hash(char *command)
 	return (0);
 }
 
+static int			type_builtin(char *command)
+{
+	if ((ft_strequ(command, "echo") || (ft_strequ(command, "cd"))))
+		return (1);
+	else if ((ft_strequ(command, "exit") || (ft_strequ(command, "jobs"))))
+		return (1);
+	else if ((ft_strequ(command, "fg") || (ft_strequ(command, "bg"))))
+		return (1);
+	else if ((ft_strequ(command, "fc") || (ft_strequ(command, "alias"))))
+		return (1);
+	else if ((ft_strequ(command, "unalias") || (ft_strequ(command, "hash"))))
+		return (1);
+	else if ((ft_strequ(command, "type") || (ft_strequ(command, "env"))))
+		return (1);
+	else if ((ft_strequ(command, "set") || (ft_strequ(command, "setenv"))))
+		return (1);
+	else if ((ft_strequ(command, "unsetenv") || (ft_strequ(command, "export"))))
+		return (1);
+	else if (ft_strequ(command, "unset"))
+		return (1);
+	return (0);
+}
+
 int					bt_type(char **av)
 {
 	int		i;
@@ -42,7 +65,10 @@ int					bt_type(char **av)
 	ret = 0;
 	while (av[i])
 	{
-		if (type_alias_hash(av[i]));
+		if (type_builtin(av[i]))
+			ft_printf("%s is a shell builtin\n", av[i]);
+		if (type_alias_hash(av[i]))
+			;
 		else if ((arg = is_in_path(av[i])))
 		{
 			ft_printf("%s is %s\n", av[i], arg);

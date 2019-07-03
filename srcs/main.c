@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/06/26 17:03:30 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/07/03 18:36:32 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include "env.h"
 #include "job.h"
+#include "builtins.h"
 
 t_ht_hash	*g_hash_table;
 t_ht_hash	*g_alias_table;
@@ -61,6 +62,7 @@ void	run(char *input, t_pos *pos)
 
 	lex = NULL;
 	ast = NULL;
+	input = alias_replace(input);
 	if ((check_whitespace_input(input)) && (lex = lexer(input)))
 	{
 		ft_strdel(&input);

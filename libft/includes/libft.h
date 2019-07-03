@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 16:33:26 by aleduc            #+#    #+#             */
-/*   Updated: 2019/06/26 17:01:38 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/07/03 18:35:06 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,6 @@ long				ft_lpow(long a, long b);
 int					ft_sqrt(int x);
 int					ft_isprime(const int x);
 int					ft_nextprime(int x);
+void				ft_strptrdel(char ***as);
 
 #	endif

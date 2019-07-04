@@ -56,9 +56,9 @@ static void	bt_jobs_p(t_job *j, int is_stopped, t_redirection *r)
 static void	bt_jobs_l(t_job *j, int is_stopped, t_redirection *r)
 {
 	if (is_stopped)
-		ft_dprintf(r->out, "[%d]%c\t%d Suspended: %d\t%s\n", j->first_process->process_id,
-			'+', j->first_process->pid, WSTOPSIG(j->first_process->status),
-			j->first_process->cmd[0]);
+		ft_dprintf(r->out, "[%d]%c\t%d Suspended: %d\t%s\n",
+			j->first_process->process_id, '+', j->first_process->pid,
+			WSTOPSIG(j->first_process->status), j->first_process->cmd[0]);
 	else
 	{
 		ft_dprintf(r->out, "[%d]%c\t%d: %d\t%s\n", j->first_process->process_id,
@@ -67,7 +67,7 @@ static void	bt_jobs_l(t_job *j, int is_stopped, t_redirection *r)
 	}
 }
 
-static void	bt_jobs_s(t_job *j, int is_stopped, t_redirection *r)
+void		bt_jobs_s(t_job *j, int is_stopped, t_redirection *r)
 {
 	char	*str;
 
@@ -81,9 +81,23 @@ static void	bt_jobs_s(t_job *j, int is_stopped, t_redirection *r)
 	ft_strdel(&str);
 }
 
-int		bt_jobs(char **av, t_redirection *r)
+static void	display_jobs(void (*p)(t_job*, int, t_redirection*), t_redirection *r)
 {
 	t_job	*j;
+
+	j = get_first_job(NULL);
+	while (j)
+	{
+		if (job_is_completed(j))
+			(*p)(j, 0, r);
+		else if (job_is_stop(j))
+			(*p)(j, 1, r);
+		j = j->next;
+	}
+}
+
+int			bt_jobs(char **av, t_redirection *r)
+{
 	void	(*p)(t_job*, int, t_redirection*);
 
 	update_status();
@@ -101,19 +115,11 @@ int		bt_jobs(char **av, t_redirection *r)
 			return (-2);
 		}
 	}
-	j = get_first_job(NULL);
-	while (j)
-	{
-		if (job_is_completed(j))
-			;//(*p)(j, 0, r);
-		else if (job_is_stop(j) && (!j->notified))
-			(*p)(j, 1, r);
-		j = j->next;
-	}
+	display_jobs(p, r);
 	return (0);
 }
 
-int		bt_bg(void)
+int			bt_bg(void)
 {
 	t_job	*j;
 	t_job	*is_stopped;
@@ -135,7 +141,7 @@ int		bt_bg(void)
 	return (0);
 }
 
-int		bt_fg(void)
+int			bt_fg(void)
 {
 	t_job	*j;
 	t_job	*is_stopped;

@@ -27,10 +27,7 @@ int		modify_dst(char *src, char **dst)
 	}
 	if (final)
 	{
-		ft_printf("dst = %s\n", *dst);
-		// stock = ft_strjoin(*dst, final);
 		ft_strdel(dst);
-		// ft_strdel(&final);
 		(*dst) = final;
 	}
 	return (0);

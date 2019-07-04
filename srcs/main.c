@@ -41,7 +41,7 @@ int		check_whitespace_input(char *input)
 	int		i;
 
 	i = 0;
-	while (input[i])
+	while (input && input[i])
 	{
 		if (ft_isspace(input[i]))
 			i++;
@@ -89,14 +89,42 @@ void	script_test(char **av, t_pos pos)
 	exit(0);
 }
 
+static void	cpy_std(int in, int out, int error)
+{
+	char	*s_in;
+	char	*s_out;
+	char	*s_error;
+
+	s_in = ft_itoa(in);
+	s_out = ft_itoa(out);
+	s_error = ft_itoa(error);
+	add_set_value("STDIN", s_in);
+	add_set_value("STDOUT", s_out);
+	add_set_value("STDERR", s_error);
+	ft_strdel(&s_in);
+	ft_strdel(&s_out);
+	ft_strdel(&s_error);
+}
+
 static void	edit_shell(void)
 {
-	g_in = open(ttyname(STDIN_FILENO), O_WRONLY);
-	if ((dup2(STDIN_FILENO, g_in)) == -1)
+	int	in;
+	int	out;
+	int	error;
+
+	if (isatty(STDIN_FILENO) == 0  || isatty(STDOUT_FILENO) == 0
+		|| isatty(STDERR_FILENO) == 0)
 		exit(1);
-	// int out = open(ttyname(STDOUT_FILENO), O_WRONLY);
-	// if ((dup2(STDOUT_FILENO, out)) == -1)
-	// 	exit(1);
+	in = open(ttyname(STDIN_FILENO), O_WRONLY);
+	out = open(ttyname(STDOUT_FILENO), O_WRONLY);
+	error = open(ttyname(STDERR_FILENO), O_WRONLY);
+	if ((dup2(STDIN_FILENO, in)) == -1)
+		exit(1);
+	if ((dup2(STDOUT_FILENO, out)) == -1)
+		exit(1);
+	if ((dup2(STDERR_FILENO, out)) == -1)
+		exit(1);
+	cpy_std(in, out, error);
 }
 
 int		main(int argc, char **argv, char **environ)
@@ -107,9 +135,7 @@ int		main(int argc, char **argv, char **environ)
 
 	input = NULL;
 	multi_input = NULL;
-	if (isatty(STDIN_FILENO) == 0)
-		return (1);
-	edit_shell();
+	(argc == 1) ? edit_shell() : 0;
 	(argc == 1) ? welcome() : 0;
 	flags(argc, argv);
 	init_prompt(&pos);
@@ -121,9 +147,15 @@ int		main(int argc, char **argv, char **environ)
 			if ((input = prompt(multi_input, &pos)))
 			{
 				parser_var_test(&input);
-				run(input, &pos);
+				if (check_last_command() != -5)
+					run(input, &pos);
+				else
+				{
+					ft_strdel(&input);
+					gest_return(1);
+				}
+				job_notif();
 			}
-		job_notif();
 	}
 	return (0);
 }

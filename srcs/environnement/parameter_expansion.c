@@ -82,6 +82,7 @@ void			parameter_expansion(char *tmp, char **dst)
 	char	*key;
 	char	*tmp_b;
 	int		i;
+
 	if ((!tmp) || ft_strequ(tmp, ""))
 	{
 		display_error_expansion("");
@@ -102,7 +103,6 @@ void			parameter_expansion(char *tmp, char **dst)
 		}
 		tmp_b = gest_expansion(key, tmp + i + 1);
 		ft_strdel(&key);
-		ft_printf("dst = %s\n", *dst);
 		key = ft_strjoin(*dst, tmp_b);
 		ft_strdel(dst);
 		ft_strdel(&tmp_b);

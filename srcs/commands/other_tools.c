@@ -38,8 +38,6 @@ static int	is_builtin_env(t_process *p, char **av)
 {
 	int	verif;
 
-	// if (ft_strequ(av[0], "env"))
-	// 	verif = builtin_env(p->r, av);
 	if (ft_strequ(av[0], "set"))
 		verif = builtin_set(p->r);
 	else if (ft_strequ(av[0], "setenv"))
@@ -106,6 +104,10 @@ int			gest_return(int verif)
 {
 	char	*value;
 
+	if (verif == 13)
+		return (127);
+	if (verif > 1 && verif < 23)
+		verif = 128 + verif;
 	if (verif > 255)
 		verif %= 255;
 	value = ft_itoa(verif);

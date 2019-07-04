@@ -12,17 +12,24 @@
 
 #include "job.h"
 
-void		free_process(t_process **p)
+void		free_process(t_job **j)
 {
-	if ((!p) || (!(*p)))
+	t_process	*p;
+	t_process	*next;
+
+	if ((!j) || (!(*j)))
 		return ;
-	if ((*p)->next)
-		free_process(&((*p)->next));
-	ft_strdel(&((*p)->cmd_path));
-	if ((*p)->cmd)
-		ft_arraydel(&((*p)->cmd));
-	free(*p);
-	(*p) = NULL;
+	p = (*j)->first_process;
+	while (p)
+	{
+		next = p->next;
+		ft_strdel(&(p->cmd_path));
+		if (p->cmd)
+			ft_arraydel(&(p->cmd));
+		free(p);
+		p = NULL;
+		p = next;
+	}
 }
 
 void		clean_file(t_job *j)
@@ -57,9 +64,8 @@ void		free_job(t_job **j)
 	if (j && (*j))
 	{
 		clean_file(*j);
-		free_process(&((*j)->first_process));
-		// free((*j)->first_process);
-		// (*j)->first_process = NULL;
+		if ((*j)->first_process)
+			free_process(j);
 		free_redirection(&((*j)->r));
 		free(*j);
 		(*j) = NULL;

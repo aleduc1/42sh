@@ -17,6 +17,8 @@ void	delete_redirection(t_redirection **r)
 	t_redirect	*next;
 
 	next = NULL;
+	if ((!r) || (!(*r)))
+		return ;
 	while ((*r)->redirect)
 	{
 		next = ((*r)->redirect->next) ? (*r)->redirect->next : NULL;

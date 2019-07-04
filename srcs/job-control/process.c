@@ -145,6 +145,13 @@ void		fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 {
 	pid_t	pid;
 
+	if (check_is_exec(p->cmd[0], j->r) == 0)
+	{
+		if (fd[0] != p->r->in)
+			close(fd[0]);
+		close(fd[1]);
+		return ;
+	}
 	pid = fork();
 	if (pid == 0)
 	{

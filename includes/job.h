@@ -77,8 +77,11 @@ int				mark_process_status(pid_t pid, int status);
 ** commands.c
 */
 
-t_job			*create_new_job(char **argv, t_token *t, t_redirection *r, int fg);
+t_job			*create_new_job(char **argv, t_token *t,
+					t_redirection *r, int fg);
 void			display_lst_job(t_job *j);
 void			clean_fuck_list(pid_t pid);
+
+void			bt_jobs_s(t_job *j, int is_stopped, t_redirection *r);
 
 #	endif

@@ -59,7 +59,10 @@ char	*parameter_hash_end(char *value)
 	else
 		while (parameter[++i] && stock[i])
 			if (parameter[i] != stock[i])
+			{
+				i = 0;
 				break ;
+			}
 	dst = ft_strsub(parameter, i, ft_strlen(parameter) - i);
 	ft_strdel(&parameter);
 	ft_strdel(&stock);
@@ -92,7 +95,10 @@ char	*parameter_percents(char *value)
 	if (i <= index)
 		while (--index > -1 && --i > -1 && parameter[index] && stock[i])
 			if (parameter[index] != stock[i])
+			{
+				i = 0;
 				break ;
+			}
 	dst = ft_strsub(parameter, 0, index + 1);
 	ft_strdel(&parameter);
 	ft_strdel(&stock);

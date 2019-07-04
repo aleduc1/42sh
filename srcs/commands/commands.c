@@ -143,13 +143,14 @@ t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 	process_id = 0;
 	while (j && j->pgid != 0)
 	{
-		process_id =  j->first_process ? j->first_process->process_id : 0;
+		process_id = j->first_process ? j->first_process->process_id : 0;
 		if (!j->next)
 			j->next = init_job();
 		j = j->next;
 	}
-	// file_to_close(t, j);
+	file_to_close(t, j);
 	j->pgid = 0;
+	j->notif_stop = 0;
 	j->r = base_redirection();
 	p = j->first_process;
 	p->cmd = ft_arraydup(argv);
@@ -179,8 +180,7 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 		else
 			verif = gest_error_path(p->cmd[0], p->r);
 	}
-	if (p->completed == 1 || p->pid == 0 || p->stopped == 0)
-		clean_fuck_list(0);
+	clean_fuck_list(0);
 	return (verif);
 }
 

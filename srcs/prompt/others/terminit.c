@@ -33,7 +33,6 @@ void				default_term_mode(void)
 	t_shell			*s;
 	int				pgid;
 
-	// g_in = STDIN_FILENO;//open(ttyname(STDIN_FILENO), O_WRONLY);
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag |= (ECHO | ICANON | ISIG);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &term);
@@ -51,31 +50,11 @@ void				default_term_mode(void)
 
 void				raw_term_mode(void)
 {
-	// struct termios	term;
-	// t_shell			*s;
-
-	// s = get_shell();
-	// s->term = STDIN_FILENO;
-	// while (tcgetpgrp (s->term) != (s->pgid = getpgrp()))
-	// 	kill (- s->pgid, SIGTTIN);
-	// ign_signaux();
-	// tcgetattr(STDIN_FILENO, &term);
-	// term.c_lflag &= ~(ICANON | ECHO | ISIG);
-	// term.c_cc[VMIN] = 1;
-	// term.c_cc[VTIME] = 0;
-	// tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	// tgetent(NULL, getenv("TERM"));
-	// s->pgid = getpid();
-	// s->interactive = isatty(s->term);
-	// s->term_shell = term;
-
-
 	struct termios	term;
 	t_shell			*s;
 	int				pgid;
 	int				interactive;
 
-	// g_in = STDIN_FILENO;//open(ttyname(STDIN_FILENO), O_WRONLY);
 	interactive = isatty(STDIN_FILENO);
 	if (interactive)
 	{
@@ -85,7 +64,7 @@ void				raw_term_mode(void)
 		pgid = getpid();
 		if (setpgid (pgid, pgid) < 0)
 			exit(1);
-		tcsetpgrp (STDIN_FILENO, getpid());
+		tcsetpgrp(STDIN_FILENO, getpid());
 		tcgetattr(STDIN_FILENO, &term);
 		term.c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG);
 		term.c_cc[VMIN] = 1;

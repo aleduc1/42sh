@@ -24,25 +24,13 @@ static void	stock_process(char **argv, t_token *token, int end_pipe, int fg)
 int			ft_pipe(char **argv, t_token *token, int end_pipe)
 {
 	t_job		*j;
-	t_process	*p;
 
 	stock_process(argv, token, end_pipe, 1);
 	if (end_pipe == 2)
 	{
 		j = get_end_job();
 		launch_job_pipe(j, 1);
-		if (j->first_process->pid == 0)
-			clean_fuck_list(0);
-		p = j->first_process;
-		while (p)
-		{
-			if (p->completed)
-			{
-				clean_fuck_list(j->first_process->pid);
-				break ;
-			}
-			p = p->next;
-		}
+		clean_fuck_list(0);
 		update_status();
 	}
 	return (0);

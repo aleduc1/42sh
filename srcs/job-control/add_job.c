@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "job.h"
+#include "sh21.h"
 
 /*
 ** TCSADRAIN
@@ -22,19 +23,32 @@
 void	add_in_fg(t_job *j, int value)
 {
 	t_shell	*shell;
+	t_process	*p;
 
+	p = j->first_process;
 	shell = get_shell();
-	tcsetpgrp(shell->term, j->pgid);
+	if (tcsetpgrp(shell->term, j->pgid) == -1)
+		ft_dprintf(STDERR_FILENO, "error: tcsetpgrp\n");
 	if (value)
 	{
-		tcsetattr(shell->term, TCSADRAIN, &(j->tmodes));
+		if (tcsetattr(shell->term, TCSADRAIN, &(j->tmodes)) == -1)
+			ft_dprintf(STDERR_FILENO, "error: tcsetattr\n");
 		if (kill(-j->pgid, SIGCONT) < 0)
 			ft_dprintf(j->first_process->r->error, "42sh: fg: Kill not work!\n");
 	}
-	wait_for_jobs(j);
-	tcsetpgrp(shell->term, shell->pgid);
-	tcgetattr(shell->term, &j->tmodes);
-	tcsetattr(shell->term, TCSADRAIN, &(shell->term_shell));
+	while (p)
+	{
+		p->stopped = 0;
+		p = p->next;
+	}
+	j->notified = 0;
+	wait_for_job(j);
+	if (tcsetpgrp(shell->term, shell->pgid) == -1)
+		ft_dprintf(STDERR_FILENO, "error: tcsetpgrp\n");
+	if (tcgetattr(shell->term, &j->tmodes) == -1)
+		ft_dprintf(STDERR_FILENO, "error: tcgetattr\n");
+	if (tcsetattr(shell->term, TCSADRAIN, &(shell->term_shell)) == -1)
+		ft_dprintf(STDERR_FILENO, "error: tcsetattr\n");
 }
 
 void	add_in_bg(t_job *j, int value)

@@ -15,8 +15,6 @@
 
 static void	standard_redirection(t_redirection *r)
 {
-	if (r->fd_pipe >= 0)
-		close(r->fd_pipe);
 	if (r->in != STDIN_FILENO
 		&& ft_fd_redirect_exist(r->redirect, STDIN_FILENO) == 0)
 	{

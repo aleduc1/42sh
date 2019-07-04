@@ -41,7 +41,6 @@ typedef struct		s_redirection
 	int			in;
 	int			out;
 	int			error;
-	int			fd_pipe;
 	t_redirect	*redirect;
 }					t_redirection;
 
@@ -78,10 +77,13 @@ typedef struct	s_job
 {
 	t_process		*first_process;
 	pid_t			pgid;
+	int				fg;
 	int				notified;
+	int				notif_stop;
 	struct termios	tmodes;
 	int				len_close;
 	int				*close_fd;
+	t_redirection	*r;
 	struct s_job	*next;
 }				t_job;
 

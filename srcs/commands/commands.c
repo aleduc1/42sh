@@ -38,22 +38,26 @@ void		display_lst_job(t_job *j)
 	while (sv)
 	{
 		ft_printf("===========================\n");
+		ft_printf("pgpid = %d\nnotified = %d\n", sv->pgid, sv->notified);
 		p = sv->first_process;
 		while (p)
 		{
+			ft_printf("___________________________\n");
 			ft_arraydisplay(p->cmd);
-			ft_printf("pointeur cmd = %p\npid = %d\ncompleted = %d\n",
-				&p->cmd, p->pid, p->completed);
-			ft_printf("stopped = %d\nstatus = %d\n", p->stopped, p->status);
+			ft_printf("pointeur:\n cmd = %p\n cmd_path = %p\n", &p->cmd,
+					&p->cmd_path);
+			ft_printf("redirection = %p\n", &p->r);
+			ft_printf("pid = %d\ncompleted = %d\n", p->pid, p->completed);
+			ft_printf("stopped = %d\nstatus = %d\n", p->stopped,
+					p->status);
 			p = p->next;
 		}
-		ft_printf("pgpid = %d\nnotified = %d\n", sv->pgid, sv->notified);
 		sv = sv->next;
-		ft_printf("___________________________\n");
+		ft_printf("===========================\n");
 	}
 }
 
-void		clean_fuck_list(void)
+void		clean_fuck_list(pid_t pid)
 {
 	t_job	**j;
 	t_job	*last;
@@ -66,8 +70,9 @@ void		clean_fuck_list(void)
 	while (*j)
 	{
 		next = (*j)->next;
-		if (((*j)->first_process->completed || (*j)->first_process->pid == 0)
-		&& (*j)->first_process->stopped == 0)
+		if (((((*j)->first_process->completed || (*j)->first_process->pid == 0)
+		&& (*j)->first_process->stopped == 0))
+		|| (*j)->first_process->pid == pid)
 		{
 			if (last)
 				last->next = next;
@@ -122,6 +127,19 @@ int			file_to_close(t_token *t, t_job *j)
 	return (verif);
 }
 
+t_redirection	*base_redirection(void)
+{
+	t_redirection	*r;
+
+	if (!(r = (t_redirection*)malloc(sizeof(t_redirection) * 1)))
+		return (NULL);
+	r->in = STDIN_FILENO;
+	r->out = STDOUT_FILENO;
+	r->error = STDERR_FILENO;
+	r->redirect = NULL;
+	return (r);
+}
+
 t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
 {
 	t_job			*j;
@@ -138,6 +156,8 @@ t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
 		j = j->next;
 	}
 	file_to_close(t, j);
+	j->pgid = 0;
+	j->r = base_redirection();
 	p = j->first_process;
 	p->cmd = ft_arraydup(argv);
 	p->process_id = process_id + 1;
@@ -166,8 +186,8 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 		else
 			verif = gest_error_path(p->cmd[0], p->r);
 	}
-	if (p->completed == 1 || p->pid == 0)
-		clean_fuck_list();
+	if (p->completed == 1 || p->pid == 0 || p->stopped == 0)
+		clean_fuck_list(0);
 	return (verif);
 }
 
@@ -240,7 +260,7 @@ int			ft_ampersand(char **argv, t_token *token)
 			verif = gest_error_path(p->cmd[0], p->r);
 	}
 	if (p->completed == 1 || p->pid == 0)
-		clean_fuck_list();
+		clean_fuck_list(0);
 	gest_return(verif);
 	return (verif);
 }

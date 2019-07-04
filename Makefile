@@ -47,11 +47,11 @@ VPATH = objs:\
 # Compiler and flags #
 # ------------------ #
 
-CC = gcc
+CC = cc
 ifeq ($(DEBUG), yes)
 	CFLAGS = -Wall -Wextra -g3
 else
-	CFLAGS = -Wall -Wextra -g3
+	CFLAGS = -Wall -Wextra -Werror
 endif
 CPPFLAGS = -I $(INCDIR) -I $(INCLIBDIR)
 LDLIBS = -lft
@@ -175,7 +175,9 @@ SRCS_NAMES = main.c \
 			 ht_hash_show.c\
 			 bt_hash.c\
 			 bt_type.c\
-			 alias_replace.c
+			 alias_replace.c\
+			 free_job.c\
+			 list_job.c
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 HEADERS_NAMES = sh21.h lexer.h parser.h env.h builtins.h job.h

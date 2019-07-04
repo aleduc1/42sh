@@ -81,5 +81,8 @@ t_lex	*lexer(char *input)
 		return (NULL);
 	}
 	remove_space_token(&lex);
+	ft_putendl("\n\n\n DEBUGGING after lexing_phase  : \n\n\n");
+	dllprinthead(&lex);
+	ft_putendl("\n\n\n\n");
 	return (lex);
 }

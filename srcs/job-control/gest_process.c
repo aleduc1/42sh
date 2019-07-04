@@ -12,6 +12,8 @@
 
 #include "job.h"
 
+#include <errno.h>
+
 /*
 ** stock le status du pid
 ** WIFSIGNALED -> check if process exist
@@ -25,23 +27,33 @@
 **		(int)pid, status);
 */
 
-static void	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
+static int	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
 {
-	if (pid == p->pid)
+	if (p->pid == pid)
 	{
 		p->status = status;
+		if (WIFCONTINUED(status))
+		{
+			p->stopped = 0;
+			j->notif_stop = 0;
+		}
 		if (WIFSTOPPED(status))
 		{
+			if (j->notif_stop == 0)
+				ft_printf("\n[1]+  Stopped(SIGTSTP)\t%s\n", p->cmd[0]);
 			p->stopped = 1;
-			if (!j->notified)
-				ft_dprintf(p->r->error, "\n[%d]%c\tStopped(%d)\t%s\n",
-					j->first_process->process_id, '+', WSTOPSIG(status),
-					j->first_process->cmd[0]);
-			j->notified = 1;
+			j->notif_stop = 1;
 		}
 		else
+		{
 			p->completed = 1;
+			j->notif_stop = 0;
+			if (WIFSIGNALED(status))
+				gest_return(WTERMSIG(p->status));
+		}
+		return (0);
 	}
+	return (1);
 }
 
 int			mark_process_status(pid_t pid, int status)
@@ -57,45 +69,43 @@ int			mark_process_status(pid_t pid, int status)
 			p = j->first_process;
 			while (p)
 			{
-				action_process_status(pid, status, j, p);
+				if (action_process_status(pid, status, j, p) == 0)
+					return (0);
 				p = p->next;
 			}
 			j = j->next;
 		}
+		ft_dprintf (STDERR_FILENO, "No child process %d.\n", pid);
+		return (-1);
 	}
 	return (-1);
 }
 
+/*
+** WNOHANG: revenir immédiatement si aucun fils n'est achevé.
+*/
+
 void		update_status(void)
 {
-	t_job	*j;
 	int		status;
 	pid_t	pid;
 
 	while (1)
 	{
-		pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
+		pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG | WCONTINUED);
 		if (mark_process_status(pid, status))
 			break ;
 	}
-	j = get_first_job(NULL);
-	while (j)
-	{
-		j->notified = 0;
-		j = j->next;
-	}
 }
 
-void		wait_for_jobs(t_job *j)
+void		wait_for_job(t_job *j)
 {
 	int		status;
 	pid_t	pid;
 
 	while (1)
 	{
-		pid = waitpid(-j->pgid, &status, WUNTRACED);
-		if (pid != -1 && status != 13)
-			gest_return(status);
+		pid = waitpid(WAIT_ANY , &status, WUNTRACED);
 		if (mark_process_status(pid, status) || job_is_stop(j)
 			|| job_is_completed(j))
 			break ;
@@ -154,6 +164,7 @@ void		job_running(t_job *j)
 void		continue_job(t_job *j, int fg)
 {
 	job_running(j);
+	j->notif_stop = 0;
 	if (fg)
 		add_in_fg(j, 1);
 	else

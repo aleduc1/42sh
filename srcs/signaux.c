@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 10:54:15 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/24 17:04:32 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:47:41 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ void	ign_signaux(void)
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
+	signal(SIGCONT, SIG_IGN);
+	signal(SIGSTOP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
+	signal(SIGPIPE, SIG_IGN);
+	// signal(SIGCHLD, SIG_IGN);
 }
 
 void	dfl_signaux(void)
@@ -32,6 +36,9 @@ void	dfl_signaux(void)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
+	signal(SIGSTOP, SIG_DFL);
+	signal(SIGCONT, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
-//	signal(SIGTTOU, SIG_DFL);
+	// signal(SIGTTOU, SIG_DFL);
+	signal(SIGPIPE, SIG_DFL);
 }

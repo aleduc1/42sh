@@ -22,8 +22,7 @@ void	delete_redirection(t_redirection **r)
 		next = ((*r)->redirect->next) ? (*r)->redirect->next : NULL;
 		free((*r)->redirect);
 		(*r)->redirect = NULL;
-		if (next)
-			(*r)->redirect = next;
+		(*r)->redirect = next;
 	}
 	free(*r);
 	(*r) = NULL;

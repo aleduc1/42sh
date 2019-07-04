@@ -31,7 +31,6 @@ t_redirection	*init_redirection(void)
 	r->in = STDIN_FILENO;
 	r->out = STDOUT_FILENO;
 	r->error = STDERR_FILENO;
-	r->fd_pipe = -1;
 	r->redirect = ft_init_redirect();
 	return (r);
 }

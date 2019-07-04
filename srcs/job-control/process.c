@@ -190,6 +190,7 @@ void		launch_job_pipe(t_job *j, int fg)
 	int			fd[2];
 
 	p = j->first_process;
+	fd[0] = j->r->in;
 	while (p)
 	{
 		if (p->next)
@@ -202,7 +203,13 @@ void		launch_job_pipe(t_job *j, int fg)
 			close(fd[1]);
 		p = p->next;
 		if (p)
-			p->r->in = fd[0];
+		{
+			if (p->r->in == j->r->in)
+				p->r->in = fd[0];
+			else
+				if (fd[0] != j->r->in)
+					close(fd[0]);
+		}
 	}
 	act_job(j, fg);
 }

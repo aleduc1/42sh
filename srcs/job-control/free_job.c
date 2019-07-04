@@ -46,6 +46,12 @@ void		clean_file(t_job *j)
 	p = j->first_process;
 	while (p)
 	{
+		if (p->r->in != STDIN_FILENO)
+			close(p->r->in);
+		if (p->r->out != STDOUT_FILENO)
+			close(p->r->out);
+		if (p->r->error != STDERR_FILENO)
+			close(p->r->error);
 		delete_redirection(&p->r);
 		p = p->next;
 	}

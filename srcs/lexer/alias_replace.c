@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:03:10 by apruvost          #+#    #+#             */
-/*   Updated: 2019/07/03 18:41:20 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:45:47 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static char			*replace_alias(char *inpu, char *str, char *fir, char *val)
 		{
 			inpu[i] = 0;
 			inpu = ft_strcat(inpu, val);
+			c = -1;
 			i += ft_strlen(val);
 			j += ft_strlen(fir);
 		}
@@ -50,12 +51,14 @@ static char			*get_first_word(char *str)
 {
 	char	**words;
 	char	*first;
-	int		i;
 
+	words = NULL;
 	if (!(words = ft_split_whitespaces(str)))
 		return (NULL);
-	first = ft_strdup(words[0]);
-	i = 0;
+	if (words[0])
+		first = ft_strdup(words[0]);
+	else
+		first = NULL;
 	ft_strptrdel(&words);
 	return (first);
 }
@@ -66,7 +69,7 @@ static char			*alias_change(char *str)
 	char		*val;
 	size_t		len;
 	char		*input;
-	t_repalias	*new;
+	t_repalias	*newa;
 
 	if (!(firstword = get_first_word(str)))
 		return (NULL);
@@ -82,15 +85,15 @@ static char			*alias_change(char *str)
 		ft_strdel(&firstword);
 		return (NULL);
 	}
-	if (!(new = (t_repalias *)malloc(sizeof(t_repalias))))
+	if (!(newa = (t_repalias *)malloc(sizeof(t_repalias))))
 	{
 		ft_strdel(&firstword);
 		return (input);
 	}
-	new->key = firstword;
-	new->value = ft_strdup(val);
-	new->next = alias;
-	alias = new;
+	newa->key = firstword;
+	newa->value = ft_strdup(val);
+	newa->next = alias;
+	alias = newa;
 	return (input);
 }
 

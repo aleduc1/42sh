@@ -16,14 +16,14 @@
 #include "env.h"
 #include "job.h"
 
-int		siginthandler(int signum)
+int			siginthandler(int signum)
 {
 	(void)signum;
 	ft_printf("signal handler\n");
 	return (0);
 }
 
-void	flags(int argc, char **argv)
+void		flags(int argc, char **argv)
 {
 	g_print_ast = 0;
 	if (argc >= 2)
@@ -36,7 +36,7 @@ void	flags(int argc, char **argv)
 	return ;
 }
 
-int		check_whitespace_input(char *input)
+int			check_whitespace_input(char *input)
 {
 	int		i;
 
@@ -51,7 +51,7 @@ int		check_whitespace_input(char *input)
 	return (0);
 }
 
-void	run(char *input, t_pos *pos)
+void		run(char *input, t_pos *pos)
 {
 	t_lex	*lex;
 	t_ast	*ast;
@@ -74,7 +74,7 @@ void	run(char *input, t_pos *pos)
 	}
 }
 
-void	script_test(char **av, t_pos pos)
+void		script_test(char **av, t_pos pos)
 {
 	int		i;
 	char	*str;
@@ -112,7 +112,7 @@ static void	edit_shell(void)
 	int	out;
 	int	error;
 
-	if (isatty(STDIN_FILENO) == 0  || isatty(STDOUT_FILENO) == 0
+	if (isatty(STDIN_FILENO) == 0 || isatty(STDOUT_FILENO) == 0
 		|| isatty(STDERR_FILENO) == 0)
 		exit(1);
 	in = open(ttyname(STDIN_FILENO), O_WRONLY);
@@ -127,7 +127,7 @@ static void	edit_shell(void)
 	cpy_std(in, out, error);
 }
 
-int		main(int argc, char **argv, char **environ)
+int			main(int argc, char **argv, char **environ)
 {
 	t_multi	*multi_input;
 	char	*input;

@@ -39,7 +39,7 @@ void				default_term_mode(void)
 	ft_putstr(tgetstr("ei", NULL));
 	ign_signaux();
 	pgid = getpid();
-	if (setpgid (pgid, pgid) < 0)
+	if (setpgid(pgid, pgid) < 0)
 		exit(1);
 	s = get_shell();
 	s->pgid = pgid;
@@ -58,11 +58,11 @@ void				raw_term_mode(void)
 	interactive = isatty(STDIN_FILENO);
 	if (interactive)
 	{
-		while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp ()))
-			kill (-pgid, SIGTTIN);
+		while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp()))
+			kill(-pgid, SIGTTIN);
 		ign_signaux();
 		pgid = getpid();
-		if (setpgid (pgid, pgid) < 0)
+		if (setpgid(pgid, pgid) < 0)
 			exit(1);
 		tcsetpgrp(STDIN_FILENO, getpid());
 		tcgetattr(STDIN_FILENO, &term);

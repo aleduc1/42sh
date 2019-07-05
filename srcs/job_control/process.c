@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/01 17:49:15 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/05 02:17:20 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,13 +145,13 @@ void		fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 {
 	pid_t	pid;
 
-	if (check_is_exec(p->cmd[0], j->r) == 0)
+/*	if (check_is_exec(p->cmd[0], j->r) == 0)
 	{
 		if (fd[0] != p->r->in)
 			close(fd[0]);
 		close(fd[1]);
 		return ;
-	}
+	}*/
 	pid = fork();
 	if (pid == 0)
 	{
@@ -207,8 +207,10 @@ void		launch_job_pipe(t_job *j, int fg)
 			if (p->r->in == j->r->in)
 				p->r->in = fd[0];
 			else
+			{
 				if (fd[0] != j->r->in)
 					close(fd[0]);
+			}
 		}
 	}
 	act_job(j, fg);

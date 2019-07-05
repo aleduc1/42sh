@@ -81,7 +81,8 @@ void		bt_jobs_s(t_job *j, int is_stopped, t_redirection *r)
 	ft_strdel(&str);
 }
 
-static void	display_jobs(void (*p)(t_job*, int, t_redirection*), t_redirection *r)
+static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
+	t_redirection *r)
 {
 	t_job	*j;
 

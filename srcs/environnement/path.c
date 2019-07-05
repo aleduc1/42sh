@@ -86,7 +86,8 @@ char		*is_in_path(char *command)
 	if (S_ISDIR(statbuf.st_mode) == 1)
 		return (NULL);
 	if (access(command, F_OK) >= 0 && command[0]
-		&& command[1] && command[0] == '.' && command[1] == '/')
+		&& command[1] && (command[0] == '/'
+		|| (command[0] == '.' && command[1] == '/')))
 	{
 		result = ft_strdup(command);
 		check_exec_path(&result);

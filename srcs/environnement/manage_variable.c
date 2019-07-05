@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/27 15:15:38 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/05 02:43:06 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		modify_dst(char *src, char **dst)
 	char	*final;
 
 	if (!src || src[0] == 0)
-		final = ft_strdup("$");
+		final = ft_strjoin(*dst, "$");
 	else
 	{
 		stock = manage_var(src);

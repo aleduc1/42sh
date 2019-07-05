@@ -2496,17 +2496,17 @@ printf "=============================\n"
 printf "|           DEBUT           |\n"
 printf "=============================\n"
 
-# ft_test_basic
-# ft_test_builtin
-# ft_test_redirection
-# ft_test_multiple_command
-# ft_test_pipe
-# ft_env
-# ft_path
-# ft_test_signaux
-# ft_test_parser
+ft_test_basic
+ft_test_builtin
+ft_test_redirection
+ft_test_multiple_command
+ft_test_pipe
+ft_env
+ft_path
+ft_test_signaux
+ft_test_parser
 ft_test_return_value
-# ft_test_variable
+ft_test_variable
 
 printf "\n"
 

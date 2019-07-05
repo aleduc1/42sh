@@ -156,10 +156,7 @@ t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 	p->cmd = ft_arraydup(argv);
 	p->process_id = process_id + 1;
 	p->fg = fg;
-	if (t)
-		p->r = fill_redirection(t);
-	else
-		p->r = r;
+	p->r = (t) ? fill_redirection(t) : r;
 	return (j);
 }
 

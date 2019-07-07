@@ -47,11 +47,14 @@ void		clean_file(t_job *j)
 	while (p)
 	{
 		if (p->r->in != STDIN_FILENO)
-			close(p->r->in);
+			if (verif_close(p->r->in))
+				close(p->r->in);
 		if (p->r->out != STDOUT_FILENO)
-			close(p->r->out);
+			if (verif_close(p->r->out))
+				close(p->r->out);
 		if (p->r->error != STDERR_FILENO)
-			close(p->r->error);
+			if (verif_close(p->r->error))
+				close(p->r->error);
 		delete_redirection(&p->r);
 		p = p->next;
 	}

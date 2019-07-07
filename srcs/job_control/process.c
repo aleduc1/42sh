@@ -68,6 +68,18 @@ static void	edit_pid_shell(int pid, t_job *j, t_process *p)
 	}
 }
 
+void		display_redirection(t_redirection *r)
+{
+	ft_printf("in = %d\n", r->in);
+	ft_printf("out = %d\n", r->out);
+	ft_printf("error = %d\n", r->error);
+	while (r->redirect)
+	{
+		ft_printf("base = %d, new_fd = %d\n", r->redirect->base, r->redirect->new_fd);
+		r->redirect = r->redirect->next;
+	}
+}
+
 int			launch_job(t_job *j, int fg)
 {
 	t_process	*p;
@@ -145,13 +157,6 @@ void		fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 {
 	pid_t	pid;
 
-/*	if (check_is_exec(p->cmd[0], j->r) == 0)
-	{
-		if (fd[0] != p->r->in)
-			close(fd[0]);
-		close(fd[1]);
-		return ;
-	}*/
 	pid = fork();
 	if (pid == 0)
 	{

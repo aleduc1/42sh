@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 09:57:34 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/07 18:17:49 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,13 @@ int			is_expand_tild(char *value, int index, int expand)
 			return (1);
 	return (0);
 }
+
+
+/*
+** utiliser ft_strsplit_commands(char *str) pour split sur ; et &
+** verif et supression avec ft_arraydelline
+** puis creer une fonction pour recoller les valeurs
+*/
 
 void		parser_var_test(char **value)
 {

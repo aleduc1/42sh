@@ -1085,7 +1085,7 @@ ft_env()
 	# printf "\n"
 
 	test_name="Test env vide"
-	env -i ./$name "env" > $dossier/${n}a  2> $dossier/${n}ae
+	env -i ./$name "/usr/bin/env" > $dossier/${n}a  2> $dossier/${n}ae
 	if [ -f $dossier/${n}ae -a -s "$dossier/${n}ae" ]; then
 		printf "$test_name: ${CRE}No$NO\n"
 		cat $dossier/${n}a
@@ -1111,7 +1111,7 @@ ft_env()
 	# printf "\n"
 
 	test_name="Test setenv add key"
-	env -i ./$name "setenv toto tata" "env"> $dossier/${n}a  2> $dossier/${n}ae
+	env -i ./$name "setenv toto tata" "/usr/bin/env"> $dossier/${n}a  2> $dossier/${n}ae
 	printf "toto=tata\n" > $dossier/${n}b
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
@@ -1141,7 +1141,7 @@ ft_env()
 	# printf "\n"
 
 	test_name="Test setenv add key and remove with unsetenv"
-	env -i ./$name "setenv toto tata" "unsetenv toto" "env"> $dossier/${n}a  2> $dossier/${n}ae
+	env -i ./$name "setenv toto tata" "unsetenv toto" "/usr/bin/env"> $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`

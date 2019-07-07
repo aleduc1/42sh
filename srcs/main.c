@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/06/30 19:40:36 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:58:39 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		flags(int argc, char **argv)
 }
 
 int			check_whitespace_input(char *input)
-{
+{	
 	int		i;
 
 	i = 0;

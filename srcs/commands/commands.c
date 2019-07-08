@@ -154,6 +154,7 @@ t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 	j->r = base_redirection();
 	p = j->first_process;
 	p->cmd = ft_arraydup(argv);
+	parser_var(&p->cmd);
 	p->process_id = process_id + 1;
 	p->fg = fg;
 	p->r = (t) ? fill_redirection(t) : r;
@@ -169,6 +170,12 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 	verif = 0;
 	j = create_new_job(argv, t, NULL, 1);
 	p = j->first_process;
+	if (check_last_command() == -5)
+	{
+		gest_return(1);
+		clean_fuck_list(0);
+		return (1);
+	}
 	if ((verif = is_builtin(j, p, pos)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);

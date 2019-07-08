@@ -19,11 +19,17 @@ void				welcome(void)
 	ft_putstr("\033[2J\033[H");
 	ft_putstr("\033[1;32m\n");
 	ft_putstr("██╗  ██╗██████╗ ███████╗██╗  ██╗    \n");
+	usleep(100000);
 	ft_putstr("██║  ██║╚════██╗██╔════╝██║  ██║    \n");
+	usleep(100000);
 	ft_putstr("███████║ █████╔╝███████╗███████║    \n");
+	usleep(100000);
 	ft_putstr("╚════██║██╔═══╝ ╚════██║██╔══██║    \n");
+	usleep(100000);
 	ft_putstr("     ██║███████╗███████║██║  ██║    \n");
+	usleep(100000);
 	ft_putstr("     ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝    \n");
+	usleep(100000);
 	ft_putendl("\033[0m");
 }
 
@@ -48,10 +54,21 @@ void				default_term_mode(void)
 	s->term_shell = term;
 }
 
+void				fill_shell(int interactive, struct termios term,
+							int pgid)
+{
+	t_shell			*s;
+
+	s = get_shell();
+	s->pgid = pgid;
+	s->term = STDIN_FILENO;
+	s->interactive = interactive;
+	s->term_shell = term;
+}
+
 void				raw_term_mode(void)
 {
 	struct termios	term;
-	t_shell			*s;
 	int				pgid;
 	int				interactive;
 
@@ -71,10 +88,6 @@ void				raw_term_mode(void)
 		term.c_cc[VTIME] = 0;
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 		tgetent(NULL, getenv("TERM"));
-		s = get_shell();
-		s->pgid = pgid;
-		s->term = STDIN_FILENO;
-		s->interactive = interactive;
-		s->term_shell = term;
+		fill_shell(interactive, term, pgid);
 	}
 }

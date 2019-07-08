@@ -24,8 +24,17 @@ static void	stock_process(char **argv, t_token *token, int end_pipe, int fg)
 int			ft_pipe(char **argv, t_token *token, int end_pipe)
 {
 	t_job		*j;
+	t_process	*p;
 
 	stock_process(argv, token, end_pipe, 1);
+	if (check_last_command() == -5)
+	{
+		p = get_end_job()->first_process;
+		while (p->next)
+			p = p->next;
+		p->return_value = 1;
+		gest_return(1);
+	}
 	if (end_pipe == 2)
 	{
 		j = get_end_job();

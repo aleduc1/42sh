@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/07/07 16:58:39 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/08 00:13:56 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		flags(int argc, char **argv)
 }
 
 int			check_whitespace_input(char *input)
-{	
+{
 	int		i;
 
 	i = 0;
@@ -83,7 +83,6 @@ void		script_test(char **av, t_pos pos)
 	while (av[++i])
 	{
 		str = ft_strdup(av[i]);
-		parser_var_test(&str);
 		run(str, &pos);
 	}
 	exit(0);
@@ -146,14 +145,7 @@ int			main(int argc, char **argv, char **environ)
 		if (argc && argv && environ)
 			if ((input = prompt(multi_input, &pos)))
 			{
-				parser_var_test(&input);
-				if (check_last_command() != -5)
-					run(input, &pos);
-				else
-				{
-					ft_strdel(&input);
-					gest_return(1);
-				}
+				run(input, &pos);
 				job_notif();
 			}
 	}

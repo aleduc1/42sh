@@ -112,7 +112,7 @@ ft_test_basic()
 	test_name="Test command erro"
 	./$name "qwere" > $dossier/${n}a 2> $dossier/${n}ae
 	touch $dossier/${n}b
-	printf "42sh: command not found: qwere\n" > $dossier/${n}be
+	printf "$name: command not found: qwere\n" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -468,7 +468,7 @@ ft_test_builtin()
 	./$name "exit 34a" > $dossier/${n}a 2> $dossier/${n}ae
 	echo "$?" >> $dossier/${n}a
 	echo "exit" > $dossier/${n}be
-	echo "42sh: exit: 34a: numeric argument required" >> $dossier/${n}be
+	echo "$name: exit: 34a: numeric argument required" >> $dossier/${n}be
 	echo "255" > $dossier/${n}b
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
@@ -494,7 +494,7 @@ ft_test_builtin()
 	./$name "exit 34 22" > $dossier/${n}a 2> $dossier/${n}ae
 	touch $dossier/${n}a
 	echo "exit" > $dossier/${n}be
-	echo "42sh: exit: too many arguments" >> $dossier/${n}be
+	echo "$name: exit: too many arguments" >> $dossier/${n}be
 	touch $dossier/${n}b
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
@@ -820,7 +820,7 @@ ft_test_pipe()
 	test_name="Test pipe error"
 	./$name "/dev/null | wc" > $dossier/${n}a  2> $dossier/${n}ae
 	echo "       0       0       0" > $dossier/${n}b
-	echo "42sh: /dev/null: Permission denied" > $dossier/${n}be
+	echo "$name: /dev/null: Permission denied" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -938,7 +938,7 @@ ft_env()
 	test_name="Test env vide ls"
 	env -i ./$name "ls" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	printf "42sh: command not found: ls\n" > $dossier/${n}be
+	printf "$name: command not found: ls\n" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -985,8 +985,8 @@ ft_env()
 	test_name="Test env vide ls | wc"
 	env -i ./$name "ls | wc" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	printf "42sh: command not found: ls\n" > $dossier/${n}be
-	printf "42sh: command not found: wc\n" >> $dossier/${n}be
+	printf "$name: command not found: ls\n" > $dossier/${n}be
+	printf "$name: command not found: wc\n" >> $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1698,7 +1698,7 @@ ft_test_variable()
 	test_name="Test var \${:-salut}"
 	./$name "echo \${:-salut}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: \${:-salut}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:-salut}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1745,7 +1745,7 @@ ft_test_variable()
 	test_name="Test var \${:-}"
 	./$name "echo \${:-}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: \${:-}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:-}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1769,7 +1769,7 @@ ft_test_variable()
 	test_name="Test var \${:=}"
 	./$name "echo \${:=}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: \${:=}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:=}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1793,7 +1793,7 @@ ft_test_variable()
 	test_name="Test var \${:=coucou}"
 	./$name "echo \${:=coucou}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: \${:=coucou}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:=coucou}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1863,7 +1863,7 @@ ft_test_variable()
 	test_name="Test var \${:?}"
 	./$name "echo \${:?}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: \${:?}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:?}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1887,7 +1887,7 @@ ft_test_variable()
 	test_name="Test var \${:?coucou}"
 	./$name "echo \${:?coucou}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: \${:?coucou}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:?coucou}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1934,7 +1934,7 @@ ft_test_variable()
 	test_name="Test var \${TEARME:?salut}"
 	./$name "echo \${TEARME:?salut}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: TEARME: salut" > $dossier/${n}be
+	echo "$name: TEARME: salut" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1960,7 +1960,7 @@ ft_test_variable()
 	test_name="Test var \${TEARME:?}"
 	./$name "echo \${TEARME:?}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: TEARME: parameter null or not set" > $dossier/${n}be
+	echo "$name: TEARME: parameter null or not set" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1985,7 +1985,7 @@ ft_test_variable()
 	test_name="Test var \${:+}"
 	./$name "echo \${:+}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: \${:+}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:+}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2009,7 +2009,7 @@ ft_test_variable()
 	test_name="Test var \${:+coucou}"
 	./$name "echo \${:+coucou}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "42sh: \${:+coucou}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:+coucou}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2196,7 +2196,7 @@ ft_test_variable()
 
 	test_name="Test var \$0"
 	./$name "echo \$0" > $dossier/${n}a  2> $dossier/${n}ae
-	echo "42sh" > $dossier/${n}b
+	echo "$name" > $dossier/${n}b
 	touch $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
@@ -2298,7 +2298,7 @@ ft_test_return_value()
 	test_name="Test command not found ; echo \$?"
 	./$name "nimp" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "127" > $dossier/${n}b
-	echo "42sh: command not found: nimp" > $dossier/${n}be
+	echo "$name: command not found: nimp" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2321,7 +2321,7 @@ ft_test_return_value()
 	test_name="Test echo \${} ; echo \$?"
 	./$name "echo \${}" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "1" > $dossier/${n}b
-	echo "42sh: \${}: bad substitution" > $dossier/${n}be
+	echo "$name: \${}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2344,7 +2344,7 @@ ft_test_return_value()
 	test_name="Test /dev/null ; echo \$?"
 	./$name "/dev/null" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "126" > $dossier/${n}b
-	echo "42sh: /dev/null: Permission denied" > $dossier/${n}be
+	echo "$name: /dev/null: Permission denied" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2368,7 +2368,7 @@ ft_test_return_value()
 	./$name "/dev/null | wc" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "       0       0       0" > $dossier/${n}b
 	echo "0" >> $dossier/${n}b
-	echo "42sh: /dev/null: Permission denied" > $dossier/${n}be
+	echo "$name: /dev/null: Permission denied" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2391,7 +2391,7 @@ ft_test_return_value()
 	test_name="Test ls | /dev/null ; echo \$?"
 	./$name "ls | /dev/null" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "126" > $dossier/${n}b
-	echo "42sh: /dev/null: Permission denied" > $dossier/${n}be
+	echo "$name: /dev/null: Permission denied" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2414,7 +2414,7 @@ ft_test_return_value()
 	test_name="Test ls | nimp ; echo \$?"
 	./$name "ls | nimp" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "127" > $dossier/${n}b
-	echo "42sh: command not found: nimp" > $dossier/${n}be
+	echo "$name: command not found: nimp" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2438,7 +2438,7 @@ ft_test_return_value()
 	./$name "nimp | wc" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "       0       0       0" > $dossier/${n}b
 	echo "0" >> $dossier/${n}b
-	echo "42sh: command not found: nimp" > $dossier/${n}be
+	echo "$name: command not found: nimp" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else

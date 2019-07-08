@@ -12,6 +12,7 @@
 
 #include "sh21.h"
 #include "job.h"
+#include "builtins.h"
 
 int			launch_process(t_process *p, pid_t pgid, int fg)
 {
@@ -75,7 +76,8 @@ void		display_redirection(t_redirection *r)
 	ft_printf("error = %d\n", r->error);
 	while (r->redirect)
 	{
-		ft_printf("base = %d, new_fd = %d\n", r->redirect->base, r->redirect->new_fd);
+		ft_printf("base = %d, new_fd = %d\n",
+			r->redirect->base, r->redirect->new_fd);
 		r->redirect = r->redirect->next;
 	}
 }
@@ -138,6 +140,11 @@ static int	exec_pipe(t_job *j, t_process *p, int fg, pid_t pid)
 
 	verif = 0;
 	config_pid_process(pid, j->pgid, fg);
+	if (p->return_value == 1)
+	{
+		execve("/bin/test", NULL, NULL);
+		exit(1);
+	}
 	if ((verif = is_builtin(j, p, NULL)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
@@ -178,7 +185,7 @@ void		fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 static void	pipe_error(int error)
 {
 	ft_dprintf(error, "42sh: error pipe\n");
-	exit(1);
+	bt_exit(NULL);
 }
 
 int			edit_fd(int base, int origin, int new)
@@ -187,6 +194,17 @@ int			edit_fd(int base, int origin, int new)
 		return (new);
 	close(new);
 	return (base);
+}
+
+void		pipe_deplace_fd(t_job *j, t_process *p, int fd)
+{
+	if (p->r->in == j->r->in)
+		p->r->in = fd;
+	else
+	{
+		if (fd != j->r->in)
+			close(fd);
+	}
 }
 
 void		launch_job_pipe(t_job *j, int fg)
@@ -208,15 +226,7 @@ void		launch_job_pipe(t_job *j, int fg)
 			close(fd[1]);
 		p = p->next;
 		if (p)
-		{
-			if (p->r->in == j->r->in)
-				p->r->in = fd[0];
-			else
-			{
-				if (fd[0] != j->r->in)
-					close(fd[0]);
-			}
-		}
+			pipe_deplace_fd(j, p, fd[0]);
 	}
 	act_job(j, fg);
 }

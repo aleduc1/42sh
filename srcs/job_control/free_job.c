@@ -32,10 +32,9 @@ void		free_process(t_job **j)
 	}
 }
 
-void		clean_file(t_job *j)
+void		clean_close_fd(t_job *j)
 {
-	int			i;
-	t_process	*p;
+	int	i;
 
 	if (j->len_close && j->len_close > 0)
 	{
@@ -43,6 +42,13 @@ void		clean_file(t_job *j)
 		while (++i < j->len_close)
 			close(j->close_fd[i]);
 	}
+}
+
+void		clean_file(t_job *j)
+{
+	t_process	*p;
+
+	clean_close_fd(j);
 	p = j->first_process;
 	while (p)
 	{

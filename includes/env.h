@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 11:51:31 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/08 00:11:36 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct		s_process
 	int					completed;
 	int					stopped;
 	int					status;
+	int					return_value;
 	int					fg;
 	t_redirection		*r;
 	struct s_process	*next;

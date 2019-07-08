@@ -32,7 +32,7 @@ void		init_variable(void)
 
 	add_set_value("?", "0");
 	add_set_value("0", "42sh");
-	add_set_value("-", "");
+	add_set_value("-", "a");
 	add_set_value("#", "0");
 	s_shlvl = value_line_path("SHLVL", 0);
 	if (!s_shlvl)

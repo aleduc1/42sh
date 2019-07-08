@@ -91,17 +91,22 @@ static void	close_std(void)
 	}
 }
 
-int		bt_exit(t_job *j)
+static void	exec_reset_shell(void)
+{
+	close_std();
+	free_all_job();
+	default_term_mode();
+	delete_shell();
+}
+
+int			bt_exit(t_job *j)
 {
 	int	rt;
 
-	close_std();
 	get_env(1, NULL);
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
 	{
-		free_all_job();
-		delete_shell();
-		default_term_mode();
+		exec_reset_shell();
 		ft_dprintf(2, "exit\n");
 		exit(0);
 	}
@@ -110,9 +115,7 @@ int		bt_exit(t_job *j)
 		if (!j->first_process->cmd[2])
 		{
 			rt = ft_atoi(j->first_process->cmd[1]);
-			free_all_job();
-			delete_shell();
-			default_term_mode();
+			exec_reset_shell();
 			ft_dprintf(2, "exit\n");
 			exit(rt);
 		}
@@ -121,8 +124,6 @@ int		bt_exit(t_job *j)
 	}
 	ft_dprintf(2, "42sh: exit: %s: numeric argument required\n",
 			j->first_process->cmd[1]);
-	free_all_job();
-	delete_shell();
-	default_term_mode();
+	exec_reset_shell();
 	exit(255);
 }

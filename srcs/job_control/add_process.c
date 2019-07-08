@@ -43,6 +43,7 @@ void	add_process(char **av, t_token *t, int fg)
 		p = p->next;
 	}
 	p->cmd = ft_arraydup(av);
+	parser_var(&(p->cmd));
 	p->fg = fg;
 	p->r = fill_redirection(t);
 }

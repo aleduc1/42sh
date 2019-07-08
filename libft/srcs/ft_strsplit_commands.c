@@ -19,7 +19,7 @@ static int	is_split(char *str)
 	if (*str == '&' && ((!*(str + 1)) || *(str + 1) != '&') && ((!*(str - 1))
 				|| *(str - 1) != '&'))
 		return (1);
-   return (0);
+	return (0);
 }
 
 static int	cnt_words(char *s)

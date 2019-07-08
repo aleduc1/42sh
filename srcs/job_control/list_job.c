@@ -26,6 +26,7 @@ t_process	*init_process(void)
 	p->stopped = 0;
 	p->status = 0;
 	p->fg = 0;
+	p->return_value = 0;
 	p->r = NULL;
 	p->next = NULL;
 	return (p);

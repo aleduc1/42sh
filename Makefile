@@ -35,7 +35,7 @@ VPATH = objs:\
 		srcs/parser/ast:\
 		srcs/parser/command:\
 		srcs/commands:\
-		srcs/job-control:\
+		srcs/job_control:\
 		srcs/environnement:\
 		srcs/cleaning:\
 		srcs/interpreter:\

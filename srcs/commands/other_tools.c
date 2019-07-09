@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/01 16:13:04 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/07/05 02:17:05 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int			gest_error_path(char *cmd, t_redirection *r)
 {
 	if (check_last_command() == -6)
 	{
-		ft_dprintf(r->error, "21sh: %s: Permission denied\n", cmd);
+		ft_dprintf(r->error, "42sh: %s: Permission denied\n", cmd);
 		gest_return(126);
 		return (126);
 	}
-	ft_dprintf(r->error, "21sh: command not found: %s\n", cmd);
+	ft_dprintf(r->error, "42sh: command not found: %s\n", cmd);
 	gest_return(127);
 	return (127);
 }
@@ -34,13 +34,11 @@ int			gest_error_path(char *cmd, t_redirection *r)
 **	return -1 if it's not a builtin
 */
 
-int			is_builtin_env(t_process *p, char **av)
+static int	is_builtin_env(t_process *p, char **av)
 {
 	int	verif;
 
-	if (ft_strequ(av[0], "env"))
-		verif = builtin_env(p->r, av);
-	else if (ft_strequ(av[0], "set"))
+	if (ft_strequ(av[0], "set"))
 		verif = builtin_set(p->r);
 	else if (ft_strequ(av[0], "setenv"))
 		verif = edit_setenv(av[1], av[2]);
@@ -54,6 +52,20 @@ int			is_builtin_env(t_process *p, char **av)
 		verif = edit_set(av, p->r);
 	else
 		verif = -1;
+	return (verif);
+}
+
+static int	is_builtin_jobs(t_process *p, char **av)
+{
+	int	verif;
+
+	verif = -1;
+	if (ft_strequ(av[0], "jobs"))
+		verif = bt_jobs(av, p->r);
+	else if (ft_strequ(av[0], "fg"))
+		verif = bt_fg();
+	else if (ft_strequ(av[0], "bg"))
+		verif = bt_bg();
 	return (verif);
 }
 
@@ -72,12 +84,8 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = (builtin_cd(av) < 0) ? -2 : 0;
 	else if (ft_strequ(av[0], "exit"))
 		verif = bt_exit(j);
-	else if (ft_strequ(av[0], "jobs"))
-		verif = bt_jobs(av, p->r);
-	else if (ft_strequ(av[0], "fg"))
-		verif = bt_fg();
-	else if (ft_strequ(av[0], "bg"))
-		verif = bt_bg();
+	else if ((verif = is_builtin_jobs(p, av)) != -1)
+		;
 	else if (ft_strequ(av[0], "fc"))
 		verif = builtin_fc(av, pos);
 	else if (ft_strequ(av[0], "test"))
@@ -96,6 +104,10 @@ int			gest_return(int verif)
 {
 	char	*value;
 
+	if (verif == 13)
+		return (127);
+	if (verif > 1 && verif < 23)
+		verif = 128 + verif;
 	if (verif > 255)
 		verif %= 255;
 	value = ft_itoa(verif);

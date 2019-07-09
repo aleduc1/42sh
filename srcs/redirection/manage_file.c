@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 16:44:29 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/20 15:11:01 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:41:28 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			file_exist(char *name)
 		close(fd);
 		return (1);
 	}
-	ft_printf("21sh: error create file: %s\n", name);
+	ft_printf("42sh: error create file: %s\n", name);
 	return (-1);
 }
 
@@ -42,7 +42,7 @@ static int	open_file_great(t_redir *redir)
 	if (redir->filename)
 		redir->dest_fd = ft_itoa(file_exist(redir->filename));
 	else
-		return (0);
+		return (fcntl(ft_atoi(redir->dest_fd), F_GETFD));
 	if (ft_atoi(redir->dest_fd) == -1)
 		return (-1);
 	ft_strdel(&redir->dest_fd);
@@ -65,7 +65,7 @@ static int	open_file_dless(t_redir *redir, t_pos *pos)
 
 	if (!(redir->heredoc))
 		return (-1);
-	name = ft_strdup("/tmp/.21sh0");
+	name = ft_strdup("/tmp/.42sh0");
 	redir->filename = name;
 	tmp = ft_strdup(redir->heredoc);
 	str = heredoc(tmp, pos);
@@ -118,11 +118,20 @@ int			close_file_command(t_lex *lex, t_redirection **r)
 
 int			open_file_command(t_redir *redir, t_pos *pos)
 {
+	int	verif;
+
+	verif = 0;
 	if (redir->type == GREAT || redir->type == DGREAT || redir->type == LESS
 		|| redir->type == AMPGREAT || redir->type == AMPLESS
 		|| redir->type == LESSAMP || redir->type == GREATAMP)
-		open_file_great(redir);
+	{
+		if ((verif = open_file_great(redir)) == -1)
+			ft_dprintf(STDERR_FILENO, "42sh: bad file descriptor\n");
+	}
 	else if (redir->type == DLESS)
-		open_file_dless(redir, pos);
-	return (0);
+		if ((verif = open_file_dless(redir, pos)) == -1)
+			ft_dprintf(STDERR_FILENO, "42sh: bad file descriptor\n");
+	if (verif > -1)
+		verif = 0;
+	return (verif);
 }

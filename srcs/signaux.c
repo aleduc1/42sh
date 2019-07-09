@@ -28,8 +28,11 @@ void	ign_signaux(void)
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
 	signal(SIGPIPE, SIG_IGN);
-	// signal(SIGCHLD, SIG_IGN);
 }
+
+/*
+** bug si dfl SIGTTOU
+*/
 
 void	dfl_signaux(void)
 {
@@ -39,6 +42,5 @@ void	dfl_signaux(void)
 	signal(SIGSTOP, SIG_DFL);
 	signal(SIGCONT, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
-	// signal(SIGTTOU, SIG_DFL);
 	signal(SIGPIPE, SIG_DFL);
 }

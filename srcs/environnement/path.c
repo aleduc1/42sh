@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   other_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/06/02 18:24:02 by sbelondr         ###   ########.fr       */
@@ -72,7 +72,8 @@ static char	*check_env_path(char *command)
 
 char		*is_in_path(char *command)
 {
-	char	*result;
+	struct stat	statbuf;
+	char		*result;
 
 	result = NULL;
 	if (!command)
@@ -80,7 +81,13 @@ char		*is_in_path(char *command)
 	result = check_env_path(command);
 	if (result)
 		return (result);
-	if (access(command, F_OK) >= 0)
+	if (stat(command, &statbuf) != 0)
+		return (NULL);
+	if (S_ISDIR(statbuf.st_mode) == 1)
+		return (NULL);
+	if (access(command, F_OK) >= 0 && command[0]
+		&& command[1] && (command[0] == '/'
+		|| (command[0] == '.' && command[1] == '/')))
 	{
 		result = ft_strdup(command);
 		check_exec_path(&result);

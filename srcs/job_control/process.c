@@ -6,12 +6,17 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
+<<<<<<< HEAD:srcs/job-control/process.c
 /*   Updated: 2019/07/01 17:47:29 by sbelondr         ###   ########.fr       */
+=======
+/*   Updated: 2019/07/05 02:17:20 by sbelondr         ###   ########.fr       */
+>>>>>>> feat_job:srcs/job_control/process.c
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include "job.h"
+#include "builtins.h"
 
 int			launch_process(t_process *p, pid_t pgid, int fg)
 {
@@ -35,7 +40,7 @@ int			launch_process(t_process *p, pid_t pgid, int fg)
 	}
 	redirection_fd(p->r);
 	verif = execve(p->cmd_path, p->cmd, environ);
-	ft_dprintf(p->r->error, "21sh: command not found: %s\n", p->cmd[0]);
+	ft_dprintf(p->r->error, "42sh: command not found: %s\n", p->cmd[0]);
 	execve("/bin/test", NULL, NULL);
 	exit(verif);
 }
@@ -68,6 +73,19 @@ static void	edit_pid_shell(int pid, t_job *j, t_process *p)
 	}
 }
 
+void		display_redirection(t_redirection *r)
+{
+	ft_printf("in = %d\n", r->in);
+	ft_printf("out = %d\n", r->out);
+	ft_printf("error = %d\n", r->error);
+	while (r->redirect)
+	{
+		ft_printf("base = %d, new_fd = %d\n",
+			r->redirect->base, r->redirect->new_fd);
+		r->redirect = r->redirect->next;
+	}
+}
+
 int			launch_job(t_job *j, int fg)
 {
 	t_process	*p;
@@ -92,7 +110,11 @@ int			launch_job(t_job *j, int fg)
 	return (verif);
 }
 
+<<<<<<< HEAD:srcs/job-control/process.c
 void	config_pid_process(pid_t pid, pid_t pgid, int fg)
+=======
+void		config_pid_process(pid_t pid, pid_t pgid, int fg)
+>>>>>>> feat_job:srcs/job_control/process.c
 {
 	t_shell	*s;
 
@@ -110,14 +132,14 @@ void	config_pid_process(pid_t pid, pid_t pgid, int fg)
 	}
 }
 
-void	launch_process_test(t_process *p)
+void		launch_process_test(t_process *p)
 {
 	char	**environ;
-	
+
 	environ = create_list_env(get_env(0, NULL), 0);
 	execve(p->cmd_path, p->cmd, environ);
-	perror ("execve");
-	exit (1);
+	ft_dprintf(p->r->error, "42sh: command not found\n");
+	exit(1);
 }
 
 static int	exec_pipe(t_job *j, t_process *p, int fg, pid_t pid)
@@ -126,6 +148,11 @@ static int	exec_pipe(t_job *j, t_process *p, int fg, pid_t pid)
 
 	verif = 0;
 	config_pid_process(pid, j->pgid, fg);
+	if (p->return_value == 1)
+	{
+		execve("/bin/test", NULL, NULL);
+		exit(1);
+	}
 	if ((verif = is_builtin(j, p, NULL)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
@@ -141,7 +168,7 @@ static int	exec_pipe(t_job *j, t_process *p, int fg, pid_t pid)
 	exit(verif);
 }
 
-void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
+void		fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 {
 	pid_t	pid;
 
@@ -149,7 +176,9 @@ void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 	if (pid == 0)
 	{
 		if (fd[0] != p->r->in)
-				close(fd[0]);
+			close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
 		exec_pipe(j, p, fg, pid);
 	}
 	else if (pid < 0)
@@ -158,38 +187,54 @@ void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 		exit(1);
 	}
 	else
-	{
 		edit_pid_shell(pid, j, p);
+}
+
+static void	pipe_error(int error)
+{
+	ft_dprintf(error, "42sh: error pipe\n");
+	bt_exit(NULL);
+}
+
+int			edit_fd(int base, int origin, int new)
+{
+	if (base == origin)
+		return (new);
+	close(new);
+	return (base);
+}
+
+void		pipe_deplace_fd(t_job *j, t_process *p, int fd)
+{
+	if (p->r->in == j->r->in)
+		p->r->in = fd;
+	else
+	{
+		if (fd != j->r->in)
+			close(fd);
 	}
 }
 
-void	launch_job_pipe(t_job *j, int fg)
+void		launch_job_pipe(t_job *j, int fg)
 {
 	t_process	*p;
 	int			fd[2];
 
 	p = j->first_process;
+	fd[0] = j->r->in;
 	while (p)
 	{
 		if (p->next)
-		{
 			if (pipe(fd) == -1)
-			{
-				ft_dprintf(j->r->error, "42sh: error pipe\n");
-				exit(1);
-			}
-			p->r->out = fd[1];
-		}
-		else
-			p->r->out = j->r->out;
+				pipe_error(j->r->error);
 		fork_pipe(j, p, fg, fd);
 		if (p->r->in != j->r->in)
 			close(p->r->in);
-		if (p->r->out != j->r->out)
-			close(p->r->out);
+		if (fd[1] != j->r->out)
+			close(fd[1]);
 		p = p->next;
 		if (p)
-			p->r->in = fd[0];
+			pipe_deplace_fd(j, p, fd[0]);
 	}
 	act_job(j, fg);
 }

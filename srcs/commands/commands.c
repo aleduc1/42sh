@@ -20,7 +20,7 @@
 
 void		display_error_command(t_redirection *r, char **cmd)
 {
-	ft_dprintf(r->error, "21sh: command not found: %s\n", cmd[0]);
+	ft_dprintf(r->error, "42sh: command not found: %s\n", cmd[0]);
 }
 
 /*
@@ -53,8 +53,16 @@ void		display_lst_job(t_job *j)
 			p = p->next;
 		}
 		sv = sv->next;
-		ft_printf("===========================\n");
 	}
+}
+
+int			condition_clean_list(t_job *j, pid_t pid)
+{
+	if ((((j->first_process->completed || j->first_process->pid == 0)
+		&& j->first_process->stopped == 0))
+		|| j->first_process->pid == pid)
+		return (1);
+	return (0);
 }
 
 void		clean_fuck_list(pid_t pid)
@@ -70,9 +78,7 @@ void		clean_fuck_list(pid_t pid)
 	while (*j)
 	{
 		next = (*j)->next;
-		if (((((*j)->first_process->completed || (*j)->first_process->pid == 0)
-		&& (*j)->first_process->stopped == 0))
-		|| (*j)->first_process->pid == pid)
+		if (condition_clean_list(*j, pid))
 		{
 			if (last)
 				last->next = next;
@@ -127,20 +133,7 @@ int			file_to_close(t_token *t, t_job *j)
 	return (verif);
 }
 
-t_redirection	*base_redirection(void)
-{
-	t_redirection	*r;
-
-	if (!(r = (t_redirection*)malloc(sizeof(t_redirection) * 1)))
-		return (NULL);
-	r->in = STDIN_FILENO;
-	r->out = STDOUT_FILENO;
-	r->error = STDERR_FILENO;
-	r->redirect = NULL;
-	return (r);
-}
-
-t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
+t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 {
 	t_job			*j;
 	t_process		*p;
@@ -148,24 +141,23 @@ t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r)
 
 	j = get_first_job(NULL);
 	process_id = 0;
-	while (j->pgid != 0)
+	while (j && j->pgid != 0)
 	{
-		process_id = j->first_process->process_id;
+		process_id = j->first_process ? j->first_process->process_id : 0;
 		if (!j->next)
 			j->next = init_job();
 		j = j->next;
 	}
 	file_to_close(t, j);
 	j->pgid = 0;
+	j->notif_stop = 0;
 	j->r = base_redirection();
 	p = j->first_process;
 	p->cmd = ft_arraydup(argv);
-	p->process_id = process_id + 1;
 	parser_var(&p->cmd);
-	if (t)
-		p->r = fill_redirection(t);
-	else
-		p->r = r;
+	p->process_id = process_id + 1;
+	p->fg = fg;
+	p->r = (t) ? fill_redirection(t) : r;
 	return (j);
 }
 
@@ -176,8 +168,14 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 	t_process		*p;
 
 	verif = 0;
-	j = edit_lst_job(argv, t, NULL);
+	j = create_new_job(argv, t, NULL, 1);
 	p = j->first_process;
+	if (check_last_command() == -5)
+	{
+		gest_return(1);
+		clean_fuck_list(0);
+		return (1);
+	}
 	if ((verif = is_builtin(j, p, pos)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
@@ -186,8 +184,7 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 		else
 			verif = gest_error_path(p->cmd[0], p->r);
 	}
-	if (p->completed == 1 || p->pid == 0 || p->stopped == 0)
-		clean_fuck_list(0);
+	clean_fuck_list(0);
 	return (verif);
 }
 
@@ -249,7 +246,7 @@ int			ft_ampersand(char **argv, t_token *token)
 	t_process		*p;
 
 	verif = 0;
-	j = edit_lst_job(argv, token, NULL);
+	j = create_new_job(argv, token, NULL, 1);
 	p = j->first_process;
 	if ((verif = is_builtin(j, p, NULL)) == -1)
 	{

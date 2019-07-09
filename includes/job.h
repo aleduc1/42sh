@@ -16,8 +16,6 @@
 #include "sh21.h"
 #include "env.h"
 
-t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r);
-
 /*
 ** shell_struct.c
 */
@@ -54,7 +52,7 @@ void			free_all_job(void);
 int				launch_job(t_job *j, int fg);
 int				launch_process(t_process *p, pid_t pgid, int fg);
 void			act_job(t_job *j, int fg);
-void 			launch_job_pipe(t_job *j, int fg);
+void			launch_job_pipe(t_job *j, int fg);
 
 /*
 ** add_job.c
@@ -75,9 +73,15 @@ void			wait_for_job(t_job *j);
 void			update_status(void);
 int				mark_process_status(pid_t pid, int status);
 
+/*
+** commands.c
+*/
 
+t_job			*create_new_job(char **argv, t_token *t,
+					t_redirection *r, int fg);
+void			display_lst_job(t_job *j);
+void			clean_fuck_list(pid_t pid);
 
-void		display_lst_job(t_job *j);
-void		clean_fuck_list(pid_t pid);
+void			bt_jobs_s(t_job *j, int is_stopped, t_redirection *r);
 
 #	endif

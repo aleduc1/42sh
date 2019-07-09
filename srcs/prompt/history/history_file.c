@@ -43,6 +43,7 @@ void		file_to_history(t_pos *pos)
 		pos->historysum++;
 		ft_strdel(&history_line);
 	}
+	close(fd);
 }
 
 char		*history_no_double(t_pos *pos)

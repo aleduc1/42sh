@@ -50,35 +50,54 @@ char			*gest_expansion(char *key, char *value)
 
 int				is_other_expansion(char *tmp, char **dst)
 {
+	char	*stock;
+	char	*stock_b;
+
 	if (tmp[0] == '#')
-	{
-		ft_strdel(dst);
-		(*dst) = parameter_hash_first(tmp + 1);
-	}
+		stock = parameter_hash_first(tmp + 1);
 	else if (ft_chr_index(tmp, '#') > 0)
-	{
-		ft_strdel(dst);
-		(*dst) = parameter_hash_end(tmp);
-	}
+		stock = parameter_hash_end(tmp);
 	else if (ft_chr_index(tmp, '%') > 0)
-	{
-		ft_strdel(dst);
-		(*dst) = parameter_percents(tmp);
-	}
+		stock = parameter_percents(tmp);
 	else
 		return (0);
+	if (stock)
+	{
+		stock_b = ft_strjoin(*dst, stock);
+		ft_strdel(dst);
+		ft_strdel(&stock);
+		*dst = stock_b;
+	}
 	return (1);
 }
 
 static void		display_error_expansion(char *src)
 {
-	ft_dprintf(STDERR_FILENO, "21sh: ${%s}: bad substitution\n", src);
+	ft_dprintf(STDERR_FILENO, "42sh: ${%s}: bad substitution\n", src);
 	gest_return(-5);
+}
+
+void			manage_parameter_extension(char **dst, char *tmp, int i)
+{
+	char	*key;
+	char	*tmp_b;
+
+	key = ft_strsub(tmp, 0, i);
+	if ((!key) || ft_strequ(key, ""))
+	{
+		display_error_expansion(tmp);
+		return ;
+	}
+	tmp_b = gest_expansion(key, tmp + i + 1);
+	ft_strdel(&key);
+	key = ft_strjoin(*dst, tmp_b);
+	ft_strdel(dst);
+	ft_strdel(&tmp_b);
+	(*dst) = key;
 }
 
 void			parameter_expansion(char *tmp, char **dst)
 {
-	char	*key;
 	int		i;
 
 	if ((!tmp) || ft_strequ(tmp, ""))
@@ -92,15 +111,5 @@ void			parameter_expansion(char *tmp, char **dst)
 			modify_dst(tmp, dst);
 	}
 	else
-	{
-		key = ft_strsub(tmp, 0, i);
-		ft_strdel(&(*dst));
-		if ((!key) || ft_strequ(key, ""))
-		{
-			display_error_expansion(tmp);
-			return ;
-		}
-		(*dst) = gest_expansion(key, tmp + i + 1);
-		ft_strdel(&key);
-	}
+		manage_parameter_extension(dst, tmp, i);
 }

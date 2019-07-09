@@ -47,25 +47,25 @@ void		error_cd(int code, char *str)
 
 	if (code == 1)
 	{
-		ft_dprintf(2, "21sh: cd: Too many args for cd command\n");
+		ft_dprintf(2, "42sh: cd: Too many args for cd command\n");
 		return ;
 	}
 	code = access(str, F_OK);
 	if (code == -1)
 	{
-		ft_dprintf(2, "21sh: cd: The directory '%s'", str);
+		ft_dprintf(2, "42sh: cd: The directory '%s'", str);
 		ft_dprintf(2, " does not exist\n");
 		return ;
 	}
 	stat(str, &st);
 	if (!S_ISDIR(st.st_mode))
 	{
-		ft_dprintf(2, "21sh: cd: '%s' is not a directory\n", str);
+		ft_dprintf(2, "42sh: cd: '%s' is not a directory\n", str);
 		return ;
 	}
 	code = access(str, X_OK);
 	if (code == -1)
-		ft_dprintf(2, "21sh: cd: Permission denied: '%s'\n", str);
+		ft_dprintf(2, "42sh: cd: Permission denied: '%s'\n", str);
 	else
-		ft_dprintf(2, "21sh: cd: An unknown error has occurred.\n");
+		ft_dprintf(2, "42sh: cd: An unknown error has occurred.\n");
 }

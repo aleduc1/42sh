@@ -19,19 +19,22 @@ static void	standard_redirection(t_redirection *r)
 		&& ft_fd_redirect_exist(r->redirect, STDIN_FILENO) == 0)
 	{
 		dup2(r->in, STDIN_FILENO);
-		close(r->in);
+		if (verif_close(r->in))
+			close(r->in);
 	}
 	if (r->out != STDOUT_FILENO
 		&& ft_fd_redirect_exist(r->redirect, STDOUT_FILENO) == 0)
 	{
 		dup2(r->out, STDOUT_FILENO);
-		close(r->out);
+		if (verif_close(r->out))
+			close(r->out);
 	}
 	if (r->error != STDERR_FILENO
 		&& ft_fd_redirect_exist(r->redirect, STDERR_FILENO) == 0)
 	{
 		dup2(r->error, STDERR_FILENO);
-		close(r->error);
+		if (verif_close(r->error))
+			close(r->error);
 	}
 }
 

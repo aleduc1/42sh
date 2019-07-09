@@ -25,6 +25,8 @@ t_process	*init_process(void)
 	p->completed = 0;
 	p->stopped = 0;
 	p->status = 0;
+	p->fg = 0;
+	p->return_value = 0;
 	p->r = NULL;
 	p->next = NULL;
 	return (p);
@@ -37,6 +39,7 @@ t_job		*init_job(void)
 	if (!(j = (t_job*)malloc(sizeof(t_job) * 1)))
 		return (NULL);
 	j->first_process = init_process();
+	j->cmd = 0;
 	j->pgid = 0;
 	j->notified = 0;
 	j->notif_stop = 0;

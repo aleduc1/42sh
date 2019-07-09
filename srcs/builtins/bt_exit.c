@@ -63,16 +63,50 @@
 ** valeur de retour du shell
 */
 
-int		bt_exit(t_job *j)
+static void	close_std(void)
+{
+	char	*tmp;
+	int		std;
+
+	tmp = value_line_path("STDIN", 0);
+	if (tmp)
+	{
+		std = ft_atoi(tmp);
+		close(std);
+		ft_strdel(&tmp);
+	}
+	tmp = value_line_path("STDOUT", 0);
+	if (tmp)
+	{
+		std = ft_atoi(tmp);
+		close(std);
+		ft_strdel(&tmp);
+	}
+	tmp = value_line_path("STDERR", 0);
+	if (tmp)
+	{
+		std = ft_atoi(tmp);
+		close(std);
+		ft_strdel(&tmp);
+	}
+}
+
+static void	exec_reset_shell(void)
+{
+	close_std();
+	free_all_job();
+	default_term_mode();
+	delete_shell();
+}
+
+int			bt_exit(t_job *j)
 {
 	int	rt;
 
 	get_env(1, NULL);
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
 	{
-		free_all_job();
-		delete_shell();
-		default_term_mode();
+		exec_reset_shell();
 		ft_dprintf(2, "exit\n");
 		exit(0);
 	}
@@ -81,18 +115,15 @@ int		bt_exit(t_job *j)
 		if (!j->first_process->cmd[2])
 		{
 			rt = ft_atoi(j->first_process->cmd[1]);
-			free_all_job();
-			delete_shell();
-			default_term_mode();
+			exec_reset_shell();
 			ft_dprintf(2, "exit\n");
 			exit(rt);
 		}
-		ft_dprintf(2, "21sh: exit: too many arguments\n");
+		ft_dprintf(2, "42sh: exit: too many arguments\n");
 		return (1);
 	}
-	ft_dprintf(2, "21sh: exit: %s: numeric argument required\n", j->first_process->cmd[1]);
-	free_all_job();
-	delete_shell();
-	default_term_mode();
+	ft_dprintf(2, "42sh: exit: %s: numeric argument required\n",
+			j->first_process->cmd[1]);
+	exec_reset_shell();
 	exit(255);
 }

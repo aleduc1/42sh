@@ -50,7 +50,7 @@ void		clean_file(t_job *j)
 
 	clean_close_fd(j);
 	p = j->first_process;
-	while (p)
+	while (p && p->r)
 	{
 		if (p->r->in != STDIN_FILENO)
 			if (verif_close(p->r->in))

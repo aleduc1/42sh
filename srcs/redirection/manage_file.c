@@ -77,7 +77,7 @@ static int	open_file_dless(t_redir *redir, t_pos *pos)
 	redir->filename = name;
 	tmp = ft_strdup(redir->heredoc);
 	str = heredoc(tmp, pos);
-	ft_strdel(&tmp);
+	// ft_strdel(&tmp);
 	if (!str)
 		return (-1);
 	ft_remove_last_chr(&str);

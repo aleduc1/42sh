@@ -161,7 +161,8 @@ SRCS_NAMES = main.c \
 			 apply_parser_var.c\
 			 free_job.c\
 			 list_job.c\
-			 test_quote.c
+			 test_quote.c\
+			 remove_quote.c
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 HEADERS_NAMES = sh21.h lexer.h parser.h env.h builtins.h job.h

@@ -97,13 +97,13 @@ static void	exec_reset_shell(void)
 	free_all_job();
 	default_term_mode();
 	delete_shell();
+	get_env(1, NULL);
 }
 
 int			bt_exit(t_job *j)
 {
 	int	rt;
 
-	get_env(1, NULL);
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
 	{
 		exec_reset_shell();

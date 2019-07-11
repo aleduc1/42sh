@@ -147,9 +147,7 @@ void		parser_var_test(char **value)
 		expand = manage_is_quote((*value)[i], expand);
 		if (expand <= 0 && ((*value)[i] == '$'
 			|| ((*value)[i] == '~' && is_expand_tild(*value, i, expand))))
-		{
 			last = apply_parser_var_test(*value, &dst, &i, last);
-		}
 	}
 	if (i != last)
 		copy_value(*value, &dst, last, i);
@@ -166,4 +164,5 @@ void		parser_var(char ***value)
 		return ;
 	while ((*value)[++i])
 		parser_var_test(&((*value)[i]));
+	remove_quote(value);
 }

@@ -155,6 +155,7 @@ t_env				*get_env(int is_end, t_env *head);
 void				parser_var(char ***value);
 char				*search_var(char *src);
 void				parser_var_simple(char **value);
+int					manage_is_quote(char c, int expand);
 
 /*
 ** apply_parser_var.c
@@ -315,5 +316,11 @@ void				display_redirection(t_redirection *r);
 */
 
 int					test_quote(char *name);
+
+/*
+** remove_quote.c
+*/
+
+void				remove_quote(char ***value);
 
 #	endif

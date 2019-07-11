@@ -16,12 +16,30 @@
 ** ft_strlen(parameter)
 */
 
+int		check_format_variable(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
+			return (0);
+	return (1);
+}
+
 char	*parameter_hash_first(char *parameter)
 {
 	int		len;
 	char	*src;
 
 	len = 0;
+	if (check_format_variable(parameter) == 0)
+	{
+		src = ft_strjoin("#", parameter);
+		display_error_expansion(src);
+		ft_strdel(&src);
+		return (NULL);
+	}
 	src = value_line_path(parameter, 0);
 	if (src)
 	{
@@ -66,6 +84,12 @@ char	*parameter_hash_end(char *value)
 
 	index = ft_chr_index(value, '#');
 	stock = ft_strsub(value, 0, index);
+	if (check_format_variable(stock) == 0)
+	{
+		ft_strdel(&stock);
+		display_error_expansion(value);
+		return (NULL);
+	}
 	parameter = value_line_path(stock, 0);
 	ft_strdel(&stock);
 	if (!parameter)
@@ -103,6 +127,12 @@ char	*parameter_percents(char *value)
 
 	index = ft_chr_index(value, '%');
 	stock = ft_strsub(value, 0, index);
+	if (check_format_variable(stock) == 0)
+	{
+		ft_strdel(&stock);
+		display_error_expansion(value);
+		return (NULL);
+	}
 	parameter = value_line_path(stock, 0);
 	if (!parameter)
 		return (NULL);

@@ -20,7 +20,7 @@ int	ft_numlen(int n)
 	while (n != 0)
 	{
 		n /= 10;
-		cnt++;
+		++cnt;
 	}
 	return (cnt);
 }

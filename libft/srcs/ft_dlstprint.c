@@ -45,7 +45,7 @@ int		ft_dlstiter(t_dlist **head)
 	ptr = *head;
 	while (ptr)
 	{
-		count++;
+		++count;
 		ptr = ptr->next;
 	}
 	return (count);

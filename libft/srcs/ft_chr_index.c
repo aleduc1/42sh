@@ -16,7 +16,7 @@ int				ft_chr_index(char *s, char c)
 
 	i = 0;
 	while (s[i] && s[i] != c)
-		i++;
+		++i;
 	if (s[i] && s[i] == c)
 		return (i);
 	return (-1);

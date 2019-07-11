@@ -21,7 +21,7 @@ int		ft_lstsize(t_lst **head)
 	count = 0;
 	while (curlist)
 	{
-		count++;
+		++count;
 		curlist = curlist->next;
 	}
 	return (count);

@@ -25,7 +25,7 @@ char	**ft_arraysub(char **src, int start, int len)
 	while (++i < len && src[start])
 	{
 		dst[i] = ft_strdup(src[start]);
-		start++;
+		++start;
 	}
 	dst[i] = NULL;
 	return (dst);

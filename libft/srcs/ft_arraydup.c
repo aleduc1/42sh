@@ -22,7 +22,7 @@ char	**ft_arraydup(char **line)
 	if (!line)
 		return (NULL);
 	while (line[i])
-		i++;
+		++i;
 	len = i;
 	if (!(dst = (char**)malloc(sizeof(char*) * (i + 1))))
 		return (NULL);

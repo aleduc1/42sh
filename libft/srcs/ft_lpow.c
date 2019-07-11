@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_lpow.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 14:41:27 by aleduc            #+#    #+#             */
-/*   Updated: 2017/11/24 13:04:54 by aleduc           ###   ########.fr       */
+/*   Created: 2019/06/10 09:49:37 by apruvost          #+#    #+#             */
+/*   Updated: 2019/06/11 14:58:12 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+long	ft_lpow(long a, long b)
 {
-	size_t				i;
-	unsigned char		*ptr;
+	long	p;
+	long	i;
 
+	if (a == 0)
+		return (1);
+	p = a;
 	i = 0;
-	ptr = (unsigned char *)b;
-	while (i < len)
+	while (i < b)
 	{
-		ptr[i] = (unsigned char)c;
+		p *= a;
 		++i;
 	}
-	return (b);
+	return (p);
 }

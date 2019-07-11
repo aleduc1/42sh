@@ -111,6 +111,10 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = builtin_fc(av, pos);
 	else if (ft_strequ(av[0], "test"))
 		verif = builtin_fc(av, pos);
+	else if (ft_strequ(av[0], "alias"))
+		verif = bt_alias(av);
+	else if (ft_strequ(av[0], "unalias"))
+		verif = bt_unalias(av);
 	else
 		verif = -1;
 	return (verif);

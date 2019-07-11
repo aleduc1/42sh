@@ -15,6 +15,10 @@
 #include "parser.h"
 #include "env.h"
 #include "job.h"
+#include "builtins.h"
+
+t_ht_hash	*g_hash_table;
+t_ht_hash	*g_alias_table;
 
 int			siginthandler(int signum)
 {
@@ -58,6 +62,7 @@ void		run(char *input, t_pos *pos)
 
 	lex = NULL;
 	ast = NULL;
+	input = alias_replace(input);
 	if ((check_whitespace_input(input)) && (lex = lexer(input)))
 	{
 		ft_strdel(&input);
@@ -126,6 +131,15 @@ static void	edit_shell(void)
 	cpy_std(in, out, error);
 }
 
+static void	init_alias(void)
+{
+	g_hash_table = ht_hash_new();
+	g_alias_table = ht_hash_new();
+	ht_hash_insert(g_alias_table, "ls", "ls -G");
+	ht_hash_insert(g_alias_table, "..", "cd ..");
+	ht_hash_insert(g_alias_table, "-", "cd -");
+}
+
 int			main(int argc, char **argv, char **environ)
 {
 	t_multi	*multi_input;
@@ -138,6 +152,7 @@ int			main(int argc, char **argv, char **environ)
 	(argc == 1) ? welcome() : 0;
 	flags(argc, argv);
 	init_prompt(&pos);
+	init_alias();
 	if (argc > 1)
 		script_test(argv + 1, pos);
 	while (21)

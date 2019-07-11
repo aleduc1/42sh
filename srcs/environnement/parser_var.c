@@ -53,26 +53,6 @@ char		*search_var(char *src)
 	return (dst);
 }
 
-void		parser_var_simple(char **value)
-{
-	char	*tmp;
-
-	if (*value)
-	{
-		if ((*value)[0] == '"')
-			ft_remove_quote(value);
-		if ((*value)[0] == '\'')
-			ft_remove_quote(value);
-		else if (ft_strchr_exist(*value, '$')
-				|| (*value)[0] == '~')
-		{
-			tmp = search_var(*value);
-			ft_strdel(value);
-			(*value) = tmp ? tmp : NULL;
-		}
-	}
-}
-
 int			manage_is_quote(char c, int expand)
 {
 	if (c == '\'')
@@ -103,7 +83,7 @@ int			is_expand_tild(char *value, int index, int expand)
 {
 	if (expand != 0)
 		return (0);
-	if ((!value[index - 1])
+	if (index - 1 < 0
 		|| ft_isspace(value[index - 1]) || expand_authorize(value[index - 1]))
 		if ((!value[index + 1])
 			|| ft_isspace(value[index + 1])
@@ -111,12 +91,6 @@ int			is_expand_tild(char *value, int index, int expand)
 			return (1);
 	return (0);
 }
-
-/*
-** utiliser ft_strsplit_commands(char *str) pour split sur ; et &
-** verif et supression avec ft_arraydelline
-** puis creer une fonction pour recoller les valeurs
-*/
 
 int			apply_parser_var_test(char *value, char **dst, int *i, int last)
 {
@@ -129,7 +103,7 @@ int			apply_parser_var_test(char *value, char **dst, int *i, int last)
 	return ((*i) + 1);
 }
 
-void		parser_var_test(char **value)
+void		parser_var_simple(char **value)
 {
 	int		i;
 	int		expand;
@@ -153,6 +127,7 @@ void		parser_var_test(char **value)
 		copy_value(*value, &dst, last, i);
 	ft_strdel(value);
 	*value = dst;
+	remove_quote_line(value);
 }
 
 void		parser_var(char ***value)
@@ -163,6 +138,5 @@ void		parser_var(char ***value)
 	if ((!value) || (!*value))
 		return ;
 	while ((*value)[++i])
-		parser_var_test(&((*value)[i]));
-	remove_quote(value);
+		parser_var_simple(&((*value)[i]));
 }

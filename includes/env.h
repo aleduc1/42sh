@@ -254,13 +254,6 @@ int					ft_pipe(char **argv, t_token *lex, int end_pipe);
 int					add_pipe_process(char **cmd, t_redirection *r);
 
 /*
-** manage_quote.c
-*/
-
-void				ft_remove_quote(char **str);
-int					ft_apply_dquote(char ***value, int index);
-
-/*
 ** main.c
 */
 
@@ -271,6 +264,7 @@ void				run(char *input, t_pos *pos);
 */
 
 void				parameter_expansion(char *tmp, char **dst);
+void				display_error_expansion(char *src);
 
 /*
 ** formats_parameter_bis.c
@@ -322,5 +316,6 @@ int					test_quote(char *name);
 */
 
 void				remove_quote(char ***value);
+void				remove_quote_line(char **line);
 
 #	endif

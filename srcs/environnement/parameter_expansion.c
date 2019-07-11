@@ -71,7 +71,7 @@ int				is_other_expansion(char *tmp, char **dst)
 	return (1);
 }
 
-static void		display_error_expansion(char *src)
+void			display_error_expansion(char *src)
 {
 	ft_dprintf(STDERR_FILENO, "42sh: ${%s}: bad substitution\n", src);
 	gest_return(-5);
@@ -81,10 +81,11 @@ void			manage_parameter_extension(char **dst, char *tmp, int i)
 {
 	char	*key;
 	char	*tmp_b;
-
 	key = ft_strsub(tmp, 0, i);
-	if ((!key) || ft_strequ(key, ""))
+	if ((!key) || ft_strequ(key, "")
+		|| (ft_isalnum(key[0]) == 0 && key[0] != '#'))
 	{
+		ft_strdel(&key);
 		display_error_expansion(tmp);
 		return ;
 	}

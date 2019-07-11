@@ -20,6 +20,6 @@ int		ft_arraylen(char **src)
 	if ((!src) || (!src[0]))
 		return (0);
 	while (src[i])
-		i++;
+		++i;
 	return (i);
 }

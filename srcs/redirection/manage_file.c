@@ -18,13 +18,16 @@
 
 int			file_exist(char *name, int type)
 {
-	int	fd;
+	int		fd;
+	// char	*expand_name;
 
+	// expand_name = ft_strdup(name);
+	// parser_var_simple(&expand_name);
 	if (access(name, F_OK) != -1)
 		return (0);
 	if (type == LESS)
 	{
-		ft_dprintf(STDERR_FILENO, "21sh: %s: No such file or directory\n",
+		ft_dprintf(STDERR_FILENO, "42sh: %s: No such file or directory\n",
 					name);
 		return (-1);
 	}
@@ -35,9 +38,7 @@ int			file_exist(char *name, int type)
 		close(fd);
 		return (1);
 	}
-	if ((fd = test_quote(name)) != -1)
-		return (fd);
-	ft_printf("21sh: error create file: %s\n", name);
+	ft_printf("42sh: error create file: %s\n", name);
 	return (-1);
 }
 
@@ -129,6 +130,10 @@ int			open_file_command(t_redir *redir, t_pos *pos)
 	int	verif;
 
 	verif = 0;
+	if (!redir)
+		return (-1);
+	if (redir->filename)
+		parser_var_simple(&redir->filename);
 	if (redir->type == GREAT || redir->type == DGREAT || redir->type == LESS
 		|| redir->type == AMPGREAT || redir->type == AMPLESS
 		|| redir->type == LESSAMP || redir->type == GREATAMP)

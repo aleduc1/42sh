@@ -166,5 +166,9 @@ int					ft_isstrnum(char *s);
 char				*ft_jointhree(char *s1, char *s2, char *s3);
 void				ft_remove_last_chr(char **str);
 char				**ft_strsplit_commands(char *s);
+long				ft_lpow(long a, long b);
+int					ft_nextprime(int x);
+int					ft_sqrt(int x);
+void				ft_strptrdel(char ***as);
 
 #	endif

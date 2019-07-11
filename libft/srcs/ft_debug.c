@@ -19,6 +19,6 @@ int		ft_debug(void)
 	i = 0;
 	ft_putstr("hello");
 	ft_putendl(ft_itoa(i));
-	i++;
+	++i;
 	return (0);
 }

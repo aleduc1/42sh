@@ -12,6 +12,10 @@
 
 #include "env.h"
 #include "job.h"
+#include "builtins.h"
+
+extern t_ht_hash	*g_alias_table;
+extern t_ht_hash	*g_hash_table;
 
 /*
 ** exit [n]
@@ -98,6 +102,8 @@ static void	exec_reset_shell(void)
 	default_term_mode();
 	delete_shell();
 	get_env(1, NULL);
+	ht_hash_del(g_alias_table);
+	ht_hash_del(g_hash_table);
 }
 
 int			bt_exit(t_job *j)

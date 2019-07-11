@@ -1,4 +1,6 @@
 .history
+.vscode
+42sh
 
 # Prerequisites
 *.d

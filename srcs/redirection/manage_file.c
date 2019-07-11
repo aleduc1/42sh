@@ -16,12 +16,18 @@
 ** F_OK: file exist
 */
 
-int			file_exist(char *name)
+int			file_exist(char *name, int type)
 {
 	int	fd;
 
 	if (access(name, F_OK) != -1)
 		return (0);
+	if (type == LESS)
+	{
+		ft_dprintf(STDERR_FILENO, "21sh: %s: No such file or directory\n",
+					name);
+		return (-1);
+	}
 	fd = open(name, O_RDWR | O_CREAT | O_TRUNC,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd != -1)
@@ -29,7 +35,9 @@ int			file_exist(char *name)
 		close(fd);
 		return (1);
 	}
-	ft_printf("42sh: error create file: %s\n", name);
+	if ((fd = test_quote(name)) != -1)
+		return (fd);
+	ft_printf("21sh: error create file: %s\n", name);
 	return (-1);
 }
 
@@ -40,7 +48,7 @@ int			file_exist(char *name)
 static int	open_file_great(t_redir *redir)
 {
 	if (redir->filename)
-		redir->dest_fd = ft_itoa(file_exist(redir->filename));
+		redir->dest_fd = ft_itoa(file_exist(redir->filename, redir->type));
 	else
 		return (fcntl(ft_atoi(redir->dest_fd), F_GETFD));
 	if (ft_atoi(redir->dest_fd) == -1)
@@ -73,7 +81,7 @@ static int	open_file_dless(t_redir *redir, t_pos *pos)
 	if (!str)
 		return (-1);
 	ft_remove_last_chr(&str);
-	fd = file_exist(name);
+	fd = file_exist(name, redir->type);
 	(fd > -1) ? fd = open_file_great(redir) : 0;
 	if (fd <= -1)
 		return (-1);

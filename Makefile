@@ -27,11 +27,11 @@ VPATH = objs:\
 		srcs/prompt/others:\
 		srcs/prompt/selection:\
 		srcs/parser:\
-		srcs/parser/pre-parser:\
-		srcs/parser/pre-parser/simple_command:\
-		srcs/parser/pre-parser/remove_space:\
-		srcs/parser/pre-parser/redirect:\
-		srcs/parser/pre-parser/redirect/grammar:\
+		srcs/parser/pre_parser:\
+		srcs/parser/pre_parser/simple_command:\
+		srcs/parser/pre_parser/remove_space:\
+		srcs/parser/pre_parser/redirect:\
+		srcs/parser/pre_parser/redirect/grammar:\
 		srcs/parser/ast:\
 		srcs/parser/command:\
 		srcs/commands:\
@@ -160,7 +160,8 @@ SRCS_NAMES = main.c \
 			 redirection_bis.c\
 			 apply_parser_var.c\
 			 free_job.c\
-			 list_job.c
+			 list_job.c\
+			 test_quote.c
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 HEADERS_NAMES = sh21.h lexer.h parser.h env.h builtins.h job.h

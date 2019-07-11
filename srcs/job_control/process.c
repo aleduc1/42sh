@@ -6,11 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-<<<<<<< HEAD:srcs/job-control/process.c
-/*   Updated: 2019/07/01 17:47:29 by sbelondr         ###   ########.fr       */
-=======
 /*   Updated: 2019/07/05 02:17:20 by sbelondr         ###   ########.fr       */
->>>>>>> feat_job:srcs/job_control/process.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +106,7 @@ int			launch_job(t_job *j, int fg)
 	return (verif);
 }
 
-<<<<<<< HEAD:srcs/job-control/process.c
-void	config_pid_process(pid_t pid, pid_t pgid, int fg)
-=======
 void		config_pid_process(pid_t pid, pid_t pgid, int fg)
->>>>>>> feat_job:srcs/job_control/process.c
 {
 	t_shell	*s;
 

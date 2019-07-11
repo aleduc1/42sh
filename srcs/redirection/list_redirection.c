@@ -16,7 +16,7 @@ static int		send_dev_null(void)
 {
 	int	fd;
 
-	fd = file_exist("/dev/null");
+	fd = file_exist("/dev/null", -1);
 	if (fd > -1)
 		fd = open("/dev/null", O_RDWR);
 	return (fd);

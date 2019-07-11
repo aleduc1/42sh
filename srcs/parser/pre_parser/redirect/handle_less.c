@@ -23,13 +23,33 @@ t_redir	*redir_struct_less(t_lex **start)
 	if (!(redir_info->src_fd = (char **)ft_memalloc(sizeof(char *) * 2)))
 		return (NULL);
 	redir_info->type = LESS;
-	ft_default(&redir_info);
+	if (ptr->token->type == NUMBER)
+		redir_info->src_fd[0] = ft_strdup(ptr->token->data);
+	else
+		ft_default(&redir_info);
+	while (ptr->token->type != LESS)
+		ptr = ptr->next;
 	ptr = ptr->next;
 	if (ptr->token->type == SPACE)
 		ptr = ptr->next;
 	if (ptr)
 		redir_info->filename = ft_strdup(ptr->token->data);
 	return (redir_info);
+}
+
+void	ft_print_redir(t_redir **redirr)
+{
+	int		i;
+
+	i = 0;
+	while ((*redirr)->src_fd[i])
+		ft_putendl((*redirr)->src_fd[i++]);
+	ft_putendl((*redirr)->dest_fd);
+	ft_putnbr((*redirr)->type);
+	ft_putendl((*redirr)->filename);
+	if ((*redirr)->heredoc)
+		ft_putendl("gnaaaaa");
+	ft_putnbr((*redirr)->close);
 }
 
 int		handle_less(t_lex **command_node)
@@ -46,6 +66,7 @@ int		handle_less(t_lex **command_node)
 		start = start->next;
 	if (start)
 	{
+		start_grammar_great(&start);
 		if (end_grammar_great(&start, &end, LESS))
 			return (1);
 		before_start = detaching(&start, &end);

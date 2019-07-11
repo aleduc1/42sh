@@ -169,7 +169,7 @@ void	dllprinttail(t_lex **tail);
 t_lex	*dlllastnode(t_lex **head);
 int		dlliter(t_lex **head);
 
-t_lex	*dlldelfirst(t_lex **head);
+void	dlldelfirst(t_lex **head);
 t_lex	*dlldellast(t_lex **tail);
 t_lex	*dlldelone(t_lex **head, char *data);
 void	dll_del_node(t_lex **node);

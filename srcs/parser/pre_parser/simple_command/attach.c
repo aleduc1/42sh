@@ -53,9 +53,14 @@ t_lex	*detaching(t_lex **start, t_lex **end)
 	t_lex	*before_start;
 	t_lex	*after_end;
 
-	before_start = (*start)->prev;
-	after_end = (*end)->next;
-	before_start->next = after_end;
+	before_start = NULL;
+	after_end = NULL;
+	if ((*start)->prev)
+		before_start = (*start)->prev;
+	if ((*end)->next)
+		after_end = (*end)->next;
+	if (before_start)
+		before_start->next = after_end;
 	if (after_end)
 		after_end->prev = before_start;
 	(*start)->prev = NULL;
@@ -74,6 +79,7 @@ void	attach_redir_node(t_redir **redir_info, t_lex **before_start)
 
 	tok = create_token("redir", REDIR);
 	redir_node = new_redir_node(&tok, redir_info);
-	dllinsafter(before_start, &redir_node);
+	if (*before_start)
+		dllinsafter(before_start, &redir_node);
 	clean_inside_token(&tok);
 }

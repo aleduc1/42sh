@@ -107,7 +107,7 @@ t_node	*home_end(t_node *lstcursor, char buffer[], t_pos *pos)
 	return (lstcursor);
 }
 
-t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[], \
+t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[],
 																t_pos *pos)
 {
 	char	*search_result;

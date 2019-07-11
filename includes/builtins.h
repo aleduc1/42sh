@@ -37,4 +37,10 @@ int					bt_export(char **value);
 
 int					builtin_fc(char **av, t_pos *pos);
 
+/*
+** builtin_env.c
+*/
+
+int					builtin_env_display(t_redirection *r);
+
 #	endif

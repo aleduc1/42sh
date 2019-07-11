@@ -84,10 +84,10 @@ t_node			*history_downcase(t_node *lstcursor, t_node **input, t_pos *pos)
 	return (lstcursor);
 }
 
-t_node			*clean_for_history(t_node *lstcursor, t_node **input,\
+t_node			*clean_for_history(t_node *lstcursor, t_node **input,
 															t_pos *pos)
 {
-	tputs(tgoto(tgetstr("cm", NULL), pos->tailcolumn - 1, pos->tailrow - 1),\
+	tputs(tgoto(tgetstr("cm", NULL), pos->tailcolumn - 1, pos->tailrow - 1),
 																1, ft_outc);
 	lstcursor = *input;
 	while (lstcursor->next != NULL)
@@ -104,7 +104,7 @@ t_node			*clean_for_history(t_node *lstcursor, t_node **input,\
 	return (lstcursor);
 }
 
-t_node			*history_to_lst(t_node *lstcursor, char *historyline, \
+t_node			*history_to_lst(t_node *lstcursor, char *historyline,
 											t_node **input, t_pos *pos)
 {
 	int			i;

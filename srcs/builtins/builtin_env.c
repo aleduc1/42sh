@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-static int		builtin_env_display(t_redirection *r)
+int				builtin_env_display(t_redirection *r)
 {
 	t_env	*lst;
 

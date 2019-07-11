@@ -19,8 +19,8 @@ void	ft_default(t_redir **redir_info)
 
 	ptr = *redir_info;
 	t = ptr->type;
-	if (t == GREAT || t == LESSAMP || t == DGREAT || t == GREATAMPHYPH \
-			|| t == LESSAMPHYPH)
+	if (t == GREAT || t == LESSAMP || t == DGREAT || t == GREATAMPHYPH
+		|| t == LESSAMPHYPH)
 		ptr->src_fd[0] = ft_strdup("1");
 	else if (t == GREATAMP || t == AMPGREAT || t == AMPLESS)
 	{
@@ -59,25 +59,42 @@ int		handle_needed_redir(t_lex **command_node, t_lex **redir_node)
 	return (ret);
 }
 
-int		cycle_redirect(t_lex **command_node)
+int		manage_cycle_redirect(t_lex *ptr, t_token *tok)
 {
-	t_lex	*ptr;
 	t_lex	*start;
 
-	ptr = (*command_node)->token->command;
 	start = ptr;
 	while (ptr)
 	{
 		if (is_a_redirect(ptr->token->type))
 		{
 			if (handle_needed_redir(&start, &ptr))
+			{
+				clean_inside_token(&tok);
 				return (1);
+			}
 			ptr = start;
 		}
 		else
 			ptr = ptr->next;
 	}
+	clean_inside_token(&tok);
 	return (0);
+}
+
+int		cycle_redirect(t_lex **command_node)
+{
+	t_lex	*ptr;
+	t_token	*tok;
+	t_lex	*node;
+
+	tok = create_token("DELIM", DELIM);
+	node = new_node(&tok);
+	(*command_node)->token->command->prev = node;
+	node->next = (*command_node)->token->command;
+	(*command_node)->token->command = node;
+	ptr = (*command_node)->token->command;
+	return (manage_cycle_redirect(ptr, tok));
 }
 
 int		handle_redir(t_lex **lex)

@@ -34,6 +34,27 @@ int			gest_error_path(char *cmd, t_redirection *r)
 **	return -1 if it's not a builtin
 */
 
+int			verif_set(char **argv, int nb, t_redirection *r, char *name)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+		i++;
+	if (nb == i || (nb == 3 && i == 2))
+		return (1);
+	else if (i > nb)
+		ft_dprintf(r->error, "21sh: %s: Too many arguments.\n", name);
+	else
+	{
+		if (ft_strequ(name, "setenv"))
+			builtin_env_display(r);
+		else
+			ft_dprintf(r->error, "21sh: %s: Too few arguments.\n", name);
+	}
+	return (0);
+}
+
 static int	is_builtin_env(t_process *p, char **av)
 {
 	int	verif;
@@ -41,13 +62,13 @@ static int	is_builtin_env(t_process *p, char **av)
 	if (ft_strequ(av[0], "set"))
 		verif = builtin_set(p->r);
 	else if (ft_strequ(av[0], "setenv"))
-		verif = edit_setenv(av[1], av[2]);
+		verif = verif_set(av, 3, p->r, "setenv") ? edit_setenv(av[1], av[2]) : -2;
 	else if (ft_strequ(av[0], "unsetenv"))
-		verif = ft_unsetenv(av[1]);
+		verif = verif_set(av, 2, p->r, "unsetenv") ? ft_unsetenv(av[1]) : -2;
 	else if (ft_strequ(av[0], "export"))
-		verif = bt_export(av + 1);
+		verif = verif_set(av, 2, p->r, "export") ? bt_export(av + 1) : -2;
 	else if (ft_strequ(av[0], "unset"))
-		verif = ft_unset(av[1]);
+		verif = verif_set(av, 2, p->r, "unset") ? ft_unset(av[1]) : -2;
 	else if (ft_strchr_exist(av[0], '='))
 		verif = edit_set(av, p->r);
 	else
@@ -89,7 +110,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	else if (ft_strequ(av[0], "fc"))
 		verif = builtin_fc(av, pos);
 	else if (ft_strequ(av[0], "test"))
-		verif = builtin_fc(av, p->r);
+		verif = builtin_fc(av, pos);
 	else
 		verif = -1;
 	return (verif);

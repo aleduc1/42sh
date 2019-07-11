@@ -14,9 +14,9 @@
 
 int		is_a_redirect(t_type t)
 {
-	if (t == GREAT || t == GREATAMP || t == AMPGREAT || t == DGREAT \
-			|| t == LESS || t == LESSAMP || t == AMPLESS || t == DLESS \
-			|| t == LESSAMPHYPH || t == GREATAMPHYPH)
+	if (t == GREAT || t == GREATAMP || t == AMPGREAT || t == DGREAT
+		|| t == LESS || t == LESSAMP || t == AMPLESS || t == DLESS
+		|| t == LESSAMPHYPH || t == GREATAMPHYPH)
 		return (1);
 	return (0);
 }

@@ -231,7 +231,7 @@ int					free_maillon_env(char *key, int env);
 
 int					open_file_command(t_redir *redir, t_pos *pos);
 int					close_file_command(t_lex *lex, t_redirection **r);
-int					file_exist(char *name);
+int					file_exist(char *name, int type);
 
 /*
 ** commands.c
@@ -309,5 +309,11 @@ void				add_process(char **av, t_token *t, int fg);
 */
 
 void				display_redirection(t_redirection *r);
+
+/*
+** test_quote.c
+*/
+
+int					test_quote(char *name);
 
 #	endif

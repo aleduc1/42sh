@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "sh21.h"
+#include "env.h"
 
 void		free_arr(char **cmd)
 {
@@ -25,45 +26,50 @@ void		free_arr(char **cmd)
 
 void		prompt_mod(char **promptpath, int i, char cwd[])
 {
-	ft_putstr("\033[1;32m");
-	if (i > 2)
-	{
-		ft_putstr("[");
-		ft_putstr(promptpath[i - 2]);
-		ft_putstr("/");
-		ft_putstr(promptpath[i - 1]);
-		ft_putstr("]");
-		ft_putstr(" » ");
-	}
-	else
-	{
-		ft_putstr("[");
-		ft_putstr(cwd);
-		ft_putstr("]");
-		ft_putstr(" » ");
-	}
-	ft_putstr("\033[0m");
+	(void)promptpath;
+	(void)i;
+	(void)cwd;
+	display_prompt();
+	// ft_putstr("\033[1;32m");
+	// if (i > 2)
+	// {
+	// 	ft_putstr("[");
+	// 	ft_putstr(promptpath[i - 2]);
+	// 	ft_putstr("/");
+	// 	ft_putstr(promptpath[i - 1]);
+	// 	ft_putstr("]");
+	// 	ft_putstr(" » ");
+	// }
+	// else
+	// {
+	// 	ft_putstr("[");
+	// 	ft_putstr(cwd);
+	// 	ft_putstr("]");
+	// 	ft_putstr(" » ");
+	// }
+	// ft_putstr("\033[0m");
 }
 
 void		print_prompt(void)
 {
-	char	cwd[1024];
-	char	**promptpath;
-	int		i;
+	display_prompt();
+	// char	cwd[1024];
+	// char	**promptpath;
+	// int		i;
 
-	ft_bzero(cwd, 1024);
-	getcwd(cwd, 1023);
-	promptpath = ft_strsplit(cwd, '/');
-	if ((!promptpath) || cwd[0] == '\0')
-	{
-		ft_putstr("\033[1;32m[/] » \033[0m");
-		return ;
-	}
-	i = 0;
-	while (promptpath[i])
-		i++;
-	prompt_mod(promptpath, i, cwd);
-	free_arr(promptpath);
+	// ft_bzero(cwd, 1024);
+	// getcwd(cwd, 1023);
+	// promptpath = ft_strsplit(cwd, '/');
+	// if ((!promptpath) || cwd[0] == '\0')
+	// {
+	// 	ft_putstr("\033[1;32m[/] » \033[0m");
+	// 	return ;
+	// }
+	// i = 0;
+	// while (promptpath[i])
+	// 	i++;
+	// prompt_mod(promptpath, i, cwd);
+	// free_arr(promptpath);
 }
 
 void		get_inputlen(t_pos *pos, t_node *input)

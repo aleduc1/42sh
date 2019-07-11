@@ -318,4 +318,6 @@ int					test_quote(char *name);
 void				remove_quote(char ***value);
 void				remove_quote_line(char **line);
 
+void				display_prompt(void);
+
 #	endif

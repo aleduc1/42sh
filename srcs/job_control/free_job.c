@@ -64,14 +64,20 @@ void		clean_file(t_job *j)
 		delete_redirection(&p->r);
 		p = p->next;
 	}
-	free(j->close_fd);
-	j->close_fd = NULL;
+	if (j->close_fd)
+	{
+		free(j->close_fd);
+		j->close_fd = NULL;
+	}
 }
 
 void		free_redirection(t_redirection **r)
 {
-	free(*r);
-	(*r) = NULL;
+	if (r && *r)
+	{
+		free(*r);
+		(*r) = NULL;
+	}
 }
 
 void		free_job(t_job **j)

@@ -119,6 +119,8 @@ int			file_to_close(t_token *t, t_job *j)
 	t_lex	*lex;
 	int		verif;
 
+	if (!t)
+		return (-1);
 	lex = t->command;
 	while (lex)
 	{
@@ -188,7 +190,38 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 	return (verif);
 }
 
-int			ft_simple_command_redirection(char **av, t_redirection *r)
+void		free_process_redirection(t_job **j)
+{
+	t_process	*p;
+	t_process	*next;
+
+	if ((!j) || (!(*j)))
+		return ;
+	p = (*j)->first_process;
+	while (p)
+	{
+		next = p->next;
+		ft_strdel(&(p->cmd_path));
+		if (p->cmd)
+			ft_arraydel(&(p->cmd));
+		free(p);
+		p = NULL;
+		p = next;
+	}
+}
+
+void		free_job_redirection(t_job **j)
+{
+	if (j && (*j))
+	{
+		if ((*j)->first_process)
+			free_process_redirection(j);
+		free(*j);
+		(*j) = NULL;
+	}
+}
+
+int			ft_simple_command_redirection(char **av, t_redirection *r, t_pos *pos)
 {
 	int				verif;
 	t_job			*j;
@@ -200,7 +233,15 @@ int			ft_simple_command_redirection(char **av, t_redirection *r)
 	j->next = NULL;
 	p = j->first_process;
 	p->r = r;
-	if ((verif = is_builtin(j, p, NULL)) == -1)
+	// j = create_new_job(av, NULL, r, 1);
+	// p = j->first_process;
+	if (check_last_command() == -5)
+	{
+		gest_return(1);
+		clean_fuck_list(0);
+		return (1);
+	}
+	if ((verif = is_builtin(j, p, pos)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
 		if (p->cmd_path)
@@ -208,12 +249,35 @@ int			ft_simple_command_redirection(char **av, t_redirection *r)
 		else
 			verif = gest_error_path(p->cmd[0], p->r);
 	}
-	ft_arraydel(&p->cmd);
-	free(p);
-	p = NULL;
-	free(j);
-	j = NULL;
-	gest_return(verif);
+	free_job_redirection(&j);
+	// clean_fuck_list(0);
+	return (verif);
+
+
+	// int				verif;
+	// t_job			*j;
+	// t_process		*p;
+
+	// verif = 0;
+	// j = init_job();
+	// j->first_process->cmd = ft_arraydup(av);
+	// j->next = NULL;
+	// p = j->first_process;
+	// p->r = r;
+	// if ((verif = is_builtin(j, p, NULL)) == -1)
+	// {
+	// 	p->cmd_path = is_in_path(p->cmd[0]);
+	// 	if (p->cmd_path)
+	// 		verif = launch_job(j, 1);
+	// 	else
+	// 		verif = gest_error_path(p->cmd[0], p->r);
+	// }
+	// ft_arraydel(&p->cmd);
+	// free(p);
+	// p = NULL;
+	// free(j);
+	// j = NULL;
+	// gest_return(verif);
 	return (verif);
 }
 

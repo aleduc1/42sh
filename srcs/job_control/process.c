@@ -213,7 +213,7 @@ void		launch_job_pipe(t_job *j, int fg)
 	int			fd[2];
 
 	p = j->first_process;
-	fd[0] = j->r->in;
+	fd[0] = j->r->in;//open(STDIN_FILENO, O_RDWR);// j->r->in;
 	while (p)
 	{
 		if (p->next)

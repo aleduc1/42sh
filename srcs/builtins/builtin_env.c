@@ -42,7 +42,7 @@ static t_env	*builtin_env_key(t_env *my_env, char *argv, int *ret)
 	return (my_env);
 }
 
-static int		builtin_env_s(t_redirection *r, char **argv, pid_t pid)
+static int		builtin_env_s(t_redirection *r, char **argv, pid_t pid, t_pos *pos)
 {
 	t_env	*my_env;
 	int		i;
@@ -63,7 +63,7 @@ static int		builtin_env_s(t_redirection *r, char **argv, pid_t pid)
 		if (!argv[i] || ft_strequ(argv[i], "env"))
 			builtin_env_display(r);
 		else
-			ft_simple_command_redirection(argv + i, r);
+			ft_simple_command_redirection(argv + i, r, pos);
 		execve("/bin/test", NULL, NULL);
 		exit(pid);
 	}
@@ -71,7 +71,7 @@ static int		builtin_env_s(t_redirection *r, char **argv, pid_t pid)
 	return (pid);
 }
 
-int				builtin_env(t_redirection *r, char **argv)
+int				builtin_env(t_redirection *r, char **argv, t_pos *pos)
 {
 	pid_t	pid;
 	int		rt;
@@ -82,7 +82,7 @@ int				builtin_env(t_redirection *r, char **argv)
 	if (!argv)
 		builtin_env_display(r);
 	else
-		pid = builtin_env_s(r, argv, pid);
+		pid = builtin_env_s(r, argv, pid, pos);
 	while (wait(&rt) != -1)
 		continue ;
 	return (0);

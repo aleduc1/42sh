@@ -176,7 +176,7 @@ char				**create_list_env(t_env *my_env, int env);
 ** manage_set.c
 */
 
-int					edit_set(char **value, t_redirection *r);
+int					edit_set(char **value, t_redirection *r, t_pos *pos);
 int					add_set_value(char *key, char *value);
 int					ft_unset(char *key);
 int					edit_set_command_env(char *str, t_env *my_env);
@@ -194,7 +194,7 @@ int					create_new_line_env(t_env *my_env, char *key, char *value,
 */
 
 int					builtin_set(t_redirection *r);
-int					builtin_env(t_redirection *r, char **argv);
+int					builtin_env(t_redirection *r, char **argv, t_pos *pos);
 
 /*
 ** builtin_cd.c
@@ -241,7 +241,7 @@ int					file_exist(char *name, int type);
 void				display_error_command(t_redirection *r, char **cmd);
 int					ft_simple_command(char **argv, t_token *lex, t_pos *pos);
 int					ft_simple_command_redirection(char **argv,
-						t_redirection *r);
+						t_redirection *r, t_pos *pos);
 int					ft_pipe_double(char **argv, t_token *token);
 int					ft_ampersand(char **argv, t_token *token);
 int					ft_ampersand_double(char **argv, t_token *token);

@@ -55,7 +55,7 @@ int			verif_set(char **argv, int nb, t_redirection *r, char *name)
 	return (0);
 }
 
-static int	is_builtin_env(t_process *p, char **av)
+static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 {
 	int	verif;
 
@@ -70,7 +70,7 @@ static int	is_builtin_env(t_process *p, char **av)
 	else if (ft_strequ(av[0], "unset"))
 		verif = verif_set(av, 2, p->r, "unset") ? ft_unset(av[1]) : -2;
 	else if (ft_strchr_exist(av[0], '='))
-		verif = edit_set(av, p->r);
+		verif = edit_set(av, p->r, pos);
 	else
 		verif = -1;
 	return (verif);
@@ -96,7 +96,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	char	**av;
 
 	av = p->cmd;
-	verif = is_builtin_env(p, av);
+	verif = is_builtin_env(p, av, pos);
 	if (verif != -1)
 		return (verif);
 	if (ft_strequ(av[0], "echo"))

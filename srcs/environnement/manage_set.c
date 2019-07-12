@@ -58,20 +58,20 @@ int			edit_set_no_command(char **value)
 	return (i);
 }
 
-int			edit_set_command(char **value, t_redirection *r)
+int			edit_set_command(char **value, t_redirection *r, t_pos *pos)
 {
 	t_env	*cpy_env;
 	int		result;
 
 	cpy_env = ft_cpy_env();
 	result = edit_set_no_command(value);
-	ft_simple_command_redirection(value + result, r);
+	ft_simple_command_redirection(value + result, r, pos);
 	get_env(1, NULL);
 	get_env(0, cpy_env);
 	return (result);
 }
 
-int			edit_set(char **value, t_redirection *r)
+int			edit_set(char **value, t_redirection *r, t_pos *pos)
 {
 	int		result;
 	int		i;
@@ -84,7 +84,7 @@ int			edit_set(char **value, t_redirection *r)
 	if (!value[i])
 		result = edit_set_no_command(value);
 	else
-		edit_set_command(value, r);
+		edit_set_command(value, r, pos);
 	return (result);
 }
 

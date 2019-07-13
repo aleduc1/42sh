@@ -6,6 +6,8 @@ then
 	exit
 fi
 
+rm /tmp/leaks_log.txt
+
 while [ true ]
 do
 	clear
@@ -59,7 +61,8 @@ do
 		test_leak=`echo $value_leak | grep size`
 		if [ ! -z "$test_leak" ]
 		then
-			osascript -e 'display notification "Leaks" with title "Alert verif.sh"'
+			echo "$value_leak" >> /tmp/leaks_log.txt
+			osascript -e 'display notification "Leaks. See logs in: /tmp/leaks_log.txt" with title "Alert verif.sh"'
 		fi
 		echo "$value_leak"
 	done

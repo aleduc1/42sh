@@ -40,6 +40,8 @@ void		remove_quote_line(char **line)
 
 	i = -1;
 	expand = 0;
+	if ((!line) || (!(*line)))
+		return ;
 	while ((*line)[++i])
 	{
 		expand = manage_is_quote((*line)[i], expand);

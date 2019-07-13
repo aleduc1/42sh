@@ -89,6 +89,7 @@ void		wait_for_job(t_job *j)
 	int		status;
 	pid_t	pid;
 
+	status = 0;
 	while (1)
 	{
 		pid = waitpid(WAIT_ANY, &status, WUNTRACED);

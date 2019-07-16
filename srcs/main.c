@@ -139,6 +139,7 @@ static void	init_alias(void)
 	ht_hash_insert(g_alias_table, "..", "cd ..");
 	ht_hash_insert(g_alias_table, "-", "cd -");
 	ht_hash_insert(g_alias_table, "?", "echo $?");
+	ht_hash_insert(g_alias_table, "posix", "bash --posix");
 }
 
 int			main(int argc, char **argv, char **environ)

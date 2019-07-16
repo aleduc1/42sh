@@ -242,9 +242,8 @@ void				display_error_command(t_redirection *r, char **cmd);
 int					ft_simple_command(char **argv, t_token *lex, t_pos *pos);
 int					ft_simple_command_redirection(char **argv,
 						t_redirection *r, t_pos *pos);
-int					ft_pipe_double(char **argv, t_token *token);
-int					ft_ampersand(char **argv, t_token *token);
-int					ft_ampersand_double(char **argv, t_token *token);
+int					ft_pipe_double(char **argv, t_token *token, t_pos *pos);
+int					ft_ampersand_double(char **argv, t_token *token, t_pos *pos);
 
 /*
 ** commands_pipe.c
@@ -279,6 +278,7 @@ char				*parameter_plus(char *parameter, char *word);
 ** formats_parameter.c
 */
 
+int					check_format_variable(char *str);
 char				*parameter_hash_first(char *parameter);
 char				*parameter_hash_end(char *parameter);
 char				*parameter_percents(char *parameter);

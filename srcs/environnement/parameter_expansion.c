@@ -60,7 +60,7 @@ int				is_other_expansion(char *tmp, char **dst)
 	else if (ft_chr_index(tmp, '%') > 0)
 		stock = parameter_percents(tmp);
 	else
-		return (0);
+		return (check_format_variable(tmp) ? 0 : -1);
 	if (stock)
 	{
 		stock_b = ft_strjoin(*dst, stock);
@@ -81,6 +81,7 @@ void			manage_parameter_extension(char **dst, char *tmp, int i)
 {
 	char	*key;
 	char	*tmp_b;
+
 	key = ft_strsub(tmp, 0, i);
 	if ((!key) || ft_strequ(key, "")
 		|| (ft_isalnum(key[0]) == 0 && key[0] != '#'))
@@ -100,6 +101,7 @@ void			manage_parameter_extension(char **dst, char *tmp, int i)
 void			parameter_expansion(char *tmp, char **dst)
 {
 	int		i;
+	int		verif;
 
 	if ((!tmp) || ft_strequ(tmp, ""))
 	{
@@ -108,8 +110,11 @@ void			parameter_expansion(char *tmp, char **dst)
 	}
 	if ((i = ft_chr_index(tmp, ':')) < 0)
 	{
-		if (is_other_expansion(tmp, dst) == 0)
+		if ((verif = is_other_expansion(tmp, dst)) == 0)
 			modify_dst(tmp, dst);
+		else if (verif == -1)
+			display_error_expansion(tmp);
+
 	}
 	else
 		manage_parameter_extension(dst, tmp, i);

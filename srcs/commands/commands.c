@@ -278,14 +278,14 @@ int			ft_simple_command_redirection(char **av, t_redirection *r, t_pos *pos)
 	// free(j);
 	// j = NULL;
 	// gest_return(verif);
-	return (verif);
+	// return (verif);
 }
 
 /*
 ** ||
 */
 
-int			ft_pipe_double(char **argv, t_token *token)
+int			ft_pipe_double(char **argv, t_token *token, t_pos *pos)
 {
 	int		check;
 	char	*str;
@@ -293,44 +293,16 @@ int			ft_pipe_double(char **argv, t_token *token)
 	str = value_line_path("?", 0);
 	check = ft_atoi(str);
 	if (check == -1)
-		check = ft_simple_command(argv, token, NULL);
+		check = ft_simple_command(argv, token, pos);
 	ft_strdel(&str);
 	return (check);
-}
-
-/*
-** &
-** num_process: processus en cours (mettre a 1 la premiere fois)
-*/
-
-int			ft_ampersand(char **argv, t_token *token)
-{
-	int				verif;
-	t_job			*j;
-	t_process		*p;
-
-	verif = 0;
-	j = create_new_job(argv, token, NULL, 1);
-	p = j->first_process;
-	if ((verif = is_builtin(j, p, NULL)) == -1)
-	{
-		p->cmd_path = is_in_path(p->cmd[0]);
-		if (p->cmd_path)
-			verif = launch_job(j, 1);
-		else
-			verif = gest_error_path(p->cmd[0], p->r);
-	}
-	if (p->completed == 1 || p->pid == 0)
-		clean_fuck_list(0);
-	gest_return(verif);
-	return (verif);
 }
 
 /*
 ** &&
 */
 
-int			ft_ampersand_double(char **argv, t_token *token)
+int			ft_ampersand_double(char **argv, t_token *token, t_pos *pos)
 {
 	int		check;
 	char	*str;
@@ -338,7 +310,7 @@ int			ft_ampersand_double(char **argv, t_token *token)
 	str = value_line_path("?", 0);
 	check = ft_atoi(str);
 	if (check != -1)
-		check = ft_simple_command(argv, token, NULL);
+		check = ft_simple_command(argv, token, pos);
 	ft_strdel(&str);
 	return (check);
 }

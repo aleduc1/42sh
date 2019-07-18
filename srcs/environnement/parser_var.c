@@ -114,6 +114,7 @@ void		parser_var_simple(char **value)
 	i = -1;
 	last = 0;
 	expand = 0;
+	// ft_printf("value: [%s]\n", *value);
 	len = ft_strlen(*value);
 	dst = ft_strdup("");
 	while (++i < len)

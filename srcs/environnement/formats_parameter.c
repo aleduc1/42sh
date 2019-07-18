@@ -93,6 +93,8 @@ char	*parameter_hash_end(char *value)
 	int		index;
 
 	index = ft_chr_index(value, '#');
+	if (index == 0)
+		index = ft_chr_index(value + 1, '#') + 1;
 	stock = ft_strsub(value, 0, index);
 	if (check_format_variable(stock) == 0)
 	{

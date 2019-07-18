@@ -115,6 +115,8 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = bt_alias(av);
 	else if (ft_strequ(av[0], "unalias"))
 		verif = bt_unalias(av);
+	else if (ft_strequ(av[0], "hash"))
+		verif = bt_hash(av);
 	else
 		verif = -1;
 	return (verif);

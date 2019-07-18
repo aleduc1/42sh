@@ -53,9 +53,11 @@ int				is_other_expansion(char *tmp, char **dst)
 	char	*stock;
 	char	*stock_b;
 
-	if (tmp[0] == '#')
+	if (tmp[0] == '#' && ((!tmp[1]) || ft_isalnum(tmp[1])
+		|| tmp[1] == '_'))
 		stock = parameter_hash_first(tmp + 1);
-	else if (ft_chr_index(tmp, '#') > 0)
+	else if (ft_chr_index(tmp, '#') > 0
+		|| (tmp[0] == '#' && tmp[1] && tmp[1] == '#'))
 		stock = parameter_hash_end(tmp);
 	else if (ft_chr_index(tmp, '%') > 0)
 		stock = parameter_percents(tmp);

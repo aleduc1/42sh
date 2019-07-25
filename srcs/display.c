@@ -69,7 +69,7 @@ void		display_prompt(void)
 
 	path = pwd_display();
 	user = value_line_path("USER", 0);
-	ft_printf("❰\033[32;01m%s\033[00m ❙\033[33;01m%s\033[00m❱ ", user, path);
+	ft_printf("❰\033[32;01m%s\033[00m ❙ \033[33;01m%s\033[00m ❱ ", user, path);
 	if (check_last_command() == 0)
 		ft_printf("\033[32;01m✔\033[00m > ");
 	else

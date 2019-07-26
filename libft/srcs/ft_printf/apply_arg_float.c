@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   apply_arg_float.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:11:05 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 10:46:50 by sbelondr         ###   ########.fr       */

@@ -29,14 +29,18 @@ t_job		*find_job(pid_t pid)
 int			job_is_stop(t_job *job)
 {
 	t_process	*p;
+	int			verif;
 
 	p = job->first_process;
+	verif = 0;
 	if (!p)
 		return (0);
 	while (p)
 	{
 		if (!p->stopped)
-			return (0);
+			return (verif);
+		if (p->stopped == 1)
+			verif = 1;
 		p = p->next;
 	}
 	return (1);

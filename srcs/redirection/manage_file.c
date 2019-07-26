@@ -19,10 +19,7 @@
 int			file_exist(char *name, int type)
 {
 	int		fd;
-	// char	*expand_name;
 
-	// expand_name = ft_strdup(name);
-	// parser_var_simple(&expand_name);
 	if (access(name, F_OK) != -1)
 		return (0);
 	if (type == LESS)
@@ -60,7 +57,7 @@ static int	open_file_great(t_redir *redir)
 	else if (redir->type == GREAT || redir->type == DLESS
 		|| redir->type == AMPGREAT || redir->type == GREATAMP)
 		redir->dest_fd = ft_itoa(open(redir->filename, O_RDWR | O_TRUNC));
-	else
+	else 
 		redir->dest_fd = ft_itoa(open(redir->filename, O_RDWR));
 	return (1);
 }
@@ -78,7 +75,6 @@ static int	open_file_dless(t_redir *redir, t_pos *pos)
 	redir->filename = name;
 	tmp = ft_strdup(redir->heredoc);
 	str = heredoc(tmp, pos);
-	// ft_strdel(&tmp);
 	if (!str)
 		return (-1);
 	ft_remove_last_chr(&str);
@@ -121,9 +117,29 @@ int			close_file_command(t_lex *lex, t_redirection **r)
 ** DGREAT -> >>
 ** AMPGREAT -> &>
 ** GREATAMP -> >&
-** AMPLESS -> <&
-** LESSAMP -> &<
+** LESSAMP -> <&
+** AMPLESS -> &<
 */
+
+void		whois_type(int type)
+{
+	if (type == LESS)
+		ft_printf("type is LESS\n");
+	if (type == DLESS)
+		ft_printf("type is DLESS\n");
+	if (type == GREAT)
+		ft_printf("type is GREAT\n");
+	if (type == DGREAT)
+		ft_printf("type is DGREAT\n");
+	if (type == AMPGREAT)
+		ft_printf("type is AMPGREAT\n");
+	if (type == GREATAMP)
+		ft_printf("type is GREATAMP\n");
+	if (type == AMPLESS)
+		ft_printf("type is AMPLESS\n");
+	if (type == LESSAMP)
+		ft_printf("type is LESSAMP\n");
+}
 
 int			open_file_command(t_redir *redir, t_pos *pos)
 {
@@ -132,18 +148,26 @@ int			open_file_command(t_redir *redir, t_pos *pos)
 	verif = 0;
 	if (!redir)
 		return (-1);
+	if (redir->type == LESSAMP && ft_strequ(redir->src_fd[0], "1"))
+	{
+		ft_strdel(&redir->src_fd[0]);
+		redir->src_fd[0] = ft_strdup("0");
+	}
 	if (redir->filename)
 		parser_var_simple(&redir->filename);
 	if (redir->type == GREAT || redir->type == DGREAT || redir->type == LESS
 		|| redir->type == AMPGREAT || redir->type == AMPLESS
 		|| redir->type == LESSAMP || redir->type == GREATAMP)
 	{
-		if ((verif = open_file_great(redir)) == -1)
-			ft_dprintf(STDERR_FILENO, "42sh: bad file descriptor\n");
+		verif = open_file_great(redir);
+		// if ((verif = open_file_great(redir)) == -1)
+		// 	ft_dprintf(STDERR_FILENO, "42sh: bad file descriptor\n");
 	}
 	else if (redir->type == DLESS)
+	{
 		if ((verif = open_file_dless(redir, pos)) == -1)
 			ft_dprintf(STDERR_FILENO, "42sh: bad file descriptor\n");
+	}
 	if (verif > -1)
 		verif = 0;
 	return (verif);

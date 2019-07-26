@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_reverse_tablo.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:08:58 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 11:06:27 by sbelondr         ###   ########.fr       */

@@ -102,7 +102,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	if (ft_strequ(av[0], "echo"))
 		verif = bt_echo(av, p->r);
 	else if (ft_strequ(av[0], "cd"))
-		verif = (bt_cd(av) < 0) ? -2 : 0;
+		verif = bt_cd(av);
 	else if (ft_strequ(av[0], "exit"))
 		verif = bt_exit(j);
 	else if ((verif = is_builtin_jobs(p, av)) != -1)
@@ -119,6 +119,8 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = bt_hash(av);
 	else
 		verif = -1;
+	if (verif != -1)
+		gest_return(verif == -2 ? 1 : verif);
 	return (verif);
 }
 

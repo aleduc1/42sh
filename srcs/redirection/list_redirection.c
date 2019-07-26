@@ -86,6 +86,9 @@ static void		ft_apply_redirection(t_lex *h, t_redirection *r)
 		num_src = ft_atoi(h->redir->src_fd[i]);
 		num_dest = h->redir->dest_fd ? ft_atoi(h->redir->dest_fd) : -1;
 		ft_apply_one_redirection(r, num_src, num_dest);
+		// struct stat buf;
+		// if (fstat(num_src, &buf) == -1)
+		// 	ft_printf("error fd is use\n");
 	}
 }
 

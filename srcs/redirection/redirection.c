@@ -18,21 +18,24 @@ static void	standard_redirection(t_redirection *r)
 	if (r->in != STDIN_FILENO
 		&& ft_fd_redirect_exist(r->redirect, STDIN_FILENO) == 0)
 	{
-		dup2(r->in, STDIN_FILENO);
+		if (dup2(r->in, STDIN_FILENO) == -1)
+			exit(-1);
 		if (verif_close(r->in))
 			close(r->in);
 	}
 	if (r->out != STDOUT_FILENO
 		&& ft_fd_redirect_exist(r->redirect, STDOUT_FILENO) == 0)
 	{
-		dup2(r->out, STDOUT_FILENO);
+		if (dup2(r->out, STDOUT_FILENO) == -1)
+			exit(-1);
 		if (verif_close(r->out))
 			close(r->out);
 	}
 	if (r->error != STDERR_FILENO
 		&& ft_fd_redirect_exist(r->redirect, STDERR_FILENO) == 0)
 	{
-		dup2(r->error, STDERR_FILENO);
+		if (dup2(r->error, STDERR_FILENO) == -1)
+			exit(-1);
 		if (verif_close(r->error))
 			close(r->error);
 	}

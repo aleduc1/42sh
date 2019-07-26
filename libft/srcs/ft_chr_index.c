@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chr_index.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 00:37:56 by sbelondr          #+#    #+#             */
 /*   Updated: 2018/12/11 22:20:38 by sbelondr         ###   ########.fr       */

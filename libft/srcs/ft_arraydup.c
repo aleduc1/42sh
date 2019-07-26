@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arraydup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:18:45 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 09:59:31 by sbelondr         ###   ########.fr       */

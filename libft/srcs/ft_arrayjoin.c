@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arrayjoin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 10:01:47 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 09:59:47 by sbelondr         ###   ########.fr       */

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd_verif.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:38:47 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/05/09 05:12:58 by sbelondr         ###   ########.fr       */

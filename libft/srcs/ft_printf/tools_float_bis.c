@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   tools_float_bis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 17:33:50 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 10:51:10 by sbelondr         ###   ########.fr       */

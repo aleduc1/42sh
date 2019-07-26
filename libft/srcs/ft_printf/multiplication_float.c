@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   multiplication_float.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 13:37:08 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 11:03:46 by sbelondr         ###   ########.fr       */

@@ -34,7 +34,7 @@ static int	action_process_status(pid_t pid, int status, t_process *p)
 		{
 			p->completed = 1;
 			if (WIFSIGNALED(status))
-				gest_return(WTERMSIG(p->status));
+				gest_return(WTERMSIG(p->status));	
 		}
 		return (0);
 	}

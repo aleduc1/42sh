@@ -163,6 +163,9 @@ t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 	return (j);
 }
 
+/*
+** remplacer 1 par 0 pour lancer en background
+*/
 int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 {
 	int				verif;

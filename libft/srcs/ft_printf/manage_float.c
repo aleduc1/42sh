@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   gg.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 21:24:41 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 11:03:09 by sbelondr         ###   ########.fr       */

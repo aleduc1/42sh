@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_numlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 00:26:06 by sbelondr          #+#    #+#             */
 /*   Updated: 2018/11/25 00:26:30 by sbelondr         ###   ########.fr       */

@@ -65,7 +65,7 @@ char	*parameter_hash_first(char *parameter)
 ** salut#sal > ut ; salut#salut > ; salut#salutoi > salut
 */
 
-char	*return_good_dst(int index, char *stock, char *parameter)
+char	*return_good_dst(char *stock, char *parameter)
 {
 	char	*dst;
 	int		i;
@@ -108,7 +108,7 @@ char	*parameter_hash_end(char *value)
 		return (NULL);
 	index += value[index + 1] && value[index + 1] == '#' ? 2 : 1;
 	stock = value[index] ? search_var(value + index) : NULL;
-	dst = return_good_dst(index, stock, parameter);
+	dst = return_good_dst(stock, parameter);
 	ft_strdel(&parameter);
 	ft_strdel(&stock);
 	return (dst);

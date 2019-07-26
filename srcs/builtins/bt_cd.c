@@ -86,12 +86,12 @@ static int	cd_stepten(t_cd *cd)					// Step 10
 
 	if (stat(cd->curpath, &sb) == -1)
 	{
-		dprintf(2, "21sh: cd: permission denied\n");
+		dprintf(2, "42sh: cd: permission denied\n");
 		return (cd_err(cd));
 	}
 	if ((sb.st_mode & S_IFMT) != S_IFDIR)
 	{
-		dprintf(2, "21sh: cd: no such file or directory: %s\n", cd->directory);
+		dprintf(2, "42sh: cd: no such file or directory: %s\n", cd->directory);
 		return (cd_err(cd));
 	}
 	if (cd_chdir(cd))
@@ -200,7 +200,7 @@ int			bt_cd(char **av)
 	{
 		if (cd_stepfive(&cd))								// Step 5
 			return (cd_stepsev(&cd));
-		dprintf(2, "21sh: cd: %s: No such file or directory\n", cd.directory);
+		dprintf(2, "42sh: cd: %s: No such file or directory\n", cd.directory);
 		return (cd_err(&cd));
 	}
 	cd.curpath = ft_strdup(cd.directory);						// Step 6

@@ -44,13 +44,13 @@ int			verif_set(char **argv, int nb, t_redirection *r, char *name)
 	if (nb == i || (nb == 3 && i == 2))
 		return (1);
 	else if (i > nb)
-		ft_dprintf(r->error, "21sh: %s: Too many arguments.\n", name);
+		ft_dprintf(r->error, "42sh: %s: Too many arguments.\n", name);
 	else
 	{
 		if (ft_strequ(name, "setenv"))
 			builtin_env_display(r);
 		else
-			ft_dprintf(r->error, "21sh: %s: Too few arguments.\n", name);
+			ft_dprintf(r->error, "42sh: %s: Too few arguments.\n", name);
 	}
 	return (0);
 }
@@ -59,7 +59,9 @@ static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 {
 	int	verif;
 
-	if (ft_strequ(av[0], "set"))
+	if (ft_strequ(av[0], "env"))
+		verif = builtin_env(p->r, av, pos);
+	else if (ft_strequ(av[0], "set"))
 		verif = builtin_set(p->r);
 	else if (ft_strequ(av[0], "setenv"))
 		verif = verif_set(av, 3, p->r, "setenv") ? edit_setenv(av[1], av[2]) : -2;
@@ -84,9 +86,9 @@ static int	is_builtin_jobs(t_process *p, char **av)
 	if (ft_strequ(av[0], "jobs"))
 		verif = bt_jobs(av, p->r);
 	else if (ft_strequ(av[0], "fg"))
-		verif = bt_fg();
+		verif = bt_fg(av, p->r);
 	else if (ft_strequ(av[0], "bg"))
-		verif = bt_bg();
+		verif = bt_bg(av, p->r);
 	return (verif);
 }
 

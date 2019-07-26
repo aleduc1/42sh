@@ -56,7 +56,7 @@ int		cd_testcdpath(char *path, char *directory, char **test)
 	i = cd_getnextpath(path);
 	if ((tmp = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
 	{
-		dprintf(2, "21sh: cd: Failed to malloc\n");			// NO MEMORY
+		dprintf(2, "42sh: cd: Failed to malloc\n");			// NO MEMORY
 		return (0);
 	}
 	j = cd_testpath(tmp, directory, test);

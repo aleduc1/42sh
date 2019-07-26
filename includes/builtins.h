@@ -85,8 +85,8 @@ int					cd_getopt(char ac, char **av, t_cd *cd);
 */
 
 int					bt_jobs(char **av, t_redirection *r);
-int					bt_bg(void);
-int					bt_fg(void);
+int					bt_bg(char **av, t_redirection *r);
+int					bt_fg(char **av, t_redirection *r);
 int					bt_export(char **value);
 
 int					builtin_fc(char **av, t_pos *pos);

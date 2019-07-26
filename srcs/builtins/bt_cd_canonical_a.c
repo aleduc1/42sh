@@ -58,7 +58,7 @@ int		cd_canonical_a(t_cd *cd)
 		len -= b - a;
 		if (!cd_canonical_del(cd, a, b, len))
 		{
-			dprintf(2,"21sh: cd: error malloc\n");
+			dprintf(2,"42sh: cd: error malloc\n");
 			return (1);
 		}
 	}

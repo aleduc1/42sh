@@ -30,7 +30,7 @@ int		cd_chdir(t_cd *cd)
 
 	if (chdir(cd->curpath) == -1)
 	{
-		dprintf(2, "21sh: cd: permission denied: %s\n", cd->directory);
+		dprintf(2, "42sh: cd: permission denied: %s\n", cd->directory);
 		return (cd_err(cd));
 	}
 	tmp = value_line_path("PWD", 0);
@@ -96,7 +96,7 @@ int		cd_canonical(t_cd *cd)
 	cd_canonical_c(cd);
 	if (cd->curpath[0] == '\0')
 	{
-		dprintf(2, "21sh: cd: path after canonicalization is null\n");
+		dprintf(2, "42sh: cd: path after canonicalization is null\n");
 		return (0);
 	}
 	return (1);

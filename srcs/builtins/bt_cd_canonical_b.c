@@ -99,14 +99,14 @@ int		cd_canonical_b(t_cd *cd)
 	{
 		if (!cd_canonical_testprev(cd, &a))
 		{
-			dprintf(2, "21sh: cd: no such file or directory: %s\n", cd->directory);
+			dprintf(2, "42sh: cd: no such file or directory: %s\n", cd->directory);
 			return (1);
 		}
 		len = ft_strlen(cd->curpath);
 		len -= b - a;
 		if (!cd_canonical_del(cd, a, b, len))
 		{
-			dprintf(2,"21sh: cd: error malloc\n");
+			dprintf(2,"42sh: cd: error malloc\n");
 			return (1);
 		}
 	}

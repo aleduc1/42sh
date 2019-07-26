@@ -4482,11 +4482,11 @@ ft_test_signaux
 ft_test_parser
 ft_test_return_value
 ft_test_variable
-ft_test_alias
-ft_test_hash
-ft_test_history
-ft_test_quoting
-ft_test_test
+#ft_test_alias
+#ft_test_hash
+#ft_test_history
+#ft_test_quoting
+#ft_test_test
 
 printf "\n"
 

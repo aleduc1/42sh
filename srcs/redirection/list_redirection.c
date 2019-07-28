@@ -49,7 +49,7 @@ t_redirection	*base_redirection(void)
 }
 
 static void		ft_apply_one_redirection(t_redirection *r, int num_src,
-					int num_dest)
+					int num_dest, int type)
 {
 	int	final_src;
 
@@ -71,7 +71,7 @@ static void		ft_apply_one_redirection(t_redirection *r, int num_src,
 		r->error = num_dest;
 		final_src = STDERR_FILENO;
 	}
-	ft_create_maillon_redirect(r->redirect, final_src, num_dest);
+	ft_create_maillon_redirect(r->redirect, final_src, num_dest, type);
 }
 
 static void		ft_apply_redirection(t_lex *h, t_redirection *r)
@@ -85,10 +85,7 @@ static void		ft_apply_redirection(t_lex *h, t_redirection *r)
 	{
 		num_src = ft_atoi(h->redir->src_fd[i]);
 		num_dest = h->redir->dest_fd ? ft_atoi(h->redir->dest_fd) : -1;
-		ft_apply_one_redirection(r, num_src, num_dest);
-		// struct stat buf;
-		// if (fstat(num_src, &buf) == -1)
-		// 	ft_printf("error fd is use\n");
+		ft_apply_one_redirection(r, num_src, num_dest, h->redir->type);
 	}
 }
 
@@ -102,7 +99,10 @@ t_redirection	*fill_redirection(t_token *t)
 	while (h)
 	{
 		if (h->token->type == REDIR && h->redir)
+		{
+			whois_type(h->redir->type);
 			ft_apply_redirection(h, r);
+		}
 		h = h->next;
 	}
 	return (r);

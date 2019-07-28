@@ -121,6 +121,33 @@ int			close_file_command(t_lex *lex, t_redirection **r)
 ** AMPLESS -> &<
 */
 
+int			verif_file_descriptor(char **src, char *dst)
+{
+	int				i;
+	struct rlimit	lim;
+	uintmax_t		lim_cur;
+
+	// if (!(type == AMPGREAT || type == GREATAMP || type == LESSAMP
+	// 	|| type == AMPLESS))
+	// 	return (0);
+	if (getrlimit(RLIMIT_NOFILE, &lim) == -1)
+		return (-1);
+	lim_cur = (uintmax_t)lim.rlim_cur;
+	i = -1;
+	while (src && src[++i])
+		if ((uintmax_t)ft_atoi(src[i]) > lim_cur)
+		{
+			ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
+			return (-1);
+		}
+	if (dst && (uintmax_t)ft_atoi(dst) > lim_cur)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
+		return (-1);
+	}
+	return (0);
+}
+
 void		whois_type(int type)
 {
 	if (type == LESS)
@@ -159,16 +186,22 @@ int			open_file_command(t_redir *redir, t_pos *pos)
 		|| redir->type == AMPGREAT || redir->type == AMPLESS
 		|| redir->type == LESSAMP || redir->type == GREATAMP)
 	{
-		verif = open_file_great(redir);
+		open_file_great(redir);
 		// if ((verif = open_file_great(redir)) == -1)
-		// 	ft_dprintf(STDERR_FILENO, "42sh: bad file descriptor\n");
+		// 	ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
 	}
 	else if (redir->type == DLESS)
 	{
-		if ((verif = open_file_dless(redir, pos)) == -1)
-			ft_dprintf(STDERR_FILENO, "42sh: bad file descriptor\n");
+		open_file_dless(redir, pos);
+		// if ((verif = open_file_dless(redir, pos)) == -1)
+		// 	ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
 	}
+	if (verif_file_descriptor(redir->src_fd, redir->dest_fd) == -1)
+		verif = -1;
+		ft_printf("verif = %d\n", verif);
 	if (verif > -1)
 		verif = 0;
+	else
+		gest_return(1);
 	return (verif);
 }

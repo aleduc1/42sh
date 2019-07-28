@@ -83,7 +83,7 @@ void		clean_fuck_list(pid_t pid)
 			if (last)
 				last->next = next;
 			else
-				h = NULL;
+				h = next;
 			free_job(&(*j));
 		}
 		else

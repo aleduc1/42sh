@@ -56,10 +56,28 @@ static void	custom_redirection(t_redirection *r, t_redirect *lst)
 	}
 }
 
+static int	check_fd_is_good(t_redirection *r)
+{
+	// struct stat buf;
+	t_redirect	*redirect;
+	
+	redirect = r->redirect;
+	while (redirect && redirect->base != -1)
+	{
+		ft_printf("base %d = %d\n", redirect->base, fcntl(redirect->base, F_GETFD) == -1);
+			// ft_printf("error base fd\n");
+		ft_printf("new %d = %d\n", redirect->new_fd, fcntl(redirect->new_fd, F_GETFD) == -1);
+			// ft_printf("error new fd\n");
+		redirect = redirect->next;
+	}
+	return (0);
+}
+
 void		redirection_fd(t_redirection *r)
 {
 	t_redirect	*lst;
 
+	check_fd_is_good(r);
 	lst = r->redirect;
 	while (lst)
 	{

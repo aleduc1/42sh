@@ -59,7 +59,7 @@ typedef struct		s_repalias
 # define HT_HASH_HASH_TWO 7
 # define HT_HASH_BASE_SIZE 50
 
-int					bt_exit(t_job *j);
+int					bt_exit(t_job *j, t_pos *pos);
 int					bt_echo(char **av, t_redirection *r);
 
 int					bt_cd(char **av);

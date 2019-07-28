@@ -106,7 +106,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	else if (ft_strequ(av[0], "cd"))
 		verif = bt_cd(av);
 	else if (ft_strequ(av[0], "exit"))
-		verif = bt_exit(j);
+		verif = bt_exit(j, pos);
 	else if ((verif = is_builtin_jobs(p, av)) != -1)
 		;
 	else if (ft_strequ(av[0], "fc"))

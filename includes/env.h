@@ -33,6 +33,7 @@ typedef struct		s_redirect
 {
 	int					base;
 	int					new_fd;
+	int					type;
 	struct s_redirect	*next;
 }					t_redirect;
 
@@ -89,6 +90,8 @@ typedef struct		s_job
 	t_redirection	*r;
 	struct s_job	*next;
 }					t_job;
+
+void		whois_type(int type);
 
 void				parser_var_test(char **value);
 
@@ -288,7 +291,7 @@ char				*parameter_percents(char *parameter);
 */
 
 int					ft_create_maillon_redirect(t_redirect *r, int base,
-						int new_fd);
+						int new_fd, int type);
 t_redirect			*ft_init_redirect(void);
 int					ft_fd_redirect_exist(t_redirect *r, int base);
 

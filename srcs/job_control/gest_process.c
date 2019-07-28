@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "job.h"
-
 #include <errno.h>
 
 /*
@@ -27,7 +26,10 @@ static int	action_process_status(pid_t pid, int status, t_process *p)
 	{
 		p->status = status;
 		if (WIFSTOPPED(status))
+		{
+			gest_return(146);
 			p->stopped = 1;
+		}
 		else if (WIFCONTINUED(status))
 			p->stopped = 0;
 		else
@@ -60,7 +62,7 @@ int			mark_process_status(pid_t pid, int status)
 			}
 			j = j->next;
 		}
-		ft_dprintf(STDERR_FILENO, "No child process %d.\n", pid);
+		ft_dprintf(STDERR_FILENO, "42sh: No child process %d.\n", pid);
 		return (-1);
 	}
 	return (-1);

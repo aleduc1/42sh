@@ -185,7 +185,7 @@ void		fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 static void	pipe_error(int error)
 {
 	ft_dprintf(error, "42sh: error pipe\n");
-	bt_exit(NULL);
+	bt_exit(NULL, NULL);
 }
 
 int			edit_fd(int base, int origin, int new)

@@ -99,10 +99,7 @@ t_redirection	*fill_redirection(t_token *t)
 	while (h)
 	{
 		if (h->token->type == REDIR && h->redir)
-		{
-			whois_type(h->redir->type);
 			ft_apply_redirection(h, r);
-		}
 		h = h->next;
 	}
 	return (r);

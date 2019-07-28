@@ -58,16 +58,57 @@ static void	custom_redirection(t_redirection *r, t_redirect *lst)
 
 static int	check_fd_is_good(t_redirection *r)
 {
-	// struct stat buf;
 	t_redirect	*redirect;
+	t_redirect	*head;
+	t_redirect	*test;
+	int			verif;
 	
 	redirect = r->redirect;
+	head = r->redirect;
 	while (redirect && redirect->base != -1)
 	{
-		ft_printf("base %d = %d\n", redirect->base, fcntl(redirect->base, F_GETFD) == -1);
-			// ft_printf("error base fd\n");
-		ft_printf("new %d = %d\n", redirect->new_fd, fcntl(redirect->new_fd, F_GETFD) == -1);
-			// ft_printf("error new fd\n");
+		test = head;
+		verif = 0;
+		// if (fcntl(redirect->base, F_GETFD) == -1 && (redirect->type == GREATAMP
+		// 	|| redirect->type == LESSAMP) && redirect != head)
+		// {
+		// 	ft_printf("base = %d, new = %d, type = %d\n", redirect->base, redirect->new_fd, 
+		// 		redirect->type);
+		// 	while (test && (!(test->base == redirect->base
+		// 		&& test->new_fd == redirect->new_fd
+		// 		&& test->type == redirect->type)))
+		// 	{
+		// 		if (test->base == redirect->base
+		// 			|| test->new_fd == redirect->base)
+		// 			verif = 1;
+		// 		test = test->next;
+		// 	}
+		// 	if (verif == 0)
+		// 	{
+		// 		ft_printf("la\n");
+		// 		return (-1);
+		// 	}
+		// }
+		if (fcntl(redirect->new_fd, F_GETFD) == -1
+			&& (redirect->type == GREATAMP
+			|| redirect->type == LESSAMP) && redirect != head)
+		{
+			while (test && (!(test->base == redirect->base
+				&& test->new_fd == redirect->new_fd
+				&& test->type == redirect->type)))
+			{
+				if (test->base == redirect->new_fd
+					|| test->new_fd == redirect->new_fd)
+					verif = 1;
+				test = test->next;
+			}
+			if (verif == 0)
+				return (-1);
+		}
+		if (fcntl(redirect->new_fd, F_GETFD) == -1
+			&& (redirect->type == GREATAMP
+			|| redirect->type == LESSAMP) && redirect == head)
+			return (-1);
 		redirect = redirect->next;
 	}
 	return (0);
@@ -77,7 +118,12 @@ void		redirection_fd(t_redirection *r)
 {
 	t_redirect	*lst;
 
-	check_fd_is_good(r);
+	if (check_fd_is_good(r) == -1)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
+		execve("/bin/test", NULL, NULL);
+		exit(-1);
+	}
 	lst = r->redirect;
 	while (lst)
 	{

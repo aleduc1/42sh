@@ -20,6 +20,11 @@ int			file_exist(char *name, int type)
 {
 	int		fd;
 
+	if (type == LESSAMP)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: %s: Ambiguous redirect\n", name);
+		return (-1);
+	}
 	if (access(name, F_OK) != -1)
 		return (0);
 	if (type == LESS)
@@ -35,7 +40,7 @@ int			file_exist(char *name, int type)
 		close(fd);
 		return (1);
 	}
-	ft_printf("42sh: error create file: %s\n", name);
+	ft_dprintf(STDERR_FILENO, "42sh: Error create file: %s\n", name);
 	return (-1);
 }
 
@@ -48,7 +53,7 @@ static int	open_file_great(t_redir *redir)
 	if (redir->filename)
 		redir->dest_fd = ft_itoa(file_exist(redir->filename, redir->type));
 	else
-		return (fcntl(ft_atoi(redir->dest_fd), F_GETFD));
+		return (0);//fcntl(ft_atoi(redir->dest_fd), F_GETFD)
 	if (ft_atoi(redir->dest_fd) == -1)
 		return (-1);
 	ft_strdel(&redir->dest_fd);
@@ -186,7 +191,11 @@ int			open_file_command(t_redir *redir, t_pos *pos)
 		|| redir->type == AMPGREAT || redir->type == AMPLESS
 		|| redir->type == LESSAMP || redir->type == GREATAMP)
 	{
-		open_file_great(redir);
+		if (open_file_great(redir) == -1)
+		{
+			gest_return(1);
+			return (-1);
+		}
 		// if ((verif = open_file_great(redir)) == -1)
 		// 	ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
 	}
@@ -198,7 +207,6 @@ int			open_file_command(t_redir *redir, t_pos *pos)
 	}
 	if (verif_file_descriptor(redir->src_fd, redir->dest_fd) == -1)
 		verif = -1;
-		ft_printf("verif = %d\n", verif);
 	if (verif > -1)
 		verif = 0;
 	else

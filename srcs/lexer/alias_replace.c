@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:03:10 by apruvost          #+#    #+#             */
-/*   Updated: 2019/07/04 15:45:47 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/07/29 19:18:03 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static char			*get_first_word(char *str)
 	char	**words;
 	char	*first;
 
+	if (!str)
+		return (NULL);
 	words = NULL;
 	if (!(words = ft_split_whitespaces(str)))
 		return (NULL);

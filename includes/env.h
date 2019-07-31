@@ -91,7 +91,7 @@ typedef struct		s_job
 	struct s_job	*next;
 }					t_job;
 
-void		whois_type(int type);
+void				whois_type(int type);
 
 void				parser_var_test(char **value);
 
@@ -246,7 +246,8 @@ int					ft_simple_command(char **argv, t_token *lex, t_pos *pos);
 int					ft_simple_command_redirection(char **argv,
 						t_redirection *r, t_pos *pos);
 int					ft_pipe_double(char **argv, t_token *token, t_pos *pos);
-int					ft_ampersand_double(char **argv, t_token *token, t_pos *pos);
+int					ft_ampersand_double(char **argv, t_token *token,
+						t_pos *pos);
 
 /*
 ** commands_pipe.c

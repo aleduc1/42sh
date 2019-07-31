@@ -116,7 +116,6 @@ void			parameter_expansion(char *tmp, char **dst)
 			modify_dst(tmp, dst);
 		else if (verif == -1)
 			display_error_expansion(tmp);
-
 	}
 	else
 		manage_parameter_extension(dst, tmp, i);

@@ -56,55 +56,44 @@ static void	custom_redirection(t_redirection *r, t_redirect *lst)
 	}
 }
 
+static int	check_new_fd(t_redirect *head, t_redirect *test,
+		t_redirect *redirect, int verif)
+{
+	if (fcntl(redirect->new_fd, F_GETFD) == -1
+			&& (redirect->type == GREATAMP
+			|| redirect->type == LESSAMP) && redirect != head)
+	{
+		while (test && (!(test->base == redirect->base
+			&& test->new_fd == redirect->new_fd
+			&& test->type == redirect->type)))
+		{
+			if (test->base == redirect->new_fd
+				|| test->new_fd == redirect->new_fd)
+				verif = 1;
+			test = test->next;
+		}
+		if (verif == 0)
+			return (-1);
+	}
+	return (verif);
+}
+
 static int	check_fd_is_good(t_redirection *r)
 {
 	t_redirect	*redirect;
 	t_redirect	*head;
 	t_redirect	*test;
 	int			verif;
-	
+
 	redirect = r->redirect;
 	head = r->redirect;
 	while (redirect && redirect->base != -1)
 	{
 		test = head;
 		verif = 0;
-		// if (fcntl(redirect->base, F_GETFD) == -1 && (redirect->type == GREATAMP
-		// 	|| redirect->type == LESSAMP) && redirect != head)
-		// {
-		// 	ft_printf("base = %d, new = %d, type = %d\n", redirect->base, redirect->new_fd, 
-		// 		redirect->type);
-		// 	while (test && (!(test->base == redirect->base
-		// 		&& test->new_fd == redirect->new_fd
-		// 		&& test->type == redirect->type)))
-		// 	{
-		// 		if (test->base == redirect->base
-		// 			|| test->new_fd == redirect->base)
-		// 			verif = 1;
-		// 		test = test->next;
-		// 	}
-		// 	if (verif == 0)
-		// 	{
-		// 		ft_printf("la\n");
-		// 		return (-1);
-		// 	}
-		// }
-		if (fcntl(redirect->new_fd, F_GETFD) == -1
-			&& (redirect->type == GREATAMP
-			|| redirect->type == LESSAMP) && redirect != head)
-		{
-			while (test && (!(test->base == redirect->base
-				&& test->new_fd == redirect->new_fd
-				&& test->type == redirect->type)))
-			{
-				if (test->base == redirect->new_fd
-					|| test->new_fd == redirect->new_fd)
-					verif = 1;
-				test = test->next;
-			}
-			if (verif == 0)
-				return (-1);
-		}
+		verif = check_new_fd(head, test, redirect, verif);
+		if (verif == -1)
+			return (-1);
 		if (fcntl(redirect->new_fd, F_GETFD) == -1
 			&& (redirect->type == GREATAMP
 			|| redirect->type == LESSAMP) && redirect == head)

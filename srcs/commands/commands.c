@@ -166,6 +166,7 @@ t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 /*
 ** remplacer 1 par 0 pour lancer en background
 */
+
 int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 {
 	int				verif;
@@ -224,7 +225,8 @@ void		free_job_redirection(t_job **j)
 	}
 }
 
-int			ft_simple_command_redirection(char **av, t_redirection *r, t_pos *pos)
+int			ft_simple_command_redirection(char **av, t_redirection *r,
+				t_pos *pos)
 {
 	int				verif;
 	t_job			*j;
@@ -236,8 +238,6 @@ int			ft_simple_command_redirection(char **av, t_redirection *r, t_pos *pos)
 	j->next = NULL;
 	p = j->first_process;
 	p->r = r;
-	// j = create_new_job(av, NULL, r, 1);
-	// p = j->first_process;
 	if (check_last_command() == -5)
 	{
 		gest_return(1);
@@ -247,41 +247,11 @@ int			ft_simple_command_redirection(char **av, t_redirection *r, t_pos *pos)
 	if ((verif = is_builtin(j, p, pos)) == -1)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
-		if (p->cmd_path)
-			verif = launch_job(j, 1);
-		else
-			verif = gest_error_path(p->cmd[0], p->r);
+		verif = (p->cmd_path) ? launch_job(j, 1)
+			: gest_error_path(p->cmd[0], p->r);
 	}
 	free_job_redirection(&j);
-	// clean_fuck_list(0);
 	return (verif);
-
-
-	// int				verif;
-	// t_job			*j;
-	// t_process		*p;
-
-	// verif = 0;
-	// j = init_job();
-	// j->first_process->cmd = ft_arraydup(av);
-	// j->next = NULL;
-	// p = j->first_process;
-	// p->r = r;
-	// if ((verif = is_builtin(j, p, NULL)) == -1)
-	// {
-	// 	p->cmd_path = is_in_path(p->cmd[0]);
-	// 	if (p->cmd_path)
-	// 		verif = launch_job(j, 1);
-	// 	else
-	// 		verif = gest_error_path(p->cmd[0], p->r);
-	// }
-	// ft_arraydel(&p->cmd);
-	// free(p);
-	// p = NULL;
-	// free(j);
-	// j = NULL;
-	// gest_return(verif);
-	// return (verif);
 }
 
 /*

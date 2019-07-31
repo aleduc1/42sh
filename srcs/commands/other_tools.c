@@ -64,7 +64,8 @@ static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 	else if (ft_strequ(av[0], "set"))
 		verif = builtin_set(p->r);
 	else if (ft_strequ(av[0], "setenv"))
-		verif = verif_set(av, 3, p->r, "setenv") ? edit_setenv(av[1], av[2]) : -2;
+		verif = verif_set(av, 3, p->r, "setenv")
+			? edit_setenv(av[1], av[2]) : -2;
 	else if (ft_strequ(av[0], "unsetenv"))
 		verif = verif_set(av, 2, p->r, "unsetenv") ? ft_unsetenv(av[1]) : -2;
 	else if (ft_strequ(av[0], "export"))
@@ -92,6 +93,24 @@ static int	is_builtin_jobs(t_process *p, char **av)
 	return (verif);
 }
 
+static int	is_builtin_other(t_pos *pos, char **av)
+{
+	int	verif;
+
+	verif = -1;
+	if (ft_strequ(av[0], "fc"))
+		verif = builtin_fc(av, pos);
+	else if (ft_strequ(av[0], "test"))
+		verif = builtin_fc(av, pos);
+	else if (ft_strequ(av[0], "alias"))
+		verif = bt_alias(av);
+	else if (ft_strequ(av[0], "unalias"))
+		verif = bt_unalias(av);
+	else if (ft_strequ(av[0], "hash"))
+		verif = bt_hash(av);
+	return (verif);
+}
+
 int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 {
 	int		verif;
@@ -109,16 +128,8 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = bt_exit(j, pos);
 	else if ((verif = is_builtin_jobs(p, av)) != -1)
 		;
-	else if (ft_strequ(av[0], "fc"))
-		verif = builtin_fc(av, pos);
-	else if (ft_strequ(av[0], "test"))
-		verif = builtin_fc(av, pos);
-	else if (ft_strequ(av[0], "alias"))
-		verif = bt_alias(av);
-	else if (ft_strequ(av[0], "unalias"))
-		verif = bt_unalias(av);
-	else if (ft_strequ(av[0], "hash"))
-		verif = bt_hash(av);
+	else if ((verif = is_builtin_other(pos, av)) != -1)
+		;
 	else
 		verif = -1;
 	if (verif != -1)

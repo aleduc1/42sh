@@ -46,6 +46,7 @@ int			file_exist(char *name, int type)
 
 /*
 ** O_TRUNC -> remove data in file
+** LINE 57: return (fcntl(ft_atoi(redir->dest_fd), F_GETFD));
 */
 
 static int	open_file_great(t_redir *redir)
@@ -53,7 +54,7 @@ static int	open_file_great(t_redir *redir)
 	if (redir->filename)
 		redir->dest_fd = ft_itoa(file_exist(redir->filename, redir->type));
 	else
-		return (0);//fcntl(ft_atoi(redir->dest_fd), F_GETFD)
+		return (0);
 	if (ft_atoi(redir->dest_fd) == -1)
 		return (-1);
 	ft_strdel(&redir->dest_fd);
@@ -62,7 +63,7 @@ static int	open_file_great(t_redir *redir)
 	else if (redir->type == GREAT || redir->type == DLESS
 		|| redir->type == AMPGREAT || redir->type == GREATAMP)
 		redir->dest_fd = ft_itoa(open(redir->filename, O_RDWR | O_TRUNC));
-	else 
+	else
 		redir->dest_fd = ft_itoa(open(redir->filename, O_RDWR));
 	return (1);
 }
@@ -132,9 +133,6 @@ int			verif_file_descriptor(char **src, char *dst)
 	struct rlimit	lim;
 	uintmax_t		lim_cur;
 
-	// if (!(type == AMPGREAT || type == GREATAMP || type == LESSAMP
-	// 	|| type == AMPLESS))
-	// 	return (0);
 	if (getrlimit(RLIMIT_NOFILE, &lim) == -1)
 		return (-1);
 	lim_cur = (uintmax_t)lim.rlim_cur;
@@ -173,6 +171,29 @@ void		whois_type(int type)
 		ft_printf("type is LESSAMP\n");
 }
 
+static int	open_file_command_bis(t_redir **redir, t_pos *pos, int verif)
+{
+	if ((*redir)->filename)
+		parser_var_simple(&((*redir)->filename));
+	if ((*redir)->type == GREAT || (*redir)->type == DGREAT
+		|| (*redir)->type == LESS || (*redir)->type == AMPGREAT
+		|| (*redir)->type == AMPLESS || (*redir)->type == LESSAMP
+		|| (*redir)->type == GREATAMP)
+	{
+		if (open_file_great(*redir) == -1)
+		{
+			gest_return(1);
+			return (-1);
+		}
+	}
+	else if ((*redir)->type == DLESS)
+	{
+		if ((verif = open_file_dless(*redir, pos)) == -1)
+			ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
+	}
+	return (verif);
+}
+
 int			open_file_command(t_redir *redir, t_pos *pos)
 {
 	int	verif;
@@ -185,26 +206,7 @@ int			open_file_command(t_redir *redir, t_pos *pos)
 		ft_strdel(&redir->src_fd[0]);
 		redir->src_fd[0] = ft_strdup("0");
 	}
-	if (redir->filename)
-		parser_var_simple(&redir->filename);
-	if (redir->type == GREAT || redir->type == DGREAT || redir->type == LESS
-		|| redir->type == AMPGREAT || redir->type == AMPLESS
-		|| redir->type == LESSAMP || redir->type == GREATAMP)
-	{
-		if (open_file_great(redir) == -1)
-		{
-			gest_return(1);
-			return (-1);
-		}
-		// if ((verif = open_file_great(redir)) == -1)
-		// 	ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
-	}
-	else if (redir->type == DLESS)
-	{
-		open_file_dless(redir, pos);
-		// if ((verif = open_file_dless(redir, pos)) == -1)
-		// 	ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
-	}
+	verif = open_file_command_bis(&redir, pos, verif);
 	if (verif_file_descriptor(redir->src_fd, redir->dest_fd) == -1)
 		verif = -1;
 	if (verif > -1)

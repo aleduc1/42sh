@@ -12,7 +12,6 @@
 
 #include "env.h"
 
-
 static int	is_special_variable(char *str)
 {
 	if ((!str) || ft_strlen(str) != 1)
@@ -22,7 +21,7 @@ static int	is_special_variable(char *str)
 	return (0);
 }
 
-int		check_format_variable(char *str)
+int			check_format_variable(char *str)
 {
 	int	i;
 
@@ -37,7 +36,7 @@ int		check_format_variable(char *str)
 ** ft_strlen(parameter)
 */
 
-char	*parameter_hash_first(char *parameter)
+char		*parameter_hash_first(char *parameter)
 {
 	int		len;
 	char	*src;
@@ -65,7 +64,7 @@ char	*parameter_hash_first(char *parameter)
 ** salut#sal > ut ; salut#salut > ; salut#salutoi > salut
 */
 
-char	*return_good_dst(char *stock, char *parameter)
+char		*return_good_dst(char *stock, char *parameter)
 {
 	char	*dst;
 	int		i;
@@ -85,7 +84,7 @@ char	*return_good_dst(char *stock, char *parameter)
 	return (dst);
 }
 
-char	*parameter_hash_end(char *value)
+char		*parameter_hash_end(char *value)
 {
 	char	*parameter;
 	char	*dst;
@@ -119,8 +118,8 @@ char	*parameter_hash_end(char *value)
 ** salut#ut > sal ; salut#salut > ; salut#salutoi > salut
 */
 
-int		assign_value_parameter_percents(int *index, char **stock, char *value,
-	char *parameter)
+static int	assign_value_parameter_percents(int *index, char **stock,
+		char *value, char *parameter)
 {
 	ft_strdel(stock);
 	(*index) += value[(*index) + 1] && value[(*index) + 1] == '%' ? 2 : 1;
@@ -129,13 +128,33 @@ int		assign_value_parameter_percents(int *index, char **stock, char *value,
 	return (ft_strlen(*stock));
 }
 
-char	*parameter_percents(char *value)
+static char	*value_parameter_percents(int index, char **stock, char *value)
 {
 	char	*parameter;
 	char	*dst;
+	int		i;
+
+	parameter = value_line_path(*stock, 0);
+	if (!parameter)
+		return (NULL);
+	i = assign_value_parameter_percents(&index, stock, value, parameter);
+	if (i <= index)
+		while (--index > -1 && --i > -1 && parameter[index] && (*stock)[i])
+			if (parameter[index] != (*stock)[i])
+			{
+				i = 0;
+				break ;
+			}
+	dst = ft_strsub(parameter, 0, index + 1);
+	ft_strdel(&parameter);
+	return (dst);
+}
+
+char		*parameter_percents(char *value)
+{
+	char	*dst;
 	char	*stock;
 	int		index;
-	int		i;
 
 	index = ft_chr_index(value, '%');
 	stock = ft_strsub(value, 0, index);
@@ -145,19 +164,7 @@ char	*parameter_percents(char *value)
 		display_error_expansion(value);
 		return (NULL);
 	}
-	parameter = value_line_path(stock, 0);
-	if (!parameter)
-		return (NULL);
-	i = assign_value_parameter_percents(&index, &stock, value, parameter);
-	if (i <= index)
-		while (--index > -1 && --i > -1 && parameter[index] && stock[i])
-			if (parameter[index] != stock[i])
-			{
-				i = 0;
-				break ;
-			}
-	dst = ft_strsub(parameter, 0, index + 1);
-	ft_strdel(&parameter);
+	dst = value_parameter_percents(index, &stock, value);
 	ft_strdel(&stock);
 	return (dst);
 }

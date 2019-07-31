@@ -16,6 +16,12 @@
 ** F_OK: file exist
 */
 
+static void	close_file_test_quote(int fd)
+{
+	if (verif_close(fd))
+		close(fd);
+}
+
 int			test_quote(char *name)
 {
 	int		fd;
@@ -35,11 +41,11 @@ int			test_quote(char *name)
 		return (0);
 	}
 	fd = open(dst, O_RDWR | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	ft_strdel(&dst);
 	if (fd != -1)
 	{
-		close(fd);
+		close_file_test_quote(fd);
 		return (1);
 	}
 	return (-1);

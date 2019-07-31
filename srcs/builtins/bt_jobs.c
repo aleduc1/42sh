@@ -121,7 +121,8 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 					else if (job_is_stop(j))
 						(*p)(j, 1, r);
 					else
-						ft_dprintf(r->error, "42sh: jobs %s: no such job\n", av[i]);
+						ft_dprintf(r->error, "42sh: jobs %s: no such job\n",
+							av[i]);
 				}
 				j = j->next;
 			}
@@ -131,7 +132,6 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 			++i;
 		}
 	}
-	
 }
 
 int			bt_jobs(char **av, t_redirection *r)

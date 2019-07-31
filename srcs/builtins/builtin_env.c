@@ -42,7 +42,8 @@ static t_env	*builtin_env_key(t_env *my_env, char *argv, int *ret)
 	return (my_env);
 }
 
-static int		builtin_env_s(t_redirection *r, char **argv, pid_t pid, t_pos *pos)
+static int		builtin_env_s(t_redirection *r, char **argv, pid_t pid,
+					t_pos *pos)
 {
 	t_env	*my_env;
 	int		i;

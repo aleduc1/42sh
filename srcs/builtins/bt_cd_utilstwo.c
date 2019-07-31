@@ -34,7 +34,7 @@ int		cd_chdir(t_cd *cd)
 		return (cd_err(cd));
 	}
 	tmp = value_line_path("PWD", 0);
-	if (cd->arg_P)
+	if (cd->arg_p)
 	{
 		bin = getcwd(NULL, MAXPATHLEN);
 		edit_setenv("PWD", bin);
@@ -111,13 +111,13 @@ int		cd_getopt(char ac, char **av, t_cd *cd)
 	{
 		if (arg == 'L')
 		{
-			cd->arg_L = 1;
-			cd->arg_P = 0;
+			cd->arg_l = 1;
+			cd->arg_p = 0;
 		}
 		else if (arg == 'P')
 		{
-			cd->arg_P = 1;
-			cd->arg_L = 0;
+			cd->arg_p = 1;
+			cd->arg_l = 0;
 		}
 		else
 		{

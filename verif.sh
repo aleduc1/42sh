@@ -6,7 +6,7 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/26 04:19:26 by sbelondr          #+#    #+#              #
-#    Updated: 2019/07/26 04:19:30 by sbelondr         ###   ########.fr        #
+#    Updated: 2019/07/31 11:04:46 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ do
 	clear
 	i=`tput cols`
 
-	pid=`ps | grep $1 | grep -v 'grep' | grep -v 'bash' |  cut -d ' ' -f 1`
+	pid=`ps | grep $1 | grep -v 'grep' | grep -v 'bash' | grep -v 'verif.sh' |  cut -d ' ' -f 1`
 	if [ -z pid -o "$pid" == "" ]
 	then 
 		osascript -e 'display notification "Script verif.sh is stopped" with title "Alert verif.sh"'

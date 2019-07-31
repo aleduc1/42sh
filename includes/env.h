@@ -132,8 +132,13 @@ int					modify_dst(char *tmp, char **dst);
 */
 
 t_redirection		*init_redirection(void);
-t_redirection		*fill_redirection(t_token *t);
 t_redirection		*base_redirection(void);
+
+/*
+** apply_redirection.c
+*/
+
+t_redirection		*fill_redirection(t_token *t);
 
 /*
 ** delete_redirection.c
@@ -147,18 +152,30 @@ int					verif_close(int fd);
 */
 
 int					gest_return(int verif);
-int					is_builtin(t_job *j, t_process *p, t_pos *pos);
 char				*is_in_path(char *command);
 t_env				*get_env(int is_end, t_env *head);
+
+/*
+** is_builtin.c
+*/
+
+int					is_builtin(t_job *j, t_process *p, t_pos *pos);
 
 /*
 ** parser_var.c
 */
 
 void				parser_var(char ***value);
-char				*search_var(char *src);
 void				parser_var_simple(char **value);
+
+/*
+** parser_var_bis.c
+*/
+
+void				copy_value(char *src, char **dst, int start, int end);
+char				*search_var(char *src);
 int					manage_is_quote(char c, int expand);
+int					is_expand_tild(char *value, int index, int expand);
 
 /*
 ** apply_parser_var.c
@@ -180,9 +197,14 @@ char				**create_list_env(t_env *my_env, int env);
 */
 
 int					edit_set(char **value, t_redirection *r, t_pos *pos);
-int					add_set_value(char *key, char *value);
 int					ft_unset(char *key);
 int					edit_set_command_env(char *str, t_env *my_env);
+
+/*
+** add_set_value.c
+*/
+
+int					add_set_value(char *key, char *value);
 
 /*
 ** tools_env.c
@@ -234,8 +256,14 @@ int					free_maillon_env(char *key, int env);
 */
 
 int					open_file_command(t_redir *redir, t_pos *pos);
-int					close_file_command(t_lex *lex, t_redirection **r);
+
+/*
+** action_file.c
+*/
+
 int					file_exist(char *name, int type);
+int					open_file_great(t_redir *redir);
+int					open_file_dless(t_redir *redir, t_pos *pos);
 
 /*
 ** commands.c
@@ -270,6 +298,12 @@ void				parameter_expansion(char *tmp, char **dst);
 void				display_error_expansion(char *src);
 
 /*
+** gest_exansion.c
+*/
+
+char				*gest_expansion(char *key, char *value);
+
+/*
 ** formats_parameter_bis.c
 */
 
@@ -279,13 +313,23 @@ char				*parameter_interrogation(char *parameter, char *word);
 char				*parameter_plus(char *parameter, char *word);
 
 /*
-** formats_parameter.c
+** expansion_hash.c
+*/
+
+char				*parameter_hash_first(char *parameter);
+char				*parameter_hash_end(char *parameter);
+
+/*
+** expansion_percent.c
+*/
+
+char				*parameter_percents(char *parameter);
+
+/*
+** expansion_tools.c
 */
 
 int					check_format_variable(char *str);
-char				*parameter_hash_first(char *parameter);
-char				*parameter_hash_end(char *parameter);
-char				*parameter_percents(char *parameter);
 
 /*
 ** list_redirect.c
@@ -314,6 +358,13 @@ void				display_redirection(t_redirection *r);
 */
 
 int					test_quote(char *name);
+
+/*
+** close_redirection.c
+*/
+
+int					file_to_close(t_token *t, t_job *j);
+int					close_file_command(t_lex *lex, t_redirection **r);
 
 /*
 ** remove_quote.c

@@ -104,7 +104,7 @@ static int	cd_stepsev(t_cd *cd)
 	char	*bin;
 	char	*binn;
 
-	if (cd->arg_P == 1)
+	if (cd->arg_p == 1)
 		return (cd_stepten(cd));
 	if (cd->curpath[0] != '/')
 	{
@@ -156,8 +156,8 @@ static int	cd_init(char **av, t_cd *cd)
 	int		ac;
 
 	cd->arg__ = 0;
-	cd->arg_L = 1;
-	cd->arg_P = 0;
+	cd->arg_l = 1;
+	cd->arg_p = 0;
 	cd->curpath = NULL;
 	ac = 1;
 	while (av[ac])

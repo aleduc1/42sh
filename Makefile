@@ -150,7 +150,6 @@ SRCS_NAMES = main.c \
 			 signaux.c\
 			 bt_jobs.c\
 			 parameter_expansion.c\
-			 formats_parameter.c\
 			 list_redirect.c\
 			 redirection.c\
 			 path.c\
@@ -180,7 +179,24 @@ SRCS_NAMES = main.c \
 			 bt_cd_utils.c\
 			 bt_cd_canonical_a.c\
 			 bt_cd_canonical_b.c\
-			 bt_cd_canonical_c.c
+			 bt_cd_canonical_c.c\
+			 process_tools.c\
+			 process_pipe.c\
+			 process_pipe_fd.c\
+			 free_job_file.c\
+			 status_process.c\
+			 clean_commands.c\
+			 close_redirection.c\
+			 is_builtin.c\
+			 parser_var_bis.c\
+			 expansion_hash.c\
+			 expansion_percent.c\
+			 expansion_tools.c\
+			 action_file.c\
+			 add_set_value.c\
+			 bt_export.c\
+			 gest_expansion.c\
+			 apply_redirection.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

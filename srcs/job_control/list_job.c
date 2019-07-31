@@ -68,3 +68,31 @@ t_job		*get_first_job(t_job *new_job)
 		(*job) = new_job;
 	return (*job);
 }
+
+t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
+{
+	t_job			*j;
+	t_process		*p;
+	int				process_id;
+
+	j = get_first_job(NULL);
+	process_id = 0;
+	while (j && j->pgid != 0)
+	{
+		process_id = j->first_process ? j->first_process->process_id : 0;
+		if (!j->next)
+			j->next = init_job();
+		j = j->next;
+	}
+	file_to_close(t, j);
+	j->pgid = 0;
+	j->notif_stop = 0;
+	j->r = base_redirection();
+	p = j->first_process;
+	p->cmd = ft_arraydup(argv);
+	parser_var(&p->cmd);
+	p->process_id = process_id + 1;
+	p->fg = fg;
+	p->r = (t) ? fill_redirection(t) : r;
+	return (j);
+}

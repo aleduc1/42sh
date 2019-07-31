@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "sh21.h"
+#include "env.h"
 
 void		history_file(t_node *history)
 {
@@ -43,7 +44,8 @@ void		file_to_history(t_pos *pos)
 		pos->historysum++;
 		ft_strdel(&history_line);
 	}
-	close(fd);
+	if (verif_close(fd))
+		close(fd);
 }
 
 char		*history_no_double(t_pos *pos)

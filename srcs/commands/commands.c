@@ -25,156 +25,19 @@ void		display_error_command(t_redirection *r, char **cmd)
 
 /*
 ** simple command
-*/
-
-void		display_lst_job(t_job *j)
-{
-	t_job		*sv;
-	t_process	*p;
-
-	sv = j;
-	if (!sv)
-		return ;
-	while (sv)
-	{
-		ft_printf("===========================\n");
-		ft_printf("pgpid = %d\nnotified = %d\n", sv->pgid, sv->notified);
-		p = sv->first_process;
-		while (p)
-		{
-			ft_printf("___________________________\n");
-			ft_arraydisplay(p->cmd);
-			ft_printf("pointeur:\n cmd = %p\n cmd_path = %p\n", &p->cmd,
-					&p->cmd_path);
-			ft_printf("redirection = %p\n", &p->r);
-			ft_printf("pid = %d\ncompleted = %d\n", p->pid, p->completed);
-			ft_printf("stopped = %d\nstatus = %d\n", p->stopped,
-					p->status);
-			p = p->next;
-		}
-		sv = sv->next;
-	}
-}
-
-int			condition_clean_list(t_job *j, pid_t pid)
-{
-	if ((((j->first_process->completed || j->first_process->pid == 0)
-		&& j->first_process->stopped == 0))
-		|| j->first_process->pid == pid)
-		return (1);
-	return (0);
-}
-
-void		clean_fuck_list(pid_t pid)
-{
-	t_job	**j;
-	t_job	*last;
-	t_job	*next;
-	t_job	*h;
-
-	j = static_job();
-	h = *j;
-	last = NULL;
-	while (*j)
-	{
-		next = (*j)->next;
-		if (condition_clean_list(*j, pid))
-		{
-			if (last)
-				last->next = next;
-			else
-				h = next;
-			free_job(&(*j));
-		}
-		else
-			last = (*j);
-		(*j) = next;
-	}
-	(*j) = h;
-}
-
-static int	file_to_close_bis(t_token *t, t_job *j)
-{
-	t_lex	*lex;
-	int		i;
-
-	lex = t->command;
-	if (!(j->close_fd = (int*)malloc(sizeof(int) * (j->len_close + 1))))
-		return (-1);
-	i = -1;
-	while (lex)
-	{
-		if (lex->token->type == REDIR && lex->redir &&
-				lex->redir->dest_fd &&
-				ft_atoi(lex->redir->dest_fd) != -1)
-			if (lex->redir->filename || lex->redir->close == 1)
-				j->close_fd[++i] = ft_atoi(lex->redir->dest_fd);
-		lex = lex->next;
-	}
-	return (0);
-}
-
-int			file_to_close(t_token *t, t_job *j)
-{
-	t_lex	*lex;
-	int		verif;
-
-	if (!t)
-		return (-1);
-	lex = t->command;
-	while (lex)
-	{
-		if (lex->token->type == REDIR && lex->redir &&
-				lex->redir->dest_fd &&
-				ft_atoi(lex->redir->dest_fd) != -1)
-			if (lex->redir->filename || lex->redir->close == 1)
-				j->len_close++;
-		lex = lex->next;
-	}
-	verif = file_to_close_bis(t, j);
-	return (verif);
-}
-
-t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
-{
-	t_job			*j;
-	t_process		*p;
-	int				process_id;
-
-	j = get_first_job(NULL);
-	process_id = 0;
-	while (j && j->pgid != 0)
-	{
-		process_id = j->first_process ? j->first_process->process_id : 0;
-		if (!j->next)
-			j->next = init_job();
-		j = j->next;
-	}
-	file_to_close(t, j);
-	j->pgid = 0;
-	j->notif_stop = 0;
-	j->r = base_redirection();
-	p = j->first_process;
-	p->cmd = ft_arraydup(argv);
-	parser_var(&p->cmd);
-	p->process_id = process_id + 1;
-	p->fg = fg;
-	p->r = (t) ? fill_redirection(t) : r;
-	return (j);
-}
-
-/*
 ** remplacer 1 par 0 pour lancer en background
 */
 
 int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 {
+	int				fg;
 	int				verif;
 	t_job			*j;
 	t_process		*p;
 
+	fg = 1;
 	verif = 0;
-	j = create_new_job(argv, t, NULL, 1);
+	j = create_new_job(argv, t, NULL, fg);
 	p = j->first_process;
 	if (check_last_command() == -5)
 	{
@@ -186,7 +49,7 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
 		if (p->cmd_path)
-			verif = launch_job(j, 1);
+			verif = launch_job(j, fg);
 		else
 			verif = gest_error_path(p->cmd[0], p->r);
 	}
@@ -194,36 +57,9 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 	return (verif);
 }
 
-void		free_process_redirection(t_job **j)
-{
-	t_process	*p;
-	t_process	*next;
-
-	if ((!j) || (!(*j)))
-		return ;
-	p = (*j)->first_process;
-	while (p)
-	{
-		next = p->next;
-		ft_strdel(&(p->cmd_path));
-		if (p->cmd)
-			ft_arraydel(&(p->cmd));
-		free(p);
-		p = NULL;
-		p = next;
-	}
-}
-
-void		free_job_redirection(t_job **j)
-{
-	if (j && (*j))
-	{
-		if ((*j)->first_process)
-			free_process_redirection(j);
-		free(*j);
-		(*j) = NULL;
-	}
-}
+/*
+** simple command for set or env
+*/
 
 int			ft_simple_command_redirection(char **av, t_redirection *r,
 				t_pos *pos)

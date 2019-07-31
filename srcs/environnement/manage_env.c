@@ -117,26 +117,3 @@ int			ft_unsetenv(char *key)
 	my_env = head;
 	return (verif);
 }
-
-int			bt_export(char **value)
-{
-	int		i;
-	int		verif;
-	char	**spl;
-
-	i = -1;
-	verif = 0;
-	while (value[++i])
-	{
-		if (ft_strchr_exist(value[i], '='))
-		{
-			spl = ft_strsplit(value[i], '=');
-			if (spl && spl[0])
-				verif = edit_setenv(spl[0], spl[1]);
-			ft_arraydel(&spl);
-		}
-		else
-			verif = edit_export(value[i]);
-	}
-	return (verif);
-}

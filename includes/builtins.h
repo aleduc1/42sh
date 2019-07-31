@@ -6,12 +6,16 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/06 18:36:47 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/07/31 13:17:47 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #	ifndef BUILTINS_H
 #	define BUILTINS_H
+
+#	define HT_HASH_HASH_ONE 3
+#	define HT_HASH_HASH_TWO 7
+#	define HT_HASH_BASE_SIZE 50
 
 #include "env.h"
 #include "job.h"
@@ -20,8 +24,8 @@
 typedef struct		s_cd
 {
 	int		arg__;
-	int		arg_L;
-	int		arg_P;
+	int		arg_l;
+	int		arg_p;
 	char	*directory;
 	char	*curpath;
 }					t_cd;
@@ -42,7 +46,7 @@ typedef struct		s_ht_hash
 
 typedef struct		s_hash_tree
 {
-	t_hash	*hash;
+	t_hash				*hash;
 	struct s_hash_tree	*left;
 	struct s_hash_tree	*right;
 
@@ -54,10 +58,6 @@ typedef struct		s_repalias
 	char				*value;
 	struct s_repalias	*next;
 }					t_repalias;
-
-# define HT_HASH_HASH_ONE 3
-# define HT_HASH_HASH_TWO 7
-# define HT_HASH_BASE_SIZE 50
 
 int					bt_exit(t_job *j, t_pos *pos);
 int					bt_echo(char **av, t_redirection *r);
@@ -87,6 +87,10 @@ int					cd_getopt(char ac, char **av, t_cd *cd);
 int					bt_jobs(char **av, t_redirection *r);
 int					bt_bg(char **av, t_redirection *r);
 int					bt_fg(char **av, t_redirection *r);
+
+/*
+** bt_export.c
+*/
 int					bt_export(char **value);
 
 int					builtin_fc(char **av, t_pos *pos);
@@ -97,10 +101,6 @@ int					builtin_fc(char **av, t_pos *pos);
 
 int					builtin_env_display(t_redirection *r);
 
-
-
-
-
 int					bt_alias(char **av);
 int					bt_unalias(char **av);
 
@@ -109,7 +109,8 @@ t_hash				*hash_new_item(const char *k, const char *v);
 t_ht_hash			*ht_hash_new(void);
 t_ht_hash			*ht_hash_new_sized(const int base_size);
 void				ht_hash_del(t_ht_hash *ht);
-int					ht_hash_get_hash(const char *s, const int num, const int attempt);
+int					ht_hash_get_hash(const char *s, const int num,
+						const int attempt);
 int					ht_hash_hash(const char *s, const int a, const int m);
 void				ht_hash_insert(t_ht_hash *ht, const char *key, char *val);
 char				*ht_hash_search(t_ht_hash *ht, const char *key);

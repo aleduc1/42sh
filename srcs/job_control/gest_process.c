@@ -36,7 +36,7 @@ static int	action_process_status(pid_t pid, int status, t_process *p)
 		{
 			p->completed = 1;
 			if (WIFSIGNALED(status))
-				gest_return(WTERMSIG(p->status));	
+				gest_return(WTERMSIG(p->status));
 		}
 		return (0);
 	}
@@ -100,63 +100,4 @@ void		wait_for_job(t_job *j)
 			|| job_is_completed(j))
 			break ;
 	}
-}
-
-void		job_info(t_job *j, char *status)
-{
-	if (j->first_process)
-		ft_dprintf(j->first_process->r->error, "\n%s [%d]: %s\n",
-			j->first_process->cmd[0], (int)j->pgid, status);
-}
-
-void		job_notif(void)
-{
-	t_job	*j;
-	t_job	*next;
-
-	update_status();
-	j = get_first_job(NULL);
-	while (j)
-	{
-		next = j->next;
-		if (j->notif_stop == 0)
-		{
-			if (job_is_completed(j))
-			{
-				ft_putendl("");
-				bt_jobs_s(j, 0, j->r);
-			}
-			else if (job_is_stop(j) && !j->notified)
-			{
-				ft_putendl("");
-				bt_jobs_s(j, 1, j->r);
-			}
-			j->notif_stop = 1;
-		}
-		j = next;
-	}
-}
-
-void		job_running(t_job *j)
-{
-	t_process	*p;
-
-	p = j->first_process;
-	while (p)
-	{
-		p->stopped = 0;
-		p = p->next;
-	}
-	j->notified = 0;
-}
-
-void		continue_job(t_job *j, int fg)
-{
-	job_running(j);
-	j->notif_stop = 0;
-	if (fg)
-		add_in_fg(j, 1);
-	else
-		add_in_bg(j, 1);
-	clean_fuck_list(0);
 }

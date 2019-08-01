@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:30:45 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/05/08 02:35:14 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/01 11:01:09 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_ast			*nud(t_token *t)
 		return (node_ast(t, NULL, NULL));
 	else if (OPERATORS)
 	{
-		ft_putstr("21sh: parse error near: ");
+		ft_putstr("42sh: parse error near: ");
 		ft_putendl(t->data);
 		g_out = 1;
 		return (node_ast(t, NULL, NULL));
@@ -31,8 +31,12 @@ t_ast			*nud(t_token *t)
 
 t_ast			*led(t_ast *left, t_token *t)
 {
-	if (t->type == SCOLON)
+	if (t->type == AMP && peek()->type == DELIM)
+		return (node_ast(t, left, NULL));
+	else if (t->type == SCOLON)
 		return (node_ast(t, left, expr(20)));
+	else if (t->type == AMP)
+		return (node_ast(t, left, expr(25)));
 	else if (t->type == SPIPE)
 		return (node_ast(t, left, expr(30 - 1)));
 	else if (t->type == CMD || t->type == DELIM)

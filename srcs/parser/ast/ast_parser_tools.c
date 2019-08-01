@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:30:18 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/05/08 02:35:40 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/06/27 00:45:08 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int				bp(t_token *token)
 		return (10);
 	else if (token->type == SCOLON)
 		return (20);
+	else if (token->type == AMP)
+		return (25);
 	else if (token->type == SPIPE)
 		return (30);
 	else

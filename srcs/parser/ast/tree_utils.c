@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:33:01 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/05/15 16:28:23 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/06/27 00:43:59 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void		pretty_print(t_ast *tree)
 		ft_putstr(g_depth);
 		ft_putstr(" ├──");
 		print_push('|');
-		pretty_print(tree->r);
+		if (tree->r)
+			pretty_print(tree->r);
+		else
+			ft_putstr("[null]\n");
 		g_depth[g_di -= 4] = 0;
 		ft_putstr(g_depth);
 		ft_putstr(" └──");
@@ -88,3 +91,4 @@ t_ast		*ast_parser(t_lex *tokens)
 	}
 	return (ast);
 }
+

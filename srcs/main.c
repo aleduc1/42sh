@@ -166,8 +166,8 @@ int			main(int argc, char **argv, char **environ)
 			if ((input = prompt(multi_input, &pos)))
 			{
 				run(input, &pos);
-				job_notif();
 			}
+				job_notif();
 	}
 	return (0);
 }

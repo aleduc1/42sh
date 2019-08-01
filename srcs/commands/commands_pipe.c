@@ -21,12 +21,14 @@ static void	stock_process(char **argv, t_token *token, int end_pipe, int fg)
 		add_process(argv, token, fg);
 }
 
-int			ft_pipe(char **argv, t_token *token, int end_pipe)
+int			ft_pipe(char **argv, t_token *token, int end_pipe, int bg)
 {
 	t_job		*j;
 	t_process	*p;
+	int			fg;
 
-	stock_process(argv, token, end_pipe, 1);
+	fg = (bg > 0) ? 0 : 1;
+	stock_process(argv, token, end_pipe, fg);
 	if (check_last_command() == -5)
 	{
 		p = get_end_job()->first_process;
@@ -38,7 +40,7 @@ int			ft_pipe(char **argv, t_token *token, int end_pipe)
 	if (end_pipe == 2)
 	{
 		j = get_end_job();
-		launch_job_pipe(j, 1);
+		launch_job_pipe(j, fg);
 		clean_fuck_list(0);
 		update_status();
 	}

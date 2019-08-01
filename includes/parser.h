@@ -41,8 +41,9 @@ t_ast				*ast_parser(t_lex *tokens);
 
 int					solo_tree(t_ast *node, t_pos *pos);
 int					interpreter(t_ast *node, t_pos *pos, int bg);
-int					*run_cmd(t_token *cmd_list, t_pos *pos);
-int					*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe);
+int					*run_cmd(t_token *cmd_list, t_pos *pos, int bg);
+int					*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe,
+						int bg);
 
 int					check_last(void);
 #endif

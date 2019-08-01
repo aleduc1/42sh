@@ -30,22 +30,25 @@ void		job_notif(void)
 	while (j)
 	{
 		next = j->next;
-		if (j->notif_stop == 0)
+		if (j->fg == 0)
 		{
 			if (job_is_completed(j))
 			{
-				ft_putendl("");
-				bt_jobs_s(j, 0, j->r);
+				ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
+					'-', j->first_process->cmd[0]);
+				// bt_jobs_s(j, 0, j->r);
 			}
-			else if (job_is_stop(j) && !j->notified)
+			else if (job_is_stop(j) && (!j->notified))
 			{
-				ft_putendl("");
-				bt_jobs_s(j, 1, j->r);
+				ft_printf("[%d]%d Done	%s\n", j->first_process->process_id,
+					'+', j->first_process->cmd[0]);
+				// bt_jobs_s(j, 1, j->r);
 			}
 			j->notif_stop = 1;
 		}
 		j = next;
 	}
+	clean_fuck_list(0);
 }
 
 void		job_running(t_job *j)

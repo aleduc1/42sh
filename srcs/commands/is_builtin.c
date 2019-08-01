@@ -56,7 +56,7 @@ static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 	else if (ft_strequ(av[0], "unsetenv"))
 		verif = verif_set(av, 2, p->r, "unsetenv") ? ft_unsetenv(av[1]) : -2;
 	else if (ft_strequ(av[0], "export"))
-		verif = verif_set(av, 2, p->r, "export") ? bt_export(av + 1) : -2;
+		verif = bt_export(av, p->r);
 	else if (ft_strequ(av[0], "unset"))
 		verif = verif_set(av, 2, p->r, "unset") ? ft_unset(av[1]) : -2;
 	else if (ft_strchr_exist(av[0], '='))

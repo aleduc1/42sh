@@ -91,12 +91,6 @@ typedef struct		s_job
 	struct s_job	*next;
 }					t_job;
 
-void				whois_type(int type);
-
-void				parser_var_test(char **value);
-
-int					gest_error_path(char *cmd, t_redirection *r);
-
 /*
 ** redirection.c
 */
@@ -151,6 +145,7 @@ int					verif_close(int fd);
 ** other_tools.c
 */
 
+int					gest_error_path(char *cmd, t_redirection *r);
 int					gest_return(int verif);
 char				*is_in_path(char *command);
 t_env				*get_env(int is_end, t_env *head);
@@ -255,6 +250,7 @@ int					free_maillon_env(char *key, int env);
 ** manage_file.c
 */
 
+void				whois_type(int type);
 int					open_file_command(t_redir *redir, t_pos *pos);
 
 /*
@@ -270,7 +266,8 @@ int					open_file_dless(t_redir *redir, t_pos *pos);
 */
 
 void				display_error_command(t_redirection *r, char **cmd);
-int					ft_simple_command(char **argv, t_token *lex, t_pos *pos);
+int					ft_simple_command(char **argv, t_token *lex, t_pos *pos,
+						int bg);
 int					ft_simple_command_redirection(char **argv,
 						t_redirection *r, t_pos *pos);
 int					ft_pipe_double(char **argv, t_token *token, t_pos *pos);
@@ -281,7 +278,7 @@ int					ft_ampersand_double(char **argv, t_token *token,
 ** commands_pipe.c
 */
 
-int					ft_pipe(char **argv, t_token *lex, int end_pipe);
+int					ft_pipe(char **argv, t_token *lex, int end_pipe, int bg);
 int					add_pipe_process(char **cmd, t_redirection *r);
 
 /*
@@ -372,6 +369,17 @@ int					close_file_command(t_lex *lex, t_redirection **r);
 
 void				remove_quote(char ***value);
 void				remove_quote_line(char **line);
+
+/*
+** dup_restore.c
+*/
+
+void				stock_fd_base(void);
+void				dup_restore(void);
+
+/*
+** display.c
+*/
 
 void				display_prompt(void);
 

@@ -16,13 +16,12 @@ int		solo_tree(t_ast *node, t_pos *pos)
 {
 	if (node->token->type == CMD)
 	{
-		run_cmd(node->token, pos);
+		run_cmd(node->token, pos, 0);
 		return (1);
 	}
 	if (node->token->type == AMP && node->l->token->type == CMD &&!node->r)
 	{
-		ft_putendl("1");
-		run_cmd(node->l->token, pos);
+		run_cmd(node->l->token, pos, 1);
 		return (1);
 	}
 	else
@@ -38,19 +37,19 @@ void		background_case(t_ast *node, t_pos *pos, int *bg)
 							&& node->r->token->type == CMD) // OK
 		{
 			ft_putendl(ft_itoa(*bg));
-			run_cmd(node->l->token, pos);
+			run_cmd(node->l->token, pos, *bg);
 			// if (*bg > 1)
 			// 	ft_putendl(ft_itoa(*bg));
 			// else
 			// 	ft_putendl("0");
 
 			// *bg = *bg-1;
-			ft_putendl(ft_itoa(*bg-1));
-			run_cmd(node->r->token, pos);
+			// ft_putendl(ft_itoa(*bg-1));
+			run_cmd(node->r->token, pos, *bg-1);
 		}
 		if (node->l->token->type == CMD && node->r \
 							&& node->r->token->type != CMD) // OK`
-			{ft_putendl(ft_itoa(*bg));run_cmd(node->l->token, pos);}
+			run_cmd(node->l->token, pos, *bg-1);
 	}
 }
 
@@ -61,12 +60,12 @@ void	scolon_case(t_ast *node, t_pos *pos, int bg)
 		if (node->l->token->type == CMD && node->r->token->type == CMD)
 		{
 			ft_putendl(ft_itoa(bg));
-			run_cmd(node->l->token, pos);
+			run_cmd(node->l->token, pos, bg);
 			ft_putendl(ft_itoa(bg));
-			run_cmd(node->r->token, pos);
+			run_cmd(node->r->token, pos, bg);
 		}
 		if (node->l->token->type == CMD && node->r->token->type != CMD)
-			{ft_putendl(ft_itoa(bg));run_cmd(node->l->token, pos);}
+			run_cmd(node->l->token, pos, bg);
 	}
 }
 
@@ -78,12 +77,12 @@ void	spipe_case(t_ast *node, t_pos *pos, int bg)
 	{
 		ft_putendl(ft_itoa(bg));
 		if (state == 0)
-			run_pipe(node->l->token, pos, state++);
+			run_pipe(node->l->token, pos, state++, bg);
 		else
-			run_pipe(node->l->token, pos, 1);
+			run_pipe(node->l->token, pos, 1, bg);
 		if (node->r->token->type == CMD)
 		{
-			run_pipe(node->r->token, pos, 2);
+			run_pipe(node->r->token, pos, 2, bg);
 			state = 0;
 		}
 	}
@@ -96,13 +95,13 @@ void	dpipe_case(t_ast *node, t_pos *pos, int bg)
 		if (node->l->token->type == CMD && node->r->token->type == CMD)
 		{
 			ft_putendl(ft_itoa(bg));
-			run_cmd(node->l->token, pos);
-			printf("CHECKLAST:%d\n", check_last());
+			run_cmd(node->l->token, pos, bg);
+			// printf("CHECKLAST:%d\n", check_last());
 			if (check_last() != 0)
-			{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
+				run_cmd(node->r->token, pos, bg);
 		}
 		if (node->l->token->type == CMD && node->r->token->type != CMD)
-			{ft_putendl(ft_itoa(bg));run_cmd(node->l->token, pos);}
+			run_cmd(node->l->token, pos, bg);
 	}
 }
 
@@ -113,13 +112,13 @@ void	damp_case(t_ast *node, t_pos *pos, int bg)
 		if (node->l->token->type == CMD && node->r->token->type == CMD)
 		{
 			ft_putendl(ft_itoa(bg));
-			run_cmd(node->l->token, pos);
+			run_cmd(node->l->token, pos, bg);
 			printf("CHECKLAST:%d\n", check_last());
 			if (check_last() == 0)
-			{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
+				run_cmd(node->r->token, pos, bg);
 		}
 		if (node->l->token->type == CMD && node->r->token->type != CMD)
-			{ft_putendl(ft_itoa(bg));run_cmd(node->l->token, pos);}
+			run_cmd(node->l->token, pos, bg);
 	}
 }
 
@@ -128,15 +127,15 @@ void	edge_case(t_ast *node, t_pos *pos, int bg)
 	if (node->token->type == SCOLON || node->token->type == AMP)
 		if (node->l->token->type != CMD && node->r\
 							&& node->r->token->type == CMD)
-			{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
+			run_cmd(node->r->token, pos, bg);
 	if (node->token->type == DPIPE)
 		if (node->l->token->type != CMD && node->r->token->type == CMD)
 			if (check_last() != 0)
-				{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
+				run_cmd(node->r->token, pos, bg);
 	if (node->token->type == DAMP)
 		if (node->l->token->type != CMD && node->r->token->type == CMD)
 			if (check_last() == 0)
-				{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
+				run_cmd(node->r->token, pos, bg);
 }
 
 int		interpreter(t_ast *node, t_pos *pos, int background)

@@ -13,7 +13,7 @@
 #include "env.h"
 #include "builtins.h"
 
-int			bt_export(char **value)
+int			bt_export(char **value, t_redirection *r)
 {
 	int		i;
 	int		verif;
@@ -21,6 +21,11 @@ int			bt_export(char **value)
 
 	i = -1;
 	verif = 0;
+	if (!value[1])
+	{
+		builtin_env_display(r);
+		return (0);
+	}
 	while (value[++i])
 	{
 		if (ft_strchr_exist(value[i], '='))

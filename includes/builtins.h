@@ -91,7 +91,7 @@ int					bt_fg(char **av, t_redirection *r);
 /*
 ** bt_export.c
 */
-int					bt_export(char **value);
+int					bt_export(char **value, t_redirection *r);
 
 int					builtin_fc(char **av, t_pos *pos);
 

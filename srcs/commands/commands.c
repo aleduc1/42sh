@@ -28,14 +28,14 @@ void		display_error_command(t_redirection *r, char **cmd)
 ** remplacer 1 par 0 pour lancer en background
 */
 
-int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
+int			ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
 {
 	int				fg;
 	int				verif;
 	t_job			*j;
 	t_process		*p;
 
-	fg = 1;
+	fg = (bg > 0) ? 0 : 1;
 	verif = 0;
 	j = create_new_job(argv, t, NULL, fg);
 	p = j->first_process;
@@ -53,7 +53,7 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos)
 		else
 			verif = gest_error_path(p->cmd[0], p->r);
 	}
-	clean_fuck_list(0);
+	// clean_fuck_list(0);
 	return (verif);
 }
 
@@ -102,7 +102,7 @@ int			ft_pipe_double(char **argv, t_token *token, t_pos *pos)
 	str = value_line_path("?", 0);
 	check = ft_atoi(str);
 	if (check == -1)
-		check = ft_simple_command(argv, token, pos);
+		check = ft_simple_command(argv, token, pos, 0);
 	ft_strdel(&str);
 	return (check);
 }
@@ -119,7 +119,7 @@ int			ft_ampersand_double(char **argv, t_token *token, t_pos *pos)
 	str = value_line_path("?", 0);
 	check = ft_atoi(str);
 	if (check != -1)
-		check = ft_simple_command(argv, token, pos);
+		check = ft_simple_command(argv, token, pos, 0);
 	ft_strdel(&str);
 	return (check);
 }

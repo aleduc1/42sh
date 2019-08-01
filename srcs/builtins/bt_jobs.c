@@ -14,12 +14,16 @@
 
 /*
 ** WTERMSIG(j->first_process->status));
+** LINE 47:
+** else
+** 	str = ft_itoa(sig);
 */
 
 char		*ft_inter_signal(int sig)
 {
 	char	*str;
 
+	str = NULL;
 	if (sig == 1)
 		str = ft_strdup("Terminated(SIGHUP)");
 	else if (sig == 2)
@@ -40,8 +44,6 @@ char		*ft_inter_signal(int sig)
 		str = ft_strdup("Stopped(SIGTTIN)");
 	else if (sig == 22)
 		str = ft_strdup("Stopped(SIGTTOU)");
-	else
-		str = ft_itoa(sig);
 	return (str);
 }
 
@@ -72,6 +74,8 @@ void		bt_jobs_s(t_job *j, int is_stopped, t_redirection *r)
 	char	*str;
 
 	str = ft_inter_signal(WSTOPSIG(j->first_process->status));
+	if (!str)
+		return ;
 	if (is_stopped)
 		ft_dprintf(r->out, "[%d]%c\t%s\t%s\n", j->first_process->process_id,
 			'+', str, j->first_process->cmd[0]);

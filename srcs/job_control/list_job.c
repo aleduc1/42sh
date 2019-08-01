@@ -86,6 +86,7 @@ t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 	}
 	file_to_close(t, j);
 	j->pgid = 0;
+	j->fg = fg;
 	j->notif_stop = 0;
 	j->r = base_redirection();
 	p = j->first_process;

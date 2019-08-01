@@ -65,24 +65,24 @@ int		files_handler(t_token *cmd_list, t_pos *pos)
 	return (0);
 }
 
-int			*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe)
+int			*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe, int bg)
 {
 	char	**argv;
 
 	argv = get_argv(cmd_list);
 	if (files_handler(cmd_list, pos) != -1)
-		ft_pipe(argv, cmd_list, end_pipe);
+		ft_pipe(argv, cmd_list, end_pipe, bg);
 	ft_arraydel(&argv);
 	return (0);
 }
 
-int			*run_cmd(t_token *cmd_list, t_pos *pos)
+int			*run_cmd(t_token *cmd_list, t_pos *pos, int bg)
 {
 	char	**argv;
 
 	argv = get_argv(cmd_list);
 	if (files_handler(cmd_list, pos) != -1)
-		ft_simple_command(argv, cmd_list, pos);
+		ft_simple_command(argv, cmd_list, pos, bg);
 	ft_arraydel(&argv);
 	return (0);
 }

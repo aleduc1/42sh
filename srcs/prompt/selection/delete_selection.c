@@ -12,7 +12,7 @@
 
 #include "sh21.h"
 
-t_node		*delete_selection_left(t_node **input, t_node *lstcursor,\
+t_node		*delete_selection_left(t_node **input, t_node *lstcursor,
 															t_pos *pos)
 {
 	while (pos->selectcount > 0)
@@ -33,7 +33,7 @@ t_node		*delete_selection_left(t_node **input, t_node *lstcursor,\
 	return (lstcursor);
 }
 
-t_node		*delete_selection_right(t_node **input, t_node *lstcursor,\
+t_node		*delete_selection_right(t_node **input, t_node *lstcursor,
 															t_pos *pos)
 {
 	while (pos->selectcount < 0)

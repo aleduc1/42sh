@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "sh21.h"
+#include "env.h"
 
 void		init_heredoc(t_pos *pos)
 {
@@ -61,6 +62,7 @@ int			check_heredoc(t_node *input, char *heredoc)
 
 	lstcursor = input;
 	temp = heredoc_string(lstcursor);
+	parser_var_simple(&temp);
 	if (ft_strcmp(heredoc, temp) == 0)
 	{
 		free(temp);
@@ -70,7 +72,7 @@ int			check_heredoc(t_node *input, char *heredoc)
 	return (-1);
 }
 
-int			input_heredoc(t_multi *lstcursor, t_multi **multi, t_pos *pos, \
+int			input_heredoc(t_multi *lstcursor, t_multi **multi, t_pos *pos,
 																char *heredoc)
 {
 	lstcursor = *multi;
@@ -97,16 +99,16 @@ char		*heredoc(char *heredoc, t_pos *pos)
 	multi->input = NULL;
 	dpush(&multi->input, ' ');
 	init_heredoc(pos);
-	while (((input_heredoc(lstcursor, &multi, pos, heredoc)) < 0) \
+	parser_var_simple(&heredoc);
+	while (((input_heredoc(lstcursor, &multi, pos, heredoc)) < 0)
 			&& pos->stop != 1)
 		init_heredoc(pos);
 	input = lst_to_str(&multi, input);
 	ddellist(multi);
-	if (pos->stop == 1)
-	{
-		pos->stop = 0;
-		ft_strdel(&input);
-	}
+	(pos->stop == 1) ? ft_strdel(&input) : 0;
+	(pos->stop == 1) ? pos->stop = 0 : 0;
+	pos->multiline = 0;
 	default_term_mode();
+	ft_strdel(&heredoc);
 	return (input);
 }

@@ -38,12 +38,10 @@ int			free_maillon_env(char *key, int env)
 	int		verif;
 	t_env	*my_env;
 	t_env	*last;
-	int		test;
 
 	my_env = get_env(0, NULL);
 	last = NULL;
 	verif = 0;
-	test = 0;
 	while (my_env->next)
 	{
 		if (ft_strequ(my_env->key, key) && (env == 0 ||

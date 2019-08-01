@@ -1,0 +1,202 @@
+ls
+echo ${TERM}
+echo "${TERM}"
+ls
+echo $HOME
+echo "$HOME"
+make
+echo "$HOME"
+make
+echo "$HOME"
+echo "$HOME""$TERM"
+echo "'$HOME'"
+echo "$HOME"$TERM${HOME}'$TERM'
+echo "$HOME"$TERM${HOME}'"$TERM"'
+git status
+emacs | emacs
+ls
+ls | cat -e
+cat | ls
+ls
+ls -R /
+jobs
+fg
+ls
+jobs
+cat | ls
+jobs
+fg
+echo $TERM
+echo ${TERM}
+echo ${wTERM}
+echo ${TERM
+echo ${$TERM}
+echo ${${TERM}}
+cat | base64 /dev/urandom | cat -e
+ls | cat -e 1>&2
+ls | cat -e >&2
+echo ~~
+echo ~
+echo "~"
+echo '~'
+cat < ~/42sh/ft_ls/Makefile
+ls ~/42
+ls ~
+echo ~
+echo      ~  
+echo ~
+echo "~"
+echo ~
+echo ~~
+echo ~/
+echo ~/42
+echo ~/42/ft_ls
+echo ~/42/ft_ls/Makefile
+cat ~/42/ft_ls/Makefile
+ls ~/42/ft_ls/Makefile
+ls ~/42/ft_ls/
+ls ~/42
+ls ~/42/ft_printf
+ls ~/42/ft_printf/Makefile
+cat ~/42/ft_printf/Makefile
+cat < ~/42/ft_printf/Makefile
+make
+echo ~
+echo ~~
+echo $TERM
+cat < author
+make
+cat < author
+cat -e < author
+cat -e $HOME/42/ft_printf/author
+cat -e $HOME/42/ft_printf/auteur
+cat -e $HOME/42/ft_printf/main.c
+cat -e $HOME/42/ft_printf/src/main.c
+cat -e $HOME/42/ft_printf/srcs/main.c
+ls $HOME/42/ft_printf/
+cat $HOME/42/ft_printf/ft_printf.c
+cat ~/42/ft_printf/ft_printf.c
+cat -e ~/42/ft_printf/ft_printf.c
+ls
+echo ${TERM}
+echo ${tERM}
+echo ${ TERM}
+echo ${TERM}
+echo ${#TERM}
+echo ${${TERM}}
+make
+echo ${${TERM}}
+make
+echo ${TERM}
+echo ${TERM:}
+echo ${$TERM:}
+echo ${$TERM:?fghj}
+echo ${TERM:?fghj}
+echo ${TERM:-fghj}
+echo ${#TERM:-fghj}
+mkae
+make
+ls
+echo ${}
+echo ${%}
+echo ${${}%}
+ls
+echo ${}
+echo ${TERM#xterm}
+echo ${TERM#xterm-256color}
+echo ${TERM#xterm-256}
+echo ${$TERM#xterm-256}
+echo ${$TERM%xterm-256}
+echo ${$TERM##xterm-256}
+echo ${TERM##xterm-256}
+echo ${TERM#xterm-256}
+echo ${#TERM}
+echo ${#$TERM}
+make
+ls
+dd
+alias ls='ls -G'
+ls
+alias
+alias ls=ls -G
+ls
+alias
+alias ls="ls -G"
+ls
+alias
+ls
+alias ..="cd .."
+ls
+-
+..
+-
+....
+git status
+git add *
+git commit -m "ajout builtin alias de apruvost"
+git push
+ls
+echo """""""" | cat -e
+""
+mkfifo dd
+ls
+ls -la
+ls
+ls -z
+;s
+ls
+make
+ls
+ls -z
+ls
+rm dd
+ls
+git status
+USER=bibi
+ls
+cd
+cd -
+cd /
+cd -
+ls
+make
+ls
+vi srcs/main.c
+make
+ls
+>
+<<
+>>
+> >
+< <
+ls
+ls | cat -e
+ls
+./42sh
+ls
+lsl
+sls
+ls
+>
+<
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;; ;;; ;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;
+ls                                                                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;; ;;; ;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;
+ls  -la .                                                                              ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;; ;;; ;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;
+ls
+cat | cat | ls
+env
+set totot=tata
+set totot=tata ls
+toot=rrr ls
+toto=aaa ls
+dd=ff ls
+make
+dd=ff ls
+make
+ls
+PATH=/ ls
+PATH=/ ls | wc
+make
+cat < saut
+cat << saut

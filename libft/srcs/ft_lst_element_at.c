@@ -26,7 +26,7 @@ t_list	*ft_lst_element_at(t_list *list, unsigned int index)
 		if (i == index)
 			return (current);
 		current = current->next;
-		i++;
+		++i;
 	}
 	return (NULL);
 }

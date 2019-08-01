@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   gest_flag.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:43:51 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/05/03 12:23:33 by sbelondr         ###   ########.fr       */

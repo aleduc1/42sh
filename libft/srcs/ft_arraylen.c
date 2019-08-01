@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arraylen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:41:36 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 10:00:09 by sbelondr         ###   ########.fr       */
@@ -20,6 +20,6 @@ int		ft_arraylen(char **src)
 	if ((!src) || (!src[0]))
 		return (0);
 	while (src[i])
-		i++;
+		++i;
 	return (i);
 }

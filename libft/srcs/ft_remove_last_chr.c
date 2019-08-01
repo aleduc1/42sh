@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_remove_last_chr.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:45:17 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/05/08 15:47:27 by sbelondr         ###   ########.fr       */

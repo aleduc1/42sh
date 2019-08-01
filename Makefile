@@ -27,29 +27,31 @@ VPATH = objs:\
 		srcs/prompt/others:\
 		srcs/prompt/selection:\
 		srcs/parser:\
-		srcs/parser/pre-parser:\
-		srcs/parser/pre-parser/simple_command:\
-		srcs/parser/pre-parser/remove_space:\
-		srcs/parser/pre-parser/redirect:\
-		srcs/parser/pre-parser/redirect/grammar:\
+		srcs/parser/pre_parser:\
+		srcs/parser/pre_parser/simple_command:\
+		srcs/parser/pre_parser/remove_space:\
+		srcs/parser/pre_parser/redirect:\
+		srcs/parser/pre_parser/redirect/grammar:\
 		srcs/parser/ast:\
 		srcs/parser/command:\
 		srcs/commands:\
-		srcs/job-control:\
+		srcs/job_control:\
 		srcs/environnement:\
 		srcs/cleaning:\
 		srcs/interpreter:\
 		srcs/builtins:\
-		srcs/redirection
+		srcs/redirection:\
+		srcs/hash_table
+
 # ------------------ #
 # Compiler and flags #
 # ------------------ #
 
-CC = gcc
+CC = cc
 ifeq ($(DEBUG), yes)
 	CFLAGS = -Wall -Wextra -g3
 else
-	CFLAGS = -Wall -Wextra -g3
+	CFLAGS = -Wall -Wextra -Werror
 endif
 CPPFLAGS = -I $(INCDIR) -I $(INCLIBDIR)
 LDLIBS = -lft
@@ -125,7 +127,6 @@ SRCS_NAMES = main.c \
 			 list_redirection.c\
 			 manage_env.c\
 			 manage_set.c\
-			 manage_quote.c\
 			 manage_variable.c\
 			 manage_file.c\
 			 other_tools.c\
@@ -149,7 +150,6 @@ SRCS_NAMES = main.c \
 			 signaux.c\
 			 bt_jobs.c\
 			 parameter_expansion.c\
-			 formats_parameter.c\
 			 list_redirect.c\
 			 redirection.c\
 			 path.c\
@@ -158,7 +158,45 @@ SRCS_NAMES = main.c \
 			 formats_parameter_bis.c\
 			 delete_redirection.c\
 			 redirection_bis.c\
-			 apply_parser_var.c
+			 apply_parser_var.c\
+			 free_job.c\
+			 list_job.c\
+			 test_quote.c\
+			 remove_quote.c\
+			 bt_alias.c\
+			 bt_unalias.c\
+			 hash_utils.c\
+			 ht_hash_utils.c\
+			 ht_hash_moreutils.c\
+			 ht_hash_stillutils.c\
+			 ht_hash_show.c\
+			 bt_hash.c\
+			 alias_replace.c\
+			 get_options.c\
+			 display.c\
+			 bt_cd.c\
+			 bt_cd_utilstwo.c\
+			 bt_cd_utils.c\
+			 bt_cd_canonical_a.c\
+			 bt_cd_canonical_b.c\
+			 bt_cd_canonical_c.c\
+			 process_tools.c\
+			 process_pipe.c\
+			 process_pipe_fd.c\
+			 free_job_file.c\
+			 status_process.c\
+			 clean_commands.c\
+			 close_redirection.c\
+			 is_builtin.c\
+			 parser_var_bis.c\
+			 expansion_hash.c\
+			 expansion_percent.c\
+			 expansion_tools.c\
+			 action_file.c\
+			 add_set_value.c\
+			 bt_export.c\
+			 gest_expansion.c\
+			 apply_redirection.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

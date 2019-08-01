@@ -38,7 +38,7 @@ t_node		*find_tail(t_node *lstcursor, t_pos *pos)
 
 	backup = 0;
 	savecursor(pos);
-	while (lstcursor->prev != NULL)
+	while (lstcursor && lstcursor->prev != NULL)
 	{
 		stalk_cursor(pos);
 		if (pos->column != pos->termsize.ws_col)
@@ -48,7 +48,7 @@ t_node		*find_tail(t_node *lstcursor, t_pos *pos)
 		backup++;
 		lstcursor = lstcursor->prev;
 	}
-	while (backup-- > 1)
+	while (lstcursor && backup-- > 1)
 		lstcursor = lstcursor->next;
 	stalk_cursor(pos);
 	pos->tailcolumn = pos->column;

@@ -17,7 +17,7 @@ t_lex	*new_node(t_token **tok)
 	t_lex	*node;
 
 	node = NULL;
-	if (!(node = (t_lex *)malloc(sizeof(t_lex))))
+	if (!(node = (t_lex *)ft_memalloc(sizeof(t_lex))))
 		return (NULL);
 	node->token = (t_token *)ft_memalloc(sizeof(t_token));
 	if (!node->token)
@@ -39,7 +39,7 @@ t_lex	*new_redir_node(t_token **tok, t_redir **redir_info)
 	t_lex	*node;
 
 	node = NULL;
-	if (!(node = (t_lex *)malloc(sizeof(t_lex))))
+	if (!(node = (t_lex *)ft_memalloc(sizeof(t_lex))))
 		return (NULL);
 	node->token = (t_token *)ft_memalloc(sizeof(t_token));
 	if (!node->token)

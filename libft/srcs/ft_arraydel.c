@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arraydel.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 22:17:10 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/05/08 01:59:55 by sbelondr         ###   ########.fr       */

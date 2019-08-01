@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_end_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 10:48:31 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/05/07 18:46:48 by sbelondr         ###   ########.fr       */

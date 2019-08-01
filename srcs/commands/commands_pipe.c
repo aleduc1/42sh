@@ -13,20 +13,34 @@
 #include "env.h"
 #include "job.h"
 
-int			ft_pipe(char **argv, t_token *t, int end_pipe)
+static void	stock_process(char **argv, t_token *token, int end_pipe, int fg)
 {
-	t_job	*j;
-
 	if (end_pipe == 0)
-		create_new_job(argv, t);
-	if (end_pipe > 0)
-		add_process(argv, t);
+		create_new_job(argv, token, NULL, fg);
+	else
+		add_process(argv, token, fg);
+}
+
+int			ft_pipe(char **argv, t_token *token, int end_pipe)
+{
+	t_job		*j;
+	t_process	*p;
+
+	stock_process(argv, token, end_pipe, 1);
+	if (check_last_command() == -5)
+	{
+		p = get_end_job()->first_process;
+		while (p->next)
+			p = p->next;
+		p->return_value = 1;
+		gest_return(1);
+	}
 	if (end_pipe == 2)
 	{
 		j = get_end_job();
 		launch_job_pipe(j, 1);
-		if (j->first_process->completed == 1 || j->first_process->pid == 0)
-			clean_fuck_list();
+		clean_fuck_list(0);
+		update_status();
 	}
 	return (0);
 }

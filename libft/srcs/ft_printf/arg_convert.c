@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   arg_convert.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 14:41:32 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 10:47:21 by sbelondr         ###   ########.fr       */

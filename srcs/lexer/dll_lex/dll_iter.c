@@ -19,6 +19,7 @@ void	dllprinthead(t_lex **head)
 	ptr = *head;
 	while (ptr)
 	{
+		ft_putnbr(ptr->token->type);
 		ft_putendl(ptr->token->data);
 		if (ptr->token->type == CMD)
 		{

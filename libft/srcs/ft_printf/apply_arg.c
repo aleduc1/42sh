@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   apply_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 08:49:06 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 10:46:29 by sbelondr         ###   ########.fr       */

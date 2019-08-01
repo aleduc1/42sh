@@ -12,6 +12,10 @@
 
 #include "env.h"
 #include "job.h"
+#include "builtins.h"
+
+extern t_ht_hash	*g_alias_table;
+extern t_ht_hash	*g_hash_table;
 
 /*
 ** exit [n]
@@ -63,16 +67,54 @@
 ** valeur de retour du shell
 */
 
-int		bt_exit(t_job *j)
+static void	close_std(void)
+{
+	char	*tmp;
+	int		std;
+
+	tmp = value_line_path("STDIN", 0);
+	if (tmp)
+	{
+		std = ft_atoi(tmp);
+		close(std);
+		ft_strdel(&tmp);
+	}
+	tmp = value_line_path("STDOUT", 0);
+	if (tmp)
+	{
+		std = ft_atoi(tmp);
+		close(std);
+		ft_strdel(&tmp);
+	}
+	tmp = value_line_path("STDERR", 0);
+	if (tmp)
+	{
+		std = ft_atoi(tmp);
+		close(std);
+		ft_strdel(&tmp);
+	}
+}
+
+static void	exec_reset_shell(t_pos *pos)
+{
+	if (pos)
+		history_file(pos->history);
+	close_std();
+	free_all_job();
+	default_term_mode();
+	delete_shell();
+	get_env(1, NULL);
+	ht_hash_del(g_alias_table);
+	ht_hash_del(g_hash_table);
+}
+
+int			bt_exit(t_job *j, t_pos *pos)
 {
 	int	rt;
 
-	get_env(1, NULL);
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
 	{
-		free_all_job();
-		delete_shell();
-		default_term_mode();
+		exec_reset_shell(pos);
 		ft_dprintf(2, "exit\n");
 		exit(0);
 	}
@@ -81,18 +123,15 @@ int		bt_exit(t_job *j)
 		if (!j->first_process->cmd[2])
 		{
 			rt = ft_atoi(j->first_process->cmd[1]);
-			free_all_job();
-			delete_shell();
-			default_term_mode();
+			exec_reset_shell(pos);
 			ft_dprintf(2, "exit\n");
 			exit(rt);
 		}
-		ft_dprintf(2, "21sh: exit: too many arguments\n");
+		ft_dprintf(2, "42sh: exit: too many arguments\n");
 		return (1);
 	}
-	ft_dprintf(2, "21sh: exit: %s: numeric argument required\n", j->first_process->cmd[1]);
-	free_all_job();
-	delete_shell();
-	default_term_mode();
+	ft_dprintf(2, "42sh: exit: %s: numeric argument required\n",
+			j->first_process->cmd[1]);
+	exec_reset_shell(pos);
 	exit(255);
 }

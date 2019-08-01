@@ -15,25 +15,29 @@
 
 static void	standard_redirection(t_redirection *r)
 {
-	if (r->fd_pipe >= 0)
-		close(r->fd_pipe);
 	if (r->in != STDIN_FILENO
 		&& ft_fd_redirect_exist(r->redirect, STDIN_FILENO) == 0)
 	{
-		dup2(r->in, STDIN_FILENO);
-		close(r->in);
+		if (dup2(r->in, STDIN_FILENO) == -1)
+			exit(-1);
+		if (verif_close(r->in))
+			close(r->in);
 	}
 	if (r->out != STDOUT_FILENO
 		&& ft_fd_redirect_exist(r->redirect, STDOUT_FILENO) == 0)
 	{
-		dup2(r->out, STDOUT_FILENO);
-		close(r->out);
+		if (dup2(r->out, STDOUT_FILENO) == -1)
+			exit(-1);
+		if (verif_close(r->out))
+			close(r->out);
 	}
 	if (r->error != STDERR_FILENO
 		&& ft_fd_redirect_exist(r->redirect, STDERR_FILENO) == 0)
 	{
-		dup2(r->error, STDERR_FILENO);
-		close(r->error);
+		if (dup2(r->error, STDERR_FILENO) == -1)
+			exit(-1);
+		if (verif_close(r->error))
+			close(r->error);
 	}
 }
 
@@ -52,10 +56,63 @@ static void	custom_redirection(t_redirection *r, t_redirect *lst)
 	}
 }
 
+static int	check_new_fd(t_redirect *head, t_redirect *test,
+		t_redirect *redirect, int verif)
+{
+	if (fcntl(redirect->new_fd, F_GETFD) == -1
+			&& (redirect->type == GREATAMP
+			|| redirect->type == LESSAMP) && redirect != head)
+	{
+		while (test && (!(test->base == redirect->base
+			&& test->new_fd == redirect->new_fd
+			&& test->type == redirect->type)))
+		{
+			if (test->base == redirect->new_fd
+				|| test->new_fd == redirect->new_fd)
+				verif = 1;
+			test = test->next;
+		}
+		if (verif == 0)
+			return (-1);
+	}
+	return (verif);
+}
+
+static int	check_fd_is_good(t_redirection *r)
+{
+	t_redirect	*redirect;
+	t_redirect	*head;
+	t_redirect	*test;
+	int			verif;
+
+	redirect = r->redirect;
+	head = r->redirect;
+	while (redirect && redirect->base != -1)
+	{
+		test = head;
+		verif = 0;
+		verif = check_new_fd(head, test, redirect, verif);
+		if (verif == -1)
+			return (-1);
+		if (fcntl(redirect->new_fd, F_GETFD) == -1
+			&& (redirect->type == GREATAMP
+			|| redirect->type == LESSAMP) && redirect == head)
+			return (-1);
+		redirect = redirect->next;
+	}
+	return (0);
+}
+
 void		redirection_fd(t_redirection *r)
 {
 	t_redirect	*lst;
 
+	if (check_fd_is_good(r) == -1)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
+		execve("/bin/test", NULL, NULL);
+		exit(-1);
+	}
 	lst = r->redirect;
 	while (lst)
 	{

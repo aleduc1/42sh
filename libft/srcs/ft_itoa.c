@@ -29,7 +29,7 @@ char	*ft_itoa(int n)
 		nbr = -nbr;
 	dup = nbr * 10;
 	while ((dup /= 10) > 0)
-		i++;
+		++i;
 	if (!(ptr = (char *)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
 	ptr[i--] = '\0';

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_other.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 19:19:56 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/04/08 10:48:41 by sbelondr         ###   ########.fr       */
@@ -59,12 +59,10 @@ char		*ft_itoa_us(unsigned short n)
 {
 	int		nbr;
 	int		size;
-	int		negatif;
 	char	*str;
 
-	negatif = (n < 0) ? 1 : 0;
-	nbr = (negatif) ? -(int)n : (int)n;
-	size = ft_numlen(nbr) + negatif;
+	nbr = (int)n;
+	size = ft_numlen(nbr);
 	if (!(str = (char*)malloc(sizeof(char) * size + 1)))
 		return (0);
 	str[size] = '\0';
@@ -73,7 +71,6 @@ char		*ft_itoa_us(unsigned short n)
 		str[size] = (nbr % 10) + '0';
 		nbr /= 10;
 	}
-	(negatif) ? str[0] = '-' : 0;
 	str[ft_strlen(str)] = '\0';
 	return (str);
 }

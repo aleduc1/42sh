@@ -50,7 +50,7 @@ char		**get_argv(t_token *cmd_list)
 	return (argv);
 }
 
-void		files_handler(t_token *cmd_list, t_pos *pos)
+int		files_handler(t_token *cmd_list, t_pos *pos)
 {
 	t_lex	*cursor;
 
@@ -58,9 +58,11 @@ void		files_handler(t_token *cmd_list, t_pos *pos)
 	while (cursor)
 	{
 		if (cursor->token->type == REDIR)
-			open_file_command(cursor->redir, pos);
+			if (open_file_command(cursor->redir, pos) == -1)
+				return (-1);
 		cursor = cursor->next;
 	}
+	return (0);
 }
 
 int			*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe)
@@ -68,8 +70,8 @@ int			*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe)
 	char	**argv;
 
 	argv = get_argv(cmd_list);
-	files_handler(cmd_list, pos);
-	ft_pipe(argv, cmd_list, end_pipe);
+	if (files_handler(cmd_list, pos) != -1)
+		ft_pipe(argv, cmd_list, end_pipe);
 	ft_arraydel(&argv);
 	return (0);
 }
@@ -79,9 +81,8 @@ int			*run_cmd(t_token *cmd_list, t_pos *pos)
 	char	**argv;
 
 	argv = get_argv(cmd_list);
-	files_handler(cmd_list, pos);
-	ft_simple_command(argv, cmd_list, pos);
-	if (argv && *argv)
-		ft_arraydel(&argv);
+	if (files_handler(cmd_list, pos) != -1)
+		ft_simple_command(argv, cmd_list, pos);
+	ft_arraydel(&argv);
 	return (0);
 }

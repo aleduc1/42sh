@@ -12,7 +12,7 @@
 
 #include "sh21.h"
 
-t_node		*check_input(t_node *lstcursor, t_node **input, char buffer[],\
+t_node		*check_input(t_node *lstcursor, t_node **input, char buffer[],
 																t_pos *pos)
 {
 	lstcursor = selectmode(input, lstcursor, buffer, pos);
@@ -55,19 +55,19 @@ void		redraw(t_pos *pos, t_node *lstcursor)
 		wrapping(pos);
 		cursorcpy = lstcursor->next;
 		savecursor(pos);
-		while (cursorcpy->prev != NULL)
+		while (cursorcpy && cursorcpy->prev != NULL)
 		{
 			ft_putchar(cursorcpy->prev->key);
 			cursorcpy = cursorcpy->prev;
 		}
-		tputs(tgoto(tgetstr("cm", NULL), pos->tailcolumn - 1, \
+		tputs(tgoto(tgetstr("cm", NULL), pos->tailcolumn - 1,
 								pos->tailrow - 1), 1, ft_outc);
 		ft_putstr(tgetstr("ce", NULL));
 		cursorback(pos);
 	}
 }
 
-void		actualize(t_pos *pos, t_node *lstcursor, t_node **input,\
+void		actualize(t_pos *pos, t_node *lstcursor, t_node **input,
 														char buffer)
 {
 	stalk_cursor(pos);
@@ -87,7 +87,7 @@ void		actualize(t_pos *pos, t_node *lstcursor, t_node **input,\
 	get_inputlen(pos, *input);
 }
 
-t_node		*editline(t_pos *pos, t_node *lstcursor, \
+t_node		*editline(t_pos *pos, t_node *lstcursor,
 						t_node **input, char buffer[])
 {
 	int i;

@@ -32,12 +32,12 @@ NAME = libftprintf.a
 
 OBJ = $(FILE:%.c=$(DIROBJ)/%.o)
 
-FLAGS = -Wall -Wextra -Wextra
+FLAGS = -Wall -Wextra -g3
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "\033[36mft_printf\033[0m Make: \033[32mOk\033[0m"
+	#@echo "\033[36mft_printf\033[0m Make: \033[32mOk\033[0m"
 
 $(DIROBJ)/%.o: %.c
 	@gcc $< $(FLAGS) -c -o $@

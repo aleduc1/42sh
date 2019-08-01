@@ -83,7 +83,7 @@ t_node		*shift_right(t_node *lstcursor, char buffer[], t_pos *pos)
 	return (lstcursor);
 }
 
-t_node		*alt_bindings(t_node **input, t_node *lstcursor, char buffer[],\
+t_node		*alt_bindings(t_node **input, t_node *lstcursor, char buffer[],
 																t_pos *pos)
 {
 	if ((ALT_C || ALT_X) && pos->selection == 1)
@@ -98,7 +98,7 @@ t_node		*alt_bindings(t_node **input, t_node *lstcursor, char buffer[],\
 	return (lstcursor);
 }
 
-t_node		*selectmode(t_node **input, t_node *lstcursor, char buffer[],\
+t_node		*selectmode(t_node **input, t_node *lstcursor, char buffer[],
 																t_pos *pos)
 {
 	if (SHIFT_LEFT || SHIFT_RIGHT)
@@ -115,7 +115,7 @@ t_node		*selectmode(t_node **input, t_node *lstcursor, char buffer[],\
 			lstcursor = anchor_selection(lstcursor, pos, 1);
 	}
 	lstcursor = alt_bindings(input, lstcursor, buffer, pos);
-	if (!SHIFT_LEFT && !SHIFT_RIGHT && !ALT_C && !ALT_X && !ALT_V \
+	if (!SHIFT_LEFT && !SHIFT_RIGHT && !ALT_C && !ALT_X && !ALT_V
 											&& pos->selection == 1)
 		lstcursor = undo_selection(lstcursor, pos);
 	return (lstcursor);

@@ -12,7 +12,7 @@
 
 #include "lexer.h"
 
-t_lex	*dlldelfirst(t_lex **head)
+void	dlldelfirst(t_lex **head)
 {
 	t_lex	*todel;
 
@@ -21,7 +21,12 @@ t_lex	*dlldelfirst(t_lex **head)
 	*head = (*head)->next;
 	todel->next = NULL;
 	todel->prev = NULL;
-	return (todel);
+	if (todel->token)
+	{
+		ft_memdel((void**)&(todel->token->data));
+		ft_memdel((void**)&(todel->token));
+	}
+	ft_memdel((void**)&todel);
 }
 
 t_lex	*dlldellast(t_lex **tail)

@@ -17,13 +17,17 @@ void	delete_redirection(t_redirection **r)
 	t_redirect	*next;
 
 	next = NULL;
+	if ((!r) || (!(*r)))
+		return ;
 	while ((*r)->redirect)
 	{
 		next = ((*r)->redirect->next) ? (*r)->redirect->next : NULL;
+		if ((*r)->redirect->new_fd != -1
+				&& verif_close((*r)->redirect->new_fd))
+			close((*r)->redirect->new_fd);
 		free((*r)->redirect);
 		(*r)->redirect = NULL;
-		if (next)
-			(*r)->redirect = next;
+		(*r)->redirect = next;
 	}
 	free(*r);
 	(*r) = NULL;

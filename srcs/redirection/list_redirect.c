@@ -20,11 +20,13 @@ t_redirect	*ft_init_redirect(void)
 		return (NULL);
 	r->base = -1;
 	r->new_fd = -1;
+	r->type = -1;
 	r->next = NULL;
 	return (r);
 }
 
-int			ft_create_maillon_redirect(t_redirect *r, int base, int new_fd)
+int			ft_create_maillon_redirect(t_redirect *r, int base, int new_fd,
+				int type)
 {
 	t_redirect	*last;
 
@@ -41,6 +43,7 @@ int			ft_create_maillon_redirect(t_redirect *r, int base, int new_fd)
 	{
 		r->base = base;
 		r->new_fd = new_fd;
+		r->type = type;
 		if (last)
 			last->next = r;
 		return (0);

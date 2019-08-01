@@ -12,74 +12,62 @@
 
 #include "env.h"
 
-/*
-** split :
-** find arg
-** apply ft avec tableau de pointeur
-*/
-
-static char		*(**init_array(void))(char*, char*)
-{
-	char	*(**conv)(char*, char*);
-	int		i;
-
-	conv = ft_memalloc(255 * sizeof(void*));
-	i = -1;
-	while (++i <= 254)
-		conv[i] = 0;
-	conv['-'] = &parameter_moins;
-	conv['='] = &parameter_equals;
-	conv['?'] = &parameter_interrogation;
-	conv['+'] = &parameter_plus;
-	return (conv);
-}
-
-char			*gest_expansion(char *key, char *value)
-{
-	char	*(**conv)(char*, char*);
-	char	*final;
-
-	conv = init_array();
-	final = NULL;
-	if (conv[(int)value[0]])
-		final = (*conv[(int)value[0]])(key, value + 1);
-	free(conv);
-	conv = NULL;
-	return (final);
-}
-
 int				is_other_expansion(char *tmp, char **dst)
 {
-	if (tmp[0] == '#')
-	{
-		ft_strdel(dst);
-		(*dst) = parameter_hash_first(tmp + 1);
-	}
-	else if (ft_chr_index(tmp, '#') > 0)
-	{
-		ft_strdel(dst);
-		(*dst) = parameter_hash_end(tmp);
-	}
+	char	*stock;
+	char	*stock_b;
+
+	if (tmp[0] == '#' && ((!tmp[1]) || ft_isalnum(tmp[1])
+		|| tmp[1] == '_'))
+		stock = parameter_hash_first(tmp + 1);
+	else if (ft_chr_index(tmp, '#') > 0
+		|| (tmp[0] == '#' && tmp[1] && tmp[1] == '#'))
+		stock = parameter_hash_end(tmp);
 	else if (ft_chr_index(tmp, '%') > 0)
-	{
-		ft_strdel(dst);
-		(*dst) = parameter_percents(tmp);
-	}
+		stock = parameter_percents(tmp);
 	else
-		return (0);
+		return (check_format_variable(tmp) ? 0 : -1);
+	if (stock)
+	{
+		stock_b = ft_strjoin(*dst, stock);
+		ft_strdel(dst);
+		ft_strdel(&stock);
+		*dst = stock_b;
+	}
 	return (1);
 }
 
-static void		display_error_expansion(char *src)
+void			display_error_expansion(char *src)
 {
-	ft_dprintf(STDERR_FILENO, "21sh: ${%s}: bad substitution\n", src);
+	ft_dprintf(STDERR_FILENO, "42sh: ${%s}: bad substitution\n", src);
 	gest_return(-5);
+}
+
+void			manage_parameter_extension(char **dst, char *tmp, int i)
+{
+	char	*key;
+	char	*tmp_b;
+
+	key = ft_strsub(tmp, 0, i);
+	if ((!key) || ft_strequ(key, "")
+		|| (ft_isalnum(key[0]) == 0 && key[0] != '#'))
+	{
+		ft_strdel(&key);
+		display_error_expansion(tmp);
+		return ;
+	}
+	tmp_b = gest_expansion(key, tmp + i + 1);
+	ft_strdel(&key);
+	key = ft_strjoin(*dst, tmp_b);
+	ft_strdel(dst);
+	ft_strdel(&tmp_b);
+	(*dst) = key;
 }
 
 void			parameter_expansion(char *tmp, char **dst)
 {
-	char	*key;
 	int		i;
+	int		verif;
 
 	if ((!tmp) || ft_strequ(tmp, ""))
 	{
@@ -88,19 +76,11 @@ void			parameter_expansion(char *tmp, char **dst)
 	}
 	if ((i = ft_chr_index(tmp, ':')) < 0)
 	{
-		if (is_other_expansion(tmp, dst) == 0)
+		if ((verif = is_other_expansion(tmp, dst)) == 0)
 			modify_dst(tmp, dst);
+		else if (verif == -1)
+			display_error_expansion(tmp);
 	}
 	else
-	{
-		key = ft_strsub(tmp, 0, i);
-		ft_strdel(&(*dst));
-		if ((!key) || ft_strequ(key, ""))
-		{
-			display_error_expansion(tmp);
-			return ;
-		}
-		(*dst) = gest_expansion(key, tmp + i + 1);
-		ft_strdel(&key);
-	}
+		manage_parameter_extension(dst, tmp, i);
 }

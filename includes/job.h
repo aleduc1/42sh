@@ -16,8 +16,6 @@
 #include "sh21.h"
 #include "env.h"
 
-t_job		*edit_lst_job(char **argv, t_token *t, t_redirection *r);
-
 /*
 ** shell_struct.c
 */
@@ -34,27 +32,65 @@ void			ign_signaux(void);
 void			dfl_signaux(void);
 
 /*
+** list_job.c
+*/
+
+t_process		*init_process(void);
+t_job			*init_job(void);
+t_job			**static_job(void);
+t_job			*get_first_job(t_job *new_job);
+t_job			*create_new_job(char **argv, t_token *t,
+					t_redirection *r, int fg);
+
+/*
 ** tools_job.c
 */
 
-t_job			*get_first_job(t_job *new_job);
 t_job			*find_job(pid_t pid);
 int				job_is_completed(t_job *job);
 int				job_is_stop(t_job *job);
-t_job			*init_job(void);
-t_process		*init_process(void);
-void			free_job(t_job **j);
-t_job			**static_job(void);
+
+/*
+** free_job.c
+*/
+
 void			free_all_job(void);
+void			free_job(t_job **j);
+
+/*
+** free_job_file.c
+*/
+
+void			free_redirection(t_redirection **r);
+void			clean_file(t_job *j);
 
 /*
 ** process.c
 */
 
-int				launch_job(t_job *j, int fg);
 int				launch_process(t_process *p, pid_t pgid, int fg);
+int				launch_job(t_job *j, int fg);
 void			act_job(t_job *j, int fg);
-int 			launch_job_pipe(t_job *j, int fg);
+
+/*
+** process_tools.c
+*/
+
+void			edit_pid_shell(int pid, t_job *j, t_process *p);
+void			config_pid_process(pid_t pgid, int fg);
+void			act_job(t_job *j, int fg);
+
+/*
+** process_pipe.c
+*/
+
+void			launch_job_pipe(t_job *j, int fg);
+
+/*
+** process_pipe_fd.c
+*/
+
+void			pipe_deplace_fd(t_job *j, t_process *p, int fd);
 
 /*
 ** add_job.c
@@ -67,16 +103,27 @@ void			add_in_bg(t_job *j, int value);
 ** gest_process.c
 */
 
-void			continue_job(t_job *j, int fg);
-void			job_running(t_job *j);
-void			job_notif(void);
-void			job_info(t_job *j, char *status);
-void			wait_for_jobs(t_job *j);
+void			wait_for_job(t_job *j);
 void			update_status(void);
 int				mark_process_status(pid_t pid, int status);
 
-void		display_lst_job(t_job *j);
+/*
+** status_process.c
+*/
 
-void		clean_fuck_list(void);
+void			job_info(t_job *j, char *status);
+void			job_notif(void);
+void			job_running(t_job *j);
+void			continue_job(t_job *j, int fg);
+
+/*
+** clean_commands.c
+*/
+
+void			display_lst_job(t_job *j);
+void			clean_fuck_list(pid_t pid);
+void			free_job_redirection(t_job **j);
+
+void			bt_jobs_s(t_job *j, int is_stopped, t_redirection *r);
 
 #	endif

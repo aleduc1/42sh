@@ -12,46 +12,19 @@
 
 #include "env.h"
 
-int			add_set_value(char *key, char *value)
-{
-	t_env	*my_env;
-	int		verif;
-
-	verif = 0;
-	my_env = get_env(0, NULL);
-	if (!value)
-		value = "";
-	while (my_env->next)
-	{
-		if (ft_strequ(my_env->key, key))
-		{
-			ft_strdel(&((my_env)->value));
-			my_env->value = ft_strdup(value ? value : "");
-			verif = 1;
-			break ;
-		}
-		my_env = my_env->next;
-	}
-	if (verif == 0)
-		verif = create_new_line_env(my_env, key, value, 0);
-	return (verif);
-}
-
 int			edit_set_no_command(char **value)
 {
-	int		verif;
 	char	*key;
 	int		i;
 	int		cnt;
 
 	i = -1;
-	verif = 0;
 	while (value[++i])
 	{
 		if ((cnt = ft_chr_index(value[i], '=')) > 0)
 		{
 			key = ft_strsub(value[i], 0, cnt);
-			verif = add_set_value(key, value[i] + cnt + 1);
+			add_set_value(key, value[i] + cnt + 1);
 			ft_strdel(&key);
 		}
 		else
@@ -60,20 +33,20 @@ int			edit_set_no_command(char **value)
 	return (i);
 }
 
-int			edit_set_command(char **value, t_redirection *r)
+int			edit_set_command(char **value, t_redirection *r, t_pos *pos)
 {
 	t_env	*cpy_env;
 	int		result;
 
 	cpy_env = ft_cpy_env();
 	result = edit_set_no_command(value);
-	ft_simple_command_redirection(value + result, r);
+	ft_simple_command_redirection(value + result, r, pos);
 	get_env(1, NULL);
 	get_env(0, cpy_env);
 	return (result);
 }
 
-int			edit_set(char **value, t_redirection *r)
+int			edit_set(char **value, t_redirection *r, t_pos *pos)
 {
 	int		result;
 	int		i;
@@ -86,7 +59,7 @@ int			edit_set(char **value, t_redirection *r)
 	if (!value[i])
 		result = edit_set_no_command(value);
 	else
-		edit_set_command(value, r);
+		edit_set_command(value, r, pos);
 	return (result);
 }
 

@@ -21,19 +21,22 @@
 void	redir_in(t_redirection *r)
 {
 	if (r->in != STDIN_FILENO)
-		dup2(r->in, STDIN_FILENO);
+		if (dup2(r->in, STDIN_FILENO) == -1)
+			exit(-1);
 }
 
 void	redir_out(t_redirection *r)
 {
 	if (r->out != STDOUT_FILENO)
-		dup2(r->out, STDOUT_FILENO);
+		if (dup2(r->out, STDOUT_FILENO) == -1)
+			exit(-1);
 }
 
 void	redir_error(t_redirection *r)
 {
 	if (r->error != STDERR_FILENO)
-		dup2(r->error, STDERR_FILENO);
+		if (dup2(r->error, STDERR_FILENO) == -1)
+			exit(-1);
 }
 
 /*
@@ -48,7 +51,8 @@ void	other_redir(int src, int new_fd)
 		return ;
 	if (src != new_fd)
 	{
-		dup2(new_fd, src);
+		if (dup2(new_fd, src) == -1)
+			exit(-1);
 		if (verif_close(new_fd))
 			close(new_fd);
 	}

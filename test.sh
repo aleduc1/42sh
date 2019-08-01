@@ -13,7 +13,7 @@
 #!/bin/bash
 
 #	Pour le lancer:
-#		./test.sh 21sh
+#		./test.sh 42sh
 
 CGR='\033[0;32m'
 CRE='\033[0;31m'
@@ -21,7 +21,18 @@ NO='\033[0m'
 n=0
 error=0
 name=$1
-valgrind_launch=$2
+if [ -z "$2" -o "$2" == "1" ]; then
+	valgrind_launch=$2
+fi
+if [ ! -z "$2" ]; then
+	if [ "$2" == "--debug" ]; then
+		debug=1
+	else
+		debug=0
+	fi
+else
+	debug=0
+fi
 dossier="/tmp/test"
 
 
@@ -45,7 +56,7 @@ ft_gest_error()
 	#	Verif si le nom de l'executable est present et executable
 	if [ -z $name ]; then
 		printf "Lancer avec le nom de l'excutable\n"
-		printf "./test.sh [executable name]\n"
+		printf "./test.sh [executable name][--debug]\n"
 		exit
 	fi
 	if [ ! -x $name ]; then
@@ -101,9 +112,12 @@ ft_test_basic()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -112,7 +126,7 @@ ft_test_basic()
 	test_name="Test command erro"
 	./$name "qwere" > $dossier/${n}a 2> $dossier/${n}ae
 	touch $dossier/${n}b
-	printf "21sh: command not found: qwere\n" > $dossier/${n}be
+	printf "$name: command not found: qwere\n" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -150,9 +164,12 @@ ft_test_basic()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -174,9 +191,12 @@ ft_test_basic()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -198,9 +218,12 @@ ft_test_basic()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -222,9 +245,12 @@ ft_test_basic()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -247,9 +273,12 @@ ft_test_basic()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 }
@@ -278,9 +307,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -302,9 +334,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -327,9 +362,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -352,9 +390,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -382,9 +423,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -407,9 +451,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -432,9 +479,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -457,9 +507,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -468,7 +521,7 @@ ft_test_builtin()
 	./$name "exit 34a" > $dossier/${n}a 2> $dossier/${n}ae
 	echo "$?" >> $dossier/${n}a
 	echo "exit" > $dossier/${n}be
-	echo "21sh: exit: 34a: numeric argument required" >> $dossier/${n}be
+	echo "$name: exit: 34a: numeric argument required" >> $dossier/${n}be
 	echo "255" > $dossier/${n}b
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
@@ -483,9 +536,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -494,7 +550,7 @@ ft_test_builtin()
 	./$name "exit 34 22" > $dossier/${n}a 2> $dossier/${n}ae
 	touch $dossier/${n}a
 	echo "exit" > $dossier/${n}be
-	echo "21sh: exit: too many arguments" >> $dossier/${n}be
+	echo "$name: exit: too many arguments" >> $dossier/${n}be
 	touch $dossier/${n}b
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
@@ -509,9 +565,12 @@ ft_test_builtin()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -541,9 +600,12 @@ ft_test_redirection()
 		printf "$test_name: ${CRE}No$NO\n"
 		printf "$first\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 
 	# Test >>
@@ -561,9 +623,12 @@ ft_test_redirection()
 		printf "$test_name: ${CRE}No$NO\n"
 		printf "$first\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -585,9 +650,12 @@ ft_test_redirection()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -611,9 +679,12 @@ ft_test_redirection()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -645,9 +716,11 @@ ft_test_redirection()
 			printf "$first\n"
 			printf "$sec\n"
 			error=$((error+1))
-			printf "\nQuitter [y/N]? "
-			read inputuser
-			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			if [ "$debug" = "0" ]; then
+				printf "\nQuitter [y/N]? "
+				read inputuser
+				if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			fi
 		fi
 		n=$((n+1))
 	fi
@@ -668,9 +741,12 @@ ft_test_redirection()
 		printf "$test_name: ${CRE}No$NO\n"
 		printf "$first\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -693,9 +769,12 @@ ft_test_redirection()
 		cat $dossier/${n}b
 		#printf "$first\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -718,9 +797,12 @@ ft_test_redirection()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -740,9 +822,12 @@ ft_test_redirection()
 		printf "$test_name: ${CRE}No$NO\n"
 		printf "$first\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -778,9 +863,12 @@ ft_test_multiple_command()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -809,9 +897,12 @@ ft_test_pipe()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -820,7 +911,7 @@ ft_test_pipe()
 	test_name="Test pipe error"
 	./$name "/dev/null | wc" > $dossier/${n}a  2> $dossier/${n}ae
 	echo "       0       0       0" > $dossier/${n}b
-	echo "21sh: /dev/null: Permission denied" > $dossier/${n}be
+	echo "$name: /dev/null: Permission denied" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -834,9 +925,12 @@ ft_test_pipe()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -858,9 +952,12 @@ ft_test_pipe()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -888,9 +985,12 @@ ft_test_pipe()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -912,9 +1012,12 @@ ft_test_pipe()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -938,7 +1041,7 @@ ft_env()
 	test_name="Test env vide ls"
 	env -i ./$name "ls" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	printf "21sh: command not found: ls\n" > $dossier/${n}be
+	printf "$name: command not found: ls\n" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -952,9 +1055,12 @@ ft_env()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -975,9 +1081,12 @@ ft_env()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -985,8 +1094,8 @@ ft_env()
 	test_name="Test env vide ls | wc"
 	env -i ./$name "ls | wc" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	printf "21sh: command not found: ls\n" > $dossier/${n}be
-	printf "21sh: command not found: wc\n" >> $dossier/${n}be
+	printf "$name: command not found: ls\n" > $dossier/${n}be
+	printf "$name: command not found: wc\n" >> $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1000,9 +1109,12 @@ ft_env()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1023,9 +1135,12 @@ ft_env()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1036,9 +1151,12 @@ ft_env()
 		printf "$test_name: ${CRE}No$NO\n"
 		cat $dossier/${n}ae
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	else
 		printf "$test_name: ${CGR}Ok$NO\n"
 	fi
@@ -1051,9 +1169,12 @@ ft_env()
 		printf "$test_name: ${CRE}No$NO\n"
 		cat $dossier/${n}ae
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	else
 		printf "$test_name: ${CGR}Ok$NO\n"
 	fi
@@ -1066,9 +1187,12 @@ ft_env()
 		printf "$test_name: ${CRE}No$NO\n"
 		cat $dossier/${n}ae
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	else
 		if [ -f $dossier/${n}a -a -s $dossier/${n}a ]; then
 			printf "$test_name: ${CGR}Ok$NO\n"
@@ -1076,24 +1200,29 @@ ft_env()
 			printf "$test_name: ${CRE}No$NO\n"
 			cat $dossier/${n}ae
 			error=$((error+1))
-			printf "\nQuitter [y/N]? "
-			read inputuser
-			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			if [ "$debug" = "0" ]; then
+				printf "\nQuitter [y/N]? "
+				read inputuser
+				if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			fi
 		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
 
 	test_name="Test env vide"
-	env -i ./$name "env" > $dossier/${n}a  2> $dossier/${n}ae
+	env -i ./$name "/usr/bin/env" > $dossier/${n}a  2> $dossier/${n}ae
 	if [ -f $dossier/${n}ae -a -s "$dossier/${n}ae" ]; then
 		printf "$test_name: ${CRE}No$NO\n"
 		cat $dossier/${n}a
 		cat $dossier/${n}ae
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	else
 		if [ ! -s $dossier/${n}a ]; then
 			printf "$test_name: ${CGR}Ok$NO\n"
@@ -1102,16 +1231,18 @@ ft_env()
 			cat $dossier/${n}a
 			cat $dossier/${n}ae
 			error=$((error+1))
-			printf "\nQuitter [y/N]? "
-			read inputuser
-			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			if [ "$debug" = "0" ]; then
+				printf "\nQuitter [y/N]? "
+				read inputuser
+				if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			fi
 		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
 
 	test_name="Test setenv add key"
-	env -i ./$name "setenv toto tata" "env"> $dossier/${n}a  2> $dossier/${n}ae
+	env -i ./$name "setenv toto tata" "/usr/bin/env"> $dossier/${n}a  2> $dossier/${n}ae
 	printf "toto=tata\n" > $dossier/${n}b
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
@@ -1122,9 +1253,12 @@ ft_env()
 		printf "$test_name: ${CRE}No$NO\n"
 		cat $dossier/${n}ae
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	else
 		if [ -f $dossier/${n}a -a -z "$first" ]; then
 			printf "$test_name: ${CGR}Ok$NO\n"
@@ -1132,16 +1266,18 @@ ft_env()
 			printf "$test_name: ${CRE}No$NO\n"
 			echo "$first"
 			error=$((error+1))
-			printf "\nQuitter [y/N]? "
-			read inputuser
-			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			if [ "$debug" = "0" ]; then
+				printf "\nQuitter [y/N]? "
+				read inputuser
+				if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			fi
 		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
 
 	test_name="Test setenv add key and remove with unsetenv"
-	env -i ./$name "setenv toto tata" "unsetenv toto" "env"> $dossier/${n}a  2> $dossier/${n}ae
+	env -i ./$name "setenv toto tata" "unsetenv toto" "/usr/bin/env"> $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
@@ -1152,9 +1288,12 @@ ft_env()
 		printf "$test_name: ${CRE}No$NO\n"
 		cat $dossier/${n}ae
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	else
 		if [ -f $dossier/${n}a -a -z "$first" ]; then
 			printf "$test_name: ${CGR}Ok$NO\n"
@@ -1165,9 +1304,11 @@ ft_env()
 			cat $dossier/${n}b
 			cat $dossier/${n}be
 			error=$((error+1))
-			printf "\nQuitter [y/N]? "
-			read inputuser
-			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			if [ "$debug" = "0" ]; then
+				printf "\nQuitter [y/N]? "
+				read inputuser
+				if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			fi
 		fi
 	fi
 	n=$((n+1))
@@ -1189,9 +1330,12 @@ ft_env()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1221,9 +1365,12 @@ ft_path()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1251,9 +1398,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1274,9 +1424,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1297,9 +1450,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1320,9 +1476,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1343,9 +1502,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1366,9 +1528,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1389,9 +1554,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1412,9 +1580,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1435,9 +1606,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1458,9 +1632,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1481,9 +1658,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1504,9 +1684,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1527,9 +1710,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1550,9 +1736,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1573,9 +1762,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1596,9 +1788,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1619,9 +1814,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1642,9 +1840,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1665,9 +1866,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1688,9 +1892,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1698,7 +1905,7 @@ ft_test_variable()
 	test_name="Test var \${:-salut}"
 	./$name "echo \${:-salut}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: \${:-salut}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:-salut}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1712,9 +1919,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1735,9 +1945,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1745,7 +1958,7 @@ ft_test_variable()
 	test_name="Test var \${:-}"
 	./$name "echo \${:-}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: \${:-}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:-}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1759,9 +1972,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1769,7 +1985,7 @@ ft_test_variable()
 	test_name="Test var \${:=}"
 	./$name "echo \${:=}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: \${:=}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:=}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1783,9 +1999,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1793,7 +2012,7 @@ ft_test_variable()
 	test_name="Test var \${:=coucou}"
 	./$name "echo \${:=coucou}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: \${:=coucou}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:=coucou}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1807,9 +2026,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1830,9 +2052,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1853,9 +2078,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1863,7 +2091,7 @@ ft_test_variable()
 	test_name="Test var \${:?}"
 	./$name "echo \${:?}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: \${:?}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:?}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1877,9 +2105,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1887,7 +2118,7 @@ ft_test_variable()
 	test_name="Test var \${:?coucou}"
 	./$name "echo \${:?coucou}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: \${:?coucou}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:?coucou}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1901,9 +2132,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1924,9 +2158,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1934,7 +2171,7 @@ ft_test_variable()
 	test_name="Test var \${TEARME:?salut}"
 	./$name "echo \${TEARME:?salut}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: TEARME: salut" > $dossier/${n}be
+	echo "$name: TEARME: salut" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1948,9 +2185,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1960,7 +2200,7 @@ ft_test_variable()
 	test_name="Test var \${TEARME:?}"
 	./$name "echo \${TEARME:?}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: TEARME: parameter null or not set" > $dossier/${n}be
+	echo "$name: TEARME: parameter null or not set" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1974,9 +2214,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -1985,7 +2228,7 @@ ft_test_variable()
 	test_name="Test var \${:+}"
 	./$name "echo \${:+}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: \${:+}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:+}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -1999,9 +2242,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -2009,7 +2255,7 @@ ft_test_variable()
 	test_name="Test var \${:+coucou}"
 	./$name "echo \${:+coucou}" > $dossier/${n}a  2> $dossier/${n}ae
 	touch $dossier/${n}b
-	echo "21sh: \${:+coucou}: bad substitution" > $dossier/${n}be
+	echo "$name: \${:+coucou}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2023,9 +2269,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -2048,9 +2297,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -2071,9 +2323,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -2098,9 +2353,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -2121,9 +2379,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -2145,9 +2406,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -2169,9 +2433,12 @@ ft_test_variable()
 		printf "$first\n"
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -2187,16 +2454,19 @@ ft_test_variable()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
 
 	test_name="Test var \$0"
 	./$name "echo \$0" > $dossier/${n}a  2> $dossier/${n}ae
-	echo "21sh" > $dossier/${n}b
+	echo "$name" > $dossier/${n}b
 	touch $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
@@ -2211,9 +2481,12 @@ ft_test_variable()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
 	fi
 	n=$((n+1))
 	# printf "\n"
@@ -2235,11 +2508,286 @@ ft_test_variable()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
 	fi
 	n=$((n+1))
+
+
+	test_name="Test var \${##0}"
+	./$name "echo \${##0}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo "${##0}" > $dossier/${n}b
+	touch $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+	test_name="Test var \${##salut}"
+	./$name "echo \${##salut}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo "${##salut}" > $dossier/${n}b
+	touch $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+	test_name="Test var \${###salut}"
+	./$name "echo \${###salut}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo ${###salut} > $dossier/${n}b
+	touch $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+
+	test_name="Test var \${###0}"
+	./$name "echo \${###0}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo ${###0} > $dossier/${n}b
+	touch $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+
+	test_name="Test var \${##0}"
+	./$name "echo \${##0}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo ${##0} > $dossier/${n}b
+	touch $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+	test_name="Test var echo \${#%%0}"
+	./$name "echo \${#%0}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo "" > $dossier/${n}b
+	touch $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+	test_name="Test var \${#%%%%0}"
+	./$name "echo \${#%%0}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo ${#%%0} > $dossier/${n}b 2> $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+	test_name="Test var \${#%%}"
+	./$name "echo \${#%}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo "0" > $dossier/${n}b 2> $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+	test_name="Test var \${#%%salut}"
+	./$name "echo \${#%salut}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo ${#%salut} > $dossier/${n}b 2> $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+	test_name="Test var \${#%%%%salut}"
+	./$name "echo \${#%%salut}" > $dossier/${n}a  2> $dossier/${n}ae
+	echo ${#%%salut} > $dossier/${n}b 2> $dossier/${n}be
+	if [ -f $dossier/${n}a ]; then
+		first=`diff $dossier/${n}a $dossier/${n}b`
+	else
+		first=""
+	fi
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$sec\n"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+
+
 	# printf "\n"
 }
 
@@ -2266,9 +2814,12 @@ ft_test_return_value()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 
@@ -2289,16 +2840,19 @@ ft_test_return_value()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 
 	test_name="Test command not found ; echo \$?"
 	./$name "nimp" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "127" > $dossier/${n}b
-	echo "21sh: command not found: nimp" > $dossier/${n}be
+	echo "$name: command not found: nimp" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2312,16 +2866,19 @@ ft_test_return_value()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 
 	test_name="Test echo \${} ; echo \$?"
 	./$name "echo \${}" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "1" > $dossier/${n}b
-	echo "21sh: \${}: bad substitution" > $dossier/${n}be
+	echo "$name: \${}: bad substitution" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2335,16 +2892,19 @@ ft_test_return_value()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 
 	test_name="Test /dev/null ; echo \$?"
 	./$name "/dev/null" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "126" > $dossier/${n}b
-	echo "21sh: /dev/null: Permission denied" > $dossier/${n}be
+	echo "$name: /dev/null: Permission denied" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2358,9 +2918,12 @@ ft_test_return_value()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 
@@ -2368,7 +2931,7 @@ ft_test_return_value()
 	./$name "/dev/null | wc" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "       0       0       0" > $dossier/${n}b
 	echo "0" >> $dossier/${n}b
-	echo "21sh: /dev/null: Permission denied" > $dossier/${n}be
+	echo "$name: /dev/null: Permission denied" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2382,16 +2945,19 @@ ft_test_return_value()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 
 	test_name="Test ls | /dev/null ; echo \$?"
 	./$name "ls | /dev/null" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "126" > $dossier/${n}b
-	echo "21sh: /dev/null: Permission denied" > $dossier/${n}be
+	echo "$name: /dev/null: Permission denied" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2405,16 +2971,19 @@ ft_test_return_value()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 
 	test_name="Test ls | nimp ; echo \$?"
 	./$name "ls | nimp" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "127" > $dossier/${n}b
-	echo "21sh: command not found: nimp" > $dossier/${n}be
+	echo "$name: command not found: nimp" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2428,9 +2997,12 @@ ft_test_return_value()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 
@@ -2438,7 +3010,7 @@ ft_test_return_value()
 	./$name "nimp | wc" "echo \$?"> $dossier/${n}a 2> $dossier/${n}ae
 	echo "       0       0       0" > $dossier/${n}b
 	echo "0" >> $dossier/${n}b
-	echo "21sh: command not found: nimp" > $dossier/${n}be
+	echo "$name: command not found: nimp" > $dossier/${n}be
 	if [ -f $dossier/${n}a ]; then
 		first=`diff $dossier/${n}a $dossier/${n}b`
 	else
@@ -2452,9 +3024,12 @@ ft_test_return_value()
 		cat $dossier/${n}a
 		printf "$sec\n"
 		error=$((error+1))
-		printf "\nQuitter [y/N]? "
-		read inputuser
-		if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
 	fi
 	n=$((n+1))
 
@@ -2474,6 +3049,1406 @@ ft_test_parser()
 	# <<
 	printf "$CRE A faire\n$NO"
 
+}
+
+ft_test_alias()
+{
+	printf "\n\n========================\n"
+	printf "Test Alias\n"
+	printf "========================\n"
+
+	test_name="Test alias hello='echo \"hello, world\"'"
+	./$name "alias hello='echo \"hello, world\"'" "hello | cat -e" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "hello, world$" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+
+
+	test_name="Test alias hello"
+	./$name "alias hello='echo \"hello, world\"'" "alias hello" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "hello='echo \"hello, world\"'" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias hello="
+	./$name "alias hello=" "alias hello" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "hello=''" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias sub='(echo abc|' puis sub cat -e)"
+	./$name "alias sub='(echo abc|'" "sub cat -e)" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "abc" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias rd='ls DOESTNOEXIST 2>>err' puis rd; rd; rd puis cat err"
+	./$name "alias rd='ls DOESTNOEXIST 2>>err'" "rd; rd; rd" "cat err" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ls: DOESTNOEXIST: No such file or directory" > $dossier/${n}b
+	echo "ls: DOESTNOEXIST: No such file or directory" >> $dossier/${n}b
+	echo "ls: DOESTNOEXIST: No such file or directory\n" >> $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias aa='echo hello' bb='echo world' puis aa; bb"
+	./$name "alias aa='echo hello' bb='echo world'" "aa; bb" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "hello" > $dossier/${n}b
+	echo "world" >> $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias mk='mkdir -v' abc='def'"
+	./$name "alias mk='mkdir -v' abc='def'" "mk abc" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "mkdir: created directory 'abc'" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias a=alias puis a aa='echo \"alias builtin redefined\"' puis aa"
+	./$name "alias a=alias" "a aa='echo \"alias builtin redefined\"'" "aa" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "alias builtin redefined" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias b=c puis alias c=d puis alias d='echo It should works'"
+	./$name "alias b=c" "alias c=d" "alias d='echo It should works'" "b" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "It should works" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias e='g' puis alias f='e' puis alias g='echo \"infinite loop\"; e' puis g"
+	./$name "alias e='g'" "alias f='e'" "alias g='echo \"infinite loop\"; e'" "g" > $dossier/${n}a 2> $dossier/${n}ae
+	touch $dossier/${n}b
+	echo "infinite loop" > $dossier/${n}be
+	echo "$name: g: command not found" >> $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias hello='echo \"hello, world!\"' puis unalias hello"
+	./$name "alias hello='echo \"hello, world!\"'" "unalias hello" "hello"> $dossier/${n}a 2> $dossier/${n}ae
+	touch $dossier/${n}b
+	echo "$name: hello: command not found" > $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test alias hello='echo \"hello, world!\"' puis unalias -a puis alias"
+	./$name "alias hello='echo \"hello, world!\"'" "unalias -a" "alias"> $dossier/${n}a 2> $dossier/${n}ae
+	touch $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+}
+
+ft_test_hash()
+{
+	printf "\n\n========================\n"
+	printf "Test Hash\n"
+	printf "========================\n"
+
+	echo "$> hash mkdir; hash"
+	echo "{{ Print all hashes stored. One of them must be equivalent to: mkdir=/bin/mkdir }}"
+	echo "$> hash -r"
+	echo "$> hash"
+	echo "$> hash DOESNOTEXIST; hash"
+	echo "{{ Optionnal error message indicating that 'DOESNOTEXIST' command is not found }}"
+	echo "$> hash ps 42sh umount; hash"
+	echo "{{ Optionnal error message indicating that '42sh' command is not found }}"
+	echo "{{ Print hashed path for \"ps\" and \"umount\" commands }}"
+	echo ""
+
+	printf "\nQuitter [y/N]? "
+	read inputuser
+	if [ "$inputuser" == "y" ]; then printf "Fin\n"; exit; fi
+	printf "\n"
+}
+
+ft_test_history()
+{
+	printf "\n\n========================\n"
+	printf "Test History\n"
+	printf "========================\n"
+
+	echo "$> echo hello world"
+	echo "hello world"
+	echo "$> !! | cat -e"
+	echo "hello world$"
+	echo "$> !echo"
+	echo "{{ Optionnal rewrite of the executed command: echo hello world }}"
+	echo "hello world"
+	echo "$> fc -ln"
+	echo "{{ Last commands listed without indexes }}"
+	echo "$> fc -lr"
+	echo "{{ Last commands listed in reverse order }}"
+	echo "$> !-1"
+	echo "{{ Optionnal rewrite of the executed command: fc -lr }}"
+	echo "{{ Last commands listed in reverse order }}"
+	echo "$> ls DOESNOTEXIST"
+	echo "ls: DOESNOTEXIST: No such file or directory"
+	echo "$> fc -s -- -1 2>/dev/null"
+	echo "$>"
+	echo ""
+
+	printf "\nQuitter [y/N]? "
+	read inputuser
+	if [ "$inputuser" == "y" ]; then printf "Fin\n"; exit; fi
+	printf "\n"
+}
+
+ft_test_quoting()
+{
+	printf "\n\n========================\n"
+	printf "Test Quoting\n"
+	printf "========================\n"
+
+	echo "$> echo 'foo\n> bar' | cat -e"
+	echo "foo\$"
+	echo "bar$"
+	echo "$>"
+	echo "$> echo \"foo\n> bar\" | cat -e"
+	echo "foobar$"
+	echo "$>"
+	echo "$> echo \"'foo\n > bar'"
+	echo "> baz\" | cat -e"
+	echo "'foobar'$"
+	echo "baz$"
+	echo "$>"
+	echo "$> l\\\n> s\\\n> -lat"
+	echo "{{ Output of "ls -lat" command }}"
+	echo "$> echo abc \\| cat -e"
+	echo "abc | cat -e"
+	echo "$> echo abc \\\\\\| cat -e"
+	echo "abc \$"
+	echo ""
+
+	printf "\nQuitter [y/N]? "
+	read inputuser
+	if [ "$inputuser" == "y" ]; then printf "Fin\n"; exit; fi
+	printf "\n"
+}
+
+ft_test_test()
+{
+	printf "\n\n========================\n"
+	printf "Test builtin test\n"
+	printf "========================\n"
+
+	test_name="Test test -b /dev/disk0 && echo ok || echo wrong"
+	./$name "test -b /dev/disk0 && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test test -b /dev/console && echo ok || echo wrong"
+	./$name "test -b /dev/console && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test test -b DOESTNOTEXIST && echo ok || echo wrong"
+	./$name "test -b DOESTNOTEXIST && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test test -c /dev/disk0 && echo ok || echo wrong"
+	./$name "test -c /dev/disk0 && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test test -c /dev/console && echo ok || echo wrong"
+	./$name "test -c /dev/console && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="Test test -d /dev/disk0 && echo ok || echo wrong"
+	./$name "test -d /dev/disk0 && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -d \${HOME} && echo ok || echo wrong"
+	./$name "test -d \${HOME} && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -d /dev/disk0 && echo ok || echo wrong"
+	./$name "test -d /dev/disk0 && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -d \${HOME} && echo ok || echo wrong"
+	./$name "test -d \${HOME} && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -e /dev/null && echo ok || echo wrong"
+	./$name "test -e /dev/null && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -e /usr/share/man/man2/execve.2 && echo ok || echo wrong"
+	./$name "test -e /usr/share/man/man2/execve.2 && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -e DOESTNOTEXIST && echo ok || echo wrong"
+	./$name "test -e DOESTNOTEXIST && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -f /dev/null && echo ok || echo wrong"
+	./$name "test -f /dev/null && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -f /usr/share/man/man2/execve.2 && echo ok || echo wrong"
+	./$name "test -f /usr/share/man/man2/execve.2 && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -L /dev/null && echo ok || echo wrong"
+	./$name "test -L /dev/null && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -L /var && echo ok || echo wrong"
+	./$name "test -L /var && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="cd /tmp ; touch notfifo && mkfifo fifo; test -p fifo && echo ok || echo wrong"
+	./$name "cd /tmp ; touch notfifo && mkfifo fifo; test -p fifo && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -p notfifo && echo ok || echo wrong"
+	./$name "test -p notfifo && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="touch read noread; chmod u-r noread ; test -r read && echo ok || echo wrong"
+	./$name "touch read noread; chmod u-r noread ; test -r read && echo ok || echo wrong"> $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -r noread && echo ok || echo wrong"
+	./$name "test -r noread && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="touch write nowrite; chmod u-w nowrite ; test -w write && echo ok || echo wrong"
+	./$name "touch write nowrite; chmod u-w nowrite ; test -w write && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -w nowrite && echo ok || echo wrong"
+	./$name "test -w nowrite && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="touch exec noexec; chmod u+x exec ; test -x exec && echo ok || echo wrong"
+	./$name "touch exec noexec; chmod u+x exec ; test -x exec && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -x noexec && echo ok || echo wrong"
+	./$name "test -x noexec && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="socketfile={{ Use one of the path output by \"find /var/run -type s 2>/dev/null\" }} ; test -S \${socketfile} && echo ok || echo wrong"
+	./$name "socketfile={{ Use one of the path output by \"find /var/run -type s 2>/dev/null\" }} ; test -S \${socketfile} && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -S /dev/null && echo ok || echo wrong"
+	./$name "test -S /dev/null && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="touch emptyfile; echo \"not empty\" > notempty ; test -s emptyfile && echo ok || echo wrong"
+	./$name "touch emptyfile; echo \"not empty\" > notempty ; test -s emptyfile && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -s notempty && echo ok || echo wrong"
+	./$name "test -s notempty && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="a='hello' b=''; unset c ; test \${a} && echo ok || echo wrong"
+	./$name "a='hello' b=''; unset c ; test \${a} && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="a='hello' b=''; unset c ; test \${b} && echo ok || echo wrong"
+	./$name "a='hello' b=''; unset c ; test \${b} && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="a='hello' b=''; unset c ; test \${c} && echo ok || echo wrong"
+	./$name "a='hello' b=''; unset c ; test \${c} && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="a='hello' b=''; unset c ; test -z \${a} && echo ok || echo wrong"
+	./$name "a='hello' b=''; unset c ; test -z \${a} && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="a='hello' b=''; unset c ; test -z \${b} && echo ok || echo wrong"
+	./$name "a='hello' b=''; unset c ; test -z \${b} && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="a='hello' b=''; unset c ; test -z \${c} && echo ok || echo wrong"
+	./$name "a='hello' b=''; unset c ; test -z \${c} && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test 'abc' = 'def' && echo ok || echo wrong"
+	./$name "test 'abc' = 'def' && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test 'abc' = 'abc' && echo ok || echo wrong"
+	./$name "test 'abc' = 'abc' && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test 'abc' != 'def' && echo ok || echo wrong"
+	./$name "test 'abc' != 'def' && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test 'abc' != 'abc' && echo ok || echo wrong"
+	./$name "test 'abc' != 'abc' && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test 0 -eq 1 && echo ok || echo wrong"
+	./$name "test 0 -eq 1 && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -1 -eq 1 && echo ok || echo wrong"
+	./$name "test -1 -eq 1 && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -1 -eq -1 && echo ok || echo wrong"
+	./$name "test -1 -eq -1 && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="first='12' second='34' ; test \${first} -ne \${second} && echo ok || echo wrong"
+	./$name "first='12' second='34' ; test \${first} -ne \${second} && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -1 -gt -2 && echo ok || echo wrong"
+	./$name "test -1 -gt -2 && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test 2 -ge 2 && echo ok || echo wrong"
+	./$name "test 2 -ge 2 && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "ok" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test -2 -lt -2 && echo ok || echo wrong"
+	./$name "test -2 -lt -2 && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	test_name="test 3 -le +2 && echo ok || echo wrong"
+	./$name "test 3 -le +2 && echo ok || echo wrong" > $dossier/${n}a 2> $dossier/${n}ae
+	echo "wrong" > $dossier/${n}b
+	touch $dossier/${n}be
+	first=`diff $dossier/${n}a $dossier/${n}b`
+	sec=`diff $dossier/${n}ae $dossier/${n}be`
+	if [ -f $dossier/${n}a -a -z "$first" -a -z "$sec" ]; then
+		printf "$test_name: ${CGR}Ok$NO\n"
+	else
+		printf "$test_name: ${CRE}No$NO\n"
+		cat $dossier/${n}a
+		printf "$first\n---\n$sec"
+		error=$((error+1))
+		if [ "$debug" = "0" ]; then
+			printf "\nQuitter [y/N]? "
+			read inputuser
+			if [ "$inputuser" == "y" ]; then printf "Log file: $dossier/$n \n"; exit; fi
+			printf "\n"
+		fi
+	fi
+	n=$((n+1))
+
+	printf "$CRE A faire:\n$NO"
+	echo "$> rm -rf tempdir; test ! -d tempdir && echo \"tempdir removed\""
+	echo "tempdir removed"
+	echo "$> test zzz -eq 123 && echo ok || echo wrong"
+	echo "{{ Optionnal error message indicating integer expected }}"
+	echo "wrong"
+
+	rm -rf emptyfile noexec noread notempty nowrite read write exec
+
+	printf "\nQuitter [y/N]? "
+	read inputuser
+	if [ "$inputuser" == "y" ]; then printf "Fin\n"; exit; fi
+	printf "\n"
+	
+
+	printf "\n"
 }
 
 ft_test_signaux()
@@ -2507,6 +4482,11 @@ ft_test_signaux
 ft_test_parser
 ft_test_return_value
 ft_test_variable
+#ft_test_alias
+#ft_test_hash
+#ft_test_history
+#ft_test_quoting
+#ft_test_test
 
 printf "\n"
 

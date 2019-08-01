@@ -12,6 +12,10 @@
 
 #include "sh21.h"
 #include "env.h"
+#include "builtins.h"
+
+extern t_ht_hash	*g_hash_table;
+extern t_ht_hash	*g_alias_table;
 
 t_node	*backwardmod(t_node *lstcursor, t_pos *pos)
 {
@@ -107,7 +111,7 @@ t_node	*home_end(t_node *lstcursor, char buffer[], t_pos *pos)
 	return (lstcursor);
 }
 
-t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[], \
+t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[],
 																t_pos *pos)
 {
 	char	*search_result;
@@ -116,10 +120,13 @@ t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[], \
 	i = 0;
 	if (CTRL_D && !(*input)->next && pos->multiline != 1)
 	{
-		history_file(pos->history);
-		default_term_mode();
-		get_env(1, NULL);
-		exit(0);
+		bt_exit(NULL, pos);
+		// history_file(pos->history);
+		// default_term_mode();
+		// get_env(1, NULL);
+		// ht_hash_del(g_alias_table);
+		// ht_hash_del(g_hash_table);
+		// exit(0);
 	}
 	if (CTRL_C)
 	{

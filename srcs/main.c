@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/07/12 02:48:21 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/01 11:50:37 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		run(char *input, t_pos *pos)
 	{
 		ft_strdel(&input);
 		if ((ast = ast_parser(lex)) && (solo_tree(ast, pos) < 0))
-			interpreter(ast, pos);
+			interpreter(ast, pos, 0);
 		clean_lex(&lex);
 		clean_ast(ast);
 	}
@@ -150,13 +150,15 @@ int			main(int argc, char **argv, char **environ)
 
 	input = NULL;
 	multi_input = NULL;
-	(argc == 1) ? edit_shell() : 0;
-	(argc == 1) ? welcome() : 0;
+	// (argc == 1) ? edit_shell() : 0;
+	// (argc == 1) ? welcome() : 0;
+	edit_shell();
+	welcome();
 	flags(argc, argv);
 	init_prompt(&pos);
 	init_alias();
-	if (argc > 1)
-		script_test(argv + 1, pos);
+	// if (argc > 1)
+	// 	script_test(argv + 1, pos);
 	dfl_signaux();
 	while (21)
 	{

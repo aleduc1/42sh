@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:10:40 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/06/27 02:55:29 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/01 13:19:03 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,13 @@ void		background_case(t_ast *node, t_pos *pos, int *bg)
 		{
 			ft_putendl(ft_itoa(*bg));
 			run_cmd(node->l->token, pos);
-			if (*bg > 1)
-				ft_putendl(ft_itoa(*bg));
-			else
-				ft_putendl("0");
+			// if (*bg > 1)
+			// 	ft_putendl(ft_itoa(*bg));
+			// else
+			// 	ft_putendl("0");
+
+			// *bg = *bg-1;
+			ft_putendl(ft_itoa(*bg-1));
 			run_cmd(node->r->token, pos);
 		}
 		if (node->l->token->type == CMD && node->r->token->type != CMD) // OK`
@@ -78,11 +81,53 @@ void	spipe_case(t_ast *node, t_pos *pos, int bg)
 	}
 }
 
+void	dpipe_case(t_ast *node, t_pos *pos, int bg)
+{
+	if (node->token->type == DPIPE)
+	{
+		if (node->l->token->type == CMD && node->r->token->type == CMD)
+		{
+			ft_putendl(ft_itoa(bg));
+			run_cmd(node->l->token, pos);
+			printf("CHECKLAST:%d\n", check_last());
+			if (check_last() != 0)
+			{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
+		}
+		if (node->l->token->type == CMD && node->r->token->type != CMD)
+			{ft_putendl(ft_itoa(bg));run_cmd(node->l->token, pos);}
+	}
+}
+
+void	damp_case(t_ast *node, t_pos *pos, int bg)
+{
+	if (node->token->type == DAMP)
+	{
+		if (node->l->token->type == CMD && node->r->token->type == CMD)
+		{
+			ft_putendl(ft_itoa(bg));
+			run_cmd(node->l->token, pos);
+			printf("CHECKLAST:%d\n", check_last());
+			if (check_last() == 0)
+			{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
+		}
+		if (node->l->token->type == CMD && node->r->token->type != CMD)
+			{ft_putendl(ft_itoa(bg));run_cmd(node->l->token, pos);}
+	}
+}
+
 void	edge_case(t_ast *node, t_pos *pos, int bg)
 {
 	if (node->token->type == SCOLON || node->token->type == AMP)
 		if (node->l->token->type != CMD && node->r->token->type == CMD)
 			{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
+	if (node->token->type == DPIPE)
+		if (node->l->token->type != CMD && node->r->token->type == CMD)
+			if (check_last() != 0)
+				{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
+	if (node->token->type == DAMP)
+		if (node->l->token->type != CMD && node->r->token->type == CMD)
+			if (check_last() == 0)
+				{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
 }
 
 int		interpreter(t_ast *node, t_pos *pos, int background)
@@ -94,6 +139,8 @@ int		interpreter(t_ast *node, t_pos *pos, int background)
 		return (-1);
 	background_case(node, pos, &bg);
 	scolon_case(node, pos, bg);
+	dpipe_case(node, pos, bg);
+	damp_case(node, pos, bg);
 	spipe_case(node, pos, bg);
 	interpreter(node->l, pos, bg);
 	if (node->token->type == AMP)

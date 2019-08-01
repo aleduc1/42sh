@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:30:45 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/01 11:01:09 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/01 11:56:12 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_ast			*led(t_ast *left, t_token *t)
 		return (node_ast(t, left, NULL));
 	else if (t->type == SCOLON)
 		return (node_ast(t, left, expr(20)));
-	else if (t->type == AMP)
+	else if (t->type == AMP || t->type == DAMP || t->type == DPIPE)
 		return (node_ast(t, left, expr(25)));
 	else if (t->type == SPIPE)
 		return (node_ast(t, left, expr(30 - 1)));

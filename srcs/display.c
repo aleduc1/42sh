@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 09:47:57 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/03/20 09:48:25 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/01 11:31:51 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		display_prompt(void)
 
 	path = pwd_display();
 	user = value_line_path("USER", 0);
-	ft_printf("❰\033[32;01m%s\033[00m ❙ \033[33;01m%s\033[00m ❱ ", user, path);
+	ft_printf("❰\033[32;01m%s\033[00m ❙ \033[33;01m%s\033[00m❱ ", user, path);
 	if (check_last_command() == 0)
 		ft_printf("\033[32;01m✔\033[00m > ");
 	else

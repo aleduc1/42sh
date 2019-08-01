@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 03:02:22 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/06/27 03:48:14 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/01 13:04:24 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,15 @@ int			*run_cmd(t_token *cmd_list, t_pos *pos)
 		ft_simple_command(argv, cmd_list, pos);
 	ft_arraydel(&argv);
 	return (0);
+}
+
+int			check_last(void)
+{
+	int		check;
+	char	*str;
+
+	str = value_line_path("?", 0);
+	check = ft_atoi(str);
+	ft_strdel(&str);
+	return (check);
 }

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:34:29 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/06/27 00:25:50 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/01 13:04:33 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ int					interpreter(t_ast *node, t_pos *pos, int bg);
 int					*run_cmd(t_token *cmd_list, t_pos *pos);
 int					*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe);
 
+int					check_last(void);
 #endif

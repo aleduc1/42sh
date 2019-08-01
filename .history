@@ -200,3 +200,63 @@ PATH=/ ls | wc
 make
 cat < saut
 cat << saut
+ls -l | cat -e & echo ok
+ls -l && cat -e & echo ok
+ls -l && echo bg & echo no_bg
+ls -l ; echo bg & echo no_bg
+ls -l
+ls && echo ok | cat -e
+ls -l || echo
+ls -l && echo  ok | echo ok
+ls -l && echo  ok || echo ok | test
+ls -l && echo  ok || echo ok | echo no_bg
+ls -l && echo  ok || els | echo no_bg
+ls -l && echo  ok || ls | echo no_bg
+ls -l && echo ok || ls | echo_nobg
+ls -l && echo ok || ls | echo nobg
+ls -l && echo ok & echo test
+ls -l & ls -l & ls -l & ls -l & ls -l
+make
+ls -l & ls -l & ls -l & ls -l & ls -l
+ls -l & echo ok
+ls -l & echo bg & echo no_bg
+ls | cat -e | cat -e
+ls || ls || ls
+ls -l ; ls -l | cat -e
+ls -l | cat -e ; ls -l | cat -e
+ls -l | cat -e || ls -l | cat -e
+ls -l
+ls asdasda | cat -e || echo OK
+ls -l || echo OK
+ls asdasda || echo OK
+?
+ls asdasda || echo OK
+ls asdasd || echo test
+ls -l || echo test
+ls -l || echo test & echo ok
+ls asdasdas || echo test & echo ok
+ls asdasd || ls qwdasdaq || echo OK
+ls asdasd || ls -l || echo OK
+ls asdasd | asdasd || echo OK
+ls -l | cat -e || echo OK
+ls -l && echo OK
+ls -l && echo OK || echo NOT_OK
+ls asdasd && echo OK || echo NOT_OK
+ls -l && echo OK | cat -e || echo NOT_OK
+ls asdasd && echo OK | cat -e || echo NOT_OK
+ls | cat -e || echo OK | cat -e || echo NOT_OK
+ls asdasd | cat -e || echo OK | cat -e || echo NOT_OK
+ls -l || cat -e
+ls -l || echo ok
+ls asdad || echo ok
+ls asdas && echo ok
+ls asdas || echo ok | cat -e
+ls -l | cat -e || echo OK
+ls -l | cat -e && echo OK && echo OK! | cat -e
+ls -l && echo OK || echo NOT_OK
+ls asdasd | cat -e || echo OK | cat -e || echo NOT_OK
+ls asdasd | cat -e || echo OK
+ls asdasd | cat -e && echo OK
+ls -l
+ls asdasd || cat -e && echo OK
+ls asdasd || echo dpipe && echo OK

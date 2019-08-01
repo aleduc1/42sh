@@ -260,3 +260,17 @@ ls asdasd | cat -e && echo OK
 ls -l
 ls asdasd || cat -e && echo OK
 ls asdasd || echo dpipe && echo OK
+ls -l || echo KO
+ls -l && echo KO
+ls -l && echo KO & echo FG
+ls -l && echo OK  && echo OK2 & echo FG
+ls -l && echo OK  && echo OK2 & echo BG2 & echo FG
+ls &
+ls & ls
+ls
+ls | ls
+ls && ls
+ls && ls | cat -e
+ls &
+ls | cat -e && ls | cat -e ; ls | cat -e || ls | cat -e &
+ls | cat -e &

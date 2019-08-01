@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:10:40 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/01 13:19:03 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/01 14:44:51 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ int		solo_tree(t_ast *node, t_pos *pos)
 		run_cmd(node->token, pos);
 		return (1);
 	}
+	if (node->token->type == AMP && node->l->token->type == CMD &&!node->r)
+	{
+		ft_putendl("1");
+		run_cmd(node->l->token, pos);
+		return (1);
+	}
 	else
 		return (-1);
 }
@@ -28,7 +34,8 @@ void		background_case(t_ast *node, t_pos *pos, int *bg)
 	if (node->token->type == AMP)
 	{
 		*bg = *bg+1;
-		if (node->l->token->type == CMD && node->r->token->type == CMD) // OK
+		if (node->l->token->type == CMD && node->r \
+							&& node->r->token->type == CMD) // OK
 		{
 			ft_putendl(ft_itoa(*bg));
 			run_cmd(node->l->token, pos);
@@ -41,7 +48,8 @@ void		background_case(t_ast *node, t_pos *pos, int *bg)
 			ft_putendl(ft_itoa(*bg-1));
 			run_cmd(node->r->token, pos);
 		}
-		if (node->l->token->type == CMD && node->r->token->type != CMD) // OK`
+		if (node->l->token->type == CMD && node->r \
+							&& node->r->token->type != CMD) // OK`
 			{ft_putendl(ft_itoa(*bg));run_cmd(node->l->token, pos);}
 	}
 }
@@ -118,7 +126,8 @@ void	damp_case(t_ast *node, t_pos *pos, int bg)
 void	edge_case(t_ast *node, t_pos *pos, int bg)
 {
 	if (node->token->type == SCOLON || node->token->type == AMP)
-		if (node->l->token->type != CMD && node->r->token->type == CMD)
+		if (node->l->token->type != CMD && node->r\
+							&& node->r->token->type == CMD)
 			{ft_putendl(ft_itoa(bg));run_cmd(node->r->token, pos);}
 	if (node->token->type == DPIPE)
 		if (node->l->token->type != CMD && node->r->token->type == CMD)
@@ -149,3 +158,5 @@ int		interpreter(t_ast *node, t_pos *pos, int background)
 	edge_case(node, pos, bg);
 	return (0);
 }
+
+// FIX SEGFAULT WHEN NOTHING AFTER '&' MIGHT BE FUCKING SOMETHING ELSE, CAREFUL!

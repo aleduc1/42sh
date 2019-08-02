@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_last.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/16 16:56:38 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:34:26 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_is_exec(char *src, t_redirection *r)
 		|| ft_strequ(src, "jobs") || ft_strequ(src, "fg")
 		|| ft_strequ(src, "bg") || ft_strequ(src, "fc"))
 		return (1);
-	str = is_in_path(src);
+	str = is_in_path(src, 1);
 	if (!str)
 	{
 		gest_return(gest_error_path(src, r));

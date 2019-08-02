@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/26 17:37:58 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:33:19 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char	*check_env_path(char *command)
 	return (result);
 }
 
-char		*is_in_path(char *command)
+char		*is_in_path(char *command, int hash)
 {
 	char	*result;
 
@@ -92,7 +92,7 @@ char		*is_in_path(char *command)
 	if ((result = get_hash(command)))
 		return (result);
 	result = check_env_path(command);
-	if (result)
+	if (result && hash == 1)
 	{
 		ht_hash_insert(g_hash_table, command, result);
 		return (result);

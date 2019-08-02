@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:09:25 by apruvost          #+#    #+#             */
-/*   Updated: 2019/07/04 16:03:56 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:33:39 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int					bt_type(char **av)
 			ft_printf("%s is a shell builtin\n", av[i]);
 		else if (type_alias_hash(av[i]))
 			;
-		else if ((arg = is_in_path(av[i])))
+		else if ((arg = is_in_path(av[i], 0)))
 		{
 			ft_printf("%s is %s\n", av[i], arg);
 			ft_strdel(&arg);

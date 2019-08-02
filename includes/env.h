@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 11:51:31 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:33:28 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int					verif_close(int fd);
 
 int					gest_return(int verif);
 int					is_builtin(t_job *j, t_process *p, t_pos *pos);
-char				*is_in_path(char *command);
+char				*is_in_path(char *command, int hash);
 t_env				*get_env(int is_end, t_env *head);
 
 /*

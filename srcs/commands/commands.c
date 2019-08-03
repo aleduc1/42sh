@@ -14,18 +14,29 @@
 #include "job.h"
 #include "builtins.h"
 
-/*
-** command error
-*/
-
-void		display_error_command(t_redirection *r, char **cmd)
+static int	is_not_builtin(t_job *j, t_process *p, int fg)
 {
-	ft_dprintf(r->error, "42sh: command not found: %s\n", cmd[0]);
+	int	verif;
+	int	last_return;
+
+	verif = 0;
+	p->cmd_path = is_in_path(p->cmd[0]);
+	last_return = check_last_command();
+	verif = launch_job(j, fg);
+	if (last_return == -6)
+		verif = gest_return(-6);
+	if (!(p->cmd_path))
+		verif = gest_error_path(p->cmd[0], p->r);
+	return (verif);
 }
 
 /*
-** simple command
-** remplacer 1 par 0 pour lancer en background
+** Simple command
+** Args: 	char **argv -> command
+**			t_token *t ->
+**			t_pos *pos -> know position terminal for fc builtin or heredocs
+**			int bg -> if foreground bg = 0 or
+**					if it's a background command -> ID background
 */
 
 int			ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
@@ -45,20 +56,16 @@ int			ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
 		clean_fuck_list(0);
 		return (1);
 	}
-	if ((verif = is_builtin(j, p, pos)) == -1)
-	{
-		p->cmd_path = is_in_path(p->cmd[0]);
-		if (p->cmd_path)
-			verif = launch_job(j, fg);
-		else
-			verif = gest_error_path(p->cmd[0], p->r);
-	}
-	// clean_fuck_list(0);
+	if (!builtin_exist(p->cmd[0]))
+		verif = is_not_builtin(j, p, fg);
+	else
+		verif = builtin(j, p, pos, fg);
 	return (verif);
 }
 
 /*
-** simple command for set or env
+** Simple command for set or env
+** give a job for is_not_builtin command
 */
 
 int			ft_simple_command_redirection(char **av, t_redirection *r,
@@ -81,45 +88,7 @@ int			ft_simple_command_redirection(char **av, t_redirection *r,
 		return (1);
 	}
 	if ((verif = is_builtin(j, p, pos)) == -1)
-	{
-		p->cmd_path = is_in_path(p->cmd[0]);
-		verif = (p->cmd_path) ? launch_job(j, 1)
-			: gest_error_path(p->cmd[0], p->r);
-	}
+		verif = is_not_builtin(j, p, 1);
 	free_job_redirection(&j);
 	return (verif);
-}
-
-/*
-** ||
-*/
-
-int			ft_pipe_double(char **argv, t_token *token, t_pos *pos)
-{
-	int		check;
-	char	*str;
-
-	str = value_line_path("?", 0);
-	check = ft_atoi(str);
-	if (check == -1)
-		check = ft_simple_command(argv, token, pos, 0);
-	ft_strdel(&str);
-	return (check);
-}
-
-/*
-** &&
-*/
-
-int			ft_ampersand_double(char **argv, t_token *token, t_pos *pos)
-{
-	int		check;
-	char	*str;
-
-	str = value_line_path("?", 0);
-	check = ft_atoi(str);
-	if (check != -1)
-		check = ft_simple_command(argv, token, pos, 0);
-	ft_strdel(&str);
-	return (check);
 }

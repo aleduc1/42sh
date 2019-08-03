@@ -109,7 +109,7 @@ void		redirection_fd(t_redirection *r)
 
 	if (check_fd_is_good(r) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
+		display_bad_file_descriptor(STDERR_FILENO);
 		execve("/bin/test", NULL, NULL);
 		exit(-1);
 	}

@@ -154,6 +154,8 @@ t_env				*get_env(int is_end, t_env *head);
 ** is_builtin.c
 */
 
+int					builtin_exist(char *cmd);
+int					builtin(t_job *j, t_process *p, t_pos *pos, int fg);
 int					is_builtin(t_job *j, t_process *p, t_pos *pos);
 
 /*
@@ -265,14 +267,25 @@ int					open_file_dless(t_redir *redir, t_pos *pos);
 ** commands.c
 */
 
-void				display_error_command(t_redirection *r, char **cmd);
 int					ft_simple_command(char **argv, t_token *lex, t_pos *pos,
 						int bg);
 int					ft_simple_command_redirection(char **argv,
 						t_redirection *r, t_pos *pos);
-int					ft_pipe_double(char **argv, t_token *token, t_pos *pos);
-int					ft_ampersand_double(char **argv, t_token *token,
-						t_pos *pos);
+
+/*
+** errors.c
+*/
+
+void				display_command_not_found(t_redirection *r, char *cmd);
+void				display_permission_denied(t_redirection *r, char *cmd);
+void				display_error_fork(t_redirection *r);
+void				display_too_many_arg(t_redirection *r, char *name);
+void				display_too_few_arg(t_redirection *r, char *name);
+void				display_nothing_value(t_redirection *r, char *name);
+void				display_bad_file_descriptor(int error);
+void				display_no_such_job(t_redirection *r, char *name);
+void				display_invalid_option_job(t_redirection *r, char *name);
+void				display_no_current_job(t_redirection *r, char *name);
 
 /*
 ** commands_pipe.c

@@ -15,9 +15,10 @@
 
 void		job_info(t_job *j, char *status)
 {
+	(void)status;
 	if (j->first_process)
-		ft_dprintf(j->first_process->r->error, "\n%s [%d]: %s\n",
-			j->first_process->cmd[0], (int)j->pgid, status);
+		ft_dprintf(j->first_process->r->error, "[%d] %d\n",
+			j->first_process->process_id, (int)j->pgid);
 }
 
 void		job_notif(void)
@@ -30,24 +31,30 @@ void		job_notif(void)
 	while (j)
 	{
 		next = j->next;
-		if (j->fg == 0)
+		if (j->first_process->fg == 0)
 		{
 			if (job_is_completed(j))
-			{
 				ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
 					'-', j->first_process->cmd[0]);
-				// bt_jobs_s(j, 0, j->r);
-			}
 			else if (job_is_stop(j) && (!j->notified))
-			{
 				ft_printf("[%d]%d Done	%s\n", j->first_process->process_id,
 					'+', j->first_process->cmd[0]);
-				// bt_jobs_s(j, 1, j->r);
+			j->notif_stop = 1;
+		}
+		else if (!(j->notif_stop))
+		{
+			// if (job_is_completed(j) && (!j->notified))
+			// 	bt_jobs_s(j, 0, j->r);
+			if (job_is_stop(j) && (!j->notified))
+			{
+				ft_putendl("");
+				bt_jobs_s(j, 1, j->r);
 			}
 			j->notif_stop = 1;
 		}
 		j = next;
 	}
+	update_status();
 	clean_fuck_list(0);
 }
 

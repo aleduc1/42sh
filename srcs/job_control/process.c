@@ -23,7 +23,7 @@ int			launch_process(t_process *p, pid_t pgid, int fg)
 	config_pid_process(pgid, fg);
 	redirection_fd(p->r);
 	verif = execve(p->cmd_path, p->cmd, environ);
-	display_error_command(p->r, p->cmd);
+	display_command_not_found(p->r, p->cmd[0]);
 	execve("/bin/test", NULL, NULL);
 	exit(verif);
 }
@@ -53,9 +53,14 @@ int			launch_job(t_job *j, int fg)
 	{
 		pid = fork();
 		if (pid == 0)
-			verif = launch_process(p, j->pgid, fg);
+		{
+			if (p->cmd_path)
+				verif = launch_process(p, j->pgid, fg);
+			else
+				execve("/bin/test", NULL, NULL);
+		}
 		else if (pid < 0)
-			ft_dprintf(p->r->error, "42sh: Error fork\n");
+			display_error_fork(p->r);
 		else
 			edit_pid_shell(pid, j, p);
 		update_status();

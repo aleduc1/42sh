@@ -18,7 +18,7 @@ int				builtin_env_display(t_redirection *r)
 
 	lst = get_env(3, NULL);
 	if (!lst)
-		ft_dprintf(r->error, "You are nothing value in env\n");
+		display_nothing_value(r,"env");
 	while (lst && lst->next)
 	{
 		if (lst->see_env == 1)
@@ -99,7 +99,7 @@ int				builtin_set(t_redirection *r)
 	while (lst_env[++i])
 		ft_dprintf(r->out, "%s\n", lst_env[i]);
 	if (i == 0)
-		ft_dprintf(r->error, "You are nothing value in env\n");
+		display_nothing_value(r, "set");
 	ft_arraydel(&lst_env);
 	return (0);
 }

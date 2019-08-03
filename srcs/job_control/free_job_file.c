@@ -23,6 +23,11 @@ static void	clean_close_fd(t_job *j)
 			if (verif_close(j->close_fd[i]))
 				close(j->close_fd[i]);
 	}
+	if (j->close_fd)
+	{
+		free(j->close_fd);
+		j->close_fd = NULL;
+	}
 }
 
 void		clean_file(t_job *j)
@@ -44,11 +49,6 @@ void		clean_file(t_job *j)
 				close(p->r->error);
 		delete_redirection(&p->r);
 		p = p->next;
-	}
-	if (j->close_fd)
-	{
-		free(j->close_fd);
-		j->close_fd = NULL;
 	}
 }
 

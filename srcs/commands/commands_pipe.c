@@ -40,9 +40,8 @@ int			ft_pipe(char **argv, t_token *token, int end_pipe, int bg)
 	if (end_pipe == 2)
 	{
 		j = get_end_job();
+		j->fg = fg;
 		launch_job_pipe(j, fg);
-		clean_fuck_list(0);
-		update_status();
 	}
 	return (0);
 }

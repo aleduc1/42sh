@@ -125,13 +125,12 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 					else if (job_is_stop(j))
 						(*p)(j, 1, r);
 					else
-						ft_dprintf(r->error, "42sh: jobs %s: no such job\n",
-							av[i]);
+						display_no_such_job(r, av[i]);
 				}
 				j = j->next;
 			}
 			if (verif == 0)
-				ft_dprintf(r->error, "42sh: jobs %s: no such job\n", av[i]);
+				display_no_such_job(r, av[i]);
 			ft_strdel(&src);
 			++i;
 		}
@@ -154,8 +153,7 @@ int			bt_jobs(char **av, t_redirection *r)
 			break ;
 		else
 		{
-			ft_dprintf(r->error, "42sh: jobs %s: invalid option\n", *av);
-			ft_dprintf(r->error, "jobs: usage: jobs [-l | -p] [job_id...]\n");
+			display_invalid_option_job(r, *av);
 			return (-2);
 		}
 	}
@@ -173,7 +171,7 @@ int			process_execute_job(char **av, t_redirection *r, char *name)
 	len = ft_arraylen(av);
 	if (len > 2)
 	{
-		ft_dprintf(r->error, "42sh: %s: Too many argument\n", name);
+		display_too_many_arg(r, name);
 		return (-1);
 	}
 	else if (len == 1)
@@ -207,7 +205,7 @@ int			bt_bg(char **av, t_redirection *r)
 	}
 	if (!is_stopped)
 	{
-		ft_dprintf(2, "42sh: bg no current job\n");
+		display_no_current_job(r, "bg");
 		return (-2);
 	}
 	continue_job(is_stopped, 0);
@@ -233,7 +231,7 @@ int			bt_fg(char **av, t_redirection *r)
 	}
 	if (!is_stopped)
 	{
-		ft_dprintf(2, "42sh: fg: no current job\n");
+		display_no_current_job(r, "fg");
 		return (-2);
 	}
 	continue_job(is_stopped, 1);

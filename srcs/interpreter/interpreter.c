@@ -36,7 +36,7 @@ void		background_case(t_ast *node, t_pos *pos, int *bg)
 		if (node->l->token->type == CMD && node->r \
 							&& node->r->token->type == CMD) // OK
 		{
-			ft_putendl(ft_itoa(*bg));
+			// ft_putendl(ft_itoa(*bg));
 			run_cmd(node->l->token, pos, *bg);
 			// if (*bg > 1)
 			// 	ft_putendl(ft_itoa(*bg));
@@ -59,9 +59,9 @@ void	scolon_case(t_ast *node, t_pos *pos, int bg)
 	{
 		if (node->l->token->type == CMD && node->r->token->type == CMD)
 		{
-			ft_putendl(ft_itoa(bg));
+			// ft_putendl(ft_itoa(bg));
 			run_cmd(node->l->token, pos, bg);
-			ft_putendl(ft_itoa(bg));
+			// ft_putendl(ft_itoa(bg));
 			run_cmd(node->r->token, pos, bg);
 		}
 		if (node->l->token->type == CMD && node->r->token->type != CMD)
@@ -75,7 +75,7 @@ void	spipe_case(t_ast *node, t_pos *pos, int bg)
 
 	if (node->token->type == SPIPE)
 	{
-		ft_putendl(ft_itoa(bg));
+		// ft_putendl(ft_itoa(bg));
 		if (state == 0)
 			run_pipe(node->l->token, pos, state++, bg);
 		else
@@ -94,7 +94,7 @@ void	dpipe_case(t_ast *node, t_pos *pos, int bg)
 	{
 		if (node->l->token->type == CMD && node->r->token->type == CMD)
 		{
-			ft_putendl(ft_itoa(bg));
+			// ft_putendl(ft_itoa(bg));
 			run_cmd(node->l->token, pos, bg);
 			// printf("CHECKLAST:%d\n", check_last());
 			if (check_last() != 0)
@@ -111,9 +111,9 @@ void	damp_case(t_ast *node, t_pos *pos, int bg)
 	{
 		if (node->l->token->type == CMD && node->r->token->type == CMD)
 		{
-			ft_putendl(ft_itoa(bg));
+			// ft_putendl(ft_itoa(bg));
 			run_cmd(node->l->token, pos, bg);
-			printf("CHECKLAST:%d\n", check_last());
+			// printf("CHECKL LAST:%d\n", check_last());
 			if (check_last() == 0)
 				run_cmd(node->r->token, pos, bg);
 		}

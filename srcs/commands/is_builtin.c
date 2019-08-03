@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/07/05 02:17:05 by sbelondr         ###   ########.fr       */
@@ -31,13 +31,13 @@ static int	verif_set(char **argv, int nb, t_redirection *r, char *name)
 	if (nb == i || (nb == 3 && i == 2))
 		return (1);
 	else if (i > nb)
-		ft_dprintf(r->error, "42sh: %s: Too many arguments.\n", name);
+		display_too_many_arg(r, name);
 	else
 	{
 		if (ft_strequ(name, "setenv"))
 			builtin_env_display(r);
 		else
-			ft_dprintf(r->error, "42sh: %s: Too few arguments.\n", name);
+			display_too_few_arg(r, name);
 	}
 	return (0);
 }
@@ -98,6 +98,11 @@ static int	is_builtin_other(t_pos *pos, char **av)
 	return (verif);
 }
 
+/*
+** if builtin not exist return -1
+** if exist and good execution return 0 otherwise return -2
+*/
+
 int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 {
 	int		verif;
@@ -121,5 +126,46 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = -1;
 	if (verif != -1)
 		gest_return(verif == -2 ? 1 : verif);
+	return (verif);
+}
+
+int		builtin_exist(char *cmd)
+{
+	if (ft_strequ(cmd, "echo") || ft_strequ(cmd, "cd") || ft_strequ(cmd, "exit")
+		|| ft_strequ(cmd, "fc") || ft_strequ(cmd, "test")
+		|| ft_strequ(cmd, "alias") || ft_strequ(cmd, "unalias")
+		|| ft_strequ(cmd, "hash") || ft_strequ(cmd, "jobs")
+		|| ft_strequ(cmd, "fg") || ft_strequ(cmd, "bg") || ft_strequ(cmd, "env")
+		|| ft_strequ(cmd, "set") || ft_strequ(cmd, "setenv")
+		|| ft_strequ(cmd, "unsetenv") || ft_strequ(cmd, "export")
+		|| ft_strequ(cmd, "unset") || ft_strchr_exist(cmd, '='))
+		return (1);
+	return (0);
+}
+
+int		builtin(t_job *j, t_process *p, t_pos *pos, int fg)
+{
+	int		verif;
+	pid_t	pid;
+
+	verif = -1;
+	if (fg == 1)
+		return (is_builtin(j, p, pos));
+	else
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			config_pid_process(pid, fg);
+			verif = is_builtin(j, p, pos);
+			execve("/bin/test", NULL, NULL);
+			exit(verif);
+		}
+		else if (pid < 0)
+			display_error_fork(p->r);
+		else
+			edit_pid_shell(pid, j, p);
+		act_job(j, fg);
+	}
 	return (verif);
 }

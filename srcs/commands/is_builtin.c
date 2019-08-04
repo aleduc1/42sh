@@ -143,29 +143,68 @@ int		builtin_exist(char *cmd)
 	return (0);
 }
 
-int		builtin(t_job *j, t_process *p, t_pos *pos, int fg)
+void	test_fork(t_job *j, t_process *p, t_pos *pos, int fg)
 {
 	int		verif;
 	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		config_pid_process(j->pgid, fg);
+		redirection_fd(p->r);
+		verif = is_builtin(j, p, pos);
+		execve("/bin/test", NULL, NULL);
+		exit(verif);
+	}
+	else if (pid < 0)
+		display_error_fork(p->r);
+	else
+		edit_pid_shell(pid, j, p);
+	update_status();
+}
+
+int		launch_process_blt(t_job *j, t_process *p, t_pos *pos,
+				int fg)
+{
+	char	**environ;
+	int		verif;
+
+	environ = create_list_env(get_env(0, NULL), 1);
+	config_pid_process(j->pgid, fg);
+	redirection_fd(p->r);
+	verif = is_builtin(j, p, pos);
+	execve("/bin/test", NULL, NULL);
+	exit(verif);
+}
+
+int		launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)
+{
+	pid_t		pid;
+	int			verif;
+
+	verif = 0;
+	pid = fork();
+	if (pid == 0)
+		verif = launch_process_blt(j, p, pos, fg);
+	else if (pid < 0)
+		display_error_fork(p->r);
+	else
+		edit_pid_shell(pid, j, p);
+	update_status();
+	p = p->next;
+	act_job(j, fg);
+	return (verif);
+}
+
+int		builtin(t_job *j, t_process *p, t_pos *pos, int fg)
+{
+	int		verif;
 
 	verif = -1;
 	if (fg == 1)
 		return (is_builtin(j, p, pos));
 	else
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			config_pid_process(pid, fg);
-			verif = is_builtin(j, p, pos);
-			execve("/bin/test", NULL, NULL);
-			exit(verif);
-		}
-		else if (pid < 0)
-			display_error_fork(p->r);
-		else
-			edit_pid_shell(pid, j, p);
-		act_job(j, fg);
-	}
+		launch_job_blt(j, p, pos, fg);
 	return (verif);
 }

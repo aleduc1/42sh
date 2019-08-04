@@ -73,6 +73,7 @@ void		bt_jobs_s(t_job *j, int is_stopped, t_redirection *r)
 {
 	char	*str;
 
+	ft_printf("jobs = %s\n", j->first_process->cmd[0]);
 	str = ft_inter_signal(WSTOPSIG(j->first_process->status));
 	if (!str)
 		return ;
@@ -102,6 +103,9 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 				(*p)(j, 0, r);
 			else if (job_is_stop(j))
 				(*p)(j, 1, r);
+			// else if (j->pgid > 0)
+			// 	(*p)(j, 1, r);
+				ft_printf("j->pgid = %d\n", j->pgid);
 			j = j->next;
 		}
 	}
@@ -142,6 +146,7 @@ int			bt_jobs(char **av, t_redirection *r)
 	void	(*p)(t_job*, int, t_redirection*);
 
 	update_status();
+	// display_lst_job(get_first_job(NULL));
 	p = &bt_jobs_s;
 	while (*(++av))
 	{
@@ -192,6 +197,7 @@ int			bt_bg(char **av, t_redirection *r)
 	t_job	*is_stopped;
 	int		process;
 
+	update_status();
 	j = get_first_job(NULL);
 	is_stopped = NULL;
 	if ((process = process_execute_job(av, r, "bg")) < 0)
@@ -218,6 +224,7 @@ int			bt_fg(char **av, t_redirection *r)
 	t_job	*is_stopped;
 	int		process;
 
+	update_status();
 	j = get_first_job(NULL);
 	is_stopped = NULL;
 	if ((process = process_execute_job(av, r, "fg")) < 0)
@@ -227,6 +234,12 @@ int			bt_fg(char **av, t_redirection *r)
 		if (j->first_process->stopped == 1
 			&& (process == 0 || process == j->first_process->process_id))
 			is_stopped = j;
+		else if (j->pgid > 0)
+		{
+			ft_printf("cmd = %s\n", j->first_process->cmd[0]);
+			// exit(0);
+			is_stopped = j;
+		}
 		j = j->next;
 	}
 	if (!is_stopped)

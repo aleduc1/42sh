@@ -14,7 +14,6 @@
 #include "builtins.h"
 #include "job.h"
 
-
 /*
 ** display error command
 ** if the value of ? is equal to -6 display "Permission denied"

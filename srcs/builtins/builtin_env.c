@@ -18,7 +18,7 @@ int				builtin_env_display(t_redirection *r)
 
 	lst = get_env(3, NULL);
 	if (!lst)
-		display_nothing_value(r,"env");
+		display_nothing_value(r, "env");
 	while (lst && lst->next)
 	{
 		if (lst->see_env == 1)

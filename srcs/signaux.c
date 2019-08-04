@@ -42,5 +42,6 @@ void	dfl_signaux(void)
 	signal(SIGSTOP, SIG_DFL);
 	signal(SIGCONT, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
+	signal(SIGTTOU, SIG_DFL);
 	signal(SIGPIPE, SIG_DFL);
 }

@@ -18,11 +18,12 @@
 ** The change occurs after all output written to fildes has been transmitted to
 ** the terminal.
 ** kill(-pgid, SIG) -> kill un grp d'id
+** if (tcsetattr(shell->term, TCSADRAIN, &(j->tmodes)) == -1)
 */
 
 static void	kill_pgid(t_shell *shell, t_job *j)
 {
-	if (tcsetattr(shell->term, TCSADRAIN, &(j->tmodes)) == -1)
+	if (tcsetattr(shell->term, TCSADRAIN, &(shell->term_shell)) == -1)
 		ft_dprintf(STDERR_FILENO, "error: tcsetattr\n");
 	if (kill(-j->pgid, SIGCONT) < 0)
 		ft_dprintf(j->first_process->r->error,

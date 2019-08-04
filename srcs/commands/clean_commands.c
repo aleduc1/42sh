@@ -70,7 +70,6 @@ void		clean_fuck_list(pid_t pid)
 	t_job	*h;
 
 	j = static_job();
-	// display_lst_job(*j);
 	h = *j;
 	last = NULL;
 	while (*j)

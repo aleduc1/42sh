@@ -59,6 +59,7 @@ typedef struct		s_shell
 	struct termios	term_shell;
 	int				interactive;
 	int				term;
+	int				max_job_current;
 }					t_shell;
 
 typedef struct		s_process
@@ -76,6 +77,10 @@ typedef struct		s_process
 	struct s_process	*next;
 }					t_process;
 
+/*
+**	current = 1 if current, 2 if previous, 0 if other
+*/
+
 typedef struct		s_job
 {
 	t_process		*first_process;
@@ -89,7 +94,10 @@ typedef struct		s_job
 	int				*close_fd;
 	t_redirection	*r;
 	struct s_job	*next;
+	int				current;
 }					t_job;
+
+void		edit_current_value(int value);
 
 /*
 ** redirection.c

@@ -37,6 +37,11 @@ void		free_job(t_job **j)
 	if (j && (*j))
 	{
 		clean_file(*j);
+		if ((*j)->current != 0)
+		{
+			edit_current_value((*j)->current);
+			get_shell()->max_job_current -= 1;
+		}
 		if ((*j)->first_process)
 			free_process(j);
 		free_redirection(&((*j)->r));

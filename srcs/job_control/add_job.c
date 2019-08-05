@@ -13,6 +13,44 @@
 #include "job.h"
 #include "sh21.h"
 
+void		edit_current_value(int value)
+{
+	t_job	*j;
+
+	j = get_first_job(NULL);
+	while (j)
+	{
+		if (j->current > value)
+			j->current -= 1;
+		j = j->next;
+	}
+}
+
+static void	assign_value_current(pid_t pgid, t_job *new_job)
+{
+	t_job	*j;
+	int		max;
+	int		min;
+
+	if (new_job->current == 0)
+	{
+		get_shell()->max_job_current += 1;
+		new_job->current = get_shell()->max_job_current;
+	}
+	j = get_first_job(NULL);
+	max = get_shell()->max_job_current;
+	while (j)
+	{
+		if (j->pgid == pgid)
+		{
+			min = j->current;
+			j->current = max + 1;
+		}
+		j = j->next;
+	}
+	edit_current_value(min);
+}
+
 /*
 ** TCSADRAIN
 ** The change occurs after all output written to fildes has been transmitted to
@@ -23,7 +61,7 @@
 
 static void	kill_pgid(t_shell *shell, t_job *j)
 {
-	if (tcsetattr(shell->term, TCSADRAIN, &(shell->term_shell)) == -1)
+	if (tcsetattr(shell->term, TCSADRAIN, &(j->tmodes)) == -1)
 		ft_dprintf(STDERR_FILENO, "error: tcsetattr\n");
 	if (kill(-j->pgid, SIGCONT) < 0)
 		ft_dprintf(j->first_process->r->error,
@@ -35,6 +73,7 @@ void		add_in_fg(t_job *j, int value)
 	t_shell		*shell;
 	t_process	*p;
 
+	assign_value_current(j->pgid, j);
 	p = j->first_process;
 	shell = get_shell();
 	if (tcsetpgrp(shell->term, j->pgid) == -1)
@@ -60,6 +99,9 @@ void		add_in_bg(t_job *j, int value)
 {
 	char	*itoa_pid;
 
+	assign_value_current(j->pgid, j);
+	if (tcgetattr(get_shell()->term, &j->tmodes) == -1)
+		ft_dprintf(STDERR_FILENO, "error: tcsetpgrp\n");
 	itoa_pid = ft_itoa(j->first_process->pid);
 	add_set_value("!", itoa_pid);
 	if (value && (kill(-j->pgid, SIGCONT) < 0))

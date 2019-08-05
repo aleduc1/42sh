@@ -23,6 +23,7 @@ static t_shell	*init_shell_list(void)
 
 	if (!(shell = (t_shell*)malloc(sizeof(t_shell) * 1)))
 		return (NULL);
+	shell->max_job_current = 0;
 	return (shell);
 }
 

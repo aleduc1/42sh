@@ -45,6 +45,7 @@ t_job		*init_job(void)
 	j->notif_stop = 0;
 	j->len_close = 0;
 	j->r = NULL;
+	j->current = 0;
 	j->close_fd = NULL;
 	j->next = NULL;
 	return (j);

@@ -153,7 +153,7 @@ int			main(int argc, char **argv, char **environ)
 	// (argc == 1) ? edit_shell() : 0;
 	// (argc == 1) ? welcome() : 0;
 	edit_shell();
-	welcome();
+	// welcome();
 	flags(argc, argv);
 	init_prompt(&pos);
 	init_alias();

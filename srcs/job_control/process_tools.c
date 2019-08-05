@@ -44,7 +44,8 @@ void	act_job(t_job *j, int fg)
 		add_in_fg(j, 0);
 	else
 	{
-		job_info(j, "launched");
+		bt_jobs_p(j, 0, j->r);
+		// job_info(j, "launched");
 		add_in_bg(j, 0);
 	}
 }

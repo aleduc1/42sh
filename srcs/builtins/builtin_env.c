@@ -77,8 +77,8 @@ int				builtin_env(t_redirection *r, char **argv, t_pos *pos)
 	pid_t	pid;
 	int		rt;
 
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGINT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	pid = 0;
 	if (!argv)
 		builtin_env_display(r);

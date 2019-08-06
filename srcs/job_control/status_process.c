@@ -36,26 +36,19 @@ void		job_notif(void)
 			if (job_is_completed(j))
 			{
 				if (get_shell()->max_job_current == j->current)
-					ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
-						'+', j->first_process->cmd[0]);
+					ft_printf("[%d]%c Done	%s %d\n", j->first_process->process_id,
+						'+', j->first_process->cmd[0], j->first_process->status);
 				else if (get_shell()->max_job_current - 1 == j->current)
 					ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
 						'-', j->first_process->cmd[0]);
 				else
 					ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
 						' ', j->first_process->cmd[0]);
-				
-
 			}
-			// else if (job_is_stop(j) && (!j->notified))
-			// 	ft_printf("[%d]%d Done	%s\n", j->first_process->process_id,
-			// 		'+', j->first_process->cmd[0]);
 			j->notif_stop = 1;
 		}
 		else if (!(j->notif_stop))
 		{
-			// if (job_is_completed(j) && (!j->notified))
-			// 	bt_jobs_s(j, 0, j->r);
 			if (job_is_stop(j) && (!j->notified))
 			{
 				ft_putendl("");

@@ -73,6 +73,8 @@ void		add_in_fg(t_job *j, int value)
 	t_shell		*shell;
 	t_process	*p;
 
+	if (j->pgid < 1)
+		exit(-1);
 	assign_value_current(j->pgid, j);
 	p = j->first_process;
 	shell = get_shell();
@@ -99,6 +101,8 @@ void		add_in_bg(t_job *j, int value)
 {
 	char	*itoa_pid;
 
+	if (j->pgid < 1)
+		exit(-1);
 	assign_value_current(j->pgid, j);
 	if (tcgetattr(get_shell()->term, &j->tmodes) == -1)
 		ft_dprintf(STDERR_FILENO, "error: tcsetpgrp\n");
@@ -108,3 +112,34 @@ void		add_in_bg(t_job *j, int value)
 		ft_dprintf(j->first_process->r->error, "42sh: bg: Kill not work!\n");
 	ft_strdel(&itoa_pid);
 }
+
+
+// void
+// add_in_fg(t_job *j, int cont)
+// {
+// 	t_shell *shell = get_shell();
+//   /* Put the job into the foreground.  */
+//   tcsetpgrp (shell->term, j->pgid);
+
+
+//   /* Send the job a continue signal, if necessary.  */
+//   if (cont)
+//     {
+//       tcsetattr (shell->term, TCSADRAIN, &j->tmodes);
+//       if (kill (- j->pgid, SIGCONT) < 0)
+//         perror ("kill (SIGCONT)");
+//     }
+
+
+//   /* Wait for it to report.  */
+//   wait_for_job (j);
+
+//   /* Put the shell back in the foreground.  */
+//   tcsetpgrp (shell->term, shell->pgid);
+
+//   /* Restore the shell’s terminal modes.  */
+//   tcgetattr (shell->term, &j->tmodes);
+//   tcsetattr (shell->term, TCSADRAIN, &shell->term_shell);
+//   if (j->pgid < 1)
+//  		exit(-1);
+// }

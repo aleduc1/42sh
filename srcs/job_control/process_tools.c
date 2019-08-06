@@ -20,7 +20,6 @@ void	config_pid_process(pid_t pgid, int fg)
 	pid_t	pid;
 
 	s = get_shell();
-	dfl_signaux();
 	if (s->interactive)
 	{
 		pid = getpid();
@@ -30,6 +29,7 @@ void	config_pid_process(pid_t pgid, int fg)
 			exit(1);
 		if (fg)
 			tcsetpgrp(s->term, pgid);
+	dfl_signaux();
 	}
 }
 

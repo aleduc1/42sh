@@ -159,7 +159,7 @@ int			main(int argc, char **argv, char **environ)
 	init_alias();
 	// if (argc > 1)
 	// 	script_test(argv + 1, pos);
-	dfl_signaux();
+	// dfl_signaux();
 	while (21)
 	{
 		if (argc && argv && environ)

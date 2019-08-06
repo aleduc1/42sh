@@ -19,12 +19,16 @@
 ** 	str = ft_itoa(sig);
 */
 
-char		*ft_inter_signal(int sig)
+char		*ft_inter_signal(int sig, t_job *j)
 {
 	char	*str;
 
 	str = NULL;
-	if (sig == 1)
+	if (sig == 0 && job_is_completed(j))
+		str = ft_strdup("Done");
+	else if (sig == 0 && (!job_is_completed(j)))
+		str = ft_strdup("Running");
+	else if (sig == 1)
 		str = ft_strdup("Terminated(SIGHUP)");
 	else if (sig == 2)
 		str = ft_strdup("Terminated(SIGINT)");
@@ -82,9 +86,9 @@ void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 {
 	char	*str;
 
-	str = ft_inter_signal(WSTOPSIG(j->first_process->status));
-	if ((!str) && job_is_stop(j) == 0 && job_is_completed(j) == 0)
-		str = ft_strdup("Running");
+	str = ft_inter_signal(WSTOPSIG(j->first_process->status), j);
+	// if ((!str) && job_is_stop(j) == 0 && job_is_completed(j) == 0)
+	// 	str = ft_strdup("Running");
 	if (!str)
 		return ;
 	if (j->current == max_current)
@@ -261,11 +265,7 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 	int		i;
 	int		verif;
 	int		max_current;
-	// pid_t	current_pid;
-	// pid_t	previous_pid;
 
-	// current_pid = last_jobs();
-	// previous_pid = previous_jobs();
 	max_current = get_shell()->max_job_current;
 	if (!*av)
 	{
@@ -290,14 +290,7 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 			{
 				verif = 1;
 				if (job_is_completed(j) || job_is_stop(j))
-				{
-					// if (j->pgid == current_pid)
-					// 	(*p)(j, 1, r);
-					// else if (j->pgid == previous_pid)
-					// 	(*p)(j, 2, r);
-					// else
 						(*p)(j, max_current, r);
-				}
 				else
 					display_no_such_job(r, av[i]);
 			}

@@ -167,7 +167,7 @@ int			main(int argc, char **argv, char **environ)
 			{
 				run(input, &pos);
 			}
-				job_notif();
+			job_notif();
 	}
 	return (0);
 }

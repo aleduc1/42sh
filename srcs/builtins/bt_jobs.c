@@ -12,6 +12,58 @@
 
 #include "job.h"
 
+char		*assemply_cmd_process(t_process *p)
+{
+	char	*str;
+	char	*tmp;
+	char	*cache;
+	int		i;
+
+	i = -1;
+	str = ft_strdup(p->cmd[++i]);
+	while (p->cmd[++i])
+	{
+		tmp = ft_strjoin(str, " ");
+		cache = ft_strjoin(tmp, p->cmd[i]);
+		ft_strdel(&str);
+		ft_strdel(&tmp);
+		str = cache;
+	}
+	return (str);
+}
+
+char		*cmd_job_s(t_job *j)
+{
+	t_process	*p;
+	char		*str;
+	char		*tmp;
+	char		*cache;
+
+	p = j->first_process;
+	str = NULL;
+	while (p)
+	{
+		if (!str)
+			str = assemply_cmd_process(p);
+		else
+		{
+			tmp = assemply_cmd_process(p);
+			cache = ft_strjoin(str, tmp);
+			ft_strdel(&str);
+			ft_strdel(&tmp);
+			str = cache;
+		}
+		if (p->next)
+		{
+			cache = ft_strjoin(str, " | ");
+			ft_strdel(&str);
+			str = cache;
+		}
+		p = p->next;
+	}
+	return (str);
+}
+
 /*
 ** WTERMSIG(j->first_process->status));
 ** LINE 47:
@@ -68,39 +120,62 @@ void		bt_jobs_p(t_job *j, int max_current, t_redirection *r)
 
 static void	bt_jobs_l(t_job *j, int max_current, t_redirection *r)
 {
+	char		*cmd;
+	t_process	*p;
+	char		c;
+
+	p = j->first_process;
 	if (j->current == max_current)
-		ft_dprintf(r->out, "[%d]%c\t%d Suspended: %d\t%s\n",
-			j->first_process->process_id, '+', j->first_process->pid,
-			WSTOPSIG(j->first_process->status), j->first_process->cmd[0]);
+		c = '+';
 	else if (j->current == max_current - 1)
-		ft_dprintf(r->out, "[%d]%c\t%d: %d\t%s\n", j->first_process->process_id,
-			'-', j->first_process->pid, WSTOPSIG(j->first_process->status),
-			j->first_process->cmd[0]);
+		c = '-';
 	else
-		ft_dprintf(r->out, "[%d]%c\t%d: %d\t%s\n", j->first_process->process_id,
-			' ', j->first_process->pid, WSTOPSIG(j->first_process->status),
-			j->first_process->cmd[0]);
+		c = ' ';
+	ft_dprintf(r->out, "[%d]%c",
+			p->process_id, c);
+	while (p)
+	{
+		cmd = assemply_cmd_process(p);
+		ft_dprintf(r->out, "\t%d Suspended: %d\t%s",
+			p->pid,
+			WSTOPSIG(p->status), cmd);
+		if (p->next)
+			ft_dprintf(r->out, " |\n");
+		else
+			ft_dprintf(r->out, "\n");
+		ft_strdel(&cmd);
+		p = p->next;
+	}
 }
 
 void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 {
+	t_process	*p;
 	char	*str;
+	char	*cmd;
 
-	str = ft_inter_signal(WSTOPSIG(j->first_process->status), j);
-	// if ((!str) && job_is_stop(j) == 0 && job_is_completed(j) == 0)
-	// 	str = ft_strdup("Running");
+	p = j->first_process;
+	while (p)
+	{
+		if (!p->next)
+			break ;
+		p = p->next;
+	}
+	str = ft_inter_signal(WSTOPSIG(p->status), j);
 	if (!str)
 		return ;
+	cmd = cmd_job_s(j);
 	if (j->current == max_current)
 		ft_dprintf(r->out, "[%d]%c\t%s\t%s\n", j->first_process->process_id,
-			'+', str, j->first_process->cmd[0]);
+			'+', str, cmd);
 	else if (j->current == max_current - 1)
 		ft_dprintf(r->out, "[%d]%c\t%s\t%s\n", j->first_process->process_id,
-			'-', str, j->first_process->cmd[0]);
+			'-', str, cmd);
 	else
 		ft_dprintf(r->out, "[%d]%c\t%s\t%s\n", j->first_process->process_id,
-			' ', str, j->first_process->cmd[0]);
+			' ', str, cmd);
 	ft_strdel(&str);
+	ft_strdel(&cmd);
 }
 
 static pid_t	last_jobs(void)
@@ -301,10 +376,15 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 	}
 }
 
-int			bt_jobs(char **av, t_redirection *r)
+int			bt_jobs(t_job *j, char **av, t_redirection *r)
 {
 	void	(*p)(t_job*, int, t_redirection*);
 
+	if (j->fg == 0)
+	{
+		display_no_job_control(r, "jobs");
+		return (1);
+	}
 	update_status();
 	p = &bt_jobs_s;
 	while (*(++av))
@@ -370,10 +450,15 @@ t_job		*job_for_bg_fg(char **av, t_redirection *r)
 	return (job_launch);
 }
 
-int			bt_bg(char **av, t_redirection *r)
+int			bt_bg(t_job *j, char **av, t_redirection *r)
 {
 	t_job	*job_launch;
 
+	if (j->fg == 0)
+	{
+		display_no_job_control(r, "bg");
+		return (1);
+	}
 	job_launch = job_for_bg_fg(av, r);
 	if (!job_launch)
 	{
@@ -384,10 +469,15 @@ int			bt_bg(char **av, t_redirection *r)
 	return (0);
 }
 
-int			bt_fg(char **av, t_redirection *r)
+int			bt_fg(t_job *j, char **av, t_redirection *r)
 {
 	t_job	*job_launch;
 
+	if (j->fg == 0)
+	{
+		display_no_job_control(r, "fg");
+		return (1);
+	}
 	job_launch = job_for_bg_fg(av, r);
 	if (!job_launch)
 	{

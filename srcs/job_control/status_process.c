@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "job.h"
+#include "builtins.h"
 #include <errno.h>
 
 void		job_info(t_job *j, char *status)
@@ -19,6 +20,24 @@ void		job_info(t_job *j, char *status)
 	if (j->first_process)
 		ft_dprintf(j->first_process->r->error, "[%d] %d\n",
 			j->first_process->process_id, (int)j->pgid);
+}
+
+void		job_done(t_job *j)
+{
+	char	*cmd;
+
+	cmd = cmd_job_s(j);
+	if (get_shell()->max_job_current == j->current)
+		ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
+			'+', cmd);
+	else if (get_shell()->max_job_current - 1 == j->current)
+		ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
+			'-', cmd);
+	else
+		ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
+			' ', cmd);
+	j->notif_stop = 1;
+	ft_strdel(&cmd);
 }
 
 void		job_notif(void)
@@ -33,19 +52,8 @@ void		job_notif(void)
 		next = j->next;
 		if (j->first_process->fg == 0)
 		{
-			if (job_is_completed(j))
-			{
-				if (get_shell()->max_job_current == j->current)
-					ft_printf("[%d]%c Done	%s %d\n", j->first_process->process_id,
-						'+', j->first_process->cmd[0], j->first_process->status);
-				else if (get_shell()->max_job_current - 1 == j->current)
-					ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
-						'-', j->first_process->cmd[0]);
-				else
-					ft_printf("[%d]%c Done	%s\n", j->first_process->process_id,
-						' ', j->first_process->cmd[0]);
-			}
-			j->notif_stop = 1;
+			if (job_is_completed(j) && j->first_process->status == 0)
+				job_done(j);
 		}
 		else if (!(j->notif_stop))
 		{

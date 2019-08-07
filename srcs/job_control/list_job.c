@@ -38,6 +38,7 @@ t_job		*init_job(void)
 
 	if (!(j = (t_job*)malloc(sizeof(t_job) * 1)))
 		return (NULL);
+	j->fg = 0;
 	j->first_process = init_process();
 	j->cmd = 0;
 	j->pgid = 0;

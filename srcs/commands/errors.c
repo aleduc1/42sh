@@ -62,3 +62,13 @@ void	display_no_current_job(t_redirection *r, char *name)
 {
 	ft_dprintf(r->error, "42sh: %s: no current job\n", name);
 }
+
+void	display_no_job_control(t_redirection *r, char *name)
+{
+	ft_dprintf(r->error, "42sh: %s: no job control\n", name);
+}
+
+void	display_job_stopped(t_redirection *r)
+{
+	ft_dprintf(STDERR_FILENO, "42sh: There are stopped jobs.\n");
+}

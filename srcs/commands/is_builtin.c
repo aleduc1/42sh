@@ -66,17 +66,17 @@ static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 	return (verif);
 }
 
-static int	is_builtin_jobs(t_process *p, char **av)
+static int	is_builtin_jobs(t_job *j, t_process *p, char **av)
 {
 	int	verif;
 
 	verif = -1;
 	if (ft_strequ(av[0], "jobs"))
-		verif = bt_jobs(av, p->r);
+		verif = bt_jobs(j, av, p->r);
 	else if (ft_strequ(av[0], "fg"))
-		verif = bt_fg(av, p->r);
+		verif = bt_fg(j, av, p->r);
 	else if (ft_strequ(av[0], "bg"))
-		verif = bt_bg(av, p->r);
+		verif = bt_bg(j, av, p->r);
 	return (verif);
 }
 
@@ -118,7 +118,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = bt_cd(av);
 	else if (ft_strequ(av[0], "exit"))
 		verif = bt_exit(j, pos);
-	else if ((verif = is_builtin_jobs(p, av)) != -1)
+	else if ((verif = is_builtin_jobs(j, p, av)) != -1)
 		;
 	else if ((verif = is_builtin_other(pos, av)) != -1)
 		;

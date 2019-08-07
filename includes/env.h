@@ -294,6 +294,8 @@ void				display_bad_file_descriptor(int error);
 void				display_no_such_job(t_redirection *r, char *name);
 void				display_invalid_option_job(t_redirection *r, char *name);
 void				display_no_current_job(t_redirection *r, char *name);
+void				display_no_job_control(t_redirection *r, char *name);
+void				display_job_stopped(t_redirection *r);
 
 /*
 ** commands_pipe.c

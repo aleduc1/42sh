@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 13:52:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/05/27 10:48:03 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/07 23:47:26 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int			bt_exit(t_job *j, t_pos *pos)
 	if (jobs_running())
 	{
 		display_job_stopped(NULL);
+		print_prompt();
 		return (1);
 	}
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))

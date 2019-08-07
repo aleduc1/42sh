@@ -282,3 +282,9 @@ git commit -a -m "fixed segfault when nothing after '&', might cause some proble
 git push
 ls -l
 ls | cat -e && ls | cat -e ; ls | cat -e || ls | cat -e &
+ls -R /
+ls -l
+fg
+ls -R /
+ls -l
+fg

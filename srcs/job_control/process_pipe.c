@@ -20,7 +20,7 @@ static void	launch_process_pipe(t_process *p)
 
 	environ = create_list_env(get_env(0, NULL), 0);
 	execve(p->cmd_path, p->cmd, environ);
-	display_error_command(p->r, p->cmd);
+	display_command_not_found(p->r, p->cmd[0]);
 	exit(1);
 }
 
@@ -66,7 +66,7 @@ static void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 	}
 	else if (pid < 0)
 	{
-		ft_dprintf(j->r->error, "42sh: error fork\n");
+		display_error_fork(j->r);
 		exit(1);
 	}
 	else

@@ -37,12 +37,12 @@ int			verif_file_descriptor(char **src, char *dst)
 	while (src && src[++i])
 		if ((uintmax_t)ft_atoi(src[i]) > lim_cur)
 		{
-			ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
+			display_bad_file_descriptor(STDERR_FILENO);
 			return (-1);
 		}
 	if (dst && (uintmax_t)ft_atoi(dst) > lim_cur)
 	{
-		ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
+		display_bad_file_descriptor(STDERR_FILENO);
 		return (-1);
 	}
 	return (0);
@@ -86,7 +86,7 @@ static int	open_file_command_bis(t_redir **redir, t_pos *pos, int verif)
 	else if ((*redir)->type == DLESS)
 	{
 		if ((verif = open_file_dless(*redir, pos)) == -1)
-			ft_dprintf(STDERR_FILENO, "42sh: Bad file descriptor\n");
+			display_bad_file_descriptor(STDERR_FILENO);
 	}
 	return (verif);
 }

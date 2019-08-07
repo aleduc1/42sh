@@ -38,6 +38,7 @@ t_job		*init_job(void)
 
 	if (!(j = (t_job*)malloc(sizeof(t_job) * 1)))
 		return (NULL);
+	j->fg = 0;
 	j->first_process = init_process();
 	j->cmd = 0;
 	j->pgid = 0;
@@ -45,6 +46,7 @@ t_job		*init_job(void)
 	j->notif_stop = 0;
 	j->len_close = 0;
 	j->r = NULL;
+	j->current = 0;
 	j->close_fd = NULL;
 	j->next = NULL;
 	return (j);

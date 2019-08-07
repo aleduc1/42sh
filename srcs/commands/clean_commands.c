@@ -48,17 +48,18 @@ static int	condition_clean_list(t_job *j, pid_t pid)
 	int	status;
 
 	status = j->first_process->status;
-	if ((((j->first_process->completed || j->first_process->pid == 0)
-		&& j->first_process->stopped == 0))
-		|| j->first_process->pid == pid)
-		return (1);
-	if (status == 1 || status == 2 || status == 3 || status == 9
-		|| status == 13 || status == 15)
+	if ((!j->notif_stop) && j->fg == 0
+		&& (status == 1 || status == 2 || status == 3 || status == 9
+		|| status == 13 || status == 15))
 	{
 		ft_dprintf(STDERR_FILENO, "[1]+  Terminated: %d          %s\n",
 			j->first_process->status, j->first_process->cmd[0]);
-		return (1);
+		j->notif_stop = 1;
 	}
+	if ((((job_is_completed(j) || j->first_process->pid == 0)
+		&& job_is_stop(j) == 0))
+		|| j->first_process->pid == pid)
+		return (1);
 	return (0);
 }
 

@@ -67,6 +67,20 @@ extern t_ht_hash	*g_hash_table;
 ** valeur de retour du shell
 */
 
+static int	jobs_running(void)
+{
+	t_job	*j;
+
+	j = get_first_job(NULL);
+	while (j)
+	{
+		if (job_is_stop(j))
+			return (1);
+		j = j->next;
+	}
+	return (0);
+}
+
 static void	close_std(void)
 {
 	char	*tmp;
@@ -112,6 +126,11 @@ int			bt_exit(t_job *j, t_pos *pos)
 {
 	int	rt;
 
+	if (jobs_running())
+	{
+		display_job_stopped(NULL);
+		return (1);
+	}
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
 	{
 		exec_reset_shell(pos);

@@ -39,11 +39,25 @@ static int	echo_arg(char **av)
 ** Simple echo builtin
 */
 
+void		test(void)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 10)
+	{
+		ft_printf("coucou\n");
+		sleep(1);
+	}
+}
+
 int			bt_echo(char **av, t_redirection *r)
 {
 	int	i;
 	int	arg_n;
 
+// test();
+// return (0);
 	i = 1;
 	arg_n = echo_arg(av);
 	i += arg_n;

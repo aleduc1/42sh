@@ -197,7 +197,8 @@ SRCS_NAMES = main.c \
 			 bt_export.c\
 			 gest_expansion.c\
 			 apply_redirection.c\
-			 dup_restore.c
+			 dup_restore.c\
+			 errors.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

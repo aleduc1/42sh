@@ -84,9 +84,11 @@ int					cd_getopt(char ac, char **av, t_cd *cd);
 ** bt_jobs.c
 */
 
-int					bt_jobs(char **av, t_redirection *r);
-int					bt_bg(char **av, t_redirection *r);
-int					bt_fg(char **av, t_redirection *r);
+int					bt_jobs(t_job *j, char **av, t_redirection *r);
+void				bt_jobs_p(t_job *j, int max_current, t_redirection *r);
+int					bt_bg(t_job *j, char **av, t_redirection *r);
+int					bt_fg(t_job *j, char **av, t_redirection *r);
+char				*cmd_job_s(t_job *j);
 
 /*
 ** bt_export.c

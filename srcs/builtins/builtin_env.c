@@ -18,7 +18,7 @@ int				builtin_env_display(t_redirection *r)
 
 	lst = get_env(3, NULL);
 	if (!lst)
-		ft_dprintf(r->error, "You are nothing value in env\n");
+		display_nothing_value(r, "env");
 	while (lst && lst->next)
 	{
 		if (lst->see_env == 1)
@@ -77,8 +77,8 @@ int				builtin_env(t_redirection *r, char **argv, t_pos *pos)
 	pid_t	pid;
 	int		rt;
 
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGINT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	pid = 0;
 	if (!argv)
 		builtin_env_display(r);
@@ -99,7 +99,7 @@ int				builtin_set(t_redirection *r)
 	while (lst_env[++i])
 		ft_dprintf(r->out, "%s\n", lst_env[i]);
 	if (i == 0)
-		ft_dprintf(r->error, "You are nothing value in env\n");
+		display_nothing_value(r, "set");
 	ft_arraydel(&lst_env);
 	return (0);
 }

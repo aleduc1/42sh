@@ -20,7 +20,6 @@ void	config_pid_process(pid_t pgid, int fg)
 	pid_t	pid;
 
 	s = get_shell();
-	dfl_signaux();
 	if (s->interactive)
 	{
 		pid = getpid();
@@ -30,6 +29,7 @@ void	config_pid_process(pid_t pgid, int fg)
 			exit(1);
 		if (fg)
 			tcsetpgrp(s->term, pgid);
+	dfl_signaux();
 	}
 }
 
@@ -44,7 +44,8 @@ void	act_job(t_job *j, int fg)
 		add_in_fg(j, 0);
 	else
 	{
-		job_info(j, "launched");
+		bt_jobs_p(j, 0, j->r);
+		// job_info(j, "launched");
 		add_in_bg(j, 0);
 	}
 }

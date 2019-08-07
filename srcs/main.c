@@ -153,13 +153,13 @@ int			main(int argc, char **argv, char **environ)
 	// (argc == 1) ? edit_shell() : 0;
 	// (argc == 1) ? welcome() : 0;
 	edit_shell();
-	welcome();
+	// welcome();
 	flags(argc, argv);
 	init_prompt(&pos);
 	init_alias();
 	// if (argc > 1)
 	// 	script_test(argv + 1, pos);
-	dfl_signaux();
+	// dfl_signaux();
 	while (21)
 	{
 		if (argc && argv && environ)
@@ -167,7 +167,7 @@ int			main(int argc, char **argv, char **environ)
 			{
 				run(input, &pos);
 			}
-				job_notif();
+			job_notif();
 	}
 	return (0);
 }

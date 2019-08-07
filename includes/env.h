@@ -59,6 +59,7 @@ typedef struct		s_shell
 	struct termios	term_shell;
 	int				interactive;
 	int				term;
+	int				max_job_current;
 }					t_shell;
 
 typedef struct		s_process
@@ -76,6 +77,10 @@ typedef struct		s_process
 	struct s_process	*next;
 }					t_process;
 
+/*
+**	current = 1 if current, 2 if previous, 0 if other
+*/
+
 typedef struct		s_job
 {
 	t_process		*first_process;
@@ -89,7 +94,10 @@ typedef struct		s_job
 	int				*close_fd;
 	t_redirection	*r;
 	struct s_job	*next;
+	int				current;
 }					t_job;
+
+void		edit_current_value(int value);
 
 /*
 ** redirection.c
@@ -154,6 +162,8 @@ t_env				*get_env(int is_end, t_env *head);
 ** is_builtin.c
 */
 
+int					builtin_exist(char *cmd);
+int					builtin(t_job *j, t_process *p, t_pos *pos, int fg);
 int					is_builtin(t_job *j, t_process *p, t_pos *pos);
 
 /*
@@ -265,14 +275,27 @@ int					open_file_dless(t_redir *redir, t_pos *pos);
 ** commands.c
 */
 
-void				display_error_command(t_redirection *r, char **cmd);
 int					ft_simple_command(char **argv, t_token *lex, t_pos *pos,
 						int bg);
 int					ft_simple_command_redirection(char **argv,
 						t_redirection *r, t_pos *pos);
-int					ft_pipe_double(char **argv, t_token *token, t_pos *pos);
-int					ft_ampersand_double(char **argv, t_token *token,
-						t_pos *pos);
+
+/*
+** errors.c
+*/
+
+void				display_command_not_found(t_redirection *r, char *cmd);
+void				display_permission_denied(t_redirection *r, char *cmd);
+void				display_error_fork(t_redirection *r);
+void				display_too_many_arg(t_redirection *r, char *name);
+void				display_too_few_arg(t_redirection *r, char *name);
+void				display_nothing_value(t_redirection *r, char *name);
+void				display_bad_file_descriptor(int error);
+void				display_no_such_job(t_redirection *r, char *name);
+void				display_invalid_option_job(t_redirection *r, char *name);
+void				display_no_current_job(t_redirection *r, char *name);
+void				display_no_job_control(t_redirection *r, char *name);
+void				display_job_stopped(t_redirection *r);
 
 /*
 ** commands_pipe.c

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/05 02:17:05 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/11 03:04:00 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			gest_return(int verif)
 	char	*value;
 
 	if (verif == 13)
-		verif = 127;
+		return (126);
 	if (verif > 1 && verif < 23)
 		verif = 128 + verif;
 	if (verif > 255)

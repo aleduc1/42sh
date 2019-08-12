@@ -66,7 +66,6 @@ typedef struct		s_process
 {
 	char				*cmd_path;
 	char				**cmd;
-	int					process_id;
 	pid_t				pid;
 	int					completed;
 	int					stopped;
@@ -87,6 +86,7 @@ typedef struct		s_job
 	pid_t			pgid;
 	char			*cmd;
 	int				fg;
+	int				process_id;
 	int				notified;
 	int				notif_stop;
 	struct termios	tmodes;
@@ -194,7 +194,7 @@ int					apply_rules(char *src, char **dst, int index);
 
 int					edit_setenv(char *key, char *value);
 int					edit_export(char *key);
-int					ft_unsetenv(char *key);
+int					ft_unsetenv(char **key);
 char				**create_list_env(t_env *my_env, int env);
 
 /*
@@ -202,7 +202,7 @@ char				**create_list_env(t_env *my_env, int env);
 */
 
 int					edit_set(char **value, t_redirection *r, t_pos *pos);
-int					ft_unset(char *key);
+int					ft_unset(char **value);
 int					edit_set_command_env(char *str, t_env *my_env);
 
 /*
@@ -278,7 +278,7 @@ int					open_file_dless(t_redir *redir, t_pos *pos);
 int					ft_simple_command(char **argv, t_token *lex, t_pos *pos,
 						int bg);
 int					ft_simple_command_redirection(char **argv,
-						t_redirection *r, t_pos *pos);
+						t_redirection *r, t_pos *pos, int fg);
 
 /*
 ** errors.c
@@ -295,7 +295,11 @@ void				display_no_such_job(t_redirection *r, char *name);
 void				display_invalid_option_job(t_redirection *r, char *name);
 void				display_no_current_job(t_redirection *r, char *name);
 void				display_no_job_control(t_redirection *r, char *name);
-void				display_job_stopped(t_redirection *r);
+void				display_job_stopped(void);
+void				display_kill_not_work(t_redirection *r, char *name);
+void				display_error_tc(t_redirection *r, char *name);
+void				display_other_error(int fd_error, char *name, char *error);
+void				display_error_expansion(char *src);
 
 /*
 ** commands_pipe.c
@@ -315,7 +319,6 @@ void				run(char *input, t_pos *pos);
 */
 
 void				parameter_expansion(char *tmp, char **dst);
-void				display_error_expansion(char *src);
 
 /*
 ** gest_exansion.c

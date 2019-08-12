@@ -37,12 +37,6 @@ int				is_other_expansion(char *tmp, char **dst)
 	return (1);
 }
 
-void			display_error_expansion(char *src)
-{
-	ft_dprintf(STDERR_FILENO, "42sh: ${%s}: bad substitution\n", src);
-	gest_return(-5);
-}
-
 void			manage_parameter_extension(char **dst, char *tmp, int i)
 {
 	char	*key;

@@ -121,6 +121,7 @@ t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[],
 	if (CTRL_D && !(*input)->next && pos->multiline != 1)
 	{
 		bt_exit(NULL, pos);
+		print_prompt();
 		// history_file(pos->history);
 		// default_term_mode();
 		// get_env(1, NULL);
@@ -136,6 +137,7 @@ t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[],
 		pos->multiline = 0;
 		travel_to_last(lstcursor, pos);
 		ft_putchar('\n');
+		gest_return(130);
 	}
 	if (CTRL_R)
 	{

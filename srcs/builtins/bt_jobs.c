@@ -78,7 +78,7 @@ char		*ft_inter_signal(int sig, t_job *j)
 	str = NULL;
 	if (sig == 0 && job_is_completed(j))
 		str = ft_strdup("Done");
-	else if (sig == 0 && (!job_is_completed(j)))
+	else if (sig == 0 && (!job_is_completed(j)) && (!job_is_stopped(j)))
 		str = ft_strdup("Running");
 	else if (sig == 1)
 		str = ft_strdup("Terminated(SIGHUP)");
@@ -109,7 +109,7 @@ void		bt_jobs_p(t_job *j, int max_current, t_redirection *r)
 
 	(void)max_current;
 	p = j->first_process;
-	ft_dprintf(r->out, "[%d]", p->process_id);
+	ft_dprintf(r->out, "[%d]", j->process_id);
 	while (p)
 	{
 		ft_dprintf(r->out, " %d", p->pid);
@@ -132,7 +132,7 @@ static void	bt_jobs_l(t_job *j, int max_current, t_redirection *r)
 	else
 		c = ' ';
 	ft_dprintf(r->out, "[%d]%c",
-			p->process_id, c);
+			j->process_id, c);
 	while (p)
 	{
 		cmd = assemply_cmd_process(p);
@@ -151,8 +151,9 @@ static void	bt_jobs_l(t_job *j, int max_current, t_redirection *r)
 void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 {
 	t_process	*p;
-	char	*str;
-	char	*cmd;
+	char		*str;
+	char		*cmd;
+	char		c;
 
 	p = j->first_process;
 	while (p)
@@ -165,54 +166,46 @@ void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 	if (!str)
 		return ;
 	cmd = cmd_job_s(j);
+	c = ' ';
 	if (j->current == max_current)
-		ft_dprintf(r->out, "[%d]%c\t%s\t%s\n", j->first_process->process_id,
-			'+', str, cmd);
+		c = '+';
 	else if (j->current == max_current - 1)
-		ft_dprintf(r->out, "[%d]%c\t%s\t%s\n", j->first_process->process_id,
-			'-', str, cmd);
-	else
-		ft_dprintf(r->out, "[%d]%c\t%s\t%s\n", j->first_process->process_id,
-			' ', str, cmd);
+		c = '-';
+	ft_dprintf(r->out, "[%d]%c\t%s\t%s\n", j->process_id, c, str, cmd);
 	ft_strdel(&str);
 	ft_strdel(&cmd);
 }
 
-static pid_t	last_jobs(void)
+static t_job	*last_jobs(void)
 {
 	t_job	*j;
-	pid_t	pid;
+	int		max_current;
 
-	pid = -1;
+	max_current = get_shell()->max_job_current;
 	j = get_first_job(NULL);
 	while (j)
 	{
-		if (job_is_completed(j) || job_is_stop(j))
-			pid = j->pgid;
+		if (j->current == max_current)
+			return (j);
 		j = j->next;
 	}
-	return (pid);
+	return (NULL);
 }
 
-static pid_t	previous_jobs(void)
+static t_job	*previous_jobs(void)
 {
 	t_job	*j;
-	pid_t	pid;
-	pid_t	last;
+	int		max_current;
 
-	pid = -1;
-	last = -1;
+	max_current = get_shell()->max_job_current - 1;
 	j = get_first_job(NULL);
 	while (j)
 	{
-		if (job_is_completed(j) || job_is_stop(j))
-		{
-			last = pid;
-			pid = j->pgid;
-		}
+		if (j->current == max_current)
+			return (j);
 		j = j->next;
 	}
-	return (last);
+	return (NULL);
 }
 
 t_job	*ft_search_pid_job(pid_t pid)
@@ -238,7 +231,7 @@ t_job	*ft_search_id_job(char *av, int index)
 	job = get_first_job(NULL);
 	while (job)
 	{
-		if (job->first_process->process_id == id)
+		if (job->process_id == id)
 			return (job);
 		job = job->next;
 	}
@@ -320,9 +313,9 @@ static t_job	*search_job(char *av)
 
 	job_id = ft_good_syntax(av);
 	if (job_id == 1 || job_id == -1)
-		return (ft_search_pid_job(last_jobs()));
+		return (last_jobs());
 	else if (job_id == 2 || job_id == -2)
-		return (ft_search_pid_job(previous_jobs()));
+		return (previous_jobs());
 	else if (job_id == 3 || job_id == -3)
 		return (ft_search_id_job(av, (job_id > -1) ? 0 : 1));
 	else if (job_id == 4 || job_id == -4)
@@ -333,7 +326,7 @@ static t_job	*search_job(char *av)
 		return (NULL);
 }
 
-static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
+static void	display_jobs_options(void (*p)(t_job*, int, t_redirection*),
 	t_redirection *r, char **av)
 {
 	t_job	*j;
@@ -342,38 +335,46 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 	int		max_current;
 
 	max_current = get_shell()->max_job_current;
+	i = (ft_strequ(*av, "--")) ? 1 : 0;
+	while (av[i])
+	{
+		verif = 0;
+		j = search_job(av[i]);
+		if (j)
+		{
+			verif = 1;
+			if (job_is_completed(j) || job_is_stopped(j))
+			{
+				(*p)(j, max_current, r);
+			}
+			else
+				display_no_such_job(r, av[i]);
+		}
+		else
+			display_no_such_job(r, av[i]);
+		++i;
+	}
+}
+
+static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
+	t_redirection *r, char **av)
+{
+	t_job	*j;
+	int		max_current;
+
+	max_current = get_shell()->max_job_current;
 	if (!*av)
 	{
 		j = get_first_job(NULL);
 		while (j)
 		{
-			if (job_is_completed(j) || job_is_stop(j) || j->pgid > 0)
-					(*p)(j, max_current, r);
+			if (job_is_completed(j) || job_is_stopped(j) || j->pgid > 0)
+				(*p)(j, max_current, r);
 			j = j->next;
 		}
 	}
 	else
-	{
-		i = 0;
-		if (ft_strequ(*av, "--"))
-			++i;
-		while (av[i])
-		{
-			verif = 0;
-			j = search_job(av[i]);
-			if (j)
-			{
-				verif = 1;
-				if (job_is_completed(j) || job_is_stop(j))
-						(*p)(j, max_current, r);
-				else
-					display_no_such_job(r, av[i]);
-			}
-			else
-				display_no_such_job(r, av[i]);
-			++i;
-		}
-	}
+		display_jobs_options(p, r, av);
 }
 
 int			bt_jobs(t_job *j, char **av, t_redirection *r)
@@ -410,12 +411,8 @@ t_job		*job_for_bg_fg(char **av, t_redirection *r)
 	t_job	*j;
 	t_job	*job_launch;
 	int		i;
-	pid_t	current_pid;
-	pid_t	previous_pid;
 
 	update_status();
-	current_pid = last_jobs();
-	previous_pid = previous_jobs();
 	j = get_first_job(NULL);
 	job_launch = NULL;
 	if (!av[1])
@@ -437,7 +434,7 @@ t_job		*job_for_bg_fg(char **av, t_redirection *r)
 			j = search_job(av[i]);
 			if (j)
 			{
-				if (job_is_completed(j) || job_is_stop(j) || j->pgid > 0)
+				if (job_is_completed(j) || job_is_stopped(j) || j->pgid > 0)
 					job_launch = j;
 				else
 					display_no_such_job(r, av[i]);

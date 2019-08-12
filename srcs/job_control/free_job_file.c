@@ -30,6 +30,20 @@ static void	clean_close_fd(t_job *j)
 	}
 }
 
+void		clean_redirection(t_redirection *r)
+{
+	if (r->in != STDIN_FILENO)
+		if (verif_close(r->in))
+			close(r->in);
+	if (r->out != STDOUT_FILENO)
+		if (verif_close(r->out))
+			close(r->out);
+	if (r->error != STDERR_FILENO)
+		if (verif_close(r->error))
+			close(r->error);
+	delete_redirection(&r);
+}
+
 void		clean_file(t_job *j)
 {
 	t_process	*p;
@@ -38,16 +52,7 @@ void		clean_file(t_job *j)
 	p = j->first_process;
 	while (p && p->r)
 	{
-		if (p->r->in != STDIN_FILENO)
-			if (verif_close(p->r->in))
-				close(p->r->in);
-		if (p->r->out != STDOUT_FILENO)
-			if (verif_close(p->r->out))
-				close(p->r->out);
-		if (p->r->error != STDERR_FILENO)
-			if (verif_close(p->r->error))
-				close(p->r->error);
-		delete_redirection(&p->r);
+		clean_redirection(p->r);
 		p = p->next;
 	}
 }

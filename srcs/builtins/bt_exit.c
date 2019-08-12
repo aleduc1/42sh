@@ -74,7 +74,7 @@ static int	jobs_running(void)
 	j = get_first_job(NULL);
 	while (j)
 	{
-		if (job_is_stop(j))
+		if (job_is_stopped(j))
 			return (1);
 		j = j->next;
 	}
@@ -128,7 +128,7 @@ int			bt_exit(t_job *j, t_pos *pos)
 
 	if (jobs_running())
 	{
-		display_job_stopped(NULL);
+		display_job_stopped();
 		return (1);
 	}
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 12:58:03 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/09 15:52:07 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include <errno.h>
 
 /*
-** stock le status du pid
+** check mark_process_status
 ** WIFSIGNALED -> check if process exist
-** WIFSTOPPED -> True if the process has
-** not terminated, but has stopped and can be restarted.
+** WIFSTOPPED -> True if the process has not terminated, but has stopped
+**					and can be restarted.
 */
 
-static int	action_process_status(pid_t pid, int status, t_process *p)
+static int	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
 {
 	if (p->pid == pid)
 	{
@@ -34,6 +34,16 @@ static int	action_process_status(pid_t pid, int status, t_process *p)
 			p->stopped = 0;
 		else
 		{
+			if ((!j->notif_stop) && (status == 1 || status == 2 || status == 3 || status == 9
+			|| status == 13 || status == 15))
+		{
+			ft_dprintf(STDERR_FILENO, "[1]+  Terminated: %d          %s\n",
+				j->first_process->status, j->first_process->cmd[0]);
+			j->notif_stop = 1;
+		}
+			// if (j->fg == 0 || status != 0)
+			// 	ft_dprintf(STDERR_FILENO, "[%d]+  Terminated: %d          %s\n",
+			// 		j->process_id, p->status, p->cmd[0]);
 			p->completed = 1;
 			if (WIFSIGNALED(status))
 				gest_return(WTERMSIG(p->status));
@@ -42,6 +52,12 @@ static int	action_process_status(pid_t pid, int status, t_process *p)
 	}
 	return (1);
 }
+
+/*
+** edit status process and edit variable if a process is stopped or finished
+** ARGS:	pid_t pid -> pid to check
+**			int status -> edit status process
+*/
 
 int			mark_process_status(pid_t pid, int status)
 {
@@ -56,7 +72,7 @@ int			mark_process_status(pid_t pid, int status)
 			p = j->first_process;
 			while (p)
 			{
-				if (action_process_status(pid, status, p) == 0)
+				if (action_process_status(pid, status, j, p) == 0)
 					return (0);
 				p = p->next;
 			}
@@ -68,7 +84,30 @@ int			mark_process_status(pid_t pid, int status)
 	return (-1);
 }
 
+int		choice_gest_return(t_job *j, int status)
+{
+	t_process	*p;
+	char		*str;
+
+	if (WIFSTOPPED(status))
+		return (146);
+	if (status != 256 && status != 13)
+		return (status);
+	p = j->first_process;
+	while (p->next)
+		p = p->next;
+	str = is_in_path(p->cmd[0]);
+	if (str)
+	{
+		ft_strdel(&str);
+		return (1);
+	}
+	else
+		return ((check_last_command() == -6) ? 126 : 127);
+}
+
 /*
+** Update all process of job-control
 ** WUNTRACED: revenir si fils bloqué
 ** WNOHANG: revenir immédiatement si aucun fils n'est achevé.
 */
@@ -86,18 +125,26 @@ void		update_status(void)
 	}
 }
 
+/*
+** wait job until it is stopped or finished
+** ARG:		t_job *j -> struct of commands
+*/
+
 void		wait_for_job(t_job *j)
 {
+	int		pass;
 	int		status;
 	pid_t	pid;
 
 	status = 0;
+	pass = 0;
 	while (1)
 	{
+		++pass;
 		pid = waitpid(WAIT_ANY, &status, WUNTRACED);
-		gest_return(status);
-		if (mark_process_status(pid, status) || job_is_stop(j)
+		if (mark_process_status(pid, status) || job_is_stopped(j)
 			|| job_is_completed(j))
 			break ;
 	}
+	gest_return(choice_gest_return(j, status));
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "job.h"
 
 int		solo_tree(t_ast *node, t_pos *pos)
 {
@@ -21,6 +22,7 @@ int		solo_tree(t_ast *node, t_pos *pos)
 	}
 	if (node->token->type == AMP && node->l->token->type == CMD &&!node->r)
 	{
+		manage_id_job(1);
 		run_cmd(node->l->token, pos, 1);
 		return (1);
 	}
@@ -150,6 +152,8 @@ int		interpreter(t_ast *node, t_pos *pos, int background)
 	dpipe_case(node, pos, bg);
 	damp_case(node, pos, bg);
 	spipe_case(node, pos, bg);
+	if (bg != 0)
+		manage_id_job(bg);
 	interpreter(node->l, pos, bg);
 	if (node->token->type == AMP)
 		bg--;

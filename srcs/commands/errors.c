@@ -68,7 +68,28 @@ void	display_no_job_control(t_redirection *r, char *name)
 	ft_dprintf(r->error, "42sh: %s: no job control\n", name);
 }
 
-void	display_job_stopped(t_redirection *r)
+void	display_job_stopped(void)
 {
 	ft_dprintf(STDERR_FILENO, "42sh: There are stopped jobs.\n");
+}
+
+void	display_kill_not_work(t_redirection *r, char *name)
+{
+	ft_dprintf(r->error, "42sh: %s: Kill not work!\n", name);
+}
+
+void	display_error_tc(t_redirection *r, char *name)
+{
+	ft_dprintf(r->error, "42sh: error: %s\n", name);
+}
+
+void	display_other_error(int fd_error, char *name, char *error)
+{
+	ft_dprintf(fd_error, "42sh: %s: %s\n", name, error);
+}
+
+void	display_error_expansion(char *src)
+{
+	ft_dprintf(STDERR_FILENO, "42sh: ${%s}: bad substitution\n", src);
+	gest_return(-5);
 }

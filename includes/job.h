@@ -48,7 +48,7 @@ t_job			*create_new_job(char **argv, t_token *t,
 
 t_job			*find_job(pid_t pid);
 int				job_is_completed(t_job *job);
-int				job_is_stop(t_job *job);
+int				job_is_stopped(t_job *job);
 
 /*
 ** free_job.c
@@ -63,6 +63,7 @@ void			free_job(t_job **j);
 
 void			free_redirection(t_redirection **r);
 void			clean_file(t_job *j);
+void			clean_redirection(t_redirection *r);
 
 /*
 ** process.c
@@ -125,5 +126,12 @@ void			clean_fuck_list(pid_t pid);
 void			free_job_redirection(t_job **j);
 
 void			bt_jobs_s(t_job *j, int is_stopped, t_redirection *r);
+
+/*
+** manage_id_job.c
+*/
+
+int				manage_id_job(int action);
+int				id_job(int value, int action);
 
 #	endif

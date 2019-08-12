@@ -26,7 +26,7 @@ t_job		*find_job(pid_t pid)
 	return (NULL);
 }
 
-int			job_is_stop(t_job *job)
+int			job_is_stopped(t_job *job)
 {
 	t_process	*p;
 	int			verif;

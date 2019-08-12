@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/05 02:17:05 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:57:03 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 **	return 0 if it's a builtin and if it's command work
 **	return -2 if it's a builtin and if it's command not work
 **	return -1 if it's not a builtin
+*/
+
+/*
+** Check if builtin contains the right number of args
+** Args:	char **argv -> command
+**			int nb -> nb of allowed args
+**			char *name -> name of builtin
 */
 
 static int	verif_set(char **argv, int nb, t_redirection *r, char *name)
@@ -46,19 +53,19 @@ static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 {
 	int	verif;
 
-	if (ft_strequ(av[0], "env"))
-		verif = builtin_env(p->r, av, pos);
-	else if (ft_strequ(av[0], "set"))
-		verif = builtin_set(p->r);
+	// if (ft_strequ(av[0], "env"))
+	// 	verif = builtin_env(p->r, av, pos);
+	if (ft_strequ(av[0], "set"))
+		verif = verif_set(p->cmd, 1, p->r, "set") ? builtin_set(p->r) : 1;
 	else if (ft_strequ(av[0], "setenv"))
 		verif = verif_set(av, 3, p->r, "setenv")
 			? edit_setenv(av[1], av[2]) : -2;
 	else if (ft_strequ(av[0], "unsetenv"))
-		verif = verif_set(av, 2, p->r, "unsetenv") ? ft_unsetenv(av[1]) : -2;
+		verif = ft_unsetenv(av);
 	else if (ft_strequ(av[0], "export"))
 		verif = bt_export(av, p->r);
 	else if (ft_strequ(av[0], "unset"))
-		verif = verif_set(av, 2, p->r, "unset") ? ft_unset(av[1]) : -2;
+		verif = ft_unset(av);
 	else if (ft_strchr_exist(av[0], '='))
 		verif = edit_set(av, p->r, pos);
 	else
@@ -111,8 +118,8 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	av = p->cmd;
 	verif = is_builtin_env(p, av, pos);
 	if (verif != -1)
-		return (verif);
-	if (ft_strequ(av[0], "echo"))
+		;
+	else if (ft_strequ(av[0], "echo"))
 		verif = bt_echo(av, p->r);
 	else if (ft_strequ(av[0], "cd"))
 		verif = bt_cd(av);
@@ -134,34 +141,14 @@ int		builtin_exist(char *cmd)
 	if (ft_strequ(cmd, "echo") || ft_strequ(cmd, "cd") || ft_strequ(cmd, "exit")
 		|| ft_strequ(cmd, "fc") || ft_strequ(cmd, "test")
 		|| ft_strequ(cmd, "alias") || ft_strequ(cmd, "unalias")
-		|| ft_strequ(cmd, "hash") || ft_strequ(cmd, "jobs")
-		|| ft_strequ(cmd, "fg") || ft_strequ(cmd, "bg") || ft_strequ(cmd, "env")
+		|| ft_strequ(cmd, "hash")
+		|| ft_strequ(cmd, "jobs")
+		|| ft_strequ(cmd, "fg") || ft_strequ(cmd, "bg")
 		|| ft_strequ(cmd, "set") || ft_strequ(cmd, "setenv")
 		|| ft_strequ(cmd, "unsetenv") || ft_strequ(cmd, "export")
 		|| ft_strequ(cmd, "unset") || ft_strchr_exist(cmd, '='))
 		return (1);
 	return (0);
-}
-
-void	test_fork(t_job *j, t_process *p, t_pos *pos, int fg)
-{
-	int		verif;
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		config_pid_process(j->pgid, fg);
-		redirection_fd(p->r);
-		verif = is_builtin(j, p, pos);
-		execve("/bin/test", NULL, NULL);
-		exit(verif);
-	}
-	else if (pid < 0)
-		display_error_fork(p->r);
-	else
-		edit_pid_shell(pid, j, p);
-	update_status();
 }
 
 int		launch_process_blt(t_job *j, t_process *p, t_pos *pos,

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/01 11:50:37 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/09 13:38:59 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void		flags(int argc, char **argv)
 	g_print_ast = 0;
 	if (argc >= 2)
 	{
-		if (strcmp(argv[1], "--ast") == 0)
+		if (ft_strcmp(argv[1], "--ast") == 0)
 			g_print_ast = 1;
-		if (strcmp(argv[1], "-a") == 0)
+		if (ft_strcmp(argv[1], "-a") == 0)
 			g_print_ast = 1;
 	}
 	return ;
@@ -85,11 +85,18 @@ void		script_test(char **av, t_pos pos)
 	char	*str;
 
 	i = -1;
+	raw_term_mode();
 	while (av[++i])
 	{
 		str = ft_strdup(av[i]);
 		run(str, &pos);
 	}
+	t_job *j = get_first_job(NULL);
+	(void)j;
+	free_all_job();
+	default_term_mode();
+	delete_shell();
+	get_env(1, NULL);
 	exit(0);
 }
 
@@ -150,24 +157,21 @@ int			main(int argc, char **argv, char **environ)
 
 	input = NULL;
 	multi_input = NULL;
-	// (argc == 1) ? edit_shell() : 0;
-	// (argc == 1) ? welcome() : 0;
-	edit_shell();
-	// welcome();
+	(argc == 1) ? edit_shell() : 0;
+	(argc == 1) ? welcome() : 0;
 	flags(argc, argv);
 	init_prompt(&pos);
 	init_alias();
-	// if (argc > 1)
-	// 	script_test(argv + 1, pos);
+	if (argc > 1)
+		script_test(argv + 1, pos);
 	// dfl_signaux();
 	while (21)
 	{
 		if (argc && argv && environ)
 			if ((input = prompt(multi_input, &pos)))
-			{
 				run(input, &pos);
-			}
-			job_notif();
+		job_notif();
+		manage_id_job(0);
 	}
 	return (0);
 }

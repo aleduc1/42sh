@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:19:28 by aleduc            #+#    #+#             */
-/*   Updated: 2019/06/01 19:56:54 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/09 13:42:50 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ void				raw_term_mode(void)
 	interactive = isatty(STDIN_FILENO);
 	if (interactive)
 	{
-		while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp()))
-			kill(-pgid, SIGTTIN);
+		pgid = getpgrp();
+	//	while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp()))
+	//		kill(-pgid, SIGTTIN);
 		ign_signaux();
 		pgid = getpid();
 		if (setpgid(pgid, pgid) < 0)

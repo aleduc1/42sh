@@ -64,7 +64,7 @@ static int		builtin_env_s(t_redirection *r, char **argv, pid_t pid,
 		if (!argv[i] || ft_strequ(argv[i], "env"))
 			builtin_env_display(r);
 		else
-			ft_simple_command_redirection(argv + i, r, pos);
+			ft_simple_command_redirection(argv + i, r, pos, 1);
 		execve("/bin/test", NULL, NULL);
 		exit(pid);
 	}

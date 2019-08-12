@@ -20,7 +20,6 @@ t_process	*init_process(void)
 		return (NULL);
 	p->cmd_path = 0;
 	p->cmd = NULL;
-	p->process_id = 0;
 	p->pid = 0;
 	p->completed = 0;
 	p->stopped = 0;
@@ -40,6 +39,7 @@ t_job		*init_job(void)
 		return (NULL);
 	j->fg = 0;
 	j->first_process = init_process();
+	j->process_id = 0;
 	j->cmd = 0;
 	j->pgid = 0;
 	j->notified = 0;
@@ -77,24 +77,31 @@ t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 	t_process		*p;
 	int				process_id;
 
-	j = get_first_job(NULL);
-	process_id = 0;
-	while (j && j->pgid != 0)
-	{
-		process_id = j->first_process ? j->first_process->process_id : 0;
-		if (!j->next)
-			j->next = init_job();
-		j = j->next;
-	}
+	process_id = fg ? id_job(0, -1) : id_job(0, 0);
+	j = get_end_job();
+	j->next = init_job();
+	j = j->next;
+	// j = get_first_job(NULL);
+	// while (j)
+	// {
+	// 	if (!j->next)
+	// 	{
+	// 		j->next = init_job();
+	// 		j = j->next;
+	// 		break ;
+	// 	}
+	// 	j = j->next;
+	// }
 	file_to_close(t, j);
 	j->pgid = 0;
 	j->fg = fg;
 	j->notif_stop = 0;
+	j->next = NULL;
 	j->r = base_redirection();
 	p = j->first_process;
 	p->cmd = ft_arraydup(argv);
 	parser_var(&p->cmd);
-	p->process_id = process_id + 1;
+	j->process_id = process_id;
 	p->fg = fg;
 	p->r = (t) ? fill_redirection(t) : r;
 	return (j);

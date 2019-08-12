@@ -62,10 +62,9 @@ static void	assign_value_current(pid_t pgid, t_job *new_job)
 static void	kill_pgid(t_shell *shell, t_job *j)
 {
 	if (tcsetattr(shell->term, TCSADRAIN, &(j->tmodes)) == -1)
-		ft_dprintf(STDERR_FILENO, "error: tcsetattr\n");
+		display_error_tc(j->r, "tcsetattr");
 	if (kill(-j->pgid, SIGCONT) < 0)
-		ft_dprintf(j->first_process->r->error,
-			"42sh: fg: Kill not work!\n");
+		display_kill_not_work(j->r, "fg");
 }
 
 void		add_in_fg(t_job *j, int value)
@@ -79,7 +78,7 @@ void		add_in_fg(t_job *j, int value)
 	p = j->first_process;
 	shell = get_shell();
 	if (tcsetpgrp(shell->term, j->pgid) == -1)
-		ft_dprintf(STDERR_FILENO, "error: tcsetpgrp\n");
+		display_error_tc(j->r, "tcsetpgrp");
 	if (value)
 		kill_pgid(shell, j);
 	while (p)
@@ -90,11 +89,11 @@ void		add_in_fg(t_job *j, int value)
 	j->notified = 0;
 	wait_for_job(j);
 	if (tcsetpgrp(shell->term, shell->pgid) == -1)
-		ft_dprintf(STDERR_FILENO, "error: tcsetpgrp\n");
+		display_error_tc(j->r, "tcsetpgrp");
 	if (tcgetattr(shell->term, &j->tmodes) == -1)
-		ft_dprintf(STDERR_FILENO, "error: tcgetattr\n");
+		display_error_tc(j->r, "tcgetattr");
 	if (tcsetattr(shell->term, TCSADRAIN, &(shell->term_shell)) == -1)
-		ft_dprintf(STDERR_FILENO, "error: tcsetattr\n");
+		display_error_tc(j->r, "tcsetattr");
 }
 
 void		add_in_bg(t_job *j, int value)
@@ -106,7 +105,7 @@ void		add_in_bg(t_job *j, int value)
 		exit(-1);
 	assign_value_current(j->pgid, j);
 	if (tcgetattr(get_shell()->term, &j->tmodes) == -1)
-		ft_dprintf(STDERR_FILENO, "error: tcsetpgrp\n");
+		display_error_tc(j->r, "tcsetattr");
 	p = j->first_process;
 	while (p)
 	{
@@ -118,6 +117,6 @@ void		add_in_bg(t_job *j, int value)
 	add_set_value("!", itoa_pid);
 	if (value)
 		if (kill(-j->pgid, SIGCONT) < 0)
-			ft_dprintf(j->first_process->r->error, "42sh: bg: Kill not work!\n");
+			display_kill_not_work(j->r, "bg");
 	ft_strdel(&itoa_pid);
 }

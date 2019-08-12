@@ -95,14 +95,10 @@ int			edit_setenv(char *key, char *value)
 	return (verif);
 }
 
-int			ft_unsetenv(char *key)
+int			ft_unset_key(char *key, t_env *my_env)
 {
-	int		verif;
-	t_env	*head;
-	t_env	*my_env;
+	int	verif;
 
-	my_env = get_env(0, NULL);
-	head = my_env;
 	verif = 0;
 	while (my_env->next)
 	{
@@ -114,6 +110,18 @@ int			ft_unsetenv(char *key)
 		}
 		my_env = my_env->next;
 	}
-	my_env = head;
+	return (verif);
+}
+
+int			ft_unsetenv(char **key)
+{
+	int		i;
+	int		verif;
+	t_env	*my_env;
+
+	my_env = get_env(0, NULL);
+	i = 0;
+	while (key[++i])
+		verif = ft_unset_key(key[i], my_env);
 	return (verif);
 }

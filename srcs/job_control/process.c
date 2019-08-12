@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/05 02:17:20 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/11 02:50:34 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ int			launch_job(t_job *j, int fg)
 			if (p->cmd_path)
 				verif = launch_process(p, j->pgid, fg);
 			else
+			{
+				gest_return(12);
 				execve("/bin/test", NULL, NULL);
+			}
 		}
 		else if (pid < 0)
 			display_error_fork(p->r);

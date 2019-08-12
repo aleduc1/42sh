@@ -37,6 +37,7 @@ void		free_job(t_job **j)
 	if (j && (*j))
 	{
 		clean_file(*j);
+		free_redirection(&((*j)->r));
 		if ((*j)->current != 0)
 		{
 			edit_current_value((*j)->current);
@@ -44,7 +45,6 @@ void		free_job(t_job **j)
 		}
 		if ((*j)->first_process)
 			free_process(j);
-		free_redirection(&((*j)->r));
 		free(*j);
 		(*j) = NULL;
 	}

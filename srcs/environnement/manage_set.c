@@ -40,7 +40,7 @@ int			edit_set_command(char **value, t_redirection *r, t_pos *pos)
 
 	cpy_env = ft_cpy_env();
 	result = edit_set_no_command(value);
-	ft_simple_command_redirection(value + result, r, pos);
+	ft_simple_command_redirection(value + result, r, pos, 1);
 	get_env(1, NULL);
 	get_env(0, cpy_env);
 	return (result);
@@ -63,11 +63,14 @@ int			edit_set(char **value, t_redirection *r, t_pos *pos)
 	return (result);
 }
 
-int			ft_unset(char *key)
+int			ft_unset(char **value)
 {
 	int	verif;
+	int	i;
 
-	verif = free_maillon_env(key, 0);
+	i = 0;
+	while (value[++i])
+		verif = free_maillon_env(value[i], 0);
 	return (verif);
 }
 

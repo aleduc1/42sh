@@ -274,3 +274,17 @@ ls && ls | cat -e
 ls &
 ls | cat -e && ls | cat -e ; ls | cat -e || ls | cat -e &
 ls | cat -e &
+ls &
+ls | cat -e &
+ls & ls & ls & ls &
+git status
+git commit -a -m "fixed segfault when nothing after '&', might cause some problems tho, careful"
+git push
+ls -l
+ls | cat -e && ls | cat -e ; ls | cat -e || ls | cat -e &
+ls -R /
+ls -l
+fg
+ls -R /
+ls -l
+fg

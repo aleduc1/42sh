@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/08 00:11:36 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/13 02:28:23 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct		s_process
 	int					status;
 	int					return_value;
 	int					fg;
+	int					notif_stop;
 	t_redirection		*r;
 	struct s_process	*next;
 }					t_process;
@@ -300,6 +301,7 @@ void				display_kill_not_work(t_redirection *r, char *name);
 void				display_error_tc(t_redirection *r, char *name);
 void				display_other_error(int fd_error, char *name, char *error);
 void				display_error_expansion(char *src);
+void    			display_error_syntax(char *tmp);
 
 /*
 ** commands_pipe.c

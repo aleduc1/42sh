@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/09 15:52:07 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/13 01:33:35 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,13 @@ static int	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
 		else
 		{
 			if ((!j->notif_stop) && (status == 1 || status == 2 || status == 3 || status == 9
-			|| status == 13 || status == 15))
-		{
-			ft_dprintf(STDERR_FILENO, "[1]+  Terminated: %d          %s\n",
-				j->first_process->status, j->first_process->cmd[0]);
-			j->notif_stop = 1;
-		}
-			// if (j->fg == 0 || status != 0)
-			// 	ft_dprintf(STDERR_FILENO, "[%d]+  Terminated: %d          %s\n",
-			// 		j->process_id, p->status, p->cmd[0]);
+			|| status == 15))
+			{
+				ft_dprintf(STDERR_FILENO, "[1]+  Terminated: %d          %s\n",
+					j->first_process->status, j->first_process->cmd[0]);
+				p->notif_stop = 1;
+				j->notif_stop = 1;
+			}
 			p->completed = 1;
 			if (WIFSIGNALED(status))
 				gest_return(WTERMSIG(p->status));

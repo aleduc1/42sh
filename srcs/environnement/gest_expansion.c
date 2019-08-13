@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 12:02:28 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 11:14:59 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/13 02:28:30 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char			*gest_expansion(char *key, char *value)
 	final = NULL;
 	if (conv[(int)value[0]])
 		final = (*conv[(int)value[0]])(key, value + 1);
+	else
+		display_error_syntax(key);
 	free(conv);
 	conv = NULL;
 	return (final);

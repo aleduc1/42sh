@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 13:22:31 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/13 01:28:35 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ static int	condition_clean_list(t_job *j, pid_t pid)
 	while (p)
 	{
 		status = p->status;
-		if ((!j->notif_stop) && (status == 1 || status == 2 || status == 3 || status == 9
-			|| status == 13 || status == 15))
+		if (p->notif_stop == 0 && (status == 1 || status == 2 || status == 3 || status == 9
+			|| status == 15))
 		{
 			ft_dprintf(STDERR_FILENO, "[1]+  Terminated: %d          %s\n",
 				j->first_process->status, j->first_process->cmd[0]);
 			j->notif_stop = 1;
+			p->notif_stop = 1;
+			break ;
 		}
 		p = p->next;
 	}

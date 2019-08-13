@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:04:50 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/08 21:54:31 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/13 21:07:59 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 /*
 ** Faire :
-		-b pathname : true is pathname block special file
-		-c pathname : true if pathname character special file
-		-d pathname : true if pathname directory
-		-e pathname : true if pathname exists
-		-f pathname : true if pathname regular file
-		-g pathname : true if pathname file with set-group-ID flag set
-		-L pathname : true if pathname symbolic link
-		-p pathname : true if pathname FIFO
-		-r pathname : true if pathname file with read perm
-		-S pathname : true if pathname socket
-		-s pathname : true if pathname file size greater than 0
-		-u pathname : true if pathname file with set-user-ID flag set
-		-w pathname : true if pathname file with write perm
-		-x pathname : true if pathname file with exec perm
-		-z string : true if string lenght is 0
-		string : true if string not null
-		s1 = s2 : true if s1 and s2 identical
-		s1 != s2 : true if s1 and s2 not identical
-		n1 -eq n2 : true if int n1 and n2 equal
-		n1 -ne n2 : true if int n1 and n2 not equal
-		n1 -gt n2 : true if int n1 greater than n2
-		n1 -ge n2 : true if int n1 greater or equal to n2
-		n1 -lt n2 : true if int n1 less than n2
-		n1 -le n2 : true if int n1 less or equal to n2 
-		! expression : true if expression false
+**		-b pathname : true is pathname block special file
+**		-c pathname : true if pathname character special file
+**		-d pathname : true if pathname directory
+**		-e pathname : true if pathname exists
+**		-f pathname : true if pathname regular file
+**		-g pathname : true if pathname file with set-group-ID flag set
+**		-L pathname : true if pathname symbolic link
+**		-p pathname : true if pathname FIFO
+**		-r pathname : true if pathname file with read perm
+**		-S pathname : true if pathname socket
+**		-s pathname : true if pathname file size greater than 0
+**		-u pathname : true if pathname file with set-user-ID flag set
+**		-w pathname : true if pathname file with write perm
+**		-x pathname : true if pathname file with exec perm
+**		-z string : true if string lenght is 0
+**		string : true if string not null
+**		s1 = s2 : true if s1 and s2 identical
+**		s1 != s2 : true if s1 and s2 not identical
+**		n1 -eq n2 : true if int n1 and n2 equal
+**		n1 -ne n2 : true if int n1 and n2 not equal
+**		n1 -gt n2 : true if int n1 greater than n2
+**		n1 -ge n2 : true if int n1 greater or equal to n2
+**		n1 -lt n2 : true if int n1 less than n2
+**		n1 -le n2 : true if int n1 less or equal to n2 
+**		! expression : true if expression false
 */
 
-int		test_unop(char **av, int ind)
+int		test_isunop(char **av, int ind)
 {
 	if ((ft_strequ(av[ind], "-b") || (ft_strequ(av[ind], "-c"))))
 		return (1);
@@ -57,12 +57,12 @@ int		test_unop(char **av, int ind)
 		return (1);
 	else if ((ft_strequ(av[ind], "-w") || (ft_strequ(av[ind], "-x"))))
 		return (1);
-	else if ((ft_strequ(av[ind], "-z"))
+	else if ((ft_strequ(av[ind], "-z")))
 		return (1);
 	return (0);
 }
 
-int		test_binop(char **av, int ind)
+int		test_isbinop(char **av, int ind)
 {
 	if ((ft_strequ(av[ind], "-eq") || (ft_strequ(av[ind], "-ne"))))
 		return (1);
@@ -77,10 +77,8 @@ int		test_binop(char **av, int ind)
 
 int		test_rev(int i)
 {
-	if (i == 1)
-		return (0);
-	else if (i == 0)
-		return (1);
+	if (!i || i == 1)
+		return (!i);
 	return (i);
 }
 
@@ -93,18 +91,44 @@ int		test_one(char **av, int ind)
 
 int		test_two(char **av, int ind)
 {
-	if (ft_strequ(av[ind], "!"))
-		return ((test_rev(test_one(av, 2))));
+	if (ft_strequ(av[ind], "!") && ind == 1)
+		return ((test_rev(test_one(av, ++ind))));
+	else if (test_isunop(av, ind)) 
+		return (test_unop(av, ind));
+	else
+	{
+		ft_dprintf(2, "test: %s: unary operator expected\n", av[ind]);
+		return (2);
+	}
 }
 
 int		test_three(char **av, int ind)
 {
-
+	if (test_isbinop(av, ind + 1))
+		return (test_binop(av, ind));
+	else if (ft_strequ(av[ind], "!") && ind == 1)
+		return ((test_rev(test_two(av, ++ind))));
+	else if (test_isunop(av, ind))
+	{
+		ft_dprintf(2, "test: too many arguments\n");
+		return (2);
+	}
+	else
+	{
+		ft_dprintf(2, "test: %s: binary operator expected\n", av[ind + 1]);
+		return (2);
+	}
 }
 
 int		test_four(char **av, int ind)
 {
-
+	if (ft_strequ(av[ind], "!") && ind == 1)
+		return ((test_rev(test_three(av, ++ind))));
+	else
+	{
+		ft_dprintf(2, "test: too many arguments\n");
+		return (2);
+	}
 }
 
 int		bt_test(char **av, t_redirection *r)

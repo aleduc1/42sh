@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:03:10 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/02 16:27:50 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/13 18:08:22 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,13 @@ static char			*alias_change(char *str)
 
 static int			is_reserved_word(char *str)
 {
-	if (ft_strequ(str, "!") || ft_strequ(str, "do") ||
-		ft_strequ(str, "esac") || ft_strequ(str, "in") ||
-		ft_strequ(str, "{") || ft_strequ(str, "}") ||
-		ft_strequ(str, "done") || ft_strequ(str, "fi") ||
-		ft_strequ(str, "then") || ft_strequ(str, "elif") ||
-		ft_strequ(str, "for") || ft_strequ(str, "until") ||
-		ft_strequ(str, "case") || ft_strequ(str, "else") ||
-		ft_strequ(str, "if") || ft_strequ(str, "while"))
+	if (ft_strequ(str, "!") || ft_strequ(str, "do")
+		|| ft_strequ(str, "esac") || ft_strequ(str, "in")
+		|| ft_strequ(str, "{") || ft_strequ(str, "}")
+		|| ft_strequ(str, "then") || ft_strequ(str, "elif")
+		|| ft_strequ(str, "for") || ft_strequ(str, "until")
+		|| ft_strequ(str, "case") || ft_strequ(str, "else")
+		|| ft_strequ(str, "if") || ft_strequ(str, "while"))
 		return (1);
 	return (0);
 }

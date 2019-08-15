@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/14 03:50:25 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/15 21:51:56 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,22 @@ char		*ft_inter_signal(int sig, t_job *j)
 	return (str);
 }
 
+char		*ft_name_sig(int sig)
+{
+	char	*str;
+
+	str = NULL;
+	if (sig == 0)
+		str = ft_strdup("Running");
+	else if (sig >= 1 && sig <= 15)
+		str = ft_strdup("Terminated");
+	else if (sig == 17 || sig == 18 || sig == 21 || sig == 22)
+		str = ft_strdup("Stopped");
+	else if (sig == 19)
+		str = ft_strdup("Running");
+	return (str);
+}
+
 void		bt_jobs_p(t_job *j, int max_current, t_redirection *r)
 {
 	t_process	*p;
@@ -128,12 +144,26 @@ void		bt_jobs_p(t_job *j, int max_current, t_redirection *r)
 	ft_dprintf(r->out, "\n");
 }
 
+void	🤠(void)
+{
+
+	int fefe = 45;
+	ft_printf("VIANT");
+}
+
 static void	bt_jobs_l(t_job *j, int max_current, t_redirection *r)
 {
 	char		*cmd;
+	char		*name_sig;
 	t_process	*p;
 	char		c;
+	int			num_sig;
+	int			㋡;
 
+	int 😀 = 6;
+	🤠();
+	㋡ = 3;
+	ft_printf("dd = %d\n", 😀, ㋡);
 	p = j->first_process;
 	if (j->current == max_current)
 		c = '+';
@@ -145,10 +175,14 @@ static void	bt_jobs_l(t_job *j, int max_current, t_redirection *r)
 			j->process_id, c);
 	while (p)
 	{
+		num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
+		name_sig = ft_name_sig(num_sig);
 		cmd = assemply_cmd_process(p);
-		ft_dprintf(r->out, "\t%d Suspended: %d\t%s",
-			p->pid,
-			WSTOPSIG(p->status), cmd);
+		if (num_sig > 0)
+			ft_dprintf(r->out, "\t%d %s: %d\t%s", p->pid, name_sig, num_sig, cmd);
+		else
+			ft_dprintf(r->out, "\t%d %s\t%s", p->pid, name_sig, cmd);
+		ft_strdel(&name_sig);
 		if (p->next)
 			ft_dprintf(r->out, " |\n");
 		else

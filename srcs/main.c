@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/15 20:17:31 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/15 21:04:30 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ static void	init_alias(void)
 	g_hash_table = ht_hash_new();
 	g_alias_table = ht_hash_new();
 	ht_hash_insert(g_alias_table, "ls", "ls -G");
+	ht_hash_insert(g_alias_table, "b", "base64 /dev/urandom");
 	ht_hash_insert(g_alias_table, "..", "cd ..");
 	ht_hash_insert(g_alias_table, "-", "cd -");
 	ht_hash_insert(g_alias_table, "?", "echo $?");

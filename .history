@@ -288,3 +288,92 @@ fg
 ls -R /
 ls -l
 fg
+ls -R /
+fg
+ls -R /
+jobs
+fg 1
+ls -l && echo OK
+ls -l
+cat a_faire.c
+ls -l
+cd ..
+ls -l
+cd 42sh
+ls -l
+fc -l 10 20
+fc -l 10 -20
+fc -l 10
+fc -l 20 10
+fc -lrn 20 10
+fc -l ls
+fc -lr ls
+fc -lrn ls
+fc -l ls test
+fc -l ls fc
+fc -l fc ls
+fc -l eval
+fc -l export
+fc -l PATH fc
+fc -l 10 fc
+fc -l
+fc -e test
+fc -e test 10 20
+fc -e test -10 20
+fc -l -10 20
+fc -s asdas -10 -20
+fc -s asdas -10
+fc -l -10
+fc -10
+fc -10s
+fc -10
+fc -10s
+fc -l -10
+fc -10
+fc -l -10
+fc -e -10
+fc -l -10
+fc -l asdasd
+fc -l 10
+fc -l 326
+fc -l -10
+make
+fc -l -10
+fc -l10
+fc -10
+fc -l -10
+ls -l
+fc -l -10
+make
+fc -l -10
+make
+fc -l -10
+fc -l -10 50
+make re
+fc -l -10 -30
+fc -l
+fc -l -10
+fc -l
+fc -l 10
+fc -l -10
+fc -l
+fc -l -10
+make
+fc -l -10
+fc -l -10 -30
+fc -lr -10
+fc -l -2999
+fc -l -29
+fc -l 29
+fc -l -10 fc
+fc -l -10 ls
+fc -l -10
+fc -lrn -10
+fc -l
+fc -l 10 20
+fc -lr
+fc -lrn
+fc -lrn 10 20
+fc -lrn 10
+fc -l
+fc -lrn

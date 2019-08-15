@@ -32,7 +32,7 @@ typedef struct	s_fc
 	int			last_index;
 }				t_fc;
 
-void	init_fc(t_fc *fc)
+void		init_fc(t_fc *fc)
 {
 	fc->editor = NULL;
 	fc->first = NULL;
@@ -43,7 +43,7 @@ void	init_fc(t_fc *fc)
 	fc->cmd = NULL;
 }
 
-int		fc_usage(int return_value, t_fc *fc, int error)
+int			fc_usage(int return_value, t_fc *fc, int error)
 {
 	if (error == 1)
 		ft_dprintf(2, "fc: usage: fc -e [ename] [cmd]\n\t   fc [-l(nr)] [first] [last]\n\t   fc -s [pat=rep] [cmd]\n");
@@ -57,7 +57,7 @@ int		fc_usage(int return_value, t_fc *fc, int error)
 	return (return_value);
 }
 
-int		fc_flags_e(char **av, t_fc *fc)
+int			fc_flags_e(char **av, t_fc *fc)
 {
 	if (ft_strequ(av[1], "-e") == 1)
 	{
@@ -75,7 +75,7 @@ int		fc_flags_e(char **av, t_fc *fc)
 	return (0);
 }
 
-int		fc_flags_s(char **av, t_fc *fc)
+int			fc_flags_s(char **av, t_fc *fc)
 {
 	if (ft_strequ(av[1], "-s") == 1)
 	{
@@ -92,7 +92,7 @@ int		fc_flags_s(char **av, t_fc *fc)
 	return (0);
 }
 
-int		fc_get_args(char **av, int argc, t_fc *fc)
+int			fc_get_args(char **av, int argc, t_fc *fc)
 {
 	if (fc->flags[0] == 0 && (fc->flags[1] == 1 || fc->flags[2] == 1))
 		return(fc_usage(-1, fc, 1));
@@ -113,10 +113,10 @@ int		fc_get_args(char **av, int argc, t_fc *fc)
 	return (0);
 }
 
-int		fc_flags_lnr(char **av, t_fc *fc)
+int			fc_flags_lnr(char **av, t_fc *fc)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 1;
 	j = 1;
@@ -124,7 +124,9 @@ int		fc_flags_lnr(char **av, t_fc *fc)
 	{
 		while (av[i][j])
 		{
-			if (av[i][j] == 'l')
+			if (av[i][1] >= '0' && av[i][1] <= '9')
+				return (fc_get_args(av, i, fc));
+			else if (av[i][j] == 'l')
 				fc->flags[0] = 1;
 			else if (av[i][j] == 'n')
 				fc->flags[1] = 1;
@@ -140,9 +142,9 @@ int		fc_flags_lnr(char **av, t_fc *fc)
 	return (fc_get_args(av, i, fc));
 }
 
-int		fc_flags(char **av, t_fc *fc)
+int			fc_flags(char **av, t_fc *fc)
 {
-	int ret;
+	int		ret;
 
 	ret = 0;
 	if ((ret = fc_flags_e(av, fc)))
@@ -157,7 +159,7 @@ int		fc_flags(char **av, t_fc *fc)
 	return (0);
 }
 
-void fc_debug(t_fc *fc)
+void		fc_debug(t_fc *fc)
 {
 	ft_dprintf(1, "l = %d || n = %d || r = %d || e = %d || s = %d\n",
 	fc->flags[0], fc->flags[1], fc->flags[2], fc->flags[3], fc->flags[4]);
@@ -177,9 +179,9 @@ void fc_debug(t_fc *fc)
 		ft_dprintf(1, "pat_rep = %s\n", fc->pat_rep);
 }
 
-int fc_count(t_node *history)
+int			fc_count(t_node *history)
 {
-	t_node *lstcursor;
+	t_node	*lstcursor;
 	int		count;
 
 	count = 1;
@@ -194,7 +196,7 @@ int fc_count(t_node *history)
 	return (count);
 }
 
-int fc_lr_basic(t_fc *fc, t_node *lstcursor, int count, int i)
+int			fc_lr_basic(t_fc *fc, t_node *lstcursor, int count, int i)
 {
 	i = 1;
 	if(lstcursor->next)
@@ -211,7 +213,7 @@ int fc_lr_basic(t_fc *fc, t_node *lstcursor, int count, int i)
 	return (1);
 }
 
-int fc_l_basic(t_fc *fc, t_node *lstcursor, int count, int i)
+int			fc_l_basic(t_fc *fc, t_node *lstcursor, int count, int i)
 {
 	if (FC_R)
 		return (fc_lr_basic(fc, lstcursor, count, i));
@@ -234,7 +236,7 @@ int fc_l_basic(t_fc *fc, t_node *lstcursor, int count, int i)
 	return (1);
 }
 
-int fc_lr_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)
+int			fc_lr_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)
 {
 	while (lstcursor->next && count >= i)
 	{
@@ -247,9 +249,9 @@ int fc_lr_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)
 	return (1);
 }
 
-int fc_l_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)
+int			fc_l_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)
 {
-	t_node *backup_cursor;
+	t_node	*backup_cursor;
 
 	backup_cursor = lstcursor;
 	i = 1;
@@ -275,7 +277,7 @@ int fc_l_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)
 	return (1);
 }
 
-int fc_lr_first_word(t_fc *fc, t_node *lstcursor, int count, int i)
+int			fc_lr_first_word(t_fc *fc, t_node *lstcursor, int count, int i)
 {
 	if (lstcursor->next)
 		lstcursor = lstcursor->next;
@@ -290,10 +292,10 @@ int fc_lr_first_word(t_fc *fc, t_node *lstcursor, int count, int i)
 	return (1);
 }
 
-int fc_l_first_word(t_fc *fc, t_node *lstcursor, int count, int i)
+int			fc_l_first_word(t_fc *fc, t_node *lstcursor, int count, int i)
 {
-	t_node *backup_cursor;
-	int ret;
+	t_node	*backup_cursor;
+	int		ret;
 
 	i = -1;
 	ret = 0;
@@ -319,9 +321,9 @@ int fc_l_first_word(t_fc *fc, t_node *lstcursor, int count, int i)
 	return (1);
 }
 
-int	fc_l_first(t_fc *fc, t_node *lstcursor, int count, int i)
+int			fc_l_first(t_fc *fc, t_node *lstcursor, int count, int i)
 {
-	int first_nb;
+	int		first_nb;
 
 	first_nb = ft_isnumbers(fc->first);
 	if (first_nb == 1 && (fc_l_first_nb(fc, lstcursor, count, i) == -1))
@@ -331,13 +333,21 @@ int	fc_l_first(t_fc *fc, t_node *lstcursor, int count, int i)
 	return (1);
 }
 
-int fc_get_index(t_node *lstcursor, int count, int *fc_index, char *fc_first_last)
+int			fc_get_index(t_node *lstcursor, int count, int *fc_index, char *fc_first_last)
 {
-	int ret;
-	int i;
+	int		ret;
+	int		i;
 
 	i = 0;
 	ret = 0;
+	if (fc_first_last[0] == '-')
+	{
+		*fc_index = count - ft_atoi(fc_first_last+1);
+		if (*fc_index > count)
+			return (-1);
+		else
+			return (1);
+	}
 	if (ft_isnumbers(fc_first_last) == 1)
 	{
 		*fc_index = ft_atoi(fc_first_last);
@@ -358,7 +368,7 @@ int fc_get_index(t_node *lstcursor, int count, int *fc_index, char *fc_first_las
 	return (1);
 }
 
-int fc_print_first_last(t_fc *fc, t_node *lstcursor, int i)
+int			fc_print_first_last(t_fc *fc, t_node *lstcursor, int i)
 {
 	i = 0;
 	while (lstcursor->next)
@@ -377,7 +387,7 @@ int fc_print_first_last(t_fc *fc, t_node *lstcursor, int i)
 	return (1);
 }
 
-int fc_print_last_first(t_fc *fc, t_node *lstcursor, int i)
+int			fc_print_last_first(t_fc *fc, t_node *lstcursor, int i)
 {
 	i = 0;
 	while (lstcursor->next)
@@ -396,7 +406,7 @@ int fc_print_last_first(t_fc *fc, t_node *lstcursor, int i)
 	return (1);
 }
 
-int fc_l_first_last(t_fc *fc, t_node *lstcursor, int count, int i)
+int			fc_l_first_last(t_fc *fc, t_node *lstcursor, int count, int i)
 {
 	if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
 		return (fc_usage(-1, fc, 2));
@@ -419,11 +429,30 @@ int fc_l_first_last(t_fc *fc, t_node *lstcursor, int count, int i)
 	return (1);
 }
 
-int fc_l(t_fc *fc, t_pos *pos)
+int			fc_l_minus(t_fc *fc, int count)
 {
-	int count;
-	int i;
-	t_node *lstcursor;
+	char *temp;
+	if (fc->first[0] == '-')
+	{
+
+		temp = ft_itoa(count - ft_atoi(fc->first+1));
+		free(fc->first);
+		fc->first = ft_strdup(temp);
+		free(temp);
+		fc->flags[2] ^= 1;
+		if (ft_atoi(fc->first) > count)
+			return (-1);
+		else
+			return (1);
+	}
+	return (0);
+}
+
+int			fc_l(t_fc *fc, t_pos *pos)
+{
+	int		count;
+	int		i;
+	t_node	*lstcursor;
 
 	lstcursor = pos->history->next;
 	count = fc_count(pos->history);
@@ -432,6 +461,8 @@ int fc_l(t_fc *fc, t_pos *pos)
 		fc_l_basic(fc, lstcursor, count, i);
 	else if (fc->first && !fc->last)
 	{
+		if (fc_l_minus(fc, count) == -1)
+			return (fc_usage(-1, fc, 2));
 		if (fc_l_first(fc, lstcursor, count, i) == -1)
 			return (-1);
 	}
@@ -441,20 +472,20 @@ int fc_l(t_fc *fc, t_pos *pos)
 	return (0);
 }
 
-int	fc_exec(t_fc *fc, t_pos *pos)
+int			fc_exec(t_fc *fc, t_pos *pos)
 {
 	if (FC_L)
 	{
-		if(fc_l(fc, pos) == -1)
+		if (fc_l(fc, pos) == -1)
 			return (-1);
 	}
 	return (1);
 }
 
-int builtin_fc(char **av, t_pos *pos)
+int			builtin_fc(char **av, t_pos *pos)
 {
-	t_fc fc;
-	int i;
+	t_fc	fc;
+	int		i;
 
 	i = 0;
 	while (i < 5)
@@ -464,5 +495,5 @@ int builtin_fc(char **av, t_pos *pos)
 		return (-2);
 	if (fc_exec(&fc, pos) == -1)
 		return (-2);
-	return 1;
+	return 0;
 }

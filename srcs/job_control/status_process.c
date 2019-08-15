@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 12:58:03 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/14 23:59:21 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		job_info(t_job *j, char *status)
 	(void)status;
 	if (j->first_process)
 		ft_dprintf(j->first_process->r->error, "[%d] %d\n",
-			j->process_id, (int)j->pgid);
+				j->process_id, (int)j->pgid);
 }
 
 void		job_done(t_job *j)
@@ -29,15 +29,41 @@ void		job_done(t_job *j)
 	cmd = cmd_job_s(j);
 	if (get_shell()->max_job_current == j->current)
 		ft_printf("[%d]%c Done	%s\n", j->process_id,
-			'+', cmd);
+				'+', cmd);
 	else if (get_shell()->max_job_current - 1 == j->current)
 		ft_printf("[%d]%c Done	%s\n", j->process_id,
-			'-', cmd);
+				'-', cmd);
 	else
 		ft_printf("[%d]%c Done	%s\n", j->process_id,
-			' ', cmd);
+				' ', cmd);
 	j->notif_stop = 1;
 	ft_strdel(&cmd);
+}
+
+void		display_stat_job(t_job *j)
+{
+	int			notified;
+	t_process	*p;
+
+	notified = 0;
+	if (j->first_process->fg == 0)
+		if (job_is_completed(j) && j->first_process->status == 0)
+		{
+			job_done(j);
+			return ;
+		}
+	p = j->first_process;
+	while (p)
+	{
+		if (p->status != p->last_status && p->status != 2)
+		{
+			if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
+				bt_jobs_s(j, get_shell()->max_job_current, j->r);
+			notified = 1;
+			p->last_status = p->status;
+		}
+		p = p->next;
+	}
 }
 
 void		job_notif(void)
@@ -50,20 +76,7 @@ void		job_notif(void)
 	while (j)
 	{
 		next = j->next;
-		if (j->first_process->fg == 0)
-		{
-			if (job_is_completed(j) && j->first_process->status == 0)
-				job_done(j);
-		}
-		else if (!(j->notif_stop))
-		{
-			if (job_is_stopped(j) && (!j->notified))
-			{
-				ft_putendl("");
-				bt_jobs_s(j, get_shell()->max_job_current, j->r);
-			}
-			j->notif_stop = 1;
-		}
+		display_stat_job(j);
 		j = next;
 	}
 	update_status();

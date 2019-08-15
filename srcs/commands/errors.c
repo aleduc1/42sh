@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/13 02:28:01 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/13 16:04:44 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,9 @@ void	display_error_expansion(char *src)
 	gest_return(-5);
 }
 
-void	display_error_syntax(char *tmp)
+void	display_error_syntax(char *key, char *value)
 {
-	char	**src;
-
-	src = ft_strsplit(tmp, ':');
 	ft_dprintf(STDERR_FILENO, "42sh: %s: %s: syntax error: operand expected\n",
-			src[0], src[1]);
-	ft_arraydel(&src);
-	gest_return(-6);
+			key, value);
+	gest_return(-5);
 }

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:24:08 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/13 01:13:03 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/14 03:17:57 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_process	*init_process(void)
 	p->fg = 0;
 	p->return_value = 0;
 	p->r = NULL;
-	p->notif_stop = 0;
+	p->last_status = 0;
 	p->next = NULL;
 	return (p);
 }

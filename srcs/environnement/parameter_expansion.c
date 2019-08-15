@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 12:02:28 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/13 02:12:40 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:24:03 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,14 @@ void			parameter_expansion(char *tmp, char **dst)
 {
 	int		expansion;
 	int		verif;
+	int		i;
 
 	if ((!tmp) || ft_strequ(tmp, ""))
 	{
 		display_error_expansion("");
 		return ;
 	}
+	i = ft_chr_index(tmp, ':');
 	expansion = search_good_expansion(tmp);
 	if (expansion != 4)
 	{
@@ -97,5 +99,5 @@ void			parameter_expansion(char *tmp, char **dst)
 			display_error_expansion(tmp);
 	}
 	else if (expansion != -1)
-		manage_parameter_extension(dst, tmp, ft_strlen(tmp));
+		manage_parameter_extension(dst, tmp, i);
 }

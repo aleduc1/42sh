@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/09 14:57:03 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/15 20:23:42 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,29 @@ static int	is_builtin_other(t_pos *pos, char **av)
 	return (verif);
 }
 
+void		save_redirection(int (*fd)[3])
+{
+	(*fd)[0] = dup(STDIN_FILENO);
+	(*fd)[1] = dup(STDOUT_FILENO);
+	(*fd)[2] = dup(STDERR_FILENO);
+}
+
+void		restore_redirection(int fd[3])
+{
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[1]);
+	dup2(fd[2], STDERR_FILENO);
+	close(fd[2]);
+//	close(ft_atoi(value_line_path("STDIN", 0)));
+//	close(ft_atoi(value_line_path("STDOUT", 0)));
+//	close(ft_atoi(value_line_path("STDERR", 0)));
+//	add_set_value("STDIN", ft_itoa(fd[0]));
+//	add_set_value("STDOUT", ft_itoa(fd[1]));
+//	add_set_value("STDERR", ft_itoa(fd[2]));
+}
+
 /*
 ** if builtin not exist return -1
 ** if exist and good execution return 0 otherwise return -2
@@ -114,8 +137,10 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 {
 	int		verif;
 	char	**av;
+	int		fd[3];
 
 	av = p->cmd;
+//	save_redirection(&fd);
 	verif = is_builtin_env(p, av, pos);
 	if (verif != -1)
 		;
@@ -131,6 +156,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		;
 	else
 		verif = -1;
+//	restore_redirection(fd);
 	if (verif != -1)
 		gest_return(verif == -2 ? 1 : verif);
 	return (verif);
@@ -151,6 +177,10 @@ int		builtin_exist(char *cmd)
 	return (0);
 }
 
+/*
+** Folowing of launch_job_blt function
+*/
+
 int		launch_process_blt(t_job *j, t_process *p, t_pos *pos,
 				int fg)
 {
@@ -164,6 +194,10 @@ int		launch_process_blt(t_job *j, t_process *p, t_pos *pos,
 	execve("/bin/test", NULL, NULL);
 	exit(verif);
 }
+
+/*
+** launch builtin in fork if is background command
+*/
 
 int		launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)
 {
@@ -183,6 +217,10 @@ int		launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)
 	act_job(j, fg);
 	return (verif);
 }
+
+/*
+** Launch builtin command
+*/
 
 int		builtin(t_job *j, t_process *p, t_pos *pos, int fg)
 {

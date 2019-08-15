@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/11 02:54:05 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/13 16:31:08 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	launch_process_pipe(t_process *p)
 
 	environ = create_list_env(get_env(0, NULL), 0);
 	execve(p->cmd_path, p->cmd, environ);
-	display_command_not_found(p->r, p->cmd[0]);
+	//display_command_not_found(p->r, p->cmd[0]);
 	exit(1);
 }
 
@@ -43,8 +43,8 @@ static int	exec_pipe(t_job *j, t_process *p, int fg)
 			redirection_fd(p->r);
 			launch_process_pipe(p);
 		}
-		else
-			verif = gest_error_path(p->cmd[0], p->r);
+		//else
+		//	verif = gest_error_path(p->cmd[0], p->r);
 	}
 	execve("/bin/test", NULL, NULL);
 	exit(verif);

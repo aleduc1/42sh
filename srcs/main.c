@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/09 13:38:59 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/15 20:17:31 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int			main(int argc, char **argv, char **environ)
 
 	input = NULL;
 	multi_input = NULL;
-	(argc == 1) ? edit_shell() : 0;
+	edit_shell();
 	(argc == 1) ? welcome() : 0;
 	flags(argc, argv);
 	init_prompt(&pos);

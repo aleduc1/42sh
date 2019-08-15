@@ -6,11 +6,15 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/16 16:56:38 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/13 16:52:10 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+/*
+** Return exit code value of last command
+*/
 
 int	check_last_command(void)
 {

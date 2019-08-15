@@ -250,9 +250,11 @@ cd_stepsev	srcs/builtins/bt_cd.c	/^static int	cd_stepsev(t_cd *cd)$/;"	f	file:
 cd_stepten	srcs/builtins/bt_cd.c	/^static int	cd_stepten(t_cd *cd)					\/\/ Step 10$/;"	f	file:
 cd_testcdpath	srcs/builtins/bt_cd_utils.c	/^int		cd_testcdpath(char *path, char *directory, char **test)$/;"	f
 cd_testpath	srcs/builtins/bt_cd_utils.c	/^int		cd_testpath(char *path, char *directory, char **test)$/;"	f
+change_fg_var_job	srcs/builtins/bt_jobs.c	/^void		change_fg_var_job(t_job *j, int fg)$/;"	f
 check_arg	srcs/builtins/builtin_cd_verif.c	/^void		check_arg(char **str)$/;"	f
 check_double	srcs/lexer/handle_stuff.c	/^void	check_double(char *input, int *i)$/;"	f
 check_env_path	srcs/environnement/path.c	/^static char	*check_env_path(char *command)$/;"	f	file:
+check_error_job_pipe	srcs/commands/commands_pipe.c	/^static int	check_error_job_pipe(t_job *j)$/;"	f	file:
 check_exec_path	srcs/environnement/path.c	/^static void	check_exec_path(char **str)$/;"	f	file:
 check_fd_is_good	srcs/redirection/redirection.c	/^static int	check_fd_is_good(t_redirection *r)$/;"	f	file:
 check_format_variable	srcs/environnement/expansion_tools.c	/^int			check_format_variable(char *str)$/;"	f
@@ -269,6 +271,7 @@ check_return	srcs/builtins/builtin_cd.c	/^static int	check_return(char *argument
 check_scrolling	srcs/prompt/edition/editiontools.c	/^void		check_scrolling(t_pos *pos)$/;"	f
 check_type	srcs/lexer/adding_token.c	/^t_token	*check_type(t_tab_type **tab_of_type, char *input, int start, int end)$/;"	f
 check_whitespace_input	srcs/main.c	/^int			check_whitespace_input(char *input)$/;"	f
+choice_gest_return	srcs/job_control/gest_process.c	/^int		choice_gest_return(t_job *j, int status)$/;"	f
 clean_ast	srcs/parser/ast/tree_utils.c	/^void		clean_ast(t_ast *node)$/;"	f
 clean_close_fd	srcs/job_control/free_job_file.c	/^static void	clean_close_fd(t_job *j)$/;"	f	file:
 clean_file	srcs/job_control/free_job_file.c	/^void		clean_file(t_job *j)$/;"	f
@@ -347,6 +350,7 @@ display_bad_file_descriptor	srcs/commands/errors.c	/^void	display_bad_file_descr
 display_command_not_found	srcs/commands/errors.c	/^void	display_command_not_found(t_redirection *r, char *cmd)$/;"	f
 display_error_expansion	srcs/commands/errors.c	/^void	display_error_expansion(char *src)$/;"	f
 display_error_fork	srcs/commands/errors.c	/^void	display_error_fork(t_redirection *r)$/;"	f
+display_error_syntax	srcs/commands/errors.c	/^void	display_error_syntax(char *key, char *value)$/;"	f
 display_error_tc	srcs/commands/errors.c	/^void	display_error_tc(t_redirection *r, char *name)$/;"	f
 display_invalid_option_job	srcs/commands/errors.c	/^void	display_invalid_option_job(t_redirection *r, char *name)$/;"	f
 display_job_stopped	srcs/commands/errors.c	/^void	display_job_stopped(void)$/;"	f
@@ -362,6 +366,7 @@ display_other_error	srcs/commands/errors.c	/^void	display_other_error(int fd_err
 display_permission_denied	srcs/commands/errors.c	/^void	display_permission_denied(t_redirection *r, char *cmd)$/;"	f
 display_prompt	srcs/display.c	/^void		display_prompt(void)$/;"	f
 display_redirection	srcs/job_control/process.c	/^void		display_redirection(t_redirection *r)$/;"	f
+display_stat_job	srcs/job_control/status_process.c	/^void		display_stat_job(t_job *j)$/;"	f
 display_too_few_arg	srcs/commands/errors.c	/^void	display_too_few_arg(t_redirection *r, char *name)$/;"	f
 display_too_many_arg	srcs/commands/errors.c	/^void	display_too_many_arg(t_redirection *r, char *name)$/;"	f
 div_float	libft/srcs/ft_printf/manage_float.c	/^void	div_float(char (*lst)[BUF_S], int d)$/;"	f
@@ -685,16 +690,8 @@ ft_test_return_value	test.sh	/^ft_test_return_value()$/;"	f
 ft_test_signaux	test.sh	/^ft_test_signaux()$/;"	f
 ft_test_test	test.sh	/^ft_test_test()$/;"	f
 ft_test_variable	test.sh	/^ft_test_variable()$/;"	f
-ft_to_print	srcs/commands/ft_to_print.c	/^int		ft_to_print(void)$/;"	f
-ft_to_print_2	srcs/commands/ft_to_print.c	/^void	ft_to_print_2(void)$/;"	f
-ft_to_print_3	srcs/commands/ft_to_print.c	/^void ft_to_print_3(void)$/;"	f
-ft_to_print_4	srcs/commands/ft_to_print.c	/^void	ft_to_print_4(void)$/;"	f
-ft_to_print_5	srcs/commands/ft_to_print.c	/^void	ft_to_print_5(void)$/;"	f
-ft_to_print_6	srcs/commands/ft_to_print.c	/^void	ft_to_print_6(void)$/;"	f
-ft_to_print_7	srcs/commands/ft_to_print.c	/^void	ft_to_print_7(void)$/;"	f
 ft_tolower	libft/srcs/ft_tolower.c	/^int		ft_tolower(int c)$/;"	f
 ft_toupper	libft/srcs/ft_toupper.c	/^int		ft_toupper(int c)$/;"	f
-ft_tto_print	srcs/commands/is_builtin.c	/^#define ft_tto_print /;"	d	file:
 ft_unset	srcs/environnement/manage_set.c	/^int			ft_unset(char **value)$/;"	f
 ft_unset_key	srcs/environnement/manage_env.c	/^int			ft_unset_key(char *key, t_env *my_env)$/;"	f
 ft_unsetenv	srcs/environnement/manage_env.c	/^int			ft_unsetenv(char **key)$/;"	f
@@ -863,6 +860,7 @@ large_min_s	libft/srcs/ft_printf/apply_arg_s.c	/^void		large_min_s(t_printf **ls
 last	srcs/prompt/history/history_fc.c	/^	char		*last;$/;"	m	struct:s_fc	file:
 last_index	srcs/prompt/history/history_fc.c	/^	int			last_index;$/;"	m	struct:s_fc	file:
 last_jobs	srcs/builtins/bt_jobs.c	/^static t_job	*last_jobs(void)$/;"	f	file:
+last_status	includes/env.h	/^	int					last_status;$/;"	m	struct:s_process
 launch_cd	srcs/builtins/builtin_cd.c	/^static int	launch_cd(char **str)$/;"	f	file:
 launch_job	srcs/job_control/process.c	/^int			launch_job(t_job *j, int fg)$/;"	f
 launch_job_blt	srcs/commands/is_builtin.c	/^int		launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)$/;"	f
@@ -883,7 +881,6 @@ lst_to_str_loop	srcs/prompt/others/othertools.c	/^char		*lst_to_str_loop(t_multi
 lst_to_str_mod	srcs/prompt/others/othertools.c	/^char		*lst_to_str_mod(t_multi *lstcursor, char *temp)$/;"	f
 main	a_faire.c	/^int	main(void)$/;"	f
 main	srcs/main.c	/^int			main(int argc, char **argv, char **environ)$/;"	f
-main	tt.c	/^int		main(void)$/;"	f
 malloc_first	libft/srcs/split_once.c	/^static int	malloc_first(char *str, char c, char **tab)$/;"	f	file:
 malloc_second	libft/srcs/split_once.c	/^static int	malloc_second(char *str, char **tab, int count)$/;"	f	file:
 manage_cycle_redirect	srcs/parser/pre_parser/redirect/redirect.c	/^int		manage_cycle_redirect(t_lex *ptr, t_token *tok)$/;"	f
@@ -1001,6 +998,7 @@ remove_space_token	srcs/parser/pre_parser/remove_space/remove_space_token.c	/^vo
 replace_alias	srcs/lexer/alias_replace.c	/^static char			*replace_alias(char *inpu, char *str, char *fir, char *val)$/;"	f	file:
 reset_multi	srcs/prompt/multiline/multiline.c	/^void		reset_multi(t_pos *pos)$/;"	f
 reset_stop	srcs/prompt/others/dlist_plus.c	/^void	reset_stop(char **inputstr, t_pos *pos, t_integrity *count)$/;"	f
+restore_redirection	srcs/commands/is_builtin.c	/^int			restore_redirection(void)$/;"	f
 result_null	libft/srcs/ft_printf/tools_bis.c	/^void		result_null(t_printf **lst, char (*str)[BUF_S])$/;"	f
 return_good_dst	srcs/environnement/expansion_hash.c	/^char		*return_good_dst(char *stock, char *parameter)$/;"	f
 return_value	includes/env.h	/^	int					return_value;$/;"	m	struct:s_process
@@ -1044,6 +1042,7 @@ scolon_case	srcs/interpreter/interpreter.c	/^void	scolon_case(t_ast *node, t_pos
 script_test	srcs/main.c	/^void		script_test(char **av, t_pos pos)$/;"	f
 search_and_print	srcs/prompt/history/history_search.c	/^char			*search_and_print(char *input, t_pos *pos)$/;"	f
 search_conversion	libft/srcs/ft_printf/parser.c	/^void	search_conversion(t_printf **lst)$/;"	f
+search_good_expansion	srcs/environnement/parameter_expansion.c	/^int				search_good_expansion(char *tmp)$/;"	f
 search_job	srcs/builtins/bt_jobs.c	/^static t_job	*search_job(char *av)$/;"	f	file:
 search_keyhook	srcs/prompt/history/history_search.c	/^int				search_keyhook(t_node **input, char buffer[], char *current_choice)$/;"	f
 search_to_str	srcs/prompt/history/history_search.c	/^char			*search_to_str(t_node *input)$/;"	f
@@ -1115,7 +1114,6 @@ term	includes/env.h	/^	int				term;$/;"	m	struct:s_shell
 term_shell	includes/env.h	/^	struct termios	term_shell;$/;"	m	struct:s_shell	typeref:struct:s_shell::termios
 termsize	includes/sh21.h	/^	struct winsize	termsize;$/;"	m	struct:s_pos	typeref:struct:s_pos::winsize
 test	srcs/builtins/bt_echo.c	/^void		test(void)$/;"	f
-test	tt.c	/^void	test(const char *tes)$/;"	f
 test_quote	srcs/redirection/test_quote.c	/^int			test_quote(char *name)$/;"	f
 tmodes	includes/env.h	/^	struct termios	tmodes;$/;"	m	struct:s_job	typeref:struct:s_job::termios
 token	includes/lexer.h	/^	t_token	*token;$/;"	m	struct:s_lex

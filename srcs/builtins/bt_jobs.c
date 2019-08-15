@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 12:56:32 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/14 03:50:25 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ char		*cmd_job_s(t_job *j)
 		}
 		p = p->next;
 	}
+	if (j->fg == 0)
+	{
+		cache = ft_strjoin(str, " &");
+		ft_strdel(&str);
+		str = cache;
+	}
 	return (str);
 }
 
@@ -77,7 +83,7 @@ char		*ft_inter_signal(int sig, t_job *j)
 
 	str = NULL;
 	if (sig == 0 && job_is_completed(j))
-		str = ft_strdup("Done");
+		str = ft_strdup("Terminated: 15");
 	else if (sig == 0 && (!job_is_completed(j)) && (!job_is_stopped(j)))
 		str = ft_strdup("Running");
 	else if (sig == 1)
@@ -96,10 +102,14 @@ char		*ft_inter_signal(int sig, t_job *j)
 		str = ft_strdup("Stopped(SIGSTOP)");
 	else if (sig == 18)
 		str = ft_strdup("Stopped(SIGTSTP)");
+	else if (sig == 19)
+		str = ft_strdup("Running(SIGCONT)");
 	else if (sig == 21)
 		str = ft_strdup("Stopped(SIGTTIN)");
 	else if (sig == 22)
 		str = ft_strdup("Stopped(SIGTTOU)");
+	else
+		str = ft_itoa(sig);
 	return (str);
 }
 
@@ -447,9 +457,23 @@ t_job		*job_for_bg_fg(char **av, t_redirection *r)
 	return (job_launch);
 }
 
+void		change_fg_var_job(t_job *j, int fg)
+{
+	t_process	*p;
+
+	j->fg = fg;
+	p = j->first_process;
+	while (p)
+	{
+		p->fg = fg;
+		p = p->next;
+	}
+}
+
 int			bt_bg(t_job *j, char **av, t_redirection *r)
 {
-	t_job	*job_launch;
+	char		*cmd;
+	t_job		*job_launch;
 
 	if (j->fg == 0)
 	{
@@ -462,12 +486,18 @@ int			bt_bg(t_job *j, char **av, t_redirection *r)
 		display_no_current_job(r, "bg");
 		return (-2);
 	}
+	change_fg_var_job(job_launch, 0);
+	cmd = cmd_job_s(job_launch);
+	if (cmd)
+		ft_dprintf(STDOUT_FILENO, "%s\n", cmd);
+	ft_strdel(&cmd);
 	continue_job(job_launch, 0);
 	return (0);
 }
 
 int			bt_fg(t_job *j, char **av, t_redirection *r)
 {
+	char	*cmd;
 	t_job	*job_launch;
 
 	if (j->fg == 0)
@@ -481,6 +511,11 @@ int			bt_fg(t_job *j, char **av, t_redirection *r)
 		display_no_current_job(r, "fg");
 		return (-2);
 	}
+	change_fg_var_job(job_launch, 1);
+	cmd = cmd_job_s(job_launch);
+	if (cmd)
+		ft_dprintf(STDOUT_FILENO, "%s\n", cmd);
+	ft_strdel(&cmd);
 	continue_job(job_launch, 1);
 	return (0);
 }

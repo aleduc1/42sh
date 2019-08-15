@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/13 01:28:35 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/14 03:23:49 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,30 +47,17 @@ static int	condition_clean_list(t_job *j, pid_t pid)
 {
 	int	status;
 
-	t_process *p;
-
-	p = j->first_process;
-	while (p)
-	{
-		status = p->status;
-		if (p->notif_stop == 0 && (status == 1 || status == 2 || status == 3 || status == 9
-			|| status == 15))
-		{
-			ft_dprintf(STDERR_FILENO, "[1]+  Terminated: %d          %s\n",
-				j->first_process->status, j->first_process->cmd[0]);
-			j->notif_stop = 1;
-			p->notif_stop = 1;
-			break ;
-		}
-		p = p->next;
-	}
-	// ft_printf("%d, %d - %d\n", status, job_is_completed(j), job_is_stopped(j));
 	if (job_is_completed(j) || (j->first_process->pid == 0
 		&& job_is_stopped(j) == 0)
 		|| j->first_process->pid == pid)
 		return (1);
 	return (0);
 }
+
+/*
+** Clean terminated command
+** Args:	pid_t pid -> force clean of the command identified by this pid
+*/
 
 void		clean_fuck_list(pid_t pid)
 {

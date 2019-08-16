@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/15 21:51:56 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/15 22:27:00 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,13 @@ void		bt_jobs_p(t_job *j, int max_current, t_redirection *r)
 	ft_dprintf(r->out, "\n");
 }
 
-void	🤠(void)
+char		value_char_job(int current, int max)
 {
-
-	int fefe = 45;
-	ft_printf("VIANT");
+	if (current == max)
+		return ('+');
+	if (current == max - 1)
+		return ('-');
+	return (' ');
 }
 
 static void	bt_jobs_l(t_job *j, int max_current, t_redirection *r)
@@ -158,21 +160,10 @@ static void	bt_jobs_l(t_job *j, int max_current, t_redirection *r)
 	t_process	*p;
 	char		c;
 	int			num_sig;
-	int			㋡;
 
-	int 😀 = 6;
-	🤠();
-	㋡ = 3;
-	ft_printf("dd = %d\n", 😀, ㋡);
 	p = j->first_process;
-	if (j->current == max_current)
-		c = '+';
-	else if (j->current == max_current - 1)
-		c = '-';
-	else
-		c = ' ';
-	ft_dprintf(r->out, "[%d]%c",
-			j->process_id, c);
+	c = value_char_job(j->current, max_current);
+	ft_dprintf(r->out, "[%d]%c", j->process_id, c);
 	while (p)
 	{
 		num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
@@ -182,11 +173,11 @@ static void	bt_jobs_l(t_job *j, int max_current, t_redirection *r)
 			ft_dprintf(r->out, "\t%d %s: %d\t%s", p->pid, name_sig, num_sig, cmd);
 		else
 			ft_dprintf(r->out, "\t%d %s\t%s", p->pid, name_sig, cmd);
-		ft_strdel(&name_sig);
 		if (p->next)
 			ft_dprintf(r->out, " |\n");
 		else
 			ft_dprintf(r->out, "\n");
+		ft_strdel(&name_sig);
 		ft_strdel(&cmd);
 		p = p->next;
 	}
@@ -210,11 +201,7 @@ void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 	if (!str)
 		return ;
 	cmd = cmd_job_s(j);
-	c = ' ';
-	if (j->current == max_current)
-		c = '+';
-	else if (j->current == max_current - 1)
-		c = '-';
+	c = value_char_job(j->current, max_current);
 	ft_dprintf(r->out, "[%d]%c\t%s\t%s\n", j->process_id, c, str, cmd);
 	ft_strdel(&str);
 	ft_strdel(&cmd);

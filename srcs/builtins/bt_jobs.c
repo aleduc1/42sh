@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/15 22:27:00 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/16 03:48:31 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 	char		*str;
 	char		*cmd;
 	char		c;
+	int			num_sig;
 
 	p = j->first_process;
 	while (p)
@@ -197,7 +198,8 @@ void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 			break ;
 		p = p->next;
 	}
-	str = ft_inter_signal(WSTOPSIG(p->status), j);
+	num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
+	str = ft_inter_signal(num_sig, j);
 	if (!str)
 		return ;
 	cmd = cmd_job_s(j);

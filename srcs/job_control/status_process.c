@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/14 23:59:21 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/16 03:49:02 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,11 @@ void		job_info(t_job *j, char *status)
 void		job_done(t_job *j)
 {
 	char	*cmd;
+	char	c;
 
+	c = value_char_job(j->current, get_shell()->max_job_current);
 	cmd = cmd_job_s(j);
-	if (get_shell()->max_job_current == j->current)
-		ft_printf("[%d]%c Done	%s\n", j->process_id,
-				'+', cmd);
-	else if (get_shell()->max_job_current - 1 == j->current)
-		ft_printf("[%d]%c Done	%s\n", j->process_id,
-				'-', cmd);
-	else
-		ft_printf("[%d]%c Done	%s\n", j->process_id,
-				' ', cmd);
+	ft_printf("[%d]%c Done	%s\n", j->process_id, c, cmd);
 	j->notif_stop = 1;
 	ft_strdel(&cmd);
 }
@@ -57,8 +51,15 @@ void		display_stat_job(t_job *j)
 	{
 		if (p->status != p->last_status && p->status != 2)
 		{
-			if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
+			if (j->fg == 0 && job_is_completed(j))
+				job_done(j);
+			else if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
 				bt_jobs_s(j, get_shell()->max_job_current, j->r);
+			else if (p->status == 3)
+			{
+				bt_jobs_s(j, get_shell()->max_job_current, j->r);
+				break ;
+			}
 			notified = 1;
 			p->last_status = p->status;
 		}

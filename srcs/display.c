@@ -6,11 +6,12 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 09:47:57 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/01 11:31:51 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/16 03:12:21 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "job.h"
 
 static char	*info_display(char *buf)
 {
@@ -69,11 +70,15 @@ void		display_prompt(void)
 
 	path = pwd_display();
 	user = value_line_path("USER", 0);
-	ft_printf("❰\033[32;01m%s\033[00m ❙ \033[33;01m%s\033[00m❱ ", user, path);
+	ft_putstr("❰\033[32;01m");
+	ft_putstr(user);
+	ft_putstr("\033[00m ❙ \033[33;01m");
+	ft_putstr(path);
+	ft_putstr("\033[00m❱ ");
 	if (check_last_command() == 0)
-		ft_printf("\033[32;01m✔\033[00m > ");
+		ft_putstr("\033[32;01m✔\033[00m > ");
 	else
-		ft_printf("\033[31;01m✘\033[00m > ");
+		ft_putstr("\033[31;01m✘\033[00m > ");
 	ft_strdel(&path);
 	ft_strdel(&user);
 }

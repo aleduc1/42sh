@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/14 03:30:50 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:21:40 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,6 @@ static int	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
 			p->stopped = 0;
 		else
 		{
-			/*
-			if ((!j->notif_stop) && (status == 1 || status == 2 || status == 3
-				|| status == 9 || status == 15))
-			{
-				ft_dprintf(STDERR_FILENO, "[1]+  Terminated: %d          %s\n",
-					j->first_process->status, j->first_process->cmd[0]);
-				//p->notif_stop = 1;
-				j->notif_stop = 1;
-			}*/
 			p->completed = 1;
 			if (WIFSIGNALED(status))
 				gest_return(WTERMSIG(p->status));
@@ -84,7 +75,7 @@ int			mark_process_status(pid_t pid, int status)
 	return (-1);
 }
 
-int		choice_gest_return(t_job *j, int status)
+int			choice_gest_return(t_job *j, int status)
 {
 	t_process	*p;
 	char		*str;

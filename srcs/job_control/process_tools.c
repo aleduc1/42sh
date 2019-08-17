@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/05 02:17:20 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:23:34 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	config_pid_process(pid_t pgid, int fg)
 			exit(1);
 		if (fg)
 			tcsetpgrp(s->term, pgid);
-	dfl_signaux();
+		dfl_signaux();
 	}
 }
 
@@ -45,7 +45,6 @@ void	act_job(t_job *j, int fg)
 	else
 	{
 		bt_jobs_p(j, 0, j->r);
-		// job_info(j, "launched");
 		add_in_bg(j, 0);
 	}
 }

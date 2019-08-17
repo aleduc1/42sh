@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:24:08 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/14 03:17:57 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:22:43 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,6 @@ t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 	j = get_end_job();
 	j->next = init_job();
 	j = j->next;
-	// j = get_first_job(NULL);
-	// while (j)
-	// {
-	// 	if (!j->next)
-	// 	{
-	// 		j->next = init_job();
-	// 		j = j->next;
-	// 		break ;
-	// 	}
-	// 	j = j->next;
-	// }
 	file_to_close(t, j);
 	j->pgid = 0;
 	j->fg = fg;

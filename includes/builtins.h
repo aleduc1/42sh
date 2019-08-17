@@ -85,11 +85,71 @@ int					cd_getopt(char ac, char **av, t_cd *cd);
 */
 
 int					bt_jobs(t_job *j, char **av, t_redirection *r);
+
+
+void				bt_jobs_s(t_job *j, int is_stopped, t_redirection *r);
 void				bt_jobs_p(t_job *j, int max_current, t_redirection *r);
+
+/*
+** bt_bg.c
+*/
+
 int					bt_bg(t_job *j, char **av, t_redirection *r);
+
+/*
+** bt_fg.c
+*/
+
 int					bt_fg(t_job *j, char **av, t_redirection *r);
+
+/*
+** bt_fg_bg_tools.c
+*/
+
+t_job				*job_for_bg_fg(char **av, t_redirection *r);
+void				change_fg_var_job(t_job *j, int fg);
+
+/*
+** bt_jobs_tools.c
+*/
+
+char				*assembly_cmd_process(t_process *p);
 char				*cmd_job_s(t_job *j);
+char				*ft_inter_signal(int sig, t_job *j);
+
+/*
+** bt_jobs_tools_bis.c
+*/
+
+char				*ft_name_sig(int sig);
+t_job				*ft_search_exist_job(char *av, int index);
+
+/*
+** bt_jobs_options.c
+*/
+
+t_job				*search_job(char *av);
+void				display_jobs_options(void (*p)(t_job*, int, t_redirection*),
+						t_redirection *r, char **av);
+
+/*
+** bt_jobs_display.c
+*/
+
 char				value_char_job(int current, int max);
+void				bt_jobs_p(t_job *j, int max_current, t_redirection *r);
+void				bt_jobs_l(t_job *j, int max_current, t_redirection *r);
+void				bt_jobs_s(t_job *j, int max_current, t_redirection *r);
+
+/*
+** search_job.c
+*/
+
+t_job				*last_jobs(void);
+t_job				*previous_jobs(void);
+t_job				*ft_search_pid_job(pid_t pid);
+t_job				*ft_search_id_job(char *av, int index);
+t_job				*ft_search_str_job(char *av, int index);
 
 /*
 ** bt_export.c

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/14 03:23:49 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:15:15 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void		display_lst_job(t_job *j)
 
 static int	condition_clean_list(t_job *j, pid_t pid)
 {
-	int	status;
-
 	if (job_is_completed(j) || (j->first_process->pid == 0
 		&& job_is_stopped(j) == 0)
 		|| j->first_process->pid == pid)

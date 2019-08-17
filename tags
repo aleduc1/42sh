@@ -188,7 +188,8 @@ apply_simple_var	srcs/environnement/apply_parser_var.c	/^static int	apply_simple
 arg__	includes/builtins.h	/^	int		arg__;$/;"	m	struct:s_cd
 arg_l	includes/builtins.h	/^	int		arg_l;$/;"	m	struct:s_cd
 arg_p	includes/builtins.h	/^	int		arg_p;$/;"	m	struct:s_cd
-assemply_cmd_process	srcs/builtins/bt_jobs.c	/^char		*assemply_cmd_process(t_process *p)$/;"	f
+assembly_cmd_process	srcs/builtins/bt_jobs/bt_jobs_tools.c	/^char		*assembly_cmd_process(t_process *p)$/;"	f
+assembly_command_s	srcs/builtins/bt_jobs/bt_jobs_tools.c	/^static void	assembly_command_s(t_process *p, char **str)$/;"	f	file:
 assign_value_current	srcs/job_control/add_job.c	/^static void	assign_value_current(pid_t pgid, t_job *new_job)$/;"	f	file:
 assign_value_parameter_percents	srcs/environnement/expansion_percent.c	/^static int	assign_value_parameter_percents(int *index, char **stock,$/;"	f	file:
 ast_parser	srcs/parser/ast/tree_utils.c	/^t_ast		*ast_parser(t_lex *tokens)$/;"	f
@@ -206,29 +207,29 @@ bt_addalias	srcs/builtins/bt_alias.c	/^static void				bt_addalias(char **av, int
 bt_addhash	srcs/builtins/bt_hash.c	/^static int			bt_addhash(char *av, int ret)$/;"	f	file:
 bt_alias	srcs/builtins/bt_alias.c	/^int					bt_alias(char **av)$/;"	f
 bt_alias_show	srcs/builtins/bt_alias.c	/^static void			bt_alias_show(void)$/;"	f	file:
-bt_bg	srcs/builtins/bt_jobs.c	/^int			bt_bg(t_job *j, char **av, t_redirection *r)$/;"	f
+bt_bg	srcs/builtins/bt_jobs/bt_bg.c	/^int			bt_bg(t_job *j, char **av, t_redirection *r)$/;"	f
 bt_cd	srcs/builtins/bt_cd.c	/^int			bt_cd(char **av)$/;"	f
 bt_echo	srcs/builtins/bt_echo.c	/^int			bt_echo(char **av, t_redirection *r)$/;"	f
 bt_exit	srcs/builtins/bt_exit.c	/^int			bt_exit(t_job *j, t_pos *pos)$/;"	f
 bt_export	srcs/environnement/bt_export.c	/^int			bt_export(char **value, t_redirection *r)$/;"	f
-bt_fg	srcs/builtins/bt_jobs.c	/^int			bt_fg(t_job *j, char **av, t_redirection *r)$/;"	f
+bt_fg	srcs/builtins/bt_jobs/bt_fg.c	/^int			bt_fg(t_job *j, char **av, t_redirection *r)$/;"	f
 bt_hash	srcs/builtins/bt_hash.c	/^int					bt_hash(char **av)$/;"	f
 bt_hash_showall	srcs/builtins/bt_hash.c	/^static void			bt_hash_showall(void)$/;"	f	file:
-bt_jobs	srcs/builtins/bt_jobs.c	/^int			bt_jobs(t_job *j, char **av, t_redirection *r)$/;"	f
-bt_jobs_l	srcs/builtins/bt_jobs.c	/^static void	bt_jobs_l(t_job *j, int max_current, t_redirection *r)$/;"	f	file:
-bt_jobs_p	srcs/builtins/bt_jobs.c	/^void		bt_jobs_p(t_job *j, int max_current, t_redirection *r)$/;"	f
-bt_jobs_s	srcs/builtins/bt_jobs.c	/^void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)$/;"	f
+bt_jobs	srcs/builtins/bt_jobs/bt_jobs.c	/^int			bt_jobs(t_job *j, char **av, t_redirection *r)$/;"	f
+bt_jobs_l	srcs/builtins/bt_jobs/bt_jobs_display.c	/^void		bt_jobs_l(t_job *j, int max_current, t_redirection *r)$/;"	f
+bt_jobs_p	srcs/builtins/bt_jobs/bt_jobs_display.c	/^void		bt_jobs_p(t_job *j, int max_current, t_redirection *r)$/;"	f
+bt_jobs_s	srcs/builtins/bt_jobs/bt_jobs_display.c	/^void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)$/;"	f
 bt_showalias	srcs/builtins/bt_alias.c	/^static int			bt_showalias(char **av, int i, int ret)$/;"	f	file:
 bt_test	srcs/builtins/bt_test.c	/^int		bt_test(char **av, t_redirection *r)$/;"	f
 bt_unalias	srcs/builtins/bt_unalias.c	/^int		bt_unalias(char **av)$/;"	f
-builtin	srcs/commands/is_builtin.c	/^int		builtin(t_job *j, t_process *p, t_pos *pos, int fg)$/;"	f
+builtin	srcs/commands/is_builtin.c	/^int			builtin(t_job *j, t_process *p, t_pos *pos, int fg)$/;"	f
 builtin_cd	srcs/builtins/builtin_cd.c	/^int			builtin_cd(char **av)$/;"	f
 builtin_env	srcs/builtins/builtin_env.c	/^int				builtin_env(t_redirection *r, char **argv, t_pos *pos)$/;"	f
 builtin_env_display	srcs/builtins/builtin_env.c	/^int				builtin_env_display(t_redirection *r)$/;"	f
 builtin_env_key	srcs/builtins/builtin_env.c	/^static t_env	*builtin_env_key(t_env *my_env, char *argv, int *ret)$/;"	f	file:
 builtin_env_s	srcs/builtins/builtin_env.c	/^static int		builtin_env_s(t_redirection *r, char **argv, pid_t pid,$/;"	f	file:
-builtin_exist	srcs/commands/is_builtin.c	/^int		builtin_exist(char *cmd)$/;"	f
-builtin_fc	srcs/prompt/history/history_fc.c	/^int builtin_fc(char **av, t_pos *pos)$/;"	f
+builtin_exist	srcs/commands/is_builtin.c	/^int			builtin_exist(char *cmd)$/;"	f
+builtin_fc	srcs/prompt/history/history_fc.c	/^int			builtin_fc(char **av, t_pos *pos)$/;"	f
 builtin_set	srcs/builtins/builtin_env.c	/^int				builtin_set(t_redirection *r)$/;"	f
 cd_canonical	srcs/builtins/bt_cd_utilstwo.c	/^int		cd_canonical(t_cd *cd)$/;"	f
 cd_canonical_a	srcs/builtins/bt_cd_canonical_a.c	/^int		cd_canonical_a(t_cd *cd)$/;"	f
@@ -250,7 +251,7 @@ cd_stepsev	srcs/builtins/bt_cd.c	/^static int	cd_stepsev(t_cd *cd)$/;"	f	file:
 cd_stepten	srcs/builtins/bt_cd.c	/^static int	cd_stepten(t_cd *cd)					\/\/ Step 10$/;"	f	file:
 cd_testcdpath	srcs/builtins/bt_cd_utils.c	/^int		cd_testcdpath(char *path, char *directory, char **test)$/;"	f
 cd_testpath	srcs/builtins/bt_cd_utils.c	/^int		cd_testpath(char *path, char *directory, char **test)$/;"	f
-change_fg_var_job	srcs/builtins/bt_jobs.c	/^void		change_fg_var_job(t_job *j, int fg)$/;"	f
+change_fg_var_job	srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^void			change_fg_var_job(t_job *j, int fg)$/;"	f
 check_arg	srcs/builtins/builtin_cd_verif.c	/^void		check_arg(char **str)$/;"	f
 check_double	srcs/lexer/handle_stuff.c	/^void	check_double(char *input, int *i)$/;"	f
 check_env_path	srcs/environnement/path.c	/^static char	*check_env_path(char *command)$/;"	f	file:
@@ -271,7 +272,7 @@ check_return	srcs/builtins/builtin_cd.c	/^static int	check_return(char *argument
 check_scrolling	srcs/prompt/edition/editiontools.c	/^void		check_scrolling(t_pos *pos)$/;"	f
 check_type	srcs/lexer/adding_token.c	/^t_token	*check_type(t_tab_type **tab_of_type, char *input, int start, int end)$/;"	f
 check_whitespace_input	srcs/main.c	/^int			check_whitespace_input(char *input)$/;"	f
-choice_gest_return	srcs/job_control/gest_process.c	/^int		choice_gest_return(t_job *j, int status)$/;"	f
+choice_gest_return	srcs/job_control/gest_process.c	/^int			choice_gest_return(t_job *j, int status)$/;"	f
 clean_ast	srcs/parser/ast/tree_utils.c	/^void		clean_ast(t_ast *node)$/;"	f
 clean_close_fd	srcs/job_control/free_job_file.c	/^static void	clean_close_fd(t_job *j)$/;"	f	file:
 clean_file	srcs/job_control/free_job_file.c	/^void		clean_file(t_job *j)$/;"	f
@@ -290,7 +291,7 @@ close_std	srcs/builtins/bt_exit.c	/^static void	close_std(void)$/;"	f	file:
 cmd	includes/env.h	/^	char				**cmd;$/;"	m	struct:s_process
 cmd	includes/env.h	/^	char			*cmd;$/;"	m	struct:s_job
 cmd	srcs/prompt/history/history_fc.c	/^	char		*cmd;$/;"	m	struct:s_fc	file:
-cmd_job_s	srcs/builtins/bt_jobs.c	/^char		*cmd_job_s(t_job *j)$/;"	f
+cmd_job_s	srcs/builtins/bt_jobs/bt_jobs_tools.c	/^char		*cmd_job_s(t_job *j)$/;"	f
 cmd_path	includes/env.h	/^	char				*cmd_path;$/;"	m	struct:s_process
 cnt_words	libft/srcs/ft_strsplit.c	/^static int	cnt_words(const char *s, char c)$/;"	f	file:
 cnt_words	libft/srcs/ft_strsplit_commands.c	/^static int	cnt_words(char *s)$/;"	f	file:
@@ -354,8 +355,8 @@ display_error_syntax	srcs/commands/errors.c	/^void	display_error_syntax(char *ke
 display_error_tc	srcs/commands/errors.c	/^void	display_error_tc(t_redirection *r, char *name)$/;"	f
 display_invalid_option_job	srcs/commands/errors.c	/^void	display_invalid_option_job(t_redirection *r, char *name)$/;"	f
 display_job_stopped	srcs/commands/errors.c	/^void	display_job_stopped(void)$/;"	f
-display_jobs	srcs/builtins/bt_jobs.c	/^static void	display_jobs(void (*p)(t_job*, int, t_redirection*),$/;"	f	file:
-display_jobs_options	srcs/builtins/bt_jobs.c	/^static void	display_jobs_options(void (*p)(t_job*, int, t_redirection*),$/;"	f	file:
+display_jobs	srcs/builtins/bt_jobs/bt_jobs.c	/^static void	display_jobs(void (*p)(t_job*, int, t_redirection*),$/;"	f	file:
+display_jobs_options	srcs/builtins/bt_jobs/bt_jobs_options.c	/^void			display_jobs_options(void (*p)(t_job*, int, t_redirection*),$/;"	f
 display_kill_not_work	srcs/commands/errors.c	/^void	display_kill_not_work(t_redirection *r, char *name)$/;"	f
 display_lst_job	srcs/commands/clean_commands.c	/^void		display_lst_job(t_job *j)$/;"	f
 display_no_current_job	srcs/commands/errors.c	/^void	display_no_current_job(t_redirection *r, char *name)$/;"	f
@@ -389,7 +390,6 @@ dpush	srcs/prompt/others/dlist.c	/^void		dpush(t_node **head, char key)$/;"	f
 dquote	includes/sh21.h	/^	int				dquote;$/;"	m	struct:s_integerity
 dquote	srcs/prompt/multiline/multiline.c	/^void		dquote(t_multi *lstcursor, t_multi **multi, t_pos *pos)$/;"	f
 dub_possible	srcs/lexer/lexer.c	/^int		dub_possible(char c)$/;"	f
-dup_restore	srcs/redirection/dup_restore.c	/^void	dup_restore(void)$/;"	f
 e_token_type	includes/lexer.h	/^enum	e_token_type$/;"	g
 echo_arg	srcs/builtins/bt_echo.c	/^static int	echo_arg(char **av)$/;"	f	file:
 edge_case	srcs/interpreter/interpreter.c	/^void	edge_case(t_ast *node, t_pos *pos, int bg)$/;"	f
@@ -416,27 +416,28 @@ expand_schriek_less	srcs/prompt/history/history_expand.c	/^char	*expand_schriek_
 expand_schriek_number	srcs/prompt/history/history_expand.c	/^char	*expand_schriek_number(t_pos *pos, int number)$/;"	f
 expand_schriek_word	srcs/prompt/history/history_expand.c	/^char	*expand_schriek_word(t_pos *pos, char *word)$/;"	f
 expr	srcs/parser/ast/ast_parser.c	/^t_ast			*expr(int rbp)$/;"	f
-fc_count	srcs/prompt/history/history_fc.c	/^int fc_count(t_node *history)$/;"	f
-fc_debug	srcs/prompt/history/history_fc.c	/^void fc_debug(t_fc *fc)$/;"	f
-fc_exec	srcs/prompt/history/history_fc.c	/^int	fc_exec(t_fc *fc, t_pos *pos)$/;"	f
-fc_flags	srcs/prompt/history/history_fc.c	/^int		fc_flags(char **av, t_fc *fc)$/;"	f
-fc_flags_e	srcs/prompt/history/history_fc.c	/^int		fc_flags_e(char **av, t_fc *fc)$/;"	f
-fc_flags_lnr	srcs/prompt/history/history_fc.c	/^int		fc_flags_lnr(char **av, t_fc *fc)$/;"	f
-fc_flags_s	srcs/prompt/history/history_fc.c	/^int		fc_flags_s(char **av, t_fc *fc)$/;"	f
-fc_get_args	srcs/prompt/history/history_fc.c	/^int		fc_get_args(char **av, int argc, t_fc *fc)$/;"	f
-fc_get_index	srcs/prompt/history/history_fc.c	/^int fc_get_index(t_node *lstcursor, int count, int *fc_index, char *fc_first_last)$/;"	f
-fc_l	srcs/prompt/history/history_fc.c	/^int fc_l(t_fc *fc, t_pos *pos)$/;"	f
-fc_l_basic	srcs/prompt/history/history_fc.c	/^int fc_l_basic(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
-fc_l_first	srcs/prompt/history/history_fc.c	/^int	fc_l_first(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
-fc_l_first_last	srcs/prompt/history/history_fc.c	/^int fc_l_first_last(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
-fc_l_first_nb	srcs/prompt/history/history_fc.c	/^int fc_l_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
-fc_l_first_word	srcs/prompt/history/history_fc.c	/^int fc_l_first_word(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
-fc_lr_basic	srcs/prompt/history/history_fc.c	/^int fc_lr_basic(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
-fc_lr_first_nb	srcs/prompt/history/history_fc.c	/^int fc_lr_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
-fc_lr_first_word	srcs/prompt/history/history_fc.c	/^int fc_lr_first_word(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
-fc_print_first_last	srcs/prompt/history/history_fc.c	/^int fc_print_first_last(t_fc *fc, t_node *lstcursor, int i)$/;"	f
-fc_print_last_first	srcs/prompt/history/history_fc.c	/^int fc_print_last_first(t_fc *fc, t_node *lstcursor, int i)$/;"	f
-fc_usage	srcs/prompt/history/history_fc.c	/^int		fc_usage(int return_value, t_fc *fc, int error)$/;"	f
+fc_count	srcs/prompt/history/history_fc.c	/^int			fc_count(t_node *history)$/;"	f
+fc_debug	srcs/prompt/history/history_fc.c	/^void		fc_debug(t_fc *fc)$/;"	f
+fc_exec	srcs/prompt/history/history_fc.c	/^int			fc_exec(t_fc *fc, t_pos *pos)$/;"	f
+fc_flags	srcs/prompt/history/history_fc.c	/^int			fc_flags(char **av, t_fc *fc)$/;"	f
+fc_flags_e	srcs/prompt/history/history_fc.c	/^int			fc_flags_e(char **av, t_fc *fc)$/;"	f
+fc_flags_lnr	srcs/prompt/history/history_fc.c	/^int			fc_flags_lnr(char **av, t_fc *fc)$/;"	f
+fc_flags_s	srcs/prompt/history/history_fc.c	/^int			fc_flags_s(char **av, t_fc *fc)$/;"	f
+fc_get_args	srcs/prompt/history/history_fc.c	/^int			fc_get_args(char **av, int argc, t_fc *fc)$/;"	f
+fc_get_index	srcs/prompt/history/history_fc.c	/^int			fc_get_index(t_node *lstcursor, int count, int *fc_index, char *fc_first_last)$/;"	f
+fc_l	srcs/prompt/history/history_fc.c	/^int			fc_l(t_fc *fc, t_pos *pos)$/;"	f
+fc_l_basic	srcs/prompt/history/history_fc.c	/^int			fc_l_basic(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
+fc_l_first	srcs/prompt/history/history_fc.c	/^int			fc_l_first(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
+fc_l_first_last	srcs/prompt/history/history_fc.c	/^int			fc_l_first_last(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
+fc_l_first_nb	srcs/prompt/history/history_fc.c	/^int			fc_l_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
+fc_l_first_word	srcs/prompt/history/history_fc.c	/^int			fc_l_first_word(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
+fc_l_minus	srcs/prompt/history/history_fc.c	/^int			fc_l_minus(t_fc *fc, int count)$/;"	f
+fc_lr_basic	srcs/prompt/history/history_fc.c	/^int			fc_lr_basic(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
+fc_lr_first_nb	srcs/prompt/history/history_fc.c	/^int			fc_lr_first_nb(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
+fc_lr_first_word	srcs/prompt/history/history_fc.c	/^int			fc_lr_first_word(t_fc *fc, t_node *lstcursor, int count, int i)$/;"	f
+fc_print_first_last	srcs/prompt/history/history_fc.c	/^int			fc_print_first_last(t_fc *fc, t_node *lstcursor, int i)$/;"	f
+fc_print_last_first	srcs/prompt/history/history_fc.c	/^int			fc_print_last_first(t_fc *fc, t_node *lstcursor, int i)$/;"	f
+fc_usage	srcs/prompt/history/history_fc.c	/^int			fc_usage(int return_value, t_fc *fc, int error)$/;"	f
 fd	libft/includes/ft_printf.h	/^	int				fd;$/;"	m	struct:s_printf
 fg	includes/env.h	/^	int					fg;$/;"	m	struct:s_process
 fg	includes/env.h	/^	int				fg;$/;"	m	struct:s_job
@@ -542,10 +543,10 @@ ft_gest_float	libft/srcs/ft_printf/manage_float.c	/^void	ft_gest_float(char (*ls
 ft_getopt	srcs/builtins/get_options.c	/^int			ft_getopt(int ac, char *const *av, const char *optstr)$/;"	f
 ft_getopt_error	srcs/builtins/get_options.c	/^static int	ft_getopt_error(char *const *av, const char *optstr, int err)$/;"	f	file:
 ft_getopt_reset	srcs/builtins/get_options.c	/^void		ft_getopt_reset(void)$/;"	f
-ft_good_syntax	srcs/builtins/bt_jobs.c	/^static int		ft_good_syntax(char *av)$/;"	f	file:
+ft_good_syntax	srcs/builtins/bt_jobs/bt_jobs_options.c	/^static int		ft_good_syntax(char *av)$/;"	f	file:
 ft_inf_nan	libft/srcs/ft_printf/tools_float.c	/^void	ft_inf_nan(char (*str)[BUF_S], t_printf **lst, int stock[3])$/;"	f
 ft_init_redirect	srcs/redirection/list_redirect.c	/^t_redirect	*ft_init_redirect(void)$/;"	f
-ft_inter_signal	srcs/builtins/bt_jobs.c	/^char		*ft_inter_signal(int sig, t_job *j)$/;"	f
+ft_inter_signal	srcs/builtins/bt_jobs/bt_jobs_tools.c	/^char		*ft_inter_signal(int sig, t_job *j)$/;"	f
 ft_isalnum	libft/srcs/ft_isalnum.c	/^int		ft_isalnum(int c)$/;"	f
 ft_isalpha	libft/srcs/ft_isalpha.c	/^int		ft_isalpha(int c)$/;"	f
 ft_isascii	libft/srcs/ft_isascii.c	/^int		ft_isascii(int c)$/;"	f
@@ -592,6 +593,7 @@ ft_memdel	libft/srcs/ft_memdel.c	/^void	ft_memdel(void **ap)$/;"	f
 ft_memmove	libft/srcs/ft_memmove.c	/^void	*ft_memmove(void *dst, const void *src, size_t len)$/;"	f
 ft_memset	libft/srcs/ft_memset.c	/^void	*ft_memset(void *b, int c, size_t len)$/;"	f
 ft_mergesort	libft/srcs/ft_mergesort.c	/^void			ft_mergesort(int array[], int min, int max)$/;"	f
+ft_name_sig	srcs/builtins/bt_jobs/bt_jobs_tools_bis.c	/^char	*ft_name_sig(int sig)$/;"	f
 ft_new_line	libft/srcs/get_next_line.c	/^int		ft_new_line(char **s, char **line, int fd, int ret)$/;"	f
 ft_nextprime	libft/srcs/ft_prime.c	/^int		ft_nextprime(int x)$/;"	f
 ft_numlen	libft/srcs/ft_numlen.c	/^int	ft_numlen(int n)$/;"	f
@@ -621,14 +623,14 @@ ft_remove_last_chr	libft/srcs/ft_remove_last_chr.c	/^void		ft_remove_last_chr(ch
 ft_reset_value	libft/srcs/ft_printf/prepare.c	/^void	ft_reset_value(t_printf **lst)$/;"	f
 ft_reverse_tablo	libft/srcs/ft_reverse_tablo.c	/^void	ft_reverse_tablo(char (*lst)[BUF_S])$/;"	f
 ft_round_precision	libft/srcs/ft_printf/tools_float_bis.c	/^char	*ft_round_precision(char (*dst)[BUF_S], int precision)$/;"	f
-ft_search_exist_job	srcs/builtins/bt_jobs.c	/^t_job	*ft_search_exist_job(char *av, int index)$/;"	f
-ft_search_id_job	srcs/builtins/bt_jobs.c	/^t_job	*ft_search_id_job(char *av, int index)$/;"	f
-ft_search_pid_job	srcs/builtins/bt_jobs.c	/^t_job	*ft_search_pid_job(pid_t pid)$/;"	f
-ft_search_str_job	srcs/builtins/bt_jobs.c	/^t_job	*ft_search_str_job(char *av, int index)$/;"	f
+ft_search_exist_job	srcs/builtins/bt_jobs/bt_jobs_tools_bis.c	/^t_job	*ft_search_exist_job(char *av, int index)$/;"	f
+ft_search_id_job	srcs/job_control/search_job.c	/^t_job	*ft_search_id_job(char *av, int index)$/;"	f
+ft_search_pid_job	srcs/job_control/search_job.c	/^t_job	*ft_search_pid_job(pid_t pid)$/;"	f
+ft_search_str_job	srcs/job_control/search_job.c	/^t_job	*ft_search_str_job(char *av, int index)$/;"	f
 ft_see_binary	libft/srcs/ft_printf/binary.c	/^void	ft_see_binary(int nb)$/;"	f
 ft_see_binary_u64	libft/srcs/ft_printf/binary.c	/^void	ft_see_binary_u64(t_u64 nb)$/;"	f
-ft_simple_command	srcs/commands/commands.c	/^int			ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)$/;"	f
-ft_simple_command_redirection	srcs/commands/commands.c	/^int			ft_simple_command_redirection(char **argv, t_redirection *r,$/;"	f
+ft_simple_command	srcs/commands/commands.c	/^int				ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)$/;"	f
+ft_simple_command_redirection	srcs/commands/commands.c	/^int				ft_simple_command_redirection(char **argv, t_redirection *r,$/;"	f
 ft_sort_integer_table	libft/srcs/ft_sort_integer_table.c	/^int		*ft_sort_integer_table(int *tab, int size)$/;"	f
 ft_split	libft/srcs/ft_strsplit.c	/^static void	ft_split(const char *s, char c, char ***result)$/;"	f	file:
 ft_split	libft/srcs/ft_strsplit_commands.c	/^static void	ft_split(char *s, char ***result)$/;"	f	file:
@@ -794,7 +796,7 @@ init_alias	srcs/main.c	/^static void	init_alias(void)$/;"	f	file:
 init_array	libft/srcs/ft_printf/gest_flag.c	/^static void		(**init_array(void))(t_printf**)$/;"	f	file:
 init_array	srcs/environnement/gest_expansion.c	/^static char		*(**init_array(void))(char*, char*)$/;"	f	file:
 init_env	srcs/environnement/list_env.c	/^t_env		*init_env(void)$/;"	f
-init_fc	srcs/prompt/history/history_fc.c	/^void	init_fc(t_fc *fc)$/;"	f
+init_fc	srcs/prompt/history/history_fc.c	/^void		init_fc(t_fc *fc)$/;"	f
 init_heredoc	srcs/prompt/multiline/heredoc.c	/^void		init_heredoc(t_pos *pos)$/;"	f
 init_job	srcs/job_control/list_job.c	/^t_job		*init_job(void)$/;"	f
 init_maillon_env	srcs/environnement/list_env.c	/^t_env		*init_maillon_env(void)$/;"	f
@@ -826,7 +828,7 @@ is_hyph	srcs/lexer/if_checks.c	/^int		is_hyph(char c)$/;"	f
 is_in_path	srcs/environnement/path.c	/^char		*is_in_path(char *command)$/;"	f
 is_in_tab	srcs/lexer/if_checks.c	/^int		is_in_tab(t_tab_type **tab_of_type, char c)$/;"	f
 is_lesser_greater	srcs/lexer/if_checks.c	/^int		is_lesser_greater(char c)$/;"	f
-is_not_builtin	srcs/commands/commands.c	/^static int	is_not_builtin(t_job *j, t_process *p, int fg)$/;"	f	file:
+is_not_builtin	srcs/commands/commands.c	/^static int		is_not_builtin(t_job *j, t_process *p, int fg)$/;"	f	file:
 is_only_space	srcs/parser/pre_parser/remove_space/remove_space_token.c	/^int		is_only_space(t_lex **node_cmd)$/;"	f
 is_operator	srcs/parser/pre_parser/simple_command/type_check.c	/^int		is_operator(t_type type)$/;"	f
 is_other_expansion	srcs/environnement/parameter_expansion.c	/^int				is_other_expansion(char *tmp, char **dst)$/;"	f
@@ -836,7 +838,8 @@ is_split	libft/srcs/ft_strsplit.c	/^static int	is_split(char c, char spl)$/;"	f	
 is_split	libft/srcs/ft_strsplit_commands.c	/^static int	is_split(char *str)$/;"	f	file:
 j	libft/includes/libft.h	/^	int				j;$/;"	m	struct:s_merge
 job_done	srcs/job_control/status_process.c	/^void		job_done(t_job *j)$/;"	f
-job_for_bg_fg	srcs/builtins/bt_jobs.c	/^t_job		*job_for_bg_fg(char **av, t_redirection *r)$/;"	f
+job_for_bg_fg	srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^t_job			*job_for_bg_fg(char **av, t_redirection *r)$/;"	f
+job_for_bg_fg_opt	srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^static t_job	*job_for_bg_fg_opt(char **av, t_redirection *r)$/;"	f	file:
 job_info	srcs/job_control/status_process.c	/^void		job_info(t_job *j, char *status)$/;"	f
 job_is_completed	srcs/job_control/tools_job.c	/^int			job_is_completed(t_job *job)$/;"	f
 job_is_stopped	srcs/job_control/tools_job.c	/^int			job_is_stopped(t_job *job)$/;"	f
@@ -859,14 +862,14 @@ large_min_n	libft/srcs/ft_printf/apply_arg_n.c	/^void		large_min_n(t_printf **ls
 large_min_s	libft/srcs/ft_printf/apply_arg_s.c	/^void		large_min_s(t_printf **lst, int len_str)$/;"	f
 last	srcs/prompt/history/history_fc.c	/^	char		*last;$/;"	m	struct:s_fc	file:
 last_index	srcs/prompt/history/history_fc.c	/^	int			last_index;$/;"	m	struct:s_fc	file:
-last_jobs	srcs/builtins/bt_jobs.c	/^static t_job	*last_jobs(void)$/;"	f	file:
+last_jobs	srcs/job_control/search_job.c	/^t_job	*last_jobs(void)$/;"	f
 last_status	includes/env.h	/^	int					last_status;$/;"	m	struct:s_process
 launch_cd	srcs/builtins/builtin_cd.c	/^static int	launch_cd(char **str)$/;"	f	file:
 launch_job	srcs/job_control/process.c	/^int			launch_job(t_job *j, int fg)$/;"	f
-launch_job_blt	srcs/commands/is_builtin.c	/^int		launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)$/;"	f
+launch_job_blt	srcs/commands/is_builtin.c	/^int			launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)$/;"	f
 launch_job_pipe	srcs/job_control/process_pipe.c	/^void		launch_job_pipe(t_job *j, int fg)$/;"	f
 launch_process	srcs/job_control/process.c	/^int			launch_process(t_process *p, pid_t pgid, int fg)$/;"	f
-launch_process_blt	srcs/commands/is_builtin.c	/^int		launch_process_blt(t_job *j, t_process *p, t_pos *pos,$/;"	f
+launch_process_blt	srcs/commands/is_builtin.c	/^int			launch_process_blt(t_job *j, t_process *p, t_pos *pos,$/;"	f
 launch_process_pipe	srcs/job_control/process_pipe.c	/^static void	launch_process_pipe(t_process *p)$/;"	f	file:
 led	srcs/parser/ast/ast_parser.c	/^t_ast			*led(t_ast *left, t_token *t)$/;"	f
 left	includes/builtins.h	/^	struct s_hash_tree	*left;$/;"	m	struct:s_hash_tree	typeref:struct:s_hash_tree::s_hash_tree
@@ -955,7 +958,7 @@ prev	includes/lexer.h	/^	t_lex	*prev;$/;"	m	struct:s_lex
 prev	includes/sh21.h	/^	struct s_multi	*prev;$/;"	m	struct:s_multi	typeref:struct:s_multi::s_multi
 prev	includes/sh21.h	/^	struct s_node	*prev;$/;"	m	struct:s_node	typeref:struct:s_node::s_node
 prev	libft/includes/libft.h	/^	struct s_dlist	*prev;$/;"	m	struct:s_dlist	typeref:struct:s_dlist::s_dlist
-previous_jobs	srcs/builtins/bt_jobs.c	/^static t_job	*previous_jobs(void)$/;"	f	file:
+previous_jobs	srcs/job_control/search_job.c	/^t_job	*previous_jobs(void)$/;"	f
 print_buffer_and_clean	libft/srcs/ft_printf.c	/^static void			print_buffer_and_clean(char *buff, int fd)$/;"	f	file:
 print_prompt	srcs/prompt/edition/editiontools.c	/^void		print_prompt(void)$/;"	f
 print_push	srcs/parser/ast/tree_utils.c	/^void		print_push(char c)$/;"	f
@@ -998,7 +1001,7 @@ remove_space_token	srcs/parser/pre_parser/remove_space/remove_space_token.c	/^vo
 replace_alias	srcs/lexer/alias_replace.c	/^static char			*replace_alias(char *inpu, char *str, char *fir, char *val)$/;"	f	file:
 reset_multi	srcs/prompt/multiline/multiline.c	/^void		reset_multi(t_pos *pos)$/;"	f
 reset_stop	srcs/prompt/others/dlist_plus.c	/^void	reset_stop(char **inputstr, t_pos *pos, t_integrity *count)$/;"	f
-restore_redirection	srcs/commands/is_builtin.c	/^int			restore_redirection(void)$/;"	f
+restore_redirection	srcs/commands/is_builtin.c	/^void		restore_redirection(int fd[3])$/;"	f
 result_null	libft/srcs/ft_printf/tools_bis.c	/^void		result_null(t_printf **lst, char (*str)[BUF_S])$/;"	f
 return_good_dst	srcs/environnement/expansion_hash.c	/^char		*return_good_dst(char *stock, char *parameter)$/;"	f
 return_value	includes/env.h	/^	int					return_value;$/;"	m	struct:s_process
@@ -1035,6 +1038,7 @@ s_repalias	includes/builtins.h	/^typedef struct		s_repalias$/;"	s
 s_shell	includes/env.h	/^typedef struct		s_shell$/;"	s
 s_tab_type	includes/lexer.h	/^struct	s_tab_type$/;"	s
 s_token	includes/lexer.h	/^struct	s_token$/;"	s
+save_redirection	srcs/commands/is_builtin.c	/^void		save_redirection(int (*fd)[3])$/;"	f
 savecolumn	includes/sh21.h	/^	size_t			savecolumn;$/;"	m	struct:s_pos
 savecursor	srcs/prompt/edition/stalkcursor.c	/^void			savecursor(t_pos *pos)$/;"	f
 saverow	includes/sh21.h	/^	size_t			saverow;$/;"	m	struct:s_pos
@@ -1043,7 +1047,7 @@ script_test	srcs/main.c	/^void		script_test(char **av, t_pos pos)$/;"	f
 search_and_print	srcs/prompt/history/history_search.c	/^char			*search_and_print(char *input, t_pos *pos)$/;"	f
 search_conversion	libft/srcs/ft_printf/parser.c	/^void	search_conversion(t_printf **lst)$/;"	f
 search_good_expansion	srcs/environnement/parameter_expansion.c	/^int				search_good_expansion(char *tmp)$/;"	f
-search_job	srcs/builtins/bt_jobs.c	/^static t_job	*search_job(char *av)$/;"	f	file:
+search_job	srcs/builtins/bt_jobs/bt_jobs_options.c	/^t_job			*search_job(char *av)$/;"	f
 search_keyhook	srcs/prompt/history/history_search.c	/^int				search_keyhook(t_node **input, char buffer[], char *current_choice)$/;"	f
 search_to_str	srcs/prompt/history/history_search.c	/^char			*search_to_str(t_node *input)$/;"	f
 search_var	srcs/environnement/parser_var_bis.c	/^char		*search_var(char *src)$/;"	f
@@ -1074,7 +1078,6 @@ startrow	includes/sh21.h	/^	size_t			startrow;$/;"	m	struct:s_pos
 static_job	srcs/job_control/list_job.c	/^t_job		**static_job(void)$/;"	f
 static_shell	srcs/job_control/shell_struct.c	/^t_shell			**static_shell(void)$/;"	f
 status	includes/env.h	/^	int					status;$/;"	m	struct:s_process
-stock_fd_base	srcs/redirection/dup_restore.c	/^void	stock_fd_base(void)$/;"	f
 stock_process	srcs/commands/commands_pipe.c	/^static void	stock_process(char **argv, t_token *token, int end_pipe, int fg)$/;"	f	file:
 stop	includes/sh21.h	/^	int				stop;$/;"	m	struct:s_pos
 stopped	includes/env.h	/^	int					stopped;$/;"	m	struct:s_process
@@ -1137,6 +1140,7 @@ value	includes/builtins.h	/^	char	*value;$/;"	m	struct:s_hash
 value	includes/env.h	/^	char			*value;$/;"	m	struct:s_env
 value	libft/includes/ft_printf.h	/^	double			value;$/;"	m	struct:s_printf
 value	libft/includes/libft.h	/^	char			*value;$/;"	m	struct:s_lst
+value_char_job	srcs/builtins/bt_jobs/bt_jobs_display.c	/^char		value_char_job(int current, int max)$/;"	f
 value_is_empty	srcs/environnement/tools_env.c	/^int			value_is_empty(char *key)$/;"	f
 value_line_path	srcs/environnement/tools_env.c	/^char		*value_line_path(char *key, int env)$/;"	f
 value_parameter_percents	srcs/environnement/expansion_percent.c	/^static char	*value_parameter_percents(int index, char **stock, char *value)$/;"	f	file:

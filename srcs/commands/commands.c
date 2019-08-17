@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/09 15:29:19 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:19:26 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 /*
 ** launch command in a fork if not builtin command
 */
-static int	is_not_builtin(t_job *j, t_process *p, int fg)
+
+static int		is_not_builtin(t_job *j, t_process *p, int fg)
 {
 	int	verif;
 	int	last_return;
@@ -42,7 +43,7 @@ static int	is_not_builtin(t_job *j, t_process *p, int fg)
 **					if it's a background command -> ID background
 */
 
-int			ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
+int				ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
 {
 	int				fg;
 	int				verif;
@@ -101,7 +102,7 @@ t_redirection	*cpy_redirection(t_redirection *r)
 **				command.
 */
 
-int			ft_simple_command_redirection(char **argv, t_redirection *r,
+int				ft_simple_command_redirection(char **argv, t_redirection *r,
 	t_pos *pos, int fg)
 {
 	int				verif;

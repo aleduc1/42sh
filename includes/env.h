@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/16 03:05:57 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:26:03 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct		s_job
 	int				current;
 }					t_job;
 
-void		edit_current_value(int value);
+void				edit_current_value(int value);
 
 /*
 ** redirection.c
@@ -301,7 +301,7 @@ void				display_kill_not_work(t_redirection *r, char *name);
 void				display_error_tc(t_redirection *r, char *name);
 void				display_other_error(int fd_error, char *name, char *error);
 void				display_error_expansion(char *src);
-void    			display_error_syntax(char *key, char *value);
+void				display_error_syntax(char *key, char *value);
 
 /*
 ** commands_pipe.c

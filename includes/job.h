@@ -125,8 +125,6 @@ void			display_lst_job(t_job *j);
 void			clean_fuck_list(pid_t pid);
 void			free_job_redirection(t_job **j);
 
-void			bt_jobs_s(t_job *j, int is_stopped, t_redirection *r);
-
 /*
 ** manage_id_job.c
 */

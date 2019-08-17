@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/15 20:23:42 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:20:20 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 {
 	int	verif;
 
-	// if (ft_strequ(av[0], "env"))
-	// 	verif = builtin_env(p->r, av, pos);
 	if (ft_strequ(av[0], "set"))
 		verif = verif_set(p->cmd, 1, p->r, "set") ? builtin_set(p->r) : 1;
 	else if (ft_strequ(av[0], "setenv"))
@@ -120,12 +118,6 @@ void		restore_redirection(int fd[3])
 	close(fd[1]);
 	dup2(fd[2], STDERR_FILENO);
 	close(fd[2]);
-//	close(ft_atoi(value_line_path("STDIN", 0)));
-//	close(ft_atoi(value_line_path("STDOUT", 0)));
-//	close(ft_atoi(value_line_path("STDERR", 0)));
-//	add_set_value("STDIN", ft_itoa(fd[0]));
-//	add_set_value("STDOUT", ft_itoa(fd[1]));
-//	add_set_value("STDERR", ft_itoa(fd[2]));
 }
 
 /*
@@ -140,7 +132,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	int		fd[3];
 
 	av = p->cmd;
-//	save_redirection(&fd);
+	save_redirection(&fd);
 	verif = is_builtin_env(p, av, pos);
 	if (verif != -1)
 		;
@@ -156,13 +148,13 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		;
 	else
 		verif = -1;
-//	restore_redirection(fd);
+	restore_redirection(fd);
 	if (verif != -1)
 		gest_return(verif == -2 ? 1 : verif);
 	return (verif);
 }
 
-int		builtin_exist(char *cmd)
+int			builtin_exist(char *cmd)
 {
 	if (ft_strequ(cmd, "echo") || ft_strequ(cmd, "cd") || ft_strequ(cmd, "exit")
 		|| ft_strequ(cmd, "fc") || ft_strequ(cmd, "test")
@@ -181,7 +173,7 @@ int		builtin_exist(char *cmd)
 ** Folowing of launch_job_blt function
 */
 
-int		launch_process_blt(t_job *j, t_process *p, t_pos *pos,
+int			launch_process_blt(t_job *j, t_process *p, t_pos *pos,
 				int fg)
 {
 	char	**environ;
@@ -199,7 +191,7 @@ int		launch_process_blt(t_job *j, t_process *p, t_pos *pos,
 ** launch builtin in fork if is background command
 */
 
-int		launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)
+int			launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)
 {
 	pid_t		pid;
 	int			verif;
@@ -222,7 +214,7 @@ int		launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)
 ** Launch builtin command
 */
 
-int		builtin(t_job *j, t_process *p, t_pos *pos, int fg)
+int			builtin(t_job *j, t_process *p, t_pos *pos, int fg)
 {
 	int		verif;
 

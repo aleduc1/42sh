@@ -40,6 +40,7 @@ VPATH = objs:\
 		srcs/cleaning:\
 		srcs/interpreter:\
 		srcs/builtins:\
+		srcs/builtins/bt_jobs:\
 		srcs/redirection:\
 		srcs/hash_table
 
@@ -197,9 +198,16 @@ SRCS_NAMES = main.c \
 			 bt_export.c\
 			 gest_expansion.c\
 			 apply_redirection.c\
-			 dup_restore.c\
 			 errors.c\
-			 manage_id_job.c
+			 manage_id_job.c\
+			 bt_jobs_tools.c\
+			 bt_jobs_options.c\
+			 bt_jobs_display.c\
+			 bt_jobs_tools_bis.c\
+			 search_job.c\
+			 bt_fg.c\
+			 bt_bg.c\
+			 bt_fg_bg_tools.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

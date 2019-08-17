@@ -377,3 +377,16 @@ fc -lrn 10 20
 fc -lrn 10
 fc -l
 fc -lrn
+ls -l
+o ""
+echo "j'ai un leger probleme d'edition de ligne"
+ls -l
+ls -la
+ok great
+cd ..
+cd -
+pwd
+l
+ls -l | cat -e
+c
+exit

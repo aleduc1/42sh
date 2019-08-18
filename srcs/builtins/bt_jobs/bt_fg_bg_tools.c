@@ -6,12 +6,16 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:56:38 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 05:53:51 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
 #include "builtins.h"
+
+/*
+** Find option for fg or bg command
+*/
 
 static t_job	*job_for_bg_fg_opt(char **av, t_redirection *r)
 {
@@ -41,6 +45,10 @@ static t_job	*job_for_bg_fg_opt(char **av, t_redirection *r)
 	return (job_launch);
 }
 
+/*
+** Select job to launch for fg or bg command
+*/
+
 t_job			*job_for_bg_fg(char **av, t_redirection *r)
 {
 	t_job	*j;
@@ -62,6 +70,12 @@ t_job			*job_for_bg_fg(char **av, t_redirection *r)
 		job_launch = job_for_bg_fg_opt(av, r);
 	return (job_launch);
 }
+
+/*
+** Change fg variable on all process if the user use fg or bg command
+** Args:	t_job *j:	edit variable in this job
+**			int fg:		value variable
+*/
 
 void			change_fg_var_job(t_job *j, int fg)
 {

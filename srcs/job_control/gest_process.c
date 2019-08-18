@@ -6,11 +6,12 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:21:40 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/18 01:35:15 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
+#include "builtins.h"
 #include <errno.h>
 
 /*
@@ -20,7 +21,7 @@
 **					and can be restarted.
 */
 
-static int	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
+static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 {
 	if (p->pid == pid)
 	{
@@ -37,7 +38,12 @@ static int	action_process_status(pid_t pid, int status, t_job *j, t_process *p)
 		{
 			p->completed = 1;
 			if (WIFSIGNALED(status))
+			{
+				if (WTERMSIG(status) == 3 && (!j->notified))
+					bt_jobs_s(j, get_shell()->max_job_current, j->r);
+				j->notified = 1;
 				gest_return(WTERMSIG(p->status));
+			}
 		}
 		return (0);
 	}
@@ -61,9 +67,10 @@ int			mark_process_status(pid_t pid, int status)
 		while (j)
 		{
 			p = j->first_process;
+//			j->notified = 0;
 			while (p)
 			{
-				if (action_process_status(pid, status, j, p) == 0)
+				if (action_process_status(j, pid, status, p) == 0)
 					return (0);
 				p = p->next;
 			}

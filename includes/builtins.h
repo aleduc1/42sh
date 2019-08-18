@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/16 02:40:46 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 05:27:51 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,6 @@ int					cd_getopt(char ac, char **av, t_cd *cd);
 */
 
 int					bt_jobs(t_job *j, char **av, t_redirection *r);
-
-
-void				bt_jobs_s(t_job *j, int is_stopped, t_redirection *r);
-void				bt_jobs_p(t_job *j, int max_current, t_redirection *r);
 
 /*
 ** bt_bg.c

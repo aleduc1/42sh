@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:17:14 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 13:20:40 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/18 01:45:00 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ int				mark_process_status(pid_t pid, int status);
 ** status_process.c
 */
 
-void			job_info(t_job *j, char *status);
 void			job_notif(void);
 void			job_running(t_job *j);
 void			continue_job(t_job *j, int fg);

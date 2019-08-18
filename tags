@@ -368,7 +368,7 @@ display_other_error	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	d
 display_permission_denied	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_permission_denied(t_redirection *r, char *cmd)$/;"	f
 display_prompt	/Users/sbelondr/Desktop/42sh/srcs/display.c	/^void		display_prompt(void)$/;"	f
 display_redirection	/Users/sbelondr/Desktop/42sh/srcs/job_control/process.c	/^void		display_redirection(t_redirection *r)$/;"	f
-display_stat_job	/Users/sbelondr/Desktop/42sh/srcs/job_control/status_process.c	/^void		display_stat_job(t_job *j)$/;"	f
+display_stat_job	/Users/sbelondr/Desktop/42sh/srcs/job_control/status_process.c	/^static void	display_stat_job(t_job *j)$/;"	f	file:
 display_too_few_arg	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_too_few_arg(t_redirection *r, char *name)$/;"	f
 display_too_many_arg	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_too_many_arg(t_redirection *r, char *name)$/;"	f
 div_float	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/manage_float.c	/^void	div_float(char (*lst)[BUF_S], int d)$/;"	f
@@ -839,7 +839,7 @@ is_special_variable	/Users/sbelondr/Desktop/42sh/srcs/environnement/expansion_to
 is_split	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_strsplit.c	/^static int	is_split(char c, char spl)$/;"	f	file:
 is_split	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_strsplit_commands.c	/^static int	is_split(char *str)$/;"	f	file:
 j	/Users/sbelondr/Desktop/42sh/libft/includes/libft.h	/^	int				j;$/;"	m	struct:s_merge
-job_done	/Users/sbelondr/Desktop/42sh/srcs/job_control/status_process.c	/^void		job_done(t_job *j)$/;"	f
+job_done	/Users/sbelondr/Desktop/42sh/srcs/job_control/status_process.c	/^static void	job_done(t_job *j)$/;"	f	file:
 job_for_bg_fg	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^t_job			*job_for_bg_fg(char **av, t_redirection *r)$/;"	f
 job_for_bg_fg_opt	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^static t_job	*job_for_bg_fg_opt(char **av, t_redirection *r)$/;"	f	file:
 job_is_completed	/Users/sbelondr/Desktop/42sh/srcs/job_control/tools_job.c	/^int			job_is_completed(t_job *job)$/;"	f

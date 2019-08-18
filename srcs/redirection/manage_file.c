@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <sys/resource.h>
 
 /*
 ** pos -> pour les heredocs

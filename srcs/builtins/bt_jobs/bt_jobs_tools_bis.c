@@ -6,14 +6,14 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 03:14:16 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/17 05:42:00 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
 #include "builtins.h"
 
-char	*ft_name_sig(int sig)
+char		*ft_name_sig(int sig)
 {
 	char	*str;
 
@@ -29,26 +29,60 @@ char	*ft_name_sig(int sig)
 	return (str);
 }
 
-t_job	*ft_search_exist_job(char *av, int index)
-{
-	t_job	*job;
-	t_job	*final;
-	char	*str;
-	int		id;
+/*
+** for %? search if av exist in job-control
+** Args:	t_job *job:		search for this job
+**			t_job **final:	stock the job found here
+**			...:			see ft_search_exist_job
+** Return:	0 if 0 or 1 process are found and
+**				if final variable is not initialize
+**			1 if final variable is already initialized
+*/
 
-	id = ft_atoi(av + index);
+static int	ft_search_exist_in_process(t_job *job, t_job **final,
+			char *av, int index)
+{
+	t_process	*p;
+	char		*str;
+	int			i;
+
+	p = job->first_process;
+	while (p)
+	{
+		i = -1;
+		while (p->cmd[++i])
+		{
+			str = ft_strstr(p->cmd[i], av + index + 1);
+			if (str)
+			{
+				if (*final)
+					return (1);
+				else
+					*final = job;
+			}
+		}
+		p = p->next;
+	}
+	return (0);
+}
+
+/*
+** Search av on all job for `?%`
+** Args:	char *av:	key
+**			int index:	start character to search
+*/
+
+t_job		*ft_search_exist_job(char *av, int index)
+{
+	t_job		*job;
+	t_job		*final;
+
 	job = get_first_job(NULL);
 	final = NULL;
-	while (job)
+	while (job->next)
 	{
-		str = ft_strstr(job->first_process->cmd[0], av + index + 1);
-		if (str)
-		{
-			if (final)
-				return (NULL);
-			else
-				final = job;
-		}
+		if (ft_search_exist_in_process(job, &final, av, index))
+			return (NULL);
 		job = job->next;
 	}
 	return (final);

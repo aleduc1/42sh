@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:15:15 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/18 01:42:59 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void		clean_fuck_list(pid_t pid)
 	t_job	*next;
 	t_job	*h;
 
-	update_status();
 	j = static_job();
 	h = *j;
 	last = NULL;

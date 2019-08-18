@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/16 03:49:02 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/18 01:47:26 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,7 @@
 #include "builtins.h"
 #include <errno.h>
 
-void		job_info(t_job *j, char *status)
-{
-	(void)status;
-	if (j->first_process)
-		ft_dprintf(j->first_process->r->error, "[%d] %d\n",
-				j->process_id, (int)j->pgid);
-}
-
-void		job_done(t_job *j)
+static void	job_done(t_job *j)
 {
 	char	*cmd;
 	char	c;
@@ -34,7 +26,7 @@ void		job_done(t_job *j)
 	ft_strdel(&cmd);
 }
 
-void		display_stat_job(t_job *j)
+static void	display_stat_job(t_job *j)
 {
 	int			notified;
 	t_process	*p;
@@ -55,11 +47,6 @@ void		display_stat_job(t_job *j)
 				job_done(j);
 			else if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
 				bt_jobs_s(j, get_shell()->max_job_current, j->r);
-			else if (p->status == 3)
-			{
-				bt_jobs_s(j, get_shell()->max_job_current, j->r);
-				break ;
-			}
 			notified = 1;
 			p->last_status = p->status;
 		}
@@ -72,7 +59,6 @@ void		job_notif(void)
 	t_job	*j;
 	t_job	*next;
 
-	update_status();
 	j = get_first_job(NULL);
 	while (j)
 	{
@@ -80,7 +66,6 @@ void		job_notif(void)
 		display_stat_job(j);
 		j = next;
 	}
-	update_status();
 	clean_fuck_list(0);
 }
 

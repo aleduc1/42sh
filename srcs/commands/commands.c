@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 19:43:07 by hab              ###   ########.fr       */
+/*   Updated: 2019/08/19 20:20:26 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,16 @@ int				ft_simple_command_fc(t_fc *fc)
 	t_redirection	*r;
 
 	verif = 0;
-	if (!(av = (char**)malloc(sizeof(char*) * 2)))
+	if (!(av = (char**)malloc(sizeof(char*) * 3)))
 		return (-1);
 	av[0] = ft_strdup(fc->editor);
 	av[1] = ft_strdup("/tmp/42sh-fc.file");
+	av[2] = 0;
 	r = init_redirection();
 	j = create_new_job(av, NULL, r, 1);
 	p = j->first_process;
 	verif = is_not_builtin(j, p, 1);
+	ft_arraydel(&av);
 	return (verif);
 }
 

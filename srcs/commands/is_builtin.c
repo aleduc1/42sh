@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 02:25:56 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:57:23 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	is_builtin_jobs(t_job *j, t_process *p, char **av)
 	return (verif);
 }
 
-static int	is_builtin_other(t_pos *pos, char **av)
+static int	is_builtin_other(t_pos *pos, char **av, t_redirection *r)
 {
 	int	verif;
 
@@ -144,7 +144,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = bt_exit(j, pos);
 	else if ((verif = is_builtin_jobs(j, p, av)) != -1)
 		;
-	else if ((verif = is_builtin_other(pos, av)) != -1)
+	else if ((verif = is_builtin_other(pos, av, p->r)) != -1)
 		;
 	else
 		verif = -1;

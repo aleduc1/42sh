@@ -892,7 +892,6 @@ line	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	char			*line;$/;"	m	struct:
 lst_to_str	/Users/sbelondr/Desktop/42sh/srcs/prompt/others/othertools.c	/^char		*lst_to_str(t_multi **multi, char *inputstr)$/;"	f
 lst_to_str_loop	/Users/sbelondr/Desktop/42sh/srcs/prompt/others/othertools.c	/^char		*lst_to_str_loop(t_multi *lstcursor, char *inputstr)$/;"	f
 lst_to_str_mod	/Users/sbelondr/Desktop/42sh/srcs/prompt/others/othertools.c	/^char		*lst_to_str_mod(t_multi *lstcursor, char *temp)$/;"	f
-main	/Users/sbelondr/Desktop/42sh/a_faire.c	/^int	main(void)$/;"	f
 main	/Users/sbelondr/Desktop/42sh/srcs/main.c	/^int			main(int argc, char **argv, char **environ)$/;"	f
 malloc_first	/Users/sbelondr/Desktop/42sh/libft/srcs/split_once.c	/^static int	malloc_first(char *str, char c, char **tab)$/;"	f	file:
 malloc_second	/Users/sbelondr/Desktop/42sh/libft/srcs/split_once.c	/^static int	malloc_second(char *str, char **tab, int count)$/;"	f	file:

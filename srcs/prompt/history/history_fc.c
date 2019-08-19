@@ -19,18 +19,7 @@
 #define FC_R (fc->flags[2] == 1)
 #define FC_E (fc->flags[3] == 1)
 #define FC_S (fc->flags[4] == 1)
-
-typedef struct	s_fc
-{
-	char		*editor;
-	int			flags[5];
-	char		*first;
-	char		*last;
-	char		*pat_rep;
-	char		*cmd;
-	int			first_index;
-	int			last_index;
-}				t_fc;
+#define FC_NO_FLAGS  (!FC_L && !FC_N && !FC_R && !FC_E && !FC_S)
 
 void		init_fc(t_fc *fc)
 {
@@ -46,7 +35,7 @@ void		init_fc(t_fc *fc)
 int			fc_usage(int return_value, t_fc *fc, int error)
 {
 	if (error == 1)
-		ft_dprintf(2, "fc: usage: fc -e [ename] [cmd]\n\t   fc [-l(nr)] [first] [last]\n\t   fc -s [pat=rep] [cmd]\n");
+		ft_dprintf(2, "fc: usage: fc [-e(s)] [ename] [first[last]]\n\t   fc [-l(nr)] [first[last]]\n\t   fc -s [pat=rep] [cmd]\n");
 	if (error == 2)
 		ft_dprintf(2, "42sh: fc: history specification our of range\n");
 	ft_strdel(&fc->pat_rep);
@@ -81,10 +70,16 @@ int			fc_flags_s(char **av, t_fc *fc)
 	{
 		fc->flags[4] = 1;
 		if (av[2])
-			fc->pat_rep = ft_strdup(av[2]);
+		{
+			if (ft_strstr(av[2], "="))
+				fc->pat_rep = ft_strdup(av[2]);
+			else
+				fc->first = ft_strdup(av[2]);
+		}
 		else
-			return (fc_usage(-1, fc, 1));
-		if (av[2] && av[3])
+			fc->first = ft_strdup("-1");
+			// return (fc_usage(-1, fc, 1));
+		if (!fc->first && av[2] && av[3])
 			fc->first = ft_strdup(av[3]);
 		// 	fc->cmd = ft_strdup(pos->history->next->line);
 		return (1);
@@ -195,6 +190,9 @@ int			fc_count(t_node *history)
 	}
 	return (count);
 }
+
+// ####################################### FC_L ########################################
+
 
 int			fc_lr_basic(t_fc *fc, t_node *lstcursor, int count, int i)
 {
@@ -472,13 +470,40 @@ int			fc_l(t_fc *fc, t_pos *pos)
 	return (0);
 }
 
+// ####################################### FC_E ########################################
+
+int fc_e_basic(t_fc *fc, t_node *lstcursor, int count)
+{
+	fc->cmd = ft_strdup(lstcursor->next->line);
+
+	ft_simple_command_fc(fc);
+}
+
+int fc_e(t_fc *fc, t_pos *pos)
+{
+	int count;
+	t_node	*lstcursor;
+
+	lstcursor = pos->history->next;
+	count = fc_count(pos->history);
+
+	if (!fc->first)
+		fc_e_basic(fc, lstcursor, count);
+	// if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
+	// 	return (fc_usage(-1, fc, 2));
+	// if (fc_get_index(lstcursor, count, &fc->last_index, fc->last) == -1)
+	// 	return (fc_usage(-1, fc, 2));
+
+}
+
 int			fc_exec(t_fc *fc, t_pos *pos)
 {
 	if (FC_L)
-	{
 		if (fc_l(fc, pos) == -1)
 			return (-1);
-	}
+	if (FC_E)
+		if (fc_e(fc, pos) == -1)
+			return (-1);
 	return (1);
 }
 
@@ -493,7 +518,9 @@ int			builtin_fc(char **av, t_pos *pos)
 	init_fc(&fc);
 	if (fc_flags(av, &fc) == -1)
 		return (-2);
+	fc_debug(&fc);
 	if (fc_exec(&fc, pos) == -1)
 		return (-2);
+	fc_debug(&fc);
 	return 0;
 }

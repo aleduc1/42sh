@@ -390,3 +390,57 @@ l
 ls -l | cat -e
 c
 exit
+ls -l
+echo $TERM
+ls -l
+pwd
+this is a tet
+ls
+ls 
+ls | cat -e
+echo "test" > test ; echo OK && echo OK ; echo OK || echo OK ; ls | cat -e ; ls asdasdaasd 2>&/dev/null
+ls -l
+clear
+ls -l | cat -e ; echo ok && echo ok2 ; echo ok || echo ko ; ls 2>&/dev/null 
+ls -l | cat -e ; echo ok && echo ok2 ; echo ok || echo ko ; ls 2>&/dev/null && cat -e & ls -ls | cat -e
+fg
+ls -l
+test
+test -l
+test -l - 10
+fc -l -10
+clear
+fc
+ls -l
+fc -lasdasd
+fc -e test
+fc -s test
+fc -s test -1
+fc -s test test
+fc -s
+ls -l
+fc -easdasd
+ls
+fc -l
+make
+fc -e basic
+test
+fc -e basic
+ls
+ls -l
+cat vgcore.24550
+ls -l
+fc -e basic
+fc -e vim
+make
+fc -e vim
+fc -e basic
+fc -e vim
+make
+fc -e basic
+fc -e vim
+fc -e ls
+fc -e basic
+fc -e vim
+fc -l vim
+fc -e vim

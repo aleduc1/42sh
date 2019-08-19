@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 19:34:18 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:47:42 by hab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
+
+typedef struct	s_fc
+{
+	char		*editor;
+	int			flags[5];
+	char		*first;
+	char		*last;
+	char		*pat_rep;
+	char		*cmd;
+	int			first_index;
+	int			last_index;
+}				t_fc;
 
 typedef struct		s_redirect
 {

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 13:52:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/17 06:13:44 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 02:23:10 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,13 @@ static void	exec_reset_shell(t_pos *pos)
 	ht_hash_del(g_hash_table);
 }
 
+static void	close_base_std(void)
+{
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+}
+
 int			bt_exit(t_job *j, t_pos *pos)
 {
 	int	rt;
@@ -135,6 +142,7 @@ int			bt_exit(t_job *j, t_pos *pos)
 	{
 		exec_reset_shell(pos);
 		ft_dprintf(2, "exit\n");
+		close_base_std();
 		exit(0);
 	}
 	if (ft_isstrnum(j->first_process->cmd[1]))
@@ -144,6 +152,7 @@ int			bt_exit(t_job *j, t_pos *pos)
 			rt = ft_atoi(j->first_process->cmd[1]);
 			exec_reset_shell(pos);
 			ft_dprintf(2, "exit\n");
+			close_base_std();
 			exit(rt);
 		}
 		ft_dprintf(2, "42sh: exit: too many arguments\n");
@@ -152,5 +161,6 @@ int			bt_exit(t_job *j, t_pos *pos)
 	ft_dprintf(2, "42sh: exit: %s: numeric argument required\n",
 			j->first_process->cmd[1]);
 	exec_reset_shell(pos);
+	close_base_std();
 	exit(255);
 }

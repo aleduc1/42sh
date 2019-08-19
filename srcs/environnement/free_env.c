@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 14:18:41 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/17 14:21:52 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 01:53:04 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int			free_maillon_env(char *key, int env)
 	verif = 0;
 	while (my_env->next)
 	{
-		if (ft_strequ(my_env->key, key) && (env == 0 ||
-					(env == 1 && my_env->see_env == 1)))
+		if (ft_strequ(my_env->key, key) && ((env == 0 && my_env->see_env != 3)
+					|| (env == 1 && my_env->see_env == 1)))
 		{
 			verif = free_that(my_env, last);
 			break ;

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:10:40 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/17 01:16:43 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 00:21:26 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,6 @@ int		interpreter(t_ast *node, t_pos *pos, int background)
 	dpipe_case(node, pos, bg);
 	damp_case(node, pos, bg);
 	spipe_case(node, pos, bg);
-	if (bg != 0)
-		manage_id_job(bg);
 	interpreter(node->l, pos, bg);
 	if (node->token->type == AMP)
 		bg--;

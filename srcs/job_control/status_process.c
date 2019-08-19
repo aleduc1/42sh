@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/18 01:47:26 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 01:29:43 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,30 @@ static void	job_done(t_job *j)
 	ft_strdel(&cmd);
 }
 
+static int	display_stat_process(t_job *j, t_process *p, int notified)
+{
+	if ((p->status != p->last_status && p->status != 2))
+	{
+		if (j->fg == 0 && job_is_completed(j))
+			job_done(j);
+		else if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
+		{
+			ft_putchar('\n');
+			bt_jobs_s(j, get_shell()->max_job_current, j->r);
+		}
+		notified = 1;
+		p->last_status = p->status;
+	}
+	return (notified);
+}
+
+/*
+** Parcours chaque process d'un job et utilise la fonction
+**	display_stat_process pour afficher le status d'un process
+**	si besoin
+** Args:	t_job *j -> process a check
+*/
+
 static void	display_stat_job(t_job *j)
 {
 	int			notified;
@@ -41,15 +65,7 @@ static void	display_stat_job(t_job *j)
 	p = j->first_process;
 	while (p)
 	{
-		if (p->status != p->last_status && p->status != 2)
-		{
-			if (j->fg == 0 && job_is_completed(j))
-				job_done(j);
-			else if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
-				bt_jobs_s(j, get_shell()->max_job_current, j->r);
-			notified = 1;
-			p->last_status = p->status;
-		}
+		notified = display_stat_process(j, p, notified);
 		p = p->next;
 	}
 }
@@ -59,6 +75,7 @@ void		job_notif(void)
 	t_job	*j;
 	t_job	*next;
 
+	update_status();
 	j = get_first_job(NULL);
 	while (j)
 	{

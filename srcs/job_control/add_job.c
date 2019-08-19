@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 13:59:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 12:57:15 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 01:33:43 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,16 @@ static void	kill_pgid(t_shell *shell, t_job *j)
 		display_kill_not_work(j->r, "fg");
 }
 
+static void	init_process_before_launch(t_process *p)
+{
+	while (p)
+	{
+		p->status = 0;
+		p->stopped = 0;
+		p = p->next;
+	}
+}
+
 void		add_in_fg(t_job *j, int value)
 {
 	t_shell		*shell;
@@ -81,11 +91,7 @@ void		add_in_fg(t_job *j, int value)
 		display_error_tc(j->r, "tcsetpgrp");
 	if (value)
 		kill_pgid(shell, j);
-	while (p)
-	{
-		p->stopped = 0;
-		p = p->next;
-	}
+	init_process_before_launch(p);
 	j->notified = 0;
 	wait_for_job(j);
 	if (tcsetpgrp(shell->term, shell->pgid) == -1)
@@ -107,6 +113,7 @@ void		add_in_bg(t_job *j, int value)
 	if (tcgetattr(get_shell()->term, &j->tmodes) == -1)
 		display_error_tc(j->r, "tcsetattr");
 	p = j->first_process;
+	init_process_before_launch(p);
 	while (p)
 	{
 		if (!p->next)

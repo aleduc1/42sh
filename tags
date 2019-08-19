@@ -162,6 +162,7 @@ add_mantissa	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/add_float.c	/^voi
 add_param_to_buffer	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf.c	/^static int			add_param_to_buffer(char *buffer, char *str,$/;"	f	file:
 add_process	/Users/sbelondr/Desktop/42sh/srcs/job_control/add_process.c	/^void	add_process(char **av, t_token *t, int fg)$/;"	f
 add_set_value	/Users/sbelondr/Desktop/42sh/srcs/environnement/add_set_value.c	/^int			add_set_value(char *key, char *value)$/;"	f
+add_set_value_perm	/Users/sbelondr/Desktop/42sh/srcs/environnement/add_set_value.c	/^int			add_set_value_perm(char *key, char *value, int perm)$/;"	f
 add_squote_to_str	/Users/sbelondr/Desktop/42sh/srcs/lexer/add_quote.c	/^char	*add_squote_to_str(char **str_addr)$/;"	f
 add_token	/Users/sbelondr/Desktop/42sh/srcs/lexer/adding_token.c	/^void	add_token(t_lex **lexer, t_token **token)$/;"	f
 affiche_hash	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/apply_arg_float.c	/^void	affiche_hash(t_printf **lst, int stock[3], int place)$/;"	f
@@ -203,6 +204,11 @@ base	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	int					base;$/;"	m	struct:s
 base_redirection	/Users/sbelondr/Desktop/42sh/srcs/redirection/list_redirection.c	/^t_redirection	*base_redirection(void)$/;"	f
 base_size	/Users/sbelondr/Desktop/42sh/includes/builtins.h	/^	int		base_size;$/;"	m	struct:s_ht_hash
 bp	/Users/sbelondr/Desktop/42sh/srcs/parser/ast/ast_parser_tools.c	/^int				bp(t_token *token)$/;"	f
+bt_1	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test_funcs.c	/^int		bt_1(char *av1)$/;"	f
+bt_2	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test_funcs.c	/^int		bt_2(char *av1, char *av2)$/;"	f
+bt_3	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test_funcs.c	/^int		bt_3(char *av1, char *av2, char *av3)$/;"	f
+bt_4	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test_funcs.c	/^int		bt_4(char *av1, char *av2, char *av3, char *av4)$/;"	f
+bt_5	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test_funcs.c	/^int		bt_5(void)$/;"	f
 bt_addalias	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_alias.c	/^static void				bt_addalias(char **av, int i)$/;"	f	file:
 bt_addhash	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_hash.c	/^static int			bt_addhash(char *av, int ret)$/;"	f	file:
 bt_alias	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_alias.c	/^int					bt_alias(char **av)$/;"	f
@@ -285,6 +291,7 @@ clean_redir	/Users/sbelondr/Desktop/42sh/srcs/cleaning/clean_redir.c	/^void	clea
 clean_redirection	/Users/sbelondr/Desktop/42sh/srcs/job_control/free_job_file.c	/^void		clean_redirection(t_redirection *r)$/;"	f
 clipboard	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	char			*clipboard;$/;"	m	struct:s_pos
 close	/Users/sbelondr/Desktop/42sh/includes/lexer.h	/^	int		close;$/;"	m	struct:s_redir
+close_base_std	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_exit.c	/^static void	close_base_std(void)$/;"	f	file:
 close_fd	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	int				*close_fd;$/;"	m	struct:s_job
 close_file_command	/Users/sbelondr/Desktop/42sh/srcs/redirection/close_redirection.c	/^int			close_file_command(t_lex *lex, t_redirection **r)$/;"	f
 close_file_test_quote	/Users/sbelondr/Desktop/42sh/srcs/redirection/test_quote.c	/^static void	close_file_test_quote(int fd)$/;"	f	file:
@@ -369,6 +376,7 @@ display_permission_denied	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^
 display_prompt	/Users/sbelondr/Desktop/42sh/srcs/display.c	/^void		display_prompt(void)$/;"	f
 display_redirection	/Users/sbelondr/Desktop/42sh/srcs/job_control/process.c	/^void		display_redirection(t_redirection *r)$/;"	f
 display_stat_job	/Users/sbelondr/Desktop/42sh/srcs/job_control/status_process.c	/^static void	display_stat_job(t_job *j)$/;"	f	file:
+display_stat_process	/Users/sbelondr/Desktop/42sh/srcs/job_control/status_process.c	/^static int	display_stat_process(t_job *j, t_process *p, int notified)$/;"	f	file:
 display_too_few_arg	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_too_few_arg(t_redirection *r, char *name)$/;"	f
 display_too_many_arg	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_too_many_arg(t_redirection *r, char *name)$/;"	f
 div_float	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/manage_float.c	/^void	div_float(char (*lst)[BUF_S], int d)$/;"	f
@@ -804,6 +812,7 @@ init_job	/Users/sbelondr/Desktop/42sh/srcs/job_control/list_job.c	/^t_job		*init
 init_maillon_env	/Users/sbelondr/Desktop/42sh/srcs/environnement/list_env.c	/^t_env		*init_maillon_env(void)$/;"	f
 init_pf_struct	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf.c	/^static t_printf		*init_pf_struct(void)$/;"	f	file:
 init_process	/Users/sbelondr/Desktop/42sh/srcs/job_control/list_job.c	/^t_process	*init_process(void)$/;"	f
+init_process_before_launch	/Users/sbelondr/Desktop/42sh/srcs/job_control/add_job.c	/^static void	init_process_before_launch(t_process *p)$/;"	f	file:
 init_prompt	/Users/sbelondr/Desktop/42sh/srcs/prompt/prompt.c	/^void			init_prompt(t_pos *pos)$/;"	f
 init_redirection	/Users/sbelondr/Desktop/42sh/srcs/redirection/list_redirection.c	/^t_redirection	*init_redirection(void)$/;"	f
 init_shell_list	/Users/sbelondr/Desktop/42sh/srcs/job_control/shell_struct.c	/^static t_shell	*init_shell_list(void)$/;"	f	file:
@@ -954,6 +963,7 @@ pipe_error	/Users/sbelondr/Desktop/42sh/srcs/job_control/process_pipe.c	/^static
 precision	/Users/sbelondr/Desktop/42sh/libft/includes/ft_printf.h	/^	int				precision;$/;"	m	struct:s_printf
 precision_n	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/apply_arg_n.c	/^char		*precision_n(char *str, t_printf **lst, int neg)$/;"	f
 precision_s	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/apply_arg_s.c	/^char		*precision_s(char *str, t_printf **lst)$/;"	f
+prepare_exec_pipe	/Users/sbelondr/Desktop/42sh/srcs/commands/commands_pipe.c	/^static void	prepare_exec_pipe(int fg)$/;"	f	file:
 pretty_print	/Users/sbelondr/Desktop/42sh/srcs/parser/ast/tree_utils.c	/^void		pretty_print(t_ast *tree)$/;"	f
 prev	/Users/sbelondr/Desktop/42sh/includes/lexer.h	/^	t_lex	*prev;$/;"	m	struct:s_lex
 prev	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	struct s_multi	*prev;$/;"	m	struct:s_multi	typeref:struct:s_multi::s_multi

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 21:57:00 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 02:25:56 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,20 +109,17 @@ void		restore_redirection(void)
 	int		fd;
 
 	fd_s = value_line_path("STDIN", 0);
-	ft_strdel(&fd_s);
 	fd = ft_atoi(fd_s);
+	ft_strdel(&fd_s);
 	dup2(fd, STDIN_FILENO);
-	close(fd);
 	fd_s = value_line_path("STDOUT", 0);
 	fd = ft_atoi(fd_s);
 	ft_strdel(&fd_s);
 	dup2(fd, STDOUT_FILENO);
-	close(fd);
 	fd_s = value_line_path("STDERR", 0);
 	fd = ft_atoi(fd_s);
 	ft_strdel(&fd_s);
 	dup2(fd, STDERR_FILENO);
-	close(fd);
 }
 
 /*
@@ -151,9 +148,11 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		;
 	else
 		verif = -1;
-//	restore_redirection();
 	if (verif != -1)
+	{
+		restore_redirection();
 		gest_return(verif == -2 ? 1 : verif);
+	}
 	return (verif);
 }
 

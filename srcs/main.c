@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/18 01:42:00 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 01:53:52 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ static void	cpy_std(int in, int out, int error)
 	s_in = ft_itoa(in);
 	s_out = ft_itoa(out);
 	s_error = ft_itoa(error);
-	add_set_value("STDIN", s_in);
-	add_set_value("STDOUT", s_out);
-	add_set_value("STDERR", s_error);
+	add_set_value_perm("STDIN", s_in, 3);
+	add_set_value_perm("STDOUT", s_out, 3);
+	add_set_value_perm("STDERR", s_error, 3);
 	ft_strdel(&s_in);
 	ft_strdel(&s_out);
 	ft_strdel(&s_error);
@@ -172,7 +172,7 @@ int			main(int argc, char **argv, char **environ)
 			if ((input = prompt(multi_input, &pos)))
 				run(input, &pos);
 		job_notif();
-		update_status();
+//		update_status();
 		manage_id_job(0);
 	}
 	return (0);

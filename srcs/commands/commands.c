@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:19:26 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 01:18:10 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ int				ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
 	t_job			*j;
 	t_process		*p;
 
+	if ((!argv) || (!*argv))
+		return (-1);
+	if (bg != 0)
+		manage_id_job(bg);
 	fg = (bg > 0) ? 0 : 1;
 	verif = 0;
 	j = create_new_job(argv, t, NULL, fg);

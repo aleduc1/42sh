@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 22:59:10 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 00:31:04 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	bt_jobs_l_display(t_process *p, t_redirection *r, int last)
 			ft_dprintf(r->out, "\t%d %s: %d\t%s", p->pid, name_sig,
 				num_sig, cmd);
 		else
-			ft_dprintf(r->out, "\t%d %s\t%s", p->pid, name_sig, cmd);
+			ft_dprintf(r->out, "\t%d %s\t\t%s", p->pid, name_sig, cmd);
 		ft_strdel(&name_sig);
 	}
 	else

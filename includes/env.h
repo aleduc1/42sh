@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:26:03 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 01:50:26 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ int					edit_set_command_env(char *str, t_env *my_env);
 /*
 ** add_set_value.c
 */
-
+int					add_set_value_perm(char *key, char *value, int perm);
 int					add_set_value(char *key, char *value);
 
 /*

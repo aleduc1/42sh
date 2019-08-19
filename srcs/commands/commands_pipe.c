@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/13 16:40:23 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 01:21:45 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,28 @@ static void	stock_process(char **argv, t_token *token, int end_pipe, int fg)
 		add_process(argv, token, fg);
 }
 
+static void	prepare_exec_pipe(int fg)
+{
+	t_job	*j;
+	int		verif;
+
+	j = get_end_job();
+	j->fg = fg;
+	verif = check_error_job_pipe(j);
+	launch_job_pipe(j, fg);
+	if (verif != 0)
+		gest_return(verif);
+}
+
 int			ft_pipe(char **argv, t_token *token, int end_pipe, int bg)
 {
-	t_job		*j;
 	t_process	*p;
 	int			fg;
-	int			verif;
 
+	if ((!argv) || (!*argv))
+		return (-1);
+	if (bg != 0)
+		manage_id_job(bg);
 	fg = (bg > 0) ? 0 : 1;
 	stock_process(argv, token, end_pipe, fg);
 	if (check_last_command() == -5)
@@ -80,13 +95,6 @@ int			ft_pipe(char **argv, t_token *token, int end_pipe, int bg)
 		gest_return(1);
 	}
 	if (end_pipe == 2)
-	{
-		j = get_end_job();
-		j->fg = fg;
-		verif = check_error_job_pipe(j);
-		launch_job_pipe(j, fg);
-		if (verif != 0)
-			gest_return(verif);
-	}
+		prepare_exec_pipe(fg);
 	return (0);
 }

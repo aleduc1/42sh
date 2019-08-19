@@ -6,13 +6,13 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 11:18:42 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 01:49:35 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int			add_set_value(char *key, char *value)
+int			add_set_value_perm(char *key, char *value, int perm)
 {
 	t_env	*my_env;
 	int		verif;
@@ -33,6 +33,11 @@ int			add_set_value(char *key, char *value)
 		my_env = my_env->next;
 	}
 	if (verif == 0)
-		verif = create_new_line_env(my_env, key, value, 0);
+		verif = create_new_line_env(my_env, key, value, perm);
 	return (verif);
+}
+
+int			add_set_value(char *key, char *value)
+{
+	return (add_set_value_perm(key, value, 0));
 }

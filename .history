@@ -444,3 +444,68 @@ fc -e basic
 fc -e vim
 fc -l vim
 fc -e vim
+fc
+make
+fc
+make
+fc -e vim
+fc -e test
+fc -e asdad
+fc
+make
+fc
+make
+fc
+echo $FCEDIT
+echo $EDITOR
+make
+fc
+ls -l
+fc
+fc -e fc
+fc -e vim
+fc -e ls
+fc
+fc -l
+fc 10 20
+fc -l 10 11
+fc 10
+fc -e vim 10
+fc -e vim
+make
+fc 10
+ls
+fc 10
+fc -e 10
+ls -l
+fc -e 10
+fc -e vim 10
+fc -l 10 20
+fc -e vim 13
+fc 10 20
+fc 10
+fc 103
+fc -e vim 103
+fc 10
+exit
+fc -e vim 10
+fc -l 10 20
+fc 10
+fc -l 10 20
+fc -e vim 10 20
+fc -e vim 10
+fc 10
+make
+./42
+ls -l
+fc 10 20
+fc 10
+fc 20
+make
+fc 10
+fc 20
+fc 50
+fc 10 20
+make
+fc 10 20
+fc -e nano 10 20

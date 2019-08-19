@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 20:20:26 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 23:03:44 by hab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int				ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
 	return (verif);
 }
 
-int				ft_simple_command_fc(t_fc *fc)
+int				ft_simple_command_fc(char *editor)
 {
 	char			**av;
 	int				verif;
@@ -108,7 +108,7 @@ int				ft_simple_command_fc(t_fc *fc)
 	verif = 0;
 	if (!(av = (char**)malloc(sizeof(char*) * 3)))
 		return (-1);
-	av[0] = ft_strdup(fc->editor);
+	av[0] = ft_strdup(editor);
 	av[1] = ft_strdup("/tmp/42sh-fc.file");
 	av[2] = 0;
 	r = init_redirection();

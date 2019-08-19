@@ -6,11 +6,12 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 14:18:41 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 01:53:04 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 01:21:50 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "builtins.h"
 
 static int	free_that(t_env *my_env, t_env *last)
 {
@@ -33,6 +34,14 @@ static int	free_that(t_env *my_env, t_env *last)
 	return (1);
 }
 
+void		reset_hash_verif(char *key)
+{
+	extern t_ht_hash	*g_hash_table;
+
+	if (ft_strequ(key, "PATH"))
+		ht_hash_reset(&g_hash_table);
+}
+
 int			free_maillon_env(char *key, int env)
 {
 	int		verif;
@@ -42,6 +51,7 @@ int			free_maillon_env(char *key, int env)
 	my_env = get_env(0, NULL);
 	last = NULL;
 	verif = 0;
+	reset_hash_verif(key);
 	while (my_env->next)
 	{
 		if (ft_strequ(my_env->key, key) && ((env == 0 && my_env->see_env != 3)

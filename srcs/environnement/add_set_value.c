@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 01:49:35 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 01:27:21 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int			add_set_value_perm(char *key, char *value, int perm)
 	int		verif;
 
 	verif = 0;
+	reset_hash_verif(key);
 	my_env = get_env(0, NULL);
 	if (!value)
 		value = "";

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 11:18:42 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 01:25:06 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			edit_set_no_command(char **value)
 		if ((cnt = ft_chr_index(value[i], '=')) > 0)
 		{
 			key = ft_strsub(value[i], 0, cnt);
+			reset_hash_verif(key);
 			add_set_value(key, value[i] + cnt + 1);
 			ft_strdel(&key);
 		}

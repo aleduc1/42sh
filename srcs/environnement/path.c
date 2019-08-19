@@ -6,11 +6,23 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/02 18:24:02 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 01:04:40 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
+extern t_ht_hash	*g_hash_table;
+
+static char	*get_hash(char *command)
+{
+	char	*str;
+
+	str = ht_hash_search(g_hash_table, command);
+	if (!str)
+		return (NULL);
+	return (ft_strdup(str));
+}
 
 /*
 ** split is all the path
@@ -78,9 +90,14 @@ char		*is_in_path(char *command)
 	result = NULL;
 	if (!command)
 		return (NULL);
+	if ((result = get_hash(command)))
+		return (result);
 	result = check_env_path(command);
 	if (result)
+	{
+		ht_hash_insert(g_hash_table, command, result);
 		return (result);
+	}
 	if (stat(command, &statbuf) != 0)
 		return (NULL);
 	if (S_ISDIR(statbuf.st_mode) == 1)

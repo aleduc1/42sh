@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 19:47:42 by hab              ###   ########.fr       */
+/*   Updated: 2019/08/20 01:23:23 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #include <unistd.h>
 #include <string.h>
 
-typedef struct	s_fc
+typedef struct		s_fc
 {
 	char		*editor;
 	int			flags[5];
@@ -39,7 +39,7 @@ typedef struct	s_fc
 	char		*cmd;
 	int			first_index;
 	int			last_index;
-}				t_fc;
+}					t_fc;
 
 typedef struct		s_redirect
 {
@@ -111,6 +111,8 @@ typedef struct		s_job
 }					t_job;
 
 void				edit_current_value(int value);
+
+void				reset_hash_verif(char *key);
 
 int					ft_simple_command_fc(t_fc *fc);
 

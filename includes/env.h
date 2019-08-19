@@ -235,6 +235,7 @@ int					add_set_value(char *key, char *value);
 char				*value_line_path(char *key, int env);
 int					create_new_line_env(t_env *my_env, char *key, char *value,
 		int env);
+int					value_is_empty(char *key);
 
 /*
 ** builtin_env.c

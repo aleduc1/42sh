@@ -12,6 +12,9 @@
 
 #include "sh21.h"
 #include "lexer.h"
+#include "parser.h"
+#include "env.h"
+#include "job.h"
 #include "builtins.h"
 
 #define FC_L (fc->flags[0] == 1)
@@ -44,6 +47,20 @@ int			fc_usage(int return_value, t_fc *fc, int error)
 	ft_strdel(&fc->editor);
 	ft_strdel(&fc->cmd);
 	return (return_value);
+}
+
+int			fc_no_flags(char **av, t_fc *fc)
+{
+	if (av[1][0] != '-')
+	{
+		fc->first = ft_strdup(av[1]);
+		if (av[1] && av[2])
+			fc->last = ft_strdup(av[2]);
+	}
+	if (fc->first || fc->last)
+			return (1);
+		else
+			return (0);
 }
 
 int			fc_flags_e(char **av, t_fc *fc)
@@ -142,6 +159,9 @@ int			fc_flags(char **av, t_fc *fc)
 	int		ret;
 
 	ret = 0;
+	if ((ret = fc_no_flags(av, fc)))
+		if (ret < 0 || ret > 0)
+			return (ret);
 	if ((ret = fc_flags_e(av, fc)))
 		if (ret < 0 || ret > 0)
 			return (ret);
@@ -472,12 +492,85 @@ int			fc_l(t_fc *fc, t_pos *pos)
 
 // ####################################### FC_E ########################################
 
+
+int fc_check_editor(t_fc *fc)
+{
+	if (!fc->editor)
+	{
+		if (fc->editor = value_line_path("FCEDIT", 0))
+			;
+		else if (fc->editor = value_line_path("EDITOR", 0))
+			;
+		else
+			fc->editor = ft_strdup("ed");
+	}
+	return (0);
+}
+
+int fc_write_file(t_fc *fc, t_node *lstcursor, int count)
+{
+	int fd;
+	int i;
+
+	i = 0;
+	fd = open("/tmp/42sh-fc.file", O_RDWR | O_CREAT | O_TRUNC, 0666);
+	while (lstcursor->next)
+		lstcursor = lstcursor->next;
+	while (lstcursor->prev && ++i < fc->first_index)
+		lstcursor = lstcursor->prev;
+	i = fc->first_index;
+	if (fc->first_index && !fc->last_index)
+		ft_dprintf(fd, "%s\n", lstcursor->line);
+	if (fc->first_index && fc->last_index)
+	{
+		while (lstcursor->prev && lstcursor->prev->prev && i++ <= fc->last_index)
+		{
+			ft_dprintf(fd, "%s\n", lstcursor->line);
+			lstcursor = lstcursor->prev;
+		}
+	}
+	return (1);
+}
+
 int fc_e_basic(t_fc *fc, t_node *lstcursor, int count)
 {
-	fc->cmd = ft_strdup(lstcursor->next->line);
+	int fd;
 
-	ft_simple_command_fc(fc);
+	fc_check_editor(fc);
+	fc->cmd = ft_strdup(lstcursor->next->line);
+	fd = open("/tmp/42sh-fc.file", O_RDWR | O_CREAT, 0666);
+	write(fd,fc->cmd, ft_strlen(fc->cmd));
+	write(fd, "\n", 1);
+	ft_simple_command_fc(fc->editor);
+	// EXECUTE COMMAND HERE
+	close(fd);
+	return (1);
 }
+
+int fc_e_first(t_fc *fc, t_node *lstcursor, int count)
+{
+	fc_check_editor(fc);
+	if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
+	 	return (fc_usage(-1, fc, 2));
+	fc_write_file(fc, lstcursor, count);
+	ft_simple_command_fc(fc->editor);
+	// EXECUTE HERE
+	return (1);
+}
+
+int fc_e_first_last(t_fc *fc, t_node *lstcursor, int count)
+{
+	fc_check_editor(fc);
+	if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
+	 	return (fc_usage(-1, fc, 2));
+	if (fc_get_index(lstcursor, count, &fc->last_index, fc->last) == -1)
+	 	return (fc_usage(-1, fc, 2));
+	fc_write_file(fc, lstcursor, count);
+	ft_simple_command_fc(fc->editor);
+	// EXECUTE HERE
+	return (1);
+}
+
 
 int fc_e(t_fc *fc, t_pos *pos)
 {
@@ -488,7 +581,14 @@ int fc_e(t_fc *fc, t_pos *pos)
 	count = fc_count(pos->history);
 
 	if (!fc->first)
-		fc_e_basic(fc, lstcursor, count);
+		if (fc_e_basic(fc, lstcursor, count) == -1)
+			return (-1);
+	if (fc->first && !fc->last)
+		if (fc_e_first(fc, lstcursor, count) == -1)
+			return (-1);
+	if (fc->first && fc->last)
+		if (fc_e_first_last(fc, lstcursor, count) == -1)
+			return (-1);
 	// if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
 	// 	return (fc_usage(-1, fc, 2));
 	// if (fc_get_index(lstcursor, count, &fc->last_index, fc->last) == -1)
@@ -501,7 +601,7 @@ int			fc_exec(t_fc *fc, t_pos *pos)
 	if (FC_L)
 		if (fc_l(fc, pos) == -1)
 			return (-1);
-	if (FC_E)
+	if (FC_E || FC_NO_FLAGS)
 		if (fc_e(fc, pos) == -1)
 			return (-1);
 	return (1);

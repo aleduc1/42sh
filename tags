@@ -832,7 +832,7 @@ is_amper	/Users/sbelondr/Desktop/42sh/srcs/lexer/if_checks.c	/^int		is_amper(cha
 is_builtin	/Users/sbelondr/Desktop/42sh/srcs/commands/is_builtin.c	/^int			is_builtin(t_job *j, t_process *p, t_pos *pos)$/;"	f
 is_builtin_env	/Users/sbelondr/Desktop/42sh/srcs/commands/is_builtin.c	/^static int	is_builtin_env(t_process *p, char **av, t_pos *pos)$/;"	f	file:
 is_builtin_jobs	/Users/sbelondr/Desktop/42sh/srcs/commands/is_builtin.c	/^static int	is_builtin_jobs(t_job *j, t_process *p, char **av)$/;"	f	file:
-is_builtin_other	/Users/sbelondr/Desktop/42sh/srcs/commands/is_builtin.c	/^static int	is_builtin_other(t_pos *pos, char **av)$/;"	f	file:
+is_builtin_other	/Users/sbelondr/Desktop/42sh/srcs/commands/is_builtin.c	/^static int	is_builtin_other(t_pos *pos, char **av, t_redirection *r)$/;"	f	file:
 is_env_empty	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_cd.c	/^int			is_env_empty(char *value)$/;"	f
 is_expand_tild	/Users/sbelondr/Desktop/42sh/srcs/environnement/parser_var_bis.c	/^int			is_expand_tild(char *value, int index, int expand)$/;"	f
 is_hyph	/Users/sbelondr/Desktop/42sh/srcs/lexer/if_checks.c	/^int		is_hyph(char c)$/;"	f

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 01:18:10 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:33:37 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,32 @@
 /*
 ** launch command in a fork if not builtin command
 */
+
+int run_editor(char **av)
+{
+	int status;
+	pid_t pid;
+	char **environ = create_list_env(get_env(0, NULL), 1);
+	char **argv = (char **)malloc(sizeof(char*) * 2);
+	
+	argv[0] = ft_strdup(av[0]);
+	argv[1] = ft_strdup("/tmp/42sh-fc.file");
+	printf("test\n");
+	pid = fork();
+	if (pid == 0)
+	{
+	  execve(is_in_path(av[0]), argv, environ);
+	  exit(0);
+	}
+	else if (pid > 0)
+	  wait(&status);
+	else
+	{
+	  ft_printf("42sh: Fork Error");
+	  return (-1);
+	}
+	return (1);
+}
 
 static int		is_not_builtin(t_job *j, t_process *p, int fg)
 {
@@ -68,6 +94,26 @@ int				ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
 		verif = is_not_builtin(j, p, fg);
 	else
 		verif = builtin(j, p, pos, fg);
+	return (verif);
+}
+
+int				ft_simple_command_fc(t_fc *fc)
+{
+	char			**av;
+	int				verif;
+	t_job			*j;
+	t_process		*p;
+	t_redirection	*r;
+
+	verif = 0;
+	if (!(av = (char**)malloc(sizeof(char*) * 2)))
+		return (-1);
+	av[0] = ft_strdup(fc->editor);
+	av[1] = ft_strdup("/tmp/42sh-fc.file");
+	r = init_redirection();
+	j = create_new_job(av, NULL, r, 1);
+	p = j->first_process;
+	verif = is_not_builtin(j, p, 1);
 	return (verif);
 }
 

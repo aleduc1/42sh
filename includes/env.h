@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 01:50:26 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:34:18 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct		s_job
 }					t_job;
 
 void				edit_current_value(int value);
+
+int					ft_simple_command_fc(t_fc *fc);
 
 /*
 ** redirection.c

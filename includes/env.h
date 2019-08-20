@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 01:23:23 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 02:00:10 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void				edit_current_value(int value);
 
 void				reset_hash_verif(char *key);
 
-int					ft_simple_command_fc(t_fc *fc);
+int					ft_simple_command_fc(char *editor);
 
 /*
 ** redirection.c

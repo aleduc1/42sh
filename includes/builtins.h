@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 03:04:37 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/20 04:46:14 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@
 #include "job.h"
 #include <sys/param.h>
 
-
+typedef struct		s_hist_rep
+{
+	int					isrep;
+	char				*base;
+	char				*value;
+	struct s_hist_rep	*next;
+}					t_hist_rep;
 
 typedef struct		s_cd
 {

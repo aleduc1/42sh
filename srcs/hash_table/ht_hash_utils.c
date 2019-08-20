@@ -12,6 +12,8 @@
 
 #include "builtins.h"
 
+extern t_hash	g_hash_deleted;
+
 int			ht_hash_hash(const char *s, const int a, const int m)
 {
 	long	hash;
@@ -38,6 +40,8 @@ int			ht_hash_get_hash(const char *s, const int num, const int attempt)
 
 	hash_a = ht_hash_hash(s, HT_HASH_HASH_ONE, num);
 	hash_b = ht_hash_hash(s, HT_HASH_HASH_TWO, num);
+	if (hash_b == num - 1)
+		--hash_b;
 	return ((hash_a + (attempt * (hash_b + 1))) % num);
 }
 
@@ -50,7 +54,7 @@ void		ht_hash_del(t_ht_hash *ht)
 	while (i < ht->size)
 	{
 		item = ht->hash[i];
-		if (item != NULL)
+		if (item != NULL && item != &g_hash_deleted)
 			hash_del(item);
 		++i;
 	}

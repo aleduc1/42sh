@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 23:04:07 by hab              ###   ########.fr       */
+/*   Updated: 2019/08/20 03:04:37 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,6 @@
 #include <sys/param.h>
 
 
-
-typedef struct	s_fc
-{
-	char		*editor;
-	int			flags[5];
-	char		*first;
-	char		*last;
-	char		*pat_rep;
-	char		*cmd;
-	int			first_index;
-	int			last_index;
-}				t_fc;
 
 typedef struct		s_cd
 {

@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 17:00:29 by apruvost          #+#    #+#             */
-/*   Updated: 2019/07/29 20:19:01 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/20 03:23:48 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ int					unalias_getopt(char **av)
 	return (i);
 }
 
-int					bt_unalias(char **av)
+int					bt_unalias(char **av, t_redirection *r)
 {
 	int		i;
 	int		ret;
 
 	i = 1;
 	ret = 0;
+	redirection_fd(r);
 	if (!av[1])
 	{
 		ft_dprintf(2, "unalias: not enough arguments\n");

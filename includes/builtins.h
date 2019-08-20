@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/08 16:01:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 04:46:14 by apruvost         ###   ########.fr       */
+/*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
+/*   Updated: 2019/08/20 05:39:34 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ typedef struct		s_repalias
 	struct s_repalias	*next;
 }					t_repalias;
 
-int					bt_exit(t_job *j, t_pos *pos);
+int					bt_exit(t_job *j, t_pos *pos, t_redirection *r);
 int					bt_echo(char **av, t_redirection *r);
 
-int					bt_cd(char **av);
+int					bt_cd(char **av, t_redirection *r);
 int					cd_testcdpath(char *path, char *directory, char **test);
 int					cd_testpath(char *path, char *directory, char **test);
 int					cd_getnextpath(char *path);
@@ -168,8 +168,8 @@ int					builtin_fc(char **av, t_pos *pos);
 
 int					builtin_env_display(t_redirection *r);
 
-int					bt_alias(char **av);
-int					bt_unalias(char **av);
+int					bt_alias(char **av, t_redirection *r);
+int					bt_unalias(char **av, t_redirection *r);
 
 void				hash_del(t_hash *hash);
 t_hash				*hash_new_item(const char *k, const char *v);
@@ -190,9 +190,9 @@ void				ht_hash_table_null(t_hash **hash, int size);
 void				ht_hash_show(t_ht_hash *ht, int quote);
 void				ht_hash_reset(t_ht_hash **ht);
 
-int					bt_hash(char **av);
+int					bt_hash(char **av, t_redirection *r);
 
-int					bt_type(char **av);
+int					bt_type(char **av, t_redirection *r);
 
 int					ft_getopt(int ac, char *const *av, const char *optstr);
 void				ft_getopt_reset(void);

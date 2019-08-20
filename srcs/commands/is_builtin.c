@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 00:16:00 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 04:21:46 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,21 @@ static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 	return (verif);
 }
 
-static int	is_builtin_jobs(t_job *j, t_process *p, char **av)
+static int	is_builtin_jobs(t_job *j, char **av, t_redirection *r)
 {
 	int	verif;
 
 	verif = -1;
 	if (ft_strequ(av[0], "jobs"))
-		verif = bt_jobs(j, av, p->r);
+		verif = bt_jobs(j, av, r);
 	else if (ft_strequ(av[0], "fg"))
-		verif = bt_fg(j, av, p->r);
+		verif = bt_fg(j, av, r);
 	else if (ft_strequ(av[0], "bg"))
-		verif = bt_bg(j, av, p->r);
+		verif = bt_bg(j, av, r);
 	return (verif);
 }
 
-static int	is_builtin_other(t_pos *pos, char **av)
+static int	is_builtin_other(t_pos *pos, char **av, t_redirection *r)
 {
 	int	verif;
 
@@ -95,11 +95,11 @@ static int	is_builtin_other(t_pos *pos, char **av)
 	else if (ft_strequ(av[0], "test"))
 		verif = builtin_fc(av, pos);
 	else if (ft_strequ(av[0], "alias"))
-		verif = bt_alias(av);
+		verif = bt_alias(av, r);
 	else if (ft_strequ(av[0], "unalias"))
-		verif = bt_unalias(av);
+		verif = bt_unalias(av, r);
 	else if (ft_strequ(av[0], "hash"))
-		verif = bt_hash(av);
+		verif = bt_hash(av, r);
 	return (verif);
 }
 
@@ -139,14 +139,14 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	else if (ft_strequ(av[0], "echo"))
 		verif = bt_echo(av, p->r);
 	else if (ft_strequ(av[0], "cd"))
-		verif = bt_cd(av);
+		verif = bt_cd(av, p->r);
 	else if (ft_strequ(av[0], "exit"))
-		verif = bt_exit(j, pos);
+		verif = bt_exit(j, pos, p->r);
 	else if (ft_strequ(av[0], "type"))
-		verif = bt_type(av);
-	else if ((verif = is_builtin_jobs(j, p, av)) != -1)
+		verif = bt_type(av, p->r);
+	else if ((verif = is_builtin_jobs(j, av, p->r)) != -1)
 		;
-	else if ((verif = is_builtin_other(pos, av)) != -1)
+	else if ((verif = is_builtin_other(pos, av, p->r)) != -1)
 		;
 	else
 		verif = -1;

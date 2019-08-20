@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 17:00:16 by apruvost          #+#    #+#             */
-/*   Updated: 2019/07/29 20:19:30 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/20 03:23:18 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,14 @@ static int			bt_addalias(char **av, int i, int ret)
 	return (ret);
 }
 
-int					bt_alias(char **av)
+int					bt_alias(char **av, t_redirection *r)
 {
 	int		i;
 	int		ret;
 
 	i = 1;
 	ret = 0;
+	redirection_fd(r);
 	if (!av[1])
 		bt_alias_show();
 	if (!(i = alias_getopt(av)))

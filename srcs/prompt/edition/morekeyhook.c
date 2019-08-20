@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:18:42 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/07 23:47:14 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/20 02:26:28 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[],
 	i = 0;
 	if (CTRL_D && !(*input)->next && pos->multiline != 1)
 	{
-		bt_exit(NULL, pos);
+		bt_exit(NULL, pos, NULL);
 		print_prompt();
 		// history_file(pos->history);
 		// default_term_mode();

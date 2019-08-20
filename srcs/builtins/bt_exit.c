@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 13:52:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/19 02:23:10 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 02:37:25 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,12 @@ static void	close_base_std(void)
 	close(STDERR_FILENO);
 }
 
-int			bt_exit(t_job *j, t_pos *pos)
+int			bt_exit(t_job *j, t_pos *pos, t_redirection *r)
 {
 	int	rt;
 
+	if (r)
+		redirection_fd(r);
 	if (jobs_running())
 	{
 		display_job_stopped();

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 01:29:43 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 05:31:45 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,37 @@ static void	job_done(t_job *j)
 	ft_strdel(&cmd);
 }
 
+static int	check_is_terminated(t_job *j)
+{
+	int			num_sig;
+	t_process	*p;
+
+	p = j->first_process;
+	while (p)
+	{
+		num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
+		if (p->status < 13 && p->status > 15)
+			return (0);
+		p = p->next;
+	}
+	return (0);
+}
+
 static int	display_stat_process(t_job *j, t_process *p, int notified)
 {
-	if ((p->status != p->last_status && p->status != 2))
+	if ((!notified) && (p->status != p->last_status && p->status != 2))
 	{
 		if (j->fg == 0 && job_is_completed(j))
-			job_done(j);
+			bt_jobs_s(j, get_shell()->max_job_current, j->r);
+			//job_done(j);
 		else if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
 		{
 			ft_putchar('\n');
 			bt_jobs_s(j, get_shell()->max_job_current, j->r);
 		}
 		notified = 1;
-		p->last_status = p->status;
 	}
+	p->last_status = p->status;
 	return (notified);
 }
 
@@ -55,7 +72,15 @@ static void	display_stat_job(t_job *j)
 	int			notified;
 	t_process	*p;
 
+		ft_printf("ici j->notified = %d\n", j->notified);
 	notified = 0;
+	if (check_is_terminated(j))
+	{
+		ft_printf("coucou\n");
+		if (j->first_process->status != 0)
+			bt_jobs_s(j, get_shell()->max_job_current, j->r);
+		return ;
+	}
 	if (j->first_process->fg == 0)
 		if (job_is_completed(j) && j->first_process->status == 0)
 		{
@@ -68,20 +93,19 @@ static void	display_stat_job(t_job *j)
 		notified = display_stat_process(j, p, notified);
 		p = p->next;
 	}
+		ft_printf("fin\n");
 }
 
 void		job_notif(void)
 {
 	t_job	*j;
-	t_job	*next;
 
 	update_status();
 	j = get_first_job(NULL);
 	while (j)
 	{
-		next = j->next;
 		display_stat_job(j);
-		j = next;
+		j = j->next;
 	}
 	clean_fuck_list(0);
 }

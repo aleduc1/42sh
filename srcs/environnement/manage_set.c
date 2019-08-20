@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 01:25:06 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 11:25:13 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ int			edit_set_no_command(char **value)
 		if ((cnt = ft_chr_index(value[i], '=')) > 0)
 		{
 			key = ft_strsub(value[i], 0, cnt);
-			reset_hash_verif(key);
-			add_set_value(key, value[i] + cnt + 1);
-			ft_strdel(&key);
+			if (key && ft_strlen(key) > 0)
+			{
+				reset_hash_verif(key);
+				add_set_value(key, value[i] + cnt + 1);
+				ft_strdel(&key);
+			}
 		}
 		else
 			break ;
@@ -57,6 +60,8 @@ int			edit_set(char **value, t_redirection *r, t_pos *pos)
 	while (value[++i])
 		if (ft_chr_index(value[i], '=') < 2)
 			break ;
+	if (i == 0)
+		return (-1);
 	if (!value[i])
 		result = edit_set_no_command(value);
 	else

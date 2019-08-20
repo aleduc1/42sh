@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 05:31:45 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 06:01:53 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static void	display_stat_job(t_job *j)
 	int			notified;
 	t_process	*p;
 
-		ft_printf("ici j->notified = %d\n", j->notified);
 	notified = 0;
 	if (check_is_terminated(j))
 	{
@@ -93,7 +92,6 @@ static void	display_stat_job(t_job *j)
 		notified = display_stat_process(j, p, notified);
 		p = p->next;
 	}
-		ft_printf("fin\n");
 }
 
 void		job_notif(void)

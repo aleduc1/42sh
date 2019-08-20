@@ -94,17 +94,15 @@ int			fc_flags_s(char **av, t_fc *fc)
 		fc->flags[4] = 1;
 		if (av[2])
 		{
-			if (ft_strstr(av[2], "="))
+			if (ft_strstr(av[2], "=") || ft_strequ(av[2], "--"))
 				fc->pat_rep = ft_strdup(av[2]);
 			else
 				fc->first = ft_strdup(av[2]);
 		}
 		else
 			fc->first = ft_strdup("-1");
-			// return (fc_usage(-1, fc, 1));
 		if (!fc->first && av[2] && av[3])
 			fc->first = ft_strdup(av[3]);
-		// 	fc->cmd = ft_strdup(pos->history->next->line);
 		return (1);
 	}
 	return (0);
@@ -513,9 +511,13 @@ int fc_check_editor(t_fc *fc)
 	return (0);
 }
 
-int fc_mini_main(t_pos *pos, char *command)
+void fc_filter_history(t_fc *fc, t_pos *pos)
 {
-
+	if (FC_E || FC_S || FC_NO_FLAGS)
+	{
+		free(pos->history->next->line);
+		ddel(&pos->history, pos->history->next);
+	}
 }
 
 int fc_run_command(t_fc *fc, t_pos *pos)
@@ -528,7 +530,7 @@ int fc_run_command(t_fc *fc, t_pos *pos)
 	{
 		inserthistory(pos->history, command, pos);
 		pos->historysum++;
-		ft_printf("%s\n", command);
+		ft_printf("\n\033[33;01m%s\033[00m\n", command);
 		run(command, pos);
 	}
 	close(fd);
@@ -589,8 +591,8 @@ int fc_e_basic(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 	int fd;
 
 	fc_check_editor(fc);
-	fc->cmd = ft_strdup(lstcursor->next->line);
-	fd = open("/tmp/42sh-fc.file", O_RDWR | O_CREAT, 0666);
+	fc->cmd = ft_strdup(lstcursor->line);
+	fd = open("/tmp/42sh-fc.file", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	write(fd,fc->cmd, ft_strlen(fc->cmd));
 	write(fd, "\n", 1);
 	ft_simple_command_fc(fc->editor);
@@ -621,7 +623,7 @@ int fc_e_first_last(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 	 	return (fc_usage(-1, fc, 2));
 	if (fc->first_index > count || fc->first_index < 0 \
 	     || fc->last_index > count || fc->last_index < 0)
-		return(fc_usage(-1, fc, 2));
+		return (fc_usage(-1, fc, 2));
 	fc_write_file(fc, lstcursor, count);
 	ft_simple_command_fc(fc->editor);
 	fc_run_command(fc, pos);// EXECUTE HERE
@@ -646,11 +648,7 @@ int fc_e(t_fc *fc, t_pos *pos)
 	if (fc->first && fc->last)
 		if (fc_e_first_last(fc, lstcursor, pos, count) == -1)
 			return (-1);
-	// if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
-	// 	return (fc_usage(-1, fc, 2));
-	// if (fc_get_index(lstcursor, count, &fc->last_index, fc->last) == -1)
-	// 	return (fc_usage(-1, fc, 2));
-
+	return (1);
 }
 
 int			fc_exec(t_fc *fc, t_pos *pos)
@@ -664,6 +662,15 @@ int			fc_exec(t_fc *fc, t_pos *pos)
 	return (1);
 }
 
+int			fc_free(t_fc *fc)
+{
+	ft_strdel(&fc->pat_rep);
+	ft_strdel(&fc->first);
+	ft_strdel(&fc->last);
+	ft_strdel(&fc->editor);
+	ft_strdel(&fc->cmd);
+}
+
 int			builtin_fc(char **av, t_pos *pos)
 {
 	t_fc	fc;
@@ -675,7 +682,9 @@ int			builtin_fc(char **av, t_pos *pos)
 	init_fc(&fc);
 	if (fc_flags(av, &fc) == -1)
 		return (-2);
+	fc_filter_history(&fc, pos);
 	if (fc_exec(&fc, pos) == -1)
 		return (-2);
+	fc_free(&fc);
 	return 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh21.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:17:27 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/17 20:32:32 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 18:26:06 by hab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,4 +200,5 @@ void				init_prompt(t_pos *pos);
 t_node				*read_input(t_node **input, t_pos *pos);
 char				*prompt(t_multi *input, t_pos *pos);
 
+void				run(char *input, t_pos *pos);
 #endif

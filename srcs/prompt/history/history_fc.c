@@ -40,7 +40,7 @@ int			fc_usage(int return_value, t_fc *fc, int error)
 	if (error == 1)
 		ft_dprintf(2, "fc: usage: fc [-e(s)] [ename] [first[last]]\n\t   fc [-l(nr)] [first[last]]\n\t   fc -s [pat=rep] [cmd]\n");
 	if (error == 2)
-		ft_dprintf(2, "42sh: fc: history specification our of range\n");
+		ft_dprintf(2, "42sh: fc: history specification out of range\n");
 	ft_strdel(&fc->pat_rep);
 	ft_strdel(&fc->first);
 	ft_strdel(&fc->last);
@@ -51,16 +51,22 @@ int			fc_usage(int return_value, t_fc *fc, int error)
 
 int			fc_no_flags(char **av, t_fc *fc)
 {
-	if (av[1][0] != '-')
+	if (av[1] && av[1][0] != '-')
+	{
+		fc->first = ft_strdup(av[1]);
+		if (av[1] && av[2])
+			fc->last = ft_strdup(av[2]);
+	}
+	if (av[1] && av[1][0] == '-' && ft_isnumbers(av[1]+1))
 	{
 		fc->first = ft_strdup(av[1]);
 		if (av[1] && av[2])
 			fc->last = ft_strdup(av[2]);
 	}
 	if (fc->first || fc->last)
-			return (1);
-		else
-			return (0);
+		return (1);
+	else
+		return (0);
 }
 
 int			fc_flags_e(char **av, t_fc *fc)
@@ -497,9 +503,9 @@ int fc_check_editor(t_fc *fc)
 {
 	if (!fc->editor)
 	{
-		if (fc->editor = value_line_path("FCEDIT", 0))
+		if ((fc->editor = value_line_path("FCEDIT", 0)))
 			;
-		else if (fc->editor = value_line_path("EDITOR", 0))
+		else if ((fc->editor = value_line_path("EDITOR", 0)))
 			;
 		else
 			fc->editor = ft_strdup("ed");
@@ -507,12 +513,58 @@ int fc_check_editor(t_fc *fc)
 	return (0);
 }
 
+int fc_mini_main(t_pos *pos, char *command)
+{
+
+}
+
+int fc_run_command(t_fc *fc, t_pos *pos)
+{
+	char *command;
+	int fd;
+
+	fd = open("/tmp/42sh-fc.file", O_RDONLY, 0666);
+	while (get_next_line(fd, &command) > 0)
+	{
+		inserthistory(pos->history, command, pos);
+		pos->historysum++;
+		ft_printf("%s\n", command);
+		run(command, pos);
+	}
+	close(fd);
+	return (1);
+}
+
+int fc_write_last_first(t_fc *fc, t_node *lstcursor, int count)
+{
+	int fd;
+	int i;
+
+	i = 0;
+	fd = open("/tmp/42sh-fc.file", O_RDWR | O_CREAT | O_TRUNC, 0666);
+	while (lstcursor->next && ++i <= count - fc->first_index)
+		lstcursor = lstcursor->next;
+	i = fc->first_index;
+	while (lstcursor->next && i-- >= fc->last_index)
+	{
+			ft_dprintf(fd, "%s\n", lstcursor->line);
+			lstcursor = lstcursor->next;
+	}
+	return (1);
+}
+
+
 int fc_write_file(t_fc *fc, t_node *lstcursor, int count)
 {
 	int fd;
 	int i;
 
 	i = 0;
+	if (fc->last_index && fc->last_index < fc->first_index)
+	{
+		fc_write_last_first(fc, lstcursor, count);
+		return (1);
+	}
 	fd = open("/tmp/42sh-fc.file", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	while (lstcursor->next)
 		lstcursor = lstcursor->next;
@@ -532,7 +584,7 @@ int fc_write_file(t_fc *fc, t_node *lstcursor, int count)
 	return (1);
 }
 
-int fc_e_basic(t_fc *fc, t_node *lstcursor, int count)
+int fc_e_basic(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 {
 	int fd;
 
@@ -542,32 +594,37 @@ int fc_e_basic(t_fc *fc, t_node *lstcursor, int count)
 	write(fd,fc->cmd, ft_strlen(fc->cmd));
 	write(fd, "\n", 1);
 	ft_simple_command_fc(fc->editor);
-	// EXECUTE COMMAND HERE
 	close(fd);
+	fc_run_command(fc, pos);// EXECUTE COMMAND HERE
 	return (1);
 }
 
-int fc_e_first(t_fc *fc, t_node *lstcursor, int count)
+int fc_e_first(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 {
 	fc_check_editor(fc);
 	if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
 	 	return (fc_usage(-1, fc, 2));
+	if (fc->first_index > count || fc->first_index < 0)
+		return(fc_usage(-1, fc, 2));
 	fc_write_file(fc, lstcursor, count);
 	ft_simple_command_fc(fc->editor);
-	// EXECUTE HERE
+	fc_run_command(fc, pos);// EXECUTE HERE
 	return (1);
 }
 
-int fc_e_first_last(t_fc *fc, t_node *lstcursor, int count)
+int fc_e_first_last(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 {
 	fc_check_editor(fc);
 	if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
 	 	return (fc_usage(-1, fc, 2));
 	if (fc_get_index(lstcursor, count, &fc->last_index, fc->last) == -1)
 	 	return (fc_usage(-1, fc, 2));
+	if (fc->first_index > count || fc->first_index < 0 \
+	     || fc->last_index > count || fc->last_index < 0)
+		return(fc_usage(-1, fc, 2));
 	fc_write_file(fc, lstcursor, count);
 	ft_simple_command_fc(fc->editor);
-	// EXECUTE HERE
+	fc_run_command(fc, pos);// EXECUTE HERE
 	return (1);
 }
 
@@ -581,13 +638,13 @@ int fc_e(t_fc *fc, t_pos *pos)
 	count = fc_count(pos->history);
 
 	if (!fc->first)
-		if (fc_e_basic(fc, lstcursor, count) == -1)
+		if (fc_e_basic(fc, lstcursor, pos, count) == -1)
 			return (-1);
 	if (fc->first && !fc->last)
-		if (fc_e_first(fc, lstcursor, count) == -1)
+		if (fc_e_first(fc, lstcursor, pos, count) == -1)
 			return (-1);
 	if (fc->first && fc->last)
-		if (fc_e_first_last(fc, lstcursor, count) == -1)
+		if (fc_e_first_last(fc, lstcursor, pos, count) == -1)
 			return (-1);
 	// if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
 	// 	return (fc_usage(-1, fc, 2));
@@ -618,9 +675,7 @@ int			builtin_fc(char **av, t_pos *pos)
 	init_fc(&fc);
 	if (fc_flags(av, &fc) == -1)
 		return (-2);
-	fc_debug(&fc);
 	if (fc_exec(&fc, pos) == -1)
 		return (-2);
-	fc_debug(&fc);
 	return 0;
 }

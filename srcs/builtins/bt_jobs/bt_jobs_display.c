@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 00:31:04 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 04:37:41 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 	int			num_sig;
 
 	p = j->first_process;
-	while (p)
+/*	while (p)
 	{
 		if (!p->next)
 			break ;
 		p = p->next;
 	}
-	num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
+*/	num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
 	str = ft_inter_signal(num_sig, j);
 	if (!str)
 		return ;

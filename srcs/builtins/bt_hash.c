@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 14:52:42 by apruvost          #+#    #+#             */
-/*   Updated: 2019/06/25 17:33:59 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/20 03:27:53 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,17 @@ static int			hash_getopt(char **av, int *r)
 	return (i);
 }
 
-int					bt_hash(char **av)
+int					bt_hash(char **av, t_redirection *r)
 {
 	int	i;
 	int	ret;
-	int	r;
+	int	reset;
 
 	r = 0;
-	if ((i = hash_getopt(av, &r)) < 1)
+	redirection_fd(r);
+	if ((i = hash_getopt(av, &reset)) < 1)
 		return (0);
-	if (r == 1)
+	if (reset == 1)
 		ht_hash_reset(&g_hash_table);
 	if (av[1] == NULL)
 	{

@@ -119,8 +119,6 @@ SRCS_NAMES = main.c \
 			 tree_utils.c \
 			 cmd_parser.c \
 			 builtin_env.c\
-			 builtin_cd.c\
-			 builtin_cd_verif.c\
 			 commands.c\
 			 commands_pipe.c\
 			 list_env.c\

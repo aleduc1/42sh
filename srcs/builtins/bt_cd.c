@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:56:32 by apruvost          #+#    #+#             */
-/*   Updated: 2019/06/11 16:34:26 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/20 02:24:32 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +180,11 @@ static int	cd_init(char **av, t_cd *cd)
 }
 
 
-int			bt_cd(char **av)
+int			bt_cd(char **av, t_redirection *r)
 {
 	t_cd	cd;
 
+	redirection_fd(r);
 	if (!cd_init(av, &cd))							// V
 		return (1);
 	if (cd.directory == NULL && is_env_empty("HOME"))	// Step 1

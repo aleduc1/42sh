@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:09:25 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/19 23:38:32 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 02:25:45 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int			type_builtin(char *command)
 	return (0);
 }
 
-int					bt_type(char **av)
+int					bt_type(char **av, t_redirection *r)
 {
 	int		i;
 	int		ret;
@@ -63,6 +63,7 @@ int					bt_type(char **av)
 
 	i = 1;
 	ret = 0;
+	redirection_fd(r);
 	while (av[i])
 	{
 		if (type_builtin(av[i]))

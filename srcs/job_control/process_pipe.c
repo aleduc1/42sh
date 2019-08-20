@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:24:27 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/20 02:27:02 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 static void	pipe_error(int error)
 {
 	ft_dprintf(error, "42sh: error pipe\n");
-	bt_exit(NULL, NULL);
+	bt_exit(NULL, NULL, NULL);
 }
 
 /*

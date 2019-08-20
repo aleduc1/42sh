@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:04:50 by aleduc            #+#    #+#             */
-/*   Updated: 2019/07/01 18:57:39 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/20 03:25:38 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		bt_test(char **av, t_redirection *r)
 	int	ac;
 
 	ac = 0;
+	redirection_fd(r);
 	while (av[ac])
 		ac++;
 	if (ac == 0)

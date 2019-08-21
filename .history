@@ -1,113 +1,24 @@
+ls 1
+ls 2
+ls 3
+ls 4
+ls 5
+ls 6
+ls 7
+ls 8
+ls 9
+ls 0
+clear
+echo "test"
+echo "something"
+echo "test"
+echo "something"
 ls -l
-ls 1
-ls 2
-ls 3
-ls 4
-ls 6
-ls 4
-ls -l what the hell
-ls -l what the hell
-ls 1
-echo "this is a test"
-ls -l | cat -e
-what the hell man
-ls 2
-ls 3
-ls 4
-ls 6
-ls 4
-ls -l what the hell
-ls -l what the hell
-ls 1
-echo "this is a test"
-ls -l | cat -e
-fc -l
-cat << EOF
-cat << EOF
-ls 1
-echo "this is a test"
-ls -l | cat -e
-what the hell man
-ls 2
-ls 3
-ls 4
-ls 6
-ls 4
-ls -l what the hell
-ls -l what the hell
-ls -l what the hell
-ls -l what the hell
-ls 4
-ls 6
-ls 4
-ls 3
-ls 2
-what the hell man
-ls -l | cat -e
-echo "this is a test"
-ls 1
-ls 1
-ls .
-ls 1
-echo "this is a test"
-ls -l | cat -e
-what the hell man
-ls 2
-ls 3
-ls 4
-ls 6
-ls 4
-ls -l what the hell
-ls -l what the hell
-what the hell man
-ls -l | cat -e
-echo "this is a test"
-ls 1
-ls .
-ls 1
-ls 1
-echo "this is a test"
-ls -l | cat -e
-what the hell man
-ls 2
-ls 3
-ls 4
-ls 6
-ls 4
-ls -l what the hell
-ls -l what the hell
-ls -l what the hell
-ls -l what the hell
-ls 4
-ls 6
-ls 4
-ls 3
-ls 2
-what the hell man
-ls -l | cat -e
-echo "this is a test"
-ls 1
-cat << EOF
-cat << EOF
-fc -l
-ls -l | cat -e
-echo "this is a test"
-ls 1
-ls -l what the hell
-ls -l what the hell
-ls 4
-ls 6
-ls 4
-ls 3
-ls 2
-what the hell man
-ls -l | cat -e
-echo "this is a test"
-ls 1
-fc -l
-what -X1
-ls -l
-fc -l 10 20
-fc -l 10 20
-fc -l 10 20
-fc -l 10 20
+echo "test"
+echo "something"
+echo test
+echo something
+echo test
+echo something
+echo test
+echo something

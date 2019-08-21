@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   history_fc->c                                       :+:      :+:    :+:   */
+/*   history_fc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 17:29:16 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/06/06 19:40:25 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/21 01:43:16 by hab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			fc_no_flags(char **av, t_fc *fc)
 
 int			fc_flags_e(char **av, t_fc *fc)
 {
-	if (ft_strequ(av[1], "-e") == 1)
+	if (ft_strequ(av[1], "-e"))
 	{
 		fc->flags[3] = 1;
 		if (av[2])
@@ -95,7 +95,11 @@ int			fc_flags_s(char **av, t_fc *fc)
 		if (av[2])
 		{
 			if (ft_strstr(av[2], "=") || ft_strequ(av[2], "--"))
+			{
 				fc->pat_rep = ft_strdup(av[2]);
+				if (!av[3])
+					fc->first = ft_strdup("-1");
+			}
 			else
 				fc->first = ft_strdup(av[2]);
 		}
@@ -216,7 +220,6 @@ int			fc_count(t_node *history)
 }
 
 // ####################################### FC_L ########################################
-
 
 int			fc_lr_basic(t_fc *fc, t_node *lstcursor, int count, int i)
 {
@@ -520,7 +523,7 @@ void fc_filter_history(t_fc *fc, t_pos *pos)
 	}
 }
 
-int fc_run_command(t_fc *fc, t_pos *pos)
+int fc_e_run_command(t_pos *pos)
 {
 	char *command;
 	int fd;
@@ -586,7 +589,7 @@ int fc_write_file(t_fc *fc, t_node *lstcursor, int count)
 	return (1);
 }
 
-int fc_e_basic(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
+int fc_e_basic(t_fc *fc, t_node *lstcursor, t_pos *pos)
 {
 	int fd;
 
@@ -597,7 +600,7 @@ int fc_e_basic(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 	write(fd, "\n", 1);
 	ft_simple_command_fc(fc->editor);
 	close(fd);
-	fc_run_command(fc, pos);// EXECUTE COMMAND HERE
+	fc_e_run_command(pos);// EXECUTE COMMAND HERE
 	return (1);
 }
 
@@ -610,7 +613,7 @@ int fc_e_first(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 		return(fc_usage(-1, fc, 2));
 	fc_write_file(fc, lstcursor, count);
 	ft_simple_command_fc(fc->editor);
-	fc_run_command(fc, pos);// EXECUTE HERE
+	fc_e_run_command(pos);// EXECUTE HERE
 	return (1);
 }
 
@@ -626,10 +629,9 @@ int fc_e_first_last(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 		return (fc_usage(-1, fc, 2));
 	fc_write_file(fc, lstcursor, count);
 	ft_simple_command_fc(fc->editor);
-	fc_run_command(fc, pos);// EXECUTE HERE
+	fc_e_run_command(pos);// EXECUTE HERE
 	return (1);
 }
-
 
 int fc_e(t_fc *fc, t_pos *pos)
 {
@@ -640,7 +642,7 @@ int fc_e(t_fc *fc, t_pos *pos)
 	count = fc_count(pos->history);
 
 	if (!fc->first)
-		if (fc_e_basic(fc, lstcursor, pos, count) == -1)
+		if (fc_e_basic(fc, lstcursor, pos) == -1)
 			return (-1);
 	if (fc->first && !fc->last)
 		if (fc_e_first(fc, lstcursor, pos, count) == -1)
@@ -648,6 +650,65 @@ int fc_e(t_fc *fc, t_pos *pos)
 	if (fc->first && fc->last)
 		if (fc_e_first_last(fc, lstcursor, pos, count) == -1)
 			return (-1);
+	return (1);
+}
+
+
+// #################################### FC_S FUNCTIONS ###################################
+
+
+char *fc_rep(char *str, char *pat_rep)
+{
+    static char buffer[4096];
+	static char pat[4096];
+	static char rep[4096];
+	int i;
+    char *p;
+
+	i = 0;
+	while (pat_rep[i] != '=')
+		i++;
+	ft_strncpy(pat, pat_rep, i);
+	ft_strcpy(rep, pat_rep+i+1);
+	ft_printf("orig: %s || rep: %s || str: %s\n", pat, rep, str); //remove
+	p = NULL;
+    if(!(p = ft_strstr(str, pat)))
+    return str;
+    ft_strncpy(buffer, str, p-str);
+    buffer[p-str] = '\0';
+    ft_strcpy(buffer+(p-str), rep);
+    return (ft_strjoin(buffer, p+(ft_strlen(pat))));
+}
+
+int fc_s_all(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
+{
+	int i;
+	char *command;
+
+	i = 0;
+	if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
+	 	return (fc_usage(-1, fc, 2));
+	while (lstcursor->next && ++i < count - fc->first_index)
+		lstcursor = lstcursor->next;
+	if (fc->pat_rep && !ft_strequ(fc->pat_rep, "--"))
+		command = fc_rep(lstcursor->line, fc->pat_rep);
+	ft_printf("\n\033[33;01m%s\033[00m\n", command);
+	inserthistory(pos->history, command, pos);
+	run(command, pos);
+	return (1);
+}
+
+
+int fc_s(t_fc* fc, t_pos *pos)
+{
+	int count;
+	t_node *lstcursor;
+
+	lstcursor = pos->history->next;
+	count = fc_count(pos->history);
+
+	if (fc_s_all(fc, lstcursor, pos, count) == -1)
+		return (-1);
 	return (1);
 }
 
@@ -659,10 +720,14 @@ int			fc_exec(t_fc *fc, t_pos *pos)
 	if (FC_E || FC_NO_FLAGS)
 		if (fc_e(fc, pos) == -1)
 			return (-1);
+	if (FC_S)
+		if (fc_s(fc, pos) == -1)
+			return (-1);
 	return (1);
 }
 
-int			fc_free(t_fc *fc)
+
+void		fc_free(t_fc *fc)
 {
 	ft_strdel(&fc->pat_rep);
 	ft_strdel(&fc->first);
@@ -685,6 +750,7 @@ int			builtin_fc(char **av, t_pos *pos)
 	fc_filter_history(&fc, pos);
 	if (fc_exec(&fc, pos) == -1)
 		return (-2);
+	fc_debug(&fc);
 	fc_free(&fc);
 	return 0;
 }

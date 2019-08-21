@@ -1,3 +1,51 @@
+fc -l
+ls 1
+ls 2
+ls 3
+ls -R /
+fg
+ls -l
+jobs
+ls 1
+ls 2
+ls 3
+ls 4
+ls 5
+ls -l
+ls -R /
+echo AFTER
+echo AFTER_AFTER
+jobs
+fg
+fg
+ls -l
+ls -l
+ls -l
+ls
+ls
+ls
+ok
+fc -l
+fc -l 10
+fc -l -10
+fc -l ls fc
+fc -l 20 10
+fc -lr 20 10
+fc -lrn 20 10
+fc -lrn 20 10
+fc -lrn 20 10
+fg
+fg
+fg
+fg
+fg
+fg
+ls
+ls
+ok
+echo test
+echo something
+fc -l
 ls 1
 ls 2
 ls 3
@@ -7,18 +55,34 @@ ls 6
 ls 7
 ls 8
 ls 9
-ls 0
-clear
-echo "test"
-echo "something"
-echo "test"
-echo "something"
+fc -l
+ls 9
 ls -l
-echo "test"
-echo "something"
-echo test
-echo something
-echo test
-echo something
-echo test
-echo something
+ls 1
+ls 2
+ls 3
+ls 4
+ls 5
+ls 6
+ls 7
+ls 8
+ls 9
+fc -l
+fc -l 1
+echo AFTER_AFTER
+exit 99999999999999999999999999999999999999999999
+exit 1 2 3
+echo ${?}
+fc -l
+!61
+fc -l
+echo ${?}
+exit 1 2 3
+exit 99999999999999999999999999999999999999999999
+fc -lrn 20 10
+echo hello world
+fc -ln
+fc -lr
+ls DOESNOTEXIST
+ls DOESNOTEXIST
+fc -l fc 1

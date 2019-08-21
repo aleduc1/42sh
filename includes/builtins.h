@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/20 05:36:10 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/21 17:01:45 by hab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 #	define HT_HASH_HASH_ONE 3
 #	define HT_HASH_HASH_TWO 7
 #	define HT_HASH_BASE_SIZE 50
+
+#	define FC_L (fc->flags[0] == 1)
+#	define FC_N (fc->flags[1] == 1)
+#	define FC_R (fc->flags[2] == 1)
+#	define FC_E (fc->flags[3] == 1)
+#	define FC_S (fc->flags[4] == 1)
+#	define FC_NO_FLAGS  (!FC_L && !FC_N && !FC_R && !FC_E && !FC_S)
 
 #include "env.h"
 #include "job.h"

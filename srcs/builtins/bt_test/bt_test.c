@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:04:50 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/20 03:25:38 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 07:49:58 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ int		is_binary(char *str2)
 	return (0);
 }
 
+/*
+** Pense a mettre des commentaires et LIS les warnings:
+** #define tab  CUR Strings[134] > tab est une macro utilise par la bibliotheque
+** term.h tu avais juste a renommer ta variable
+*/
+
 int		bt_test(char **av, t_redirection *r)
 {
 	int	ac;
@@ -87,5 +93,6 @@ int		bt_test(char **av, t_redirection *r)
 	if (ac == 4)
 		return (bt_4(av[1], av[2], av[3], av[4]));
 	if (ac > 4)
-		return (bt_5(void));
+		return (bt_5());
+	return (0);
 }

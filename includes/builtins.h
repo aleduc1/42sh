@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/21 17:01:45 by hab              ###   ########.fr       */
+/*   Updated: 2019/08/22 07:45:08 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int					bt_3(char *av1, char *av2, char *av3);
 int					bt_4(char *av1, char *av2, char *av3, char *av4);
 int					bt_5(void);
 
-void				create_unary_list(t_unary_tab **tab);
-void				create_binary_list(t_unary_tab **tab);
+void				create_unary_list(t_unary_tab **tab_lst);
+void				create_binary_list(t_unary_tab **tab_lst);
 
 int					b_test(char *str1, char *str2, char *str3);
 int					c_test(char *str1, char *str2, char *str3);

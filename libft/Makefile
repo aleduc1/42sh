@@ -35,7 +35,7 @@ VPATH = .:\
 
 CC = gcc
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Wextra -Werror -g3
+	CFLAGS = -Wall -Wextra -g3
 else
 	CFLAGS = -Wall -Wextra -Werror
 endif

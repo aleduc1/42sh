@@ -26,6 +26,9 @@
 
 #include "env.h"
 #include "job.h"
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/param.h>
 
 typedef struct		s_cd

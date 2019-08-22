@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/11 02:50:34 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 09:21:46 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			launch_process(t_process *p, pid_t pgid, int fg)
 	redirection_fd(p->r);
 	verif = execve(p->cmd_path, p->cmd, environ);
 	display_command_not_found(p->r, p->cmd[0]);
-	execve("/bin/test", NULL, NULL);
+	execve_bin_test();
 	exit(verif);
 }
 
@@ -59,7 +59,7 @@ int			launch_job(t_job *j, int fg)
 			else
 			{
 				gest_return(12);
-				execve("/bin/test", NULL, NULL);
+				execve_bin_test();
 			}
 		}
 		else if (pid < 0)

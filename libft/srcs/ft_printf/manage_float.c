@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
+#include "ft_printf.h"
 
 /*
 ** https://ryanstutorials.net/binary-tutorial/binary-floating-point.php

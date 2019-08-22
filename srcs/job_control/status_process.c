@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 06:01:53 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:47:32 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	check_is_terminated(t_job *j)
 	while (p)
 	{
 		num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
-		if (p->status < 13 && p->status > 15)
+		if (num_sig < 13 && num_sig > 15)
 			return (0);
 		p = p->next;
 	}
@@ -75,7 +75,6 @@ static void	display_stat_job(t_job *j)
 	notified = 0;
 	if (check_is_terminated(j))
 	{
-		ft_printf("coucou\n");
 		if (j->first_process->status != 0)
 			bt_jobs_s(j, get_shell()->max_job_current, j->r);
 		return ;

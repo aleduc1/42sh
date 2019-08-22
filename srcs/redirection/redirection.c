@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/19 18:06:03 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/22 09:29:22 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		redirection_fd(t_redirection *r)
 	if (check_fd_is_good(r) == -1)
 	{
 		display_bad_file_descriptor(STDERR_FILENO);
-		execve("/bin/test", NULL, NULL);
+		execve_bin_test();
 		exit(-1);
 	}
 	lst = r->redirect;

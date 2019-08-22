@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 04:37:41 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 10:13:35 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static int	bt_jobs_l_display(t_process *p, t_redirection *r, int last)
 	cmd = assembly_cmd_process(p);
 	if (last == -1 || last != p->status)
 	{
-		if (last == -1)
-			last = p->status;
+		last = p->status;
 		num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
 		name_sig = ft_name_sig(num_sig);
 		if (num_sig > 0)

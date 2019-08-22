@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/21 16:20:49 by hab              ###   ########.fr       */
+/*   Updated: 2019/08/22 12:56:59 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,18 @@ static int	verif_set(char **argv, int nb, t_redirection *r, char *name)
 	return (0);
 }
 
+/*
+**	setenv -> edit_setenv(av[1], av[2]);
+**	unsetenv -> ft_unsetenv(av);
+** Args:	
+*/
+
 static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 {
 	int	verif;
 
 	if (ft_strequ(av[0], "set"))
 		verif = verif_set(p->cmd, 1, p->r, "set") ? builtin_set(p->r) : 1;
-	else if (ft_strequ(av[0], "setenv"))
-		verif = verif_set(av, 3, p->r, "setenv")
-			? edit_setenv(av[1], av[2]) : -2;
-	else if (ft_strequ(av[0], "unsetenv"))
-		verif = ft_unsetenv(av);
 	else if (ft_strequ(av[0], "export"))
 		verif = bt_export(av, p->r);
 	else if (ft_strequ(av[0], "unset"))
@@ -96,7 +97,7 @@ static int	is_builtin_other(t_pos *pos, char **av, t_redirection *r)
 		verif = builtin_fc(av, pos);
 	}
 	else if (ft_strequ(av[0], "test"))
-		verif = builtin_fc(av, pos);
+		verif = bt_test(av, r);
 	else if (ft_strequ(av[0], "alias"))
 		verif = bt_alias(av, r);
 	else if (ft_strequ(av[0], "unalias"))
@@ -161,6 +162,25 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	return (verif);
 }
 
+int			prepare_verif_syntax_key(char *cmd)
+{
+	char	*value;
+	int		index;
+
+	index = ft_chr_index(cmd, '=');
+	if (index > 0)
+	{
+		value = ft_strsub(cmd, 0, index);
+		if (verif_syntax_key(value))
+		{
+			ft_strdel(&value);
+			return (1);
+		}
+		ft_strdel(&value);
+	}
+	return (0);
+}
+
 int			builtin_exist(char *cmd)
 {
 	if (ft_strequ(cmd, "echo") || ft_strequ(cmd, "cd") || ft_strequ(cmd, "exit")
@@ -169,9 +189,10 @@ int			builtin_exist(char *cmd)
 		|| ft_strequ(cmd, "hash") || ft_strequ(cmd, "type")
 		|| ft_strequ(cmd, "jobs")
 		|| ft_strequ(cmd, "fg") || ft_strequ(cmd, "bg")
-		|| ft_strequ(cmd, "set") || ft_strequ(cmd, "setenv")
-		|| ft_strequ(cmd, "unsetenv") || ft_strequ(cmd, "export")
-		|| ft_strequ(cmd, "unset") || ft_strchr_exist(cmd, '='))
+		|| ft_strequ(cmd, "set")
+		|| ft_strequ(cmd, "export")
+		|| ft_strequ(cmd, "unset")
+		|| (ft_strchr_exist(cmd, '=') && prepare_verif_syntax_key(cmd)))
 		return (1);
 	return (0);
 }
@@ -183,14 +204,12 @@ int			builtin_exist(char *cmd)
 int			launch_process_blt(t_job *j, t_process *p, t_pos *pos,
 				int fg)
 {
-	char	**environ;
 	int		verif;
 
-	environ = create_list_env(get_env(0, NULL), 1);
 	config_pid_process(j->pgid, fg);
 	redirection_fd(p->r);
 	verif = is_builtin(j, p, pos);
-	execve("/bin/test", NULL, NULL);
+	execve_bin_test();
 	exit(verif);
 }
 

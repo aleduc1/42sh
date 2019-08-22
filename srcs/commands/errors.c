@@ -6,15 +6,35 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/13 16:04:44 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:03:18 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
+void	execve_bin_test(void)
+{
+	char	**test;
+
+	if (!(test = (char**)malloc(sizeof(char*) * 2)))
+		return ;
+	test[0] = ft_strdup("test");
+	test[1] = 0;
+	execve("/bin/test", test, NULL);
+	ft_arraydel(&test);
+}
+
 void	display_command_not_found(t_redirection *r, char *cmd)
 {
-	ft_dprintf(r->error, "42sh: %s: command not found\n", cmd);
+	char	*display;
+	char	*cache;
+
+	cache = ft_strjoin("42sh: ", cmd);
+	display = ft_strjoin(cache, ": command not found\n");
+	ft_putstr_fd(display, r->error);
+	ft_strdel(&display);
+	ft_strdel(&cache);
+	//	ft_dprintf(r->error, "42sh: %s: command not found\n", cmd);
 }
 
 void	display_permission_denied(t_redirection *r, char *cmd)

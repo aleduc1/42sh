@@ -45,6 +45,8 @@ int		bt_3(char *av1, char *av2, char *av3)
 
 int		bt_4(char *av1, char *av2, char *av3, char *av4)
 {
+	int	ret;
+
 	if (ft_strcmp(av1, "!") == 0)
 	{
 		ret = (bt_3(av2, av3, av4));

@@ -9,11 +9,11 @@ DEBUG = yes
 # ----- #
 
 UNAME_S := $(shell uname -s)
-ifeq ($(UNAME_S),Darwin)
-	SHELL = /bin/zsh
-else
+#ifeq ($(UNAME_S),Darwin)
+#	SHELL = /bin/zsh
+#else
 	SHELL = /bin/bash
-endif
+#endif
 
 # --------- #
 # Directory #
@@ -25,15 +25,17 @@ INCDIR = includes/
 LIBDIR = libs/
 
 VPATH = .:\
-		objs:\
-		srcs:\
-# ------------------ #
-# Compiler and flags #
-# ------------------ #
+	objs:\
+	srcs:\
+	srcs/ft_printf:\
+
+	# ------------------ #
+	# Compiler and flags #
+	# ------------------ #
 
 CC = gcc
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Wextra -Werror -g3
+	CFLAGS = -Wall -Wextra -g3
 else
 	CFLAGS = -Wall -Wextra -Werror
 endif
@@ -46,6 +48,32 @@ LDFLAGS =
 # --------------- #
 
 NAME = $(LIBDIR)libft.a
+
+SRCS_FT_PRINTF = ft_printf.c \
+				 parser.c \
+				 gest_flag.c \
+				 arg_s.c \
+				 arg_n.c \
+				 arg_convert.c \
+				 arg_float.c \
+				 apply_arg.c \
+				 display.c \
+				 tools.c \
+				 tools_bis.c \
+				 tools_float_bis.c \
+				 ft_itoa_other.c \
+				 ft_itoa_other_u_s.c \
+				 ft_convert_base.c \
+				 binary.c \
+				 manage_float.c \
+				 apply_arg_float.c \
+				 tools_float.c \
+				 multiplication_float.c \
+				 add_float.c \
+				 apply_arg_s.c \
+				 apply_arg_n.c \
+				 apply_arg_convert.c \
+				 prepare.c
 
 SRCS_NAMES = ft_atoi.c ft_bzero.c ft_fill_str.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 			 ft_isspace.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lst_element_at.c ft_lstextend.c \
@@ -61,9 +89,11 @@ SRCS_NAMES = ft_atoi.c ft_bzero.c ft_fill_str.c ft_isalnum.c ft_isalpha.c ft_isa
 			 ft_dlstdel.c ft_dlstprint.c ft_madeby.c ft_debug.c ft_arraydel.c ft_arraydelline.c ft_arraydisplay.c ft_arraydup.c ft_arrayjoin.c \
 			 ft_arraylen.c ft_arraysub.c ft_chr_index.c ft_strchr_exist.c ft_numlen.c ft_pow_array_fix.c ft_reverse_tablo.c ft_strsub_tab_fix.c \
 			 ft_deplace.c ft_isstrnum.c ft_jointhree.c ft_remove_last_chr.c ft_strsplit_commands.c ft_lpow.c ft_prime.c \
-			 ft_sqrt.c ft_strptrdel.c
+			 ft_sqrt.c ft_strptrdel.c $(SRCS_FT_PRINTF)
+
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
-HEADERS_NAMES = libft.h ft_printf.h get_next_line.h ft_printf.h
+
+HEADERS_NAMES = libft.h ft_printf.h get_next_line.h
 
 SRC = $(addprefix $(SRCDIR), $(SRCS_NAMES))
 OBJ = $(addprefix $(OBJDIR), $(OBJS_NAMES))
@@ -82,6 +112,18 @@ PRINT = printf
 PHONY = all clean fclean re help
 REMOVE = "\r\033[K"
 FUNC = "%-60b\r"
+
+# Color
+
+RED = \033[31m
+GREEN = \033[32m
+BLUE = \033[36m
+CLOSE = \033[0m
+
+# Progress & display
+compteur = 0
+TOTAL = `find srcs -type f | cut -d '/' -f 3 | wc -l | cut -d ' ' -f 6`
+ADD_VAL = $(eval compteur=$(shell echo $$(($(compteur)+1))))
 
 # PROGRESS BAR | Original author Cpirlot
 T = $(words $(OBJ))
@@ -102,24 +144,24 @@ else
 endif
 
 $(NAME) : $(OBJS_NAMES)
-	@make -C srcs/ft_printf
 	@$(CREATE) $(LIBDIR)
-	@$(AR) $(ARFLAGS) $(NAME) objs/*.o #$(OBJ)
+	@$(AR) $(ARFLAGS) $(NAME) $(OBJ)
 	@$(SORT) $(NAME)
-	@$(PRINT) $(REMOVE)"Libft.a built\n"
+	@$(PRINT) "\n$(BLUE)libft$(CLOSE): built -> $(GREEN)Ok$(CLOSE)\n"
 
 %.o : %.c $(HEADERS)
 	@$(CREATE) $(OBJDIR)
-#	@$(PRINT) "%-60b\r" "\033[32m $(ECHO)\033[0m $@"
+	$(ADD_VAL)
 	@$(CC) -o $(OBJDIR)$@ -c $< $(CFLAGS) $(CPPFLAGS)
+	@echo -ne "$(BLUE)libft$(CLOSE): compil $(compteur)/$(TOTAL)     "\\r
 
 clean :
 	@$(DEL) $(OBJDIR)
-	@$(PRINT) ".o file for lib deleted\n"
+	@$(PRINT) "$(BLUE)libft$(CLOSE): .o file for lib deleted\n"
 
 fclean : clean
 	@$(DEL) $(LIBDIR)
-	@$(PRINT) "Libft.a destroyed\n"
+	@$(PRINT) "$(BLUE)libft$(CLOSE): Libft.a destroyed\n"
 
 re : fclean all
 

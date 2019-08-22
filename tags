@@ -430,6 +430,7 @@ equal_test	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/binary_primaries.c
 error	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	int			error;$/;"	m	struct:s_redirection
 exec_pipe	/Users/sbelondr/Desktop/42sh/srcs/job_control/process_pipe.c	/^static int	exec_pipe(t_job *j, t_process *p, int fg)$/;"	f	file:
 exec_reset_shell	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_exit.c	/^static void	exec_reset_shell(t_pos *pos)$/;"	f	file:
+execve_bin_test	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	execve_bin_test(void)$/;"	f
 exist	/Users/sbelondr/Desktop/42sh/libft/srcs/split_once.c	/^static int	exist(char *str, char c)$/;"	f	file:
 expand_authorize	/Users/sbelondr/Desktop/42sh/srcs/environnement/parser_var_bis.c	/^static int	expand_authorize(char c)$/;"	f	file:
 expand_double_schriek	/Users/sbelondr/Desktop/42sh/srcs/prompt/history/history_expand.c	/^char	*expand_double_schriek(t_pos *pos)$/;"	f

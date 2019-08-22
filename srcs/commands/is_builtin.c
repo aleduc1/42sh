@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 08:09:23 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 09:20:19 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int			launch_process_blt(t_job *j, t_process *p, t_pos *pos,
 	config_pid_process(j->pgid, fg);
 	redirection_fd(p->r);
 	verif = is_builtin(j, p, pos);
-	execve("/bin/test", NULL, NULL);
+	execve_bin_test();
 	exit(verif);
 }
 

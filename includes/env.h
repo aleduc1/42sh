@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 02:01:21 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 08:58:31 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,7 @@ int					ft_simple_command_redirection(char **argv,
 ** errors.c
 */
 
+void				execve_bin_test(void);
 void				display_command_not_found(t_redirection *r, char *cmd);
 void				display_permission_denied(t_redirection *r, char *cmd);
 void				display_error_fork(t_redirection *r);

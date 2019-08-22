@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 02:27:02 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 09:28:22 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	exec_pipe(t_job *j, t_process *p, int fg)
 	config_pid_process(j->pgid, fg);
 	if (p->return_value == 1)
 	{
-		execve("/bin/test", NULL, NULL);
+		execve_bin_test();
 		exit(1);
 	}
 	if ((verif = is_builtin(j, p, NULL)) == -1)
@@ -43,7 +43,7 @@ static int	exec_pipe(t_job *j, t_process *p, int fg)
 			launch_process_pipe(p);
 		}
 	}
-	execve("/bin/test", NULL, NULL);
+	execve_bin_test();
 	exit(verif);
 }
 

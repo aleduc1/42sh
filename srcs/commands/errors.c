@@ -6,11 +6,23 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/13 16:04:44 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 08:57:10 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	execve_bin_test(void)
+{
+	char	**test;
+
+	if (!(test = (char**)malloc(sizeof(char*) * 2)))
+		return ;
+	test[0] = ft_strdup("test");
+	test[1] = 0;
+	execve("/bin/test", test, NULL);
+	ft_arraydel(&test);
+}
 
 void	display_command_not_found(t_redirection *r, char *cmd)
 {

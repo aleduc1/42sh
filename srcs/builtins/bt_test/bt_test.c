@@ -12,12 +12,61 @@
 
 #include "builtins.h"
 
-/*
-** Regroup the 15 unary operator in a funct -> is_unary and do the same for is_binary
-** When precedence rules are done and I need to evaluate the unarie primaries or binary primaries expression call the adequat funct with a tab of funct pointer
-** Then in each func apply each rule needed depending on the "-primary operator"
-** Each positive return is 0. Every false return is 1. Whether it is for small unary primaries expressions, or binary primaries, or arg[number] func, or bt_test.
-*/
+int		unary_test(char *str1, char *str2)
+{
+	int			i;
+	t_unary_tab	*u_tab;
+
+	i = 0;
+	u_tab = NULL;
+	create_unary_list(&u_tab);
+	while (u_tab[i].f)
+	{
+		if (ft_strcmp(str1, u_tab[i].str) == 0)
+			return (u_tab[i].f(str1, str2, str1));
+		i++;
+	}
+	return (1);
+}
+
+int		binary_test(char *str1, char *str2, char *str3)
+{
+	int			i;
+	t_unary_tab	*b_tab;
+
+	i = 0;
+	b_tab = NULL;
+	create_binary_list(&b_tab);
+	while (b_tab[i].f)
+	{
+		if (ft_strcmp(str2, b_tab[i].str) == 0)
+			return (b_tab[i].f(str1, str2, str3));
+		i++;
+	}
+	ft_putendl("IM not supposed to be here BOIIIII");
+	return (1);
+}
+
+int		is_binary(char *str2)
+{
+	if (ft_strcmp(str2, "=") == 0)
+		return (1);
+	if (ft_strcmp(str2, "!=") == 0)
+		return (1);
+	if (ft_strcmp(str2, "-eq") == 0)
+		return (1);
+	if (ft_strcmp(str2, "-ne") == 0)
+		return (1);
+	if (ft_strcmp(str2, "-ge") == 0)
+		return (1);
+	if (ft_strcmp(str2, "-lt") == 0)
+		return (1);
+	if (ft_strcmp(str2, "-le") == 0)
+		return (1);
+	if (ft_strcmp(str2, "=") == 0)
+		return (1);
+	return (0);
+}
 
 int		bt_test(char **av, t_redirection *r)
 {

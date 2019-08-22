@@ -20,9 +20,7 @@ int		bt_2(char *av1, char *av2)
 		else
 			return (1);
 	}
-	if (is_unary(av1))
-		return (unary_test(av1, av2));
-	return (1);
+	return (unary_test(av1, av2));
 }
 
 int		bt_3(char *av1, char *av2, char *av3)

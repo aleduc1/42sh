@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
 /*   Updated: 2019/08/21 10:16:38 by sbelondr         ###   ########.fr       */
@@ -92,7 +92,10 @@ static int	is_builtin_other(t_pos *pos, char **av, t_redirection *r)
 
 	verif = -1;
 	if (ft_strequ(av[0], "fc"))
+	{
+		redirection_fd(r);
 		verif = builtin_fc(av, pos);
+	}
 	else if (ft_strequ(av[0], "test"))
 		verif = builtin_fc(av, pos);
 	else if (ft_strequ(av[0], "alias"))

@@ -1,511 +1,88 @@
-ls
-echo ${TERM}
-echo "${TERM}"
-ls
-echo $HOME
-echo "$HOME"
-make
-echo "$HOME"
-make
-echo "$HOME"
-echo "$HOME""$TERM"
-echo "'$HOME'"
-echo "$HOME"$TERM${HOME}'$TERM'
-echo "$HOME"$TERM${HOME}'"$TERM"'
-git status
-emacs | emacs
-ls
-ls | cat -e
-cat | ls
-ls
+fc -l
+ls 1
+ls 2
+ls 3
 ls -R /
+fg
+ls -l
+jobs
+ls 1
+ls 2
+ls 3
+ls 4
+ls 5
+ls -l
+ls -R /
+echo AFTER
+echo AFTER_AFTER
 jobs
 fg
-ls
-jobs
-cat | ls
-jobs
 fg
-echo $TERM
-echo ${TERM}
-echo ${wTERM}
-echo ${TERM
-echo ${$TERM}
-echo ${${TERM}}
-cat | base64 /dev/urandom | cat -e
-ls | cat -e 1>&2
-ls | cat -e >&2
-echo ~~
-echo ~
-echo "~"
-echo '~'
-cat < ~/42sh/ft_ls/Makefile
-ls ~/42
-ls ~
-echo ~
-echo      ~  
-echo ~
-echo "~"
-echo ~
-echo ~~
-echo ~/
-echo ~/42
-echo ~/42/ft_ls
-echo ~/42/ft_ls/Makefile
-cat ~/42/ft_ls/Makefile
-ls ~/42/ft_ls/Makefile
-ls ~/42/ft_ls/
-ls ~/42
-ls ~/42/ft_printf
-ls ~/42/ft_printf/Makefile
-cat ~/42/ft_printf/Makefile
-cat < ~/42/ft_printf/Makefile
-make
-echo ~
-echo ~~
-echo $TERM
-cat < author
-make
-cat < author
-cat -e < author
-cat -e $HOME/42/ft_printf/author
-cat -e $HOME/42/ft_printf/auteur
-cat -e $HOME/42/ft_printf/main.c
-cat -e $HOME/42/ft_printf/src/main.c
-cat -e $HOME/42/ft_printf/srcs/main.c
-ls $HOME/42/ft_printf/
-cat $HOME/42/ft_printf/ft_printf.c
-cat ~/42/ft_printf/ft_printf.c
-cat -e ~/42/ft_printf/ft_printf.c
-ls
-echo ${TERM}
-echo ${tERM}
-echo ${ TERM}
-echo ${TERM}
-echo ${#TERM}
-echo ${${TERM}}
-make
-echo ${${TERM}}
-make
-echo ${TERM}
-echo ${TERM:}
-echo ${$TERM:}
-echo ${$TERM:?fghj}
-echo ${TERM:?fghj}
-echo ${TERM:-fghj}
-echo ${#TERM:-fghj}
-mkae
-make
-ls
-echo ${}
-echo ${%}
-echo ${${}%}
-ls
-echo ${}
-echo ${TERM#xterm}
-echo ${TERM#xterm-256color}
-echo ${TERM#xterm-256}
-echo ${$TERM#xterm-256}
-echo ${$TERM%xterm-256}
-echo ${$TERM##xterm-256}
-echo ${TERM##xterm-256}
-echo ${TERM#xterm-256}
-echo ${#TERM}
-echo ${#$TERM}
-make
-ls
-dd
-alias ls='ls -G'
-ls
-alias
-alias ls=ls -G
-ls
-alias
-alias ls="ls -G"
-ls
-alias
-ls
-alias ..="cd .."
-ls
--
-..
--
-....
-git status
-git add *
-git commit -m "ajout builtin alias de apruvost"
-git push
-ls
-echo """""""" | cat -e
-""
-mkfifo dd
-ls
-ls -la
-ls
-ls -z
-;s
-ls
-make
-ls
-ls -z
-ls
-rm dd
-ls
-git status
-USER=bibi
-ls
-cd
-cd -
-cd /
-cd -
-ls
-make
-ls
-vi srcs/main.c
-make
-ls
->
-<<
->>
-> >
-< <
-ls
-ls | cat -e
-ls
-./42sh
-ls
-lsl
-sls
-ls
->
-<
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                                                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;; ;;; ;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;
-ls                                                                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;; ;;; ;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;
-ls  -la .                                                                              ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;; ;;; ;;;;;;;;;;; ;;;;;;;;;;;;; ;;;;;;;;;;;;;; ;;;;;;;;;;;;;;;;
-ls
-cat | cat | ls
-env
-set totot=tata
-set totot=tata ls
-toot=rrr ls
-toto=aaa ls
-dd=ff ls
-make
-dd=ff ls
-make
-ls
-PATH=/ ls
-PATH=/ ls | wc
-make
-cat < saut
-cat << saut
-ls -l | cat -e & echo ok
-ls -l && cat -e & echo ok
-ls -l && echo bg & echo no_bg
-ls -l ; echo bg & echo no_bg
 ls -l
-ls && echo ok | cat -e
-ls -l || echo
-ls -l && echo  ok | echo ok
-ls -l && echo  ok || echo ok | test
-ls -l && echo  ok || echo ok | echo no_bg
-ls -l && echo  ok || els | echo no_bg
-ls -l && echo  ok || ls | echo no_bg
-ls -l && echo ok || ls | echo_nobg
-ls -l && echo ok || ls | echo nobg
-ls -l && echo ok & echo test
-ls -l & ls -l & ls -l & ls -l & ls -l
-make
-ls -l & ls -l & ls -l & ls -l & ls -l
-ls -l & echo ok
-ls -l & echo bg & echo no_bg
-ls | cat -e | cat -e
-ls || ls || ls
-ls -l ; ls -l | cat -e
-ls -l | cat -e ; ls -l | cat -e
-ls -l | cat -e || ls -l | cat -e
 ls -l
-ls asdasda | cat -e || echo OK
-ls -l || echo OK
-ls asdasda || echo OK
-?
-ls asdasda || echo OK
-ls asdasd || echo test
-ls -l || echo test
-ls -l || echo test & echo ok
-ls asdasdas || echo test & echo ok
-ls asdasd || ls qwdasdaq || echo OK
-ls asdasd || ls -l || echo OK
-ls asdasd | asdasd || echo OK
-ls -l | cat -e || echo OK
-ls -l && echo OK
-ls -l && echo OK || echo NOT_OK
-ls asdasd && echo OK || echo NOT_OK
-ls -l && echo OK | cat -e || echo NOT_OK
-ls asdasd && echo OK | cat -e || echo NOT_OK
-ls | cat -e || echo OK | cat -e || echo NOT_OK
-ls asdasd | cat -e || echo OK | cat -e || echo NOT_OK
-ls -l || cat -e
-ls -l || echo ok
-ls asdad || echo ok
-ls asdas && echo ok
-ls asdas || echo ok | cat -e
-ls -l | cat -e || echo OK
-ls -l | cat -e && echo OK && echo OK! | cat -e
-ls -l && echo OK || echo NOT_OK
-ls asdasd | cat -e || echo OK | cat -e || echo NOT_OK
-ls asdasd | cat -e || echo OK
-ls asdasd | cat -e && echo OK
 ls -l
-ls asdasd || cat -e && echo OK
-ls asdasd || echo dpipe && echo OK
-ls -l || echo KO
-ls -l && echo KO
-ls -l && echo KO & echo FG
-ls -l && echo OK  && echo OK2 & echo FG
-ls -l && echo OK  && echo OK2 & echo BG2 & echo FG
-ls &
-ls & ls
 ls
-ls | ls
-ls && ls
-ls && ls | cat -e
-ls &
-ls | cat -e && ls | cat -e ; ls | cat -e || ls | cat -e &
-ls | cat -e &
-ls &
-ls | cat -e &
-ls & ls & ls & ls &
-git status
-git commit -a -m "fixed segfault when nothing after '&', might cause some problems tho, careful"
-git push
-ls -l
-ls | cat -e && ls | cat -e ; ls | cat -e || ls | cat -e &
-ls -R /
-ls -l
-fg
-ls -R /
-ls -l
-fg
-ls -R /
-fg
-ls -R /
-jobs
-fg 1
-ls -l && echo OK
-ls -l
-cat a_faire.c
-ls -l
-cd ..
-ls -l
-cd 42sh
-ls -l
-fc -l 10 20
-fc -l 10 -20
+ls
+ls
+ok
+fc -l
 fc -l 10
-fc -l 20 10
-fc -lrn 20 10
-fc -l ls
-fc -lr ls
-fc -lrn ls
-fc -l ls test
+fc -l -10
 fc -l ls fc
-fc -l fc ls
-fc -l eval
-fc -l export
-fc -l PATH fc
-fc -l 10 fc
-fc -l
-fc -e test
-fc -e test 10 20
-fc -e test -10 20
-fc -l -10 20
-fc -s asdas -10 -20
-fc -s asdas -10
-fc -l -10
-fc -10
-fc -10s
-fc -10
-fc -10s
-fc -l -10
-fc -10
-fc -l -10
-fc -e -10
-fc -l -10
-fc -l asdasd
-fc -l 10
-fc -l 326
-fc -l -10
-make
-fc -l -10
-fc -l10
-fc -10
-fc -l -10
-ls -l
-fc -l -10
-make
-fc -l -10
-make
-fc -l -10
-fc -l -10 50
-make re
-fc -l -10 -30
-fc -l
-fc -l -10
-fc -l
-fc -l 10
-fc -l -10
-fc -l
-fc -l -10
-make
-fc -l -10
-fc -l -10 -30
-fc -lr -10
-fc -l -2999
-fc -l -29
-fc -l 29
-fc -l -10 fc
-fc -l -10 ls
-fc -l -10
-fc -lrn -10
-fc -l
-fc -l 10 20
-fc -lr
-fc -lrn
-fc -lrn 10 20
-fc -lrn 10
-fc -l
-fc -lrn
-ls -l
-o ""
-echo "j'ai un leger probleme d'edition de ligne"
-ls -l
-ls -la
-ok great
-cd ..
-cd -
-pwd
-l
-ls -l | cat -e
-c
-exit
-ls -l
-echo $TERM
-ls -l
-pwd
-this is a tet
-ls
-ls 
-ls | cat -e
-echo "test" > test ; echo OK && echo OK ; echo OK || echo OK ; ls | cat -e ; ls asdasdaasd 2>&/dev/null
-ls -l
-clear
-ls -l | cat -e ; echo ok && echo ok2 ; echo ok || echo ko ; ls 2>&/dev/null 
-ls -l | cat -e ; echo ok && echo ok2 ; echo ok || echo ko ; ls 2>&/dev/null && cat -e & ls -ls | cat -e
+fc -l 20 10
+fc -lr 20 10
+fc -lrn 20 10
+fc -lrn 20 10
+fc -lrn 20 10
 fg
-ls -l
-test
-test -l
-test -l - 10
-fc -l -10
-clear
-fc
-ls -l
-fc -lasdasd
-fc -e test
-fc -s test
-fc -s test -1
-fc -s test test
-fc -s
-ls -l
-fc -easdasd
+fg
+fg
+fg
+fg
+fg
 ls
+ls
+ok
+echo test
+echo something
 fc -l
-make
-fc -e basic
-test
-fc -e basic
-ls
-ls -l
-cat vgcore.24550
-ls -l
-fc -e basic
-fc -e vim
-make
-fc -e vim
-fc -e basic
-fc -e vim
-make
-fc -e basic
-fc -e vim
-fc -e ls
-fc -e basic
-fc -e vim
-fc -l vim
-fc -e vim
-fc
-make
-fc
-make
-fc -e vim
-fc -e test
-fc -e asdad
-fc
-make
-fc
-make
-fc
-echo $FCEDIT
-echo $EDITOR
-make
-fc
-ls -l
-fc
-fc -e fc
-fc -e vim
-fc -e ls
-fc
+ls 1
+ls 2
+ls 3
+ls 4
+ls 5
+ls 6
+ls 7
+ls 8
+ls 9
 fc -l
-fc 10 20
-fc -l 10 11
-fc 10
-fc -e vim 10
-fc -e vim
-make
-fc 10
-ls
-fc 10
-fc -e 10
+ls 9
 ls -l
-fc -e 10
-fc -e vim 10
-fc -l 10 20
-fc -e vim 13
-fc 10 20
-fc 10
-fc 103
-fc -e vim 103
-fc 10
-exit
-fc -e vim 10
-fc -l 10 20
-fc 10
-fc -l 10 20
-fc -e vim 10 20
-fc -e vim 10
-fc 10
-make
-./42
-ls -l
-fc 10 20
-fc 10
-fc 20
-make
-fc 10
-fc 20
-fc 50
-fc 10 20
-make
-fc 10 20
-fc -e nano 10 20
+ls 1
+ls 2
+ls 3
+ls 4
+ls 5
+ls 6
+ls 7
+ls 8
+ls 9
+fc -l
+fc -l 1
+echo AFTER_AFTER
+exit 99999999999999999999999999999999999999999999
+exit 1 2 3
+echo ${?}
+fc -l
+!61
+fc -l
+echo ${?}
+exit 1 2 3
+exit 99999999999999999999999999999999999999999999
+fc -lrn 20 10
+echo hello world
+fc -ln
+fc -lr
+ls DOESNOTEXIST
+ls DOESNOTEXIST
+fc -l fc 1

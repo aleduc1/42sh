@@ -68,8 +68,8 @@ typedef struct		s_repalias
 
 typedef struct		s_unary_tab
 {
-	char			*str;
 	int				(*f)(char *str1, char *str2, char *str3);
+	char			*str;
 }					t_unary_tab;
 
 int					bt_exit(t_job *j, t_pos *pos, t_redirection *r);

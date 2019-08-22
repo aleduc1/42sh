@@ -114,6 +114,7 @@ OBJDIR	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^OBJDIR = objs\/$/;"	m
 OBJS_NAMES	/Users/sbelondr/Desktop/42sh/Makefile	/^OBJS_NAMES = $(SRCS_NAMES:.c=.o)$/;"	m
 OBJS_NAMES	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^OBJS_NAMES = $(SRCS_NAMES:.c=.o)$/;"	m
 OPERATORS	/Users/sbelondr/Desktop/42sh/includes/parser.h	/^# define OPERATORS /;"	d
+OS	/Users/sbelondr/Desktop/42sh/includes/env.h	/^#	define OS /;"	d
 PARSER_H	/Users/sbelondr/Desktop/42sh/includes/parser.h	/^# define PARSER_H$/;"	d
 PATHLIBDIR	/Users/sbelondr/Desktop/42sh/Makefile	/^PATHLIBDIR = libft\/libs\/$/;"	m
 PG_DOWN	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^# define PG_DOWN /;"	d
@@ -968,6 +969,7 @@ open_file_command	/Users/sbelondr/Desktop/42sh/srcs/redirection/manage_file.c	/^
 open_file_command_bis	/Users/sbelondr/Desktop/42sh/srcs/redirection/manage_file.c	/^static int	open_file_command_bis(t_redir **redir, t_pos *pos, int verif)$/;"	f	file:
 open_file_dless	/Users/sbelondr/Desktop/42sh/srcs/redirection/action_file.c	/^int	open_file_dless(t_redir *redir, t_pos *pos)$/;"	f
 open_file_great	/Users/sbelondr/Desktop/42sh/srcs/redirection/action_file.c	/^int	open_file_great(t_redir *redir)$/;"	f
+opt_bt_jobs	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_jobs.c	/^int			opt_bt_jobs(char *av)$/;"	f
 options	/Users/sbelondr/Desktop/42sh/libft/includes/ft_printf.h	/^	char			options[50];$/;"	m	struct:s_printf
 options	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/parser.c	/^void	options(t_printf **lst)$/;"	f
 options_n	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/apply_arg_n.c	/^void		options_n(t_printf **lst, int stock[3], int neg, int rd)$/;"	f

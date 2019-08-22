@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 00:37:56 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/03/26 10:00:49 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:44:28 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,5 @@ int				ft_strchr_exist(char *s, char c)
 		return (0);
 	while (s[i] && s[i] != c)
 		i++;
-	if (s[i] == c)
-		return (1);
-	return (0);
+	return (s[i] == c);
 }

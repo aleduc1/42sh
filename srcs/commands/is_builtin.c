@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 12:56:59 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 19:52:07 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,11 +187,9 @@ int			builtin_exist(char *cmd)
 		|| ft_strequ(cmd, "fc") || ft_strequ(cmd, "test")
 		|| ft_strequ(cmd, "alias") || ft_strequ(cmd, "unalias")
 		|| ft_strequ(cmd, "hash") || ft_strequ(cmd, "type")
-		|| ft_strequ(cmd, "jobs")
-		|| ft_strequ(cmd, "fg") || ft_strequ(cmd, "bg")
-		|| ft_strequ(cmd, "set")
-		|| ft_strequ(cmd, "export")
-		|| ft_strequ(cmd, "unset")
+		|| ft_strequ(cmd, "jobs") || ft_strequ(cmd, "fg")
+		|| ft_strequ(cmd, "bg") || ft_strequ(cmd, "set")
+		|| ft_strequ(cmd, "export") || ft_strequ(cmd, "unset")
 		|| (ft_strchr_exist(cmd, '=') && prepare_verif_syntax_key(cmd)))
 		return (1);
 	return (0);
@@ -248,6 +246,6 @@ int			builtin(t_job *j, t_process *p, t_pos *pos, int fg)
 	if (fg == 1)
 		return (is_builtin(j, p, pos));
 	else
-		launch_job_blt(j, p, pos, fg);
+		verif = launch_job_blt(j, p, pos, fg);
 	return (verif);
 }

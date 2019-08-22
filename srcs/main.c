@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/22 11:35:33 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 21:02:47 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,13 @@ static void	init_alias(void)
 {
 	g_hash_table = ht_hash_new();
 	g_alias_table = ht_hash_new();
-	ht_hash_insert(g_alias_table, "ls", "ls -G");
+	if (OS == 0)
+		ht_hash_insert(g_alias_table, "ls", "ls -G");
+	else
+	{
+		free_maillon_env("LS_COLORS", 0);
+		ht_hash_insert(g_alias_table, "ls", "ls --color");
+	}
 	ht_hash_insert(g_alias_table, "b", "base64 /dev/urandom");
 	ht_hash_insert(g_alias_table, "..", "cd ..");
 	ht_hash_insert(g_alias_table, "-", "cd -");

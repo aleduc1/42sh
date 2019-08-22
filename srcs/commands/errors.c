@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 13:03:18 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 20:15:14 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,19 @@ void	display_no_such_job(t_redirection *r, char *name)
 
 void	display_invalid_option_job(t_redirection *r, char *name)
 {
-	ft_dprintf(r->error, "42sh: jobs %s: invalid option\n", name);
+	char	c;
+
+	c = 0;
+	while (*name)
+	{
+		if (*name != 'p' && *name != 'l')
+		{
+			c = *name;
+			break ;
+		}
+		++name;
+	}
+	ft_dprintf(r->error, "42sh: jobs -%c: invalid option\n", c);
 	ft_dprintf(r->error, "jobs: usage: jobs [-l | -p] [job_id...]\n");
 }
 
@@ -85,7 +97,14 @@ void	display_no_current_job(t_redirection *r, char *name)
 
 void	display_no_job_control(t_redirection *r, char *name)
 {
-	ft_dprintf(r->error, "42sh: %s: no job control\n", name);
+	char	*data;
+	char	*cache;
+
+	cache = ft_strjoin("42sh: ", name);
+	data = ft_strjoin(cache, ": no job control\n");
+	ft_putstr_fd(data, r->error);
+	ft_strdel(&cache);
+	ft_strdel(&data);
 }
 
 void	display_job_stopped(void)

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 12:37:47 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:36:23 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			edit_set(char **value, t_redirection *r, t_pos *pos)
 		result = edit_set_no_command(value);
 	else
 		edit_set_command(value, r, pos);
-	return (result);
+	return (result != -1 ? 0 : 1);
 }
 
 int			ft_unset(char **value)

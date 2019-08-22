@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/21 10:04:46 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:47:09 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ int				ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
 	if (!builtin_exist(p->cmd[0]))
 		verif = is_not_builtin(j, p, fg);
 	else
+	{
 		verif = builtin(j, p, pos, fg);
+		if (verif == -1)
+			verif = is_not_builtin(j, p, fg);
+	}
 	return (verif);
 }
 

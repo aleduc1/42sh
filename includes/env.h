@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 08:58:31 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:52:55 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,7 @@ char				**create_list_env(t_env *my_env, int env);
 ** manage_set.c
 */
 
+int					verif_syntax_key(char *key);
 int					edit_set(char **value, t_redirection *r, t_pos *pos);
 int					ft_unset(char **value);
 int					edit_set_command_env(char *str, t_env *my_env);

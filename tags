@@ -268,7 +268,6 @@ cd_testpath	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_cd_utils.c	/^int		cd_t
 change_fg_var_job	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^void			change_fg_var_job(t_job *j, int fg)$/;"	f
 check_double	/Users/sbelondr/Desktop/42sh/srcs/lexer/handle_stuff.c	/^void	check_double(char *input, int *i)$/;"	f
 check_env_path	/Users/sbelondr/Desktop/42sh/srcs/environnement/path.c	/^static char	*check_env_path(char *command)$/;"	f	file:
-check_error_job_pipe	/Users/sbelondr/Desktop/42sh/srcs/commands/commands_pipe.c	/^static int	check_error_job_pipe(t_job *j)$/;"	f	file:
 check_exec_path	/Users/sbelondr/Desktop/42sh/srcs/environnement/path.c	/^static void	check_exec_path(char **str)$/;"	f	file:
 check_fd_is_good	/Users/sbelondr/Desktop/42sh/srcs/redirection/redirection.c	/^static int	check_fd_is_good(t_redirection *r)$/;"	f	file:
 check_format_variable	/Users/sbelondr/Desktop/42sh/srcs/environnement/expansion_tools.c	/^int			check_format_variable(char *str)$/;"	f
@@ -999,6 +998,7 @@ precision	/Users/sbelondr/Desktop/42sh/libft/includes/ft_printf.h	/^	int				prec
 precision_n	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/apply_arg_n.c	/^char		*precision_n(char *str, t_printf **lst, int neg)$/;"	f
 precision_s	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/apply_arg_s.c	/^char		*precision_s(char *str, t_printf **lst)$/;"	f
 prepare_exec_pipe	/Users/sbelondr/Desktop/42sh/srcs/commands/commands_pipe.c	/^static void	prepare_exec_pipe(int fg)$/;"	f	file:
+prepare_verif_syntax_key	/Users/sbelondr/Desktop/42sh/srcs/commands/is_builtin.c	/^int			prepare_verif_syntax_key(char *cmd)$/;"	f
 pretty_print	/Users/sbelondr/Desktop/42sh/srcs/parser/ast/tree_utils.c	/^void		pretty_print(t_ast *tree)$/;"	f
 prev	/Users/sbelondr/Desktop/42sh/includes/lexer.h	/^	t_lex	*prev;$/;"	m	struct:s_lex
 prev	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	struct s_multi	*prev;$/;"	m	struct:s_multi	typeref:struct:s_multi::s_multi

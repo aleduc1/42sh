@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/19 01:53:52 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:35:33 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,6 @@ int			main(int argc, char **argv, char **environ)
 	init_alias();
 	if (argc > 1)
 		script_test(argv + 1, pos);
-	// dfl_signaux();
 	while (21)
 	{
 		if (argc && argv && environ)

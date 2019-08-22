@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 09:39:18 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:56:59 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,25 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	return (verif);
 }
 
+int			prepare_verif_syntax_key(char *cmd)
+{
+	char	*value;
+	int		index;
+
+	index = ft_chr_index(cmd, '=');
+	if (index > 0)
+	{
+		value = ft_strsub(cmd, 0, index);
+		if (verif_syntax_key(value))
+		{
+			ft_strdel(&value);
+			return (1);
+		}
+		ft_strdel(&value);
+	}
+	return (0);
+}
+
 int			builtin_exist(char *cmd)
 {
 	if (ft_strequ(cmd, "echo") || ft_strequ(cmd, "cd") || ft_strequ(cmd, "exit")
@@ -172,7 +191,8 @@ int			builtin_exist(char *cmd)
 		|| ft_strequ(cmd, "fg") || ft_strequ(cmd, "bg")
 		|| ft_strequ(cmd, "set")
 		|| ft_strequ(cmd, "export")
-		|| ft_strequ(cmd, "unset") || ft_strchr_exist(cmd, '='))
+		|| ft_strequ(cmd, "unset")
+		|| (ft_strchr_exist(cmd, '=') && prepare_verif_syntax_key(cmd)))
 		return (1);
 	return (0);
 }

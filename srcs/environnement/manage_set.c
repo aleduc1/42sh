@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 07:32:40 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:37:47 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int			verif_syntax_key(char *key)
 {
-	(void)key;
-	/*
-	** dif de alphanum et _
-	*/
+	while (*key)
+	{
+		if (ft_isalnum(*key) == 0 && (*key) != '_')
+			return (0);
+		++key;
+	}
 	return (1);
 }
 
@@ -34,7 +36,10 @@ int			edit_set_no_command(char **value)
 		{
 			key = ft_strsub(value[i], 0, cnt);
 			if (verif_syntax_key(key) == 0)
-				;//error
+			{
+				ft_strdel(&key);
+				return (-1);
+			}
 			else if (key && ft_strlen(key) > 0)
 			{
 				reset_hash_verif(key);
@@ -69,7 +74,7 @@ int			edit_set(char **value, t_redirection *r, t_pos *pos)
 	i = -1;
 	result = 0;
 	while (value[++i])
-		if (ft_chr_index(value[i], '=') < 2)
+		if (ft_chr_index(value[i], '=') < 1)
 			break ;
 	if (i == 0)
 		return (-1);

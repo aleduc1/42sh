@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 03:02:22 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/23 00:58:39 by hab              ###   ########.fr       */
+/*   Updated: 2019/08/23 01:04:04 by hab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char		**get_argv(t_token *cmd_list)
 	int		i;
 
 	i = 0;
+	argv = NULL;
 	cursor = cmd_list->command;
 	len = get_argc(cursor);
 	if (!(argv = (char **)malloc(sizeof(char *) * (len + 1))))
@@ -69,7 +70,6 @@ int			*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe, int bg)
 {
 	char	**argv;
 
-	argv = NULL;
 	argv = get_argv(cmd_list);
 	if (files_handler(cmd_list, pos) != -1)
 		ft_pipe(argv, cmd_list, end_pipe, bg);
@@ -81,7 +81,6 @@ int			*run_cmd(t_token *cmd_list, t_pos *pos, int bg)
 {
 	char	**argv;
 
-	argv = NULL;
 	argv = get_argv(cmd_list);
 	if (files_handler(cmd_list, pos) != -1)
 		ft_simple_command(argv, cmd_list, pos, bg);

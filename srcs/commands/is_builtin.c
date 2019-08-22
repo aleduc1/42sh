@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 04:21:46 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/21 10:16:38 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,18 @@ static int	verif_set(char **argv, int nb, t_redirection *r, char *name)
 	return (0);
 }
 
+/*
+**	setenv -> edit_setenv(av[1], av[2]);
+**	unsetenv -> ft_unsetenv(av);
+** Args:	
+*/
+
 static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 {
 	int	verif;
 
 	if (ft_strequ(av[0], "set"))
 		verif = verif_set(p->cmd, 1, p->r, "set") ? builtin_set(p->r) : 1;
-	else if (ft_strequ(av[0], "setenv"))
-		verif = verif_set(av, 3, p->r, "setenv")
-			? edit_setenv(av[1], av[2]) : -2;
-	else if (ft_strequ(av[0], "unsetenv"))
-		verif = ft_unsetenv(av);
 	else if (ft_strequ(av[0], "export"))
 		verif = bt_export(av, p->r);
 	else if (ft_strequ(av[0], "unset"))
@@ -166,8 +167,8 @@ int			builtin_exist(char *cmd)
 		|| ft_strequ(cmd, "hash") || ft_strequ(cmd, "type")
 		|| ft_strequ(cmd, "jobs")
 		|| ft_strequ(cmd, "fg") || ft_strequ(cmd, "bg")
-		|| ft_strequ(cmd, "set") || ft_strequ(cmd, "setenv")
-		|| ft_strequ(cmd, "unsetenv") || ft_strequ(cmd, "export")
+		|| ft_strequ(cmd, "set")
+		|| ft_strequ(cmd, "export")
 		|| ft_strequ(cmd, "unset") || ft_strchr_exist(cmd, '='))
 		return (1);
 	return (0);

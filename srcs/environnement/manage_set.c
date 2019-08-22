@@ -6,11 +6,20 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 11:25:13 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 07:32:40 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int			verif_syntax_key(char *key)
+{
+	(void)key;
+	/*
+	** dif de alphanum et _
+	*/
+	return (1);
+}
 
 int			edit_set_no_command(char **value)
 {
@@ -24,7 +33,9 @@ int			edit_set_no_command(char **value)
 		if ((cnt = ft_chr_index(value[i], '=')) > 0)
 		{
 			key = ft_strsub(value[i], 0, cnt);
-			if (key && ft_strlen(key) > 0)
+			if (verif_syntax_key(key) == 0)
+				;//error
+			else if (key && ft_strlen(key) > 0)
 			{
 				reset_hash_verif(key);
 				add_set_value(key, value[i] + cnt + 1);

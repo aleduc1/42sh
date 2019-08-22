@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 14:41:32 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/04/08 10:47:21 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 10:37:24 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void		convert_type(t_printf **lst, char (*str)[BUF_S], int base)
 	if ((*lst)->conversion[0] == 'h')
 	{
 		if ((*lst)->conversion[1] == 'h')
-			ft_convert_base_uc((unsigned char)va_arg((*lst)->ap, void*), base,
+			ft_convert_base_uc((unsigned char)va_arg((*lst)->ap, int), base,
 					&(*str));
 		else
-			ft_convert_base_us((unsigned short)va_arg((*lst)->ap, void*), base,
+			ft_convert_base_us((unsigned short)va_arg((*lst)->ap, int), base,
 					&(*str));
 	}
 	else if ((*lst)->conversion[0] == 'l')

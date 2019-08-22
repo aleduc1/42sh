@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:06:43 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/04/08 10:47:41 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 10:36:59 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_conversion(char **str, t_printf **lst)
 	if ((*lst)->conversion[0] == 'h')
 	{
 		if ((*lst)->conversion[1] == 'h')
-			(*str) = ft_itoa_sc((signed char)va_arg((*lst)->ap, void*));
+			(*str) = ft_itoa_sc((signed char)va_arg((*lst)->ap, int));
 		else
-			(*str) = ft_itoa_s((short)va_arg((*lst)->ap, void*));
+			(*str) = ft_itoa_s((short)va_arg((*lst)->ap, int));
 	}
 	else if ((*lst)->conversion[0] == 'l')
 		(*str) = ft_itoa_long(va_arg((*lst)->ap, long long));
@@ -43,9 +43,9 @@ void	ft_conversion_u(char **str, t_printf **lst)
 	if ((*lst)->conversion[0] == 'h')
 	{
 		if ((*lst)->conversion[1] == 'h')
-			(*str) = ft_itoa((int)((unsigned char)va_arg((*lst)->ap, void*)));
+			(*str) = ft_itoa((int)((unsigned char)va_arg((*lst)->ap, int)));
 		else
-			(*str) = ft_itoa_us((unsigned short)va_arg((*lst)->ap, void*));
+			(*str) = ft_itoa_us((unsigned short)va_arg((*lst)->ap, int));
 	}
 	else if ((*lst)->conversion[0] == 'l')
 		(*str) = ft_itoa_ul(va_arg((*lst)->ap, unsigned long long));

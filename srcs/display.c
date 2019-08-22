@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 09:47:57 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/16 03:12:21 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 09:38:05 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 static char	*info_display(char *buf)
 {
 	int		i;
-	int		len;
 	char	*tmp;
 	char	*dst;
 
@@ -27,7 +26,6 @@ static char	*info_display(char *buf)
 		return (dst);
 	}
 	i = -1;
-	len = ft_strlen(tmp);
 	while (tmp[++i])
 		if ((!buf[i]) || tmp[i] != buf[i])
 		{

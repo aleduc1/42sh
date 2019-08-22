@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:56:38 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 09:40:29 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,18 @@ void			display_jobs_options(void (*p)(t_job*, int, t_redirection*),
 {
 	t_job	*j;
 	int		i;
-	int		verif;
+//	int		verif;
 	int		max_current;
 
 	max_current = get_shell()->max_job_current;
 	i = (ft_strequ(*av, "--")) ? 1 : 0;
 	while (av[i])
 	{
-		verif = 0;
+//		verif = 0;
 		j = search_job(av[i]);
 		if (j)
 		{
-			verif = 1;
+//			verif = 1;
 			if (job_is_completed(j) || job_is_stopped(j))
 			{
 				(*p)(j, max_current, r);

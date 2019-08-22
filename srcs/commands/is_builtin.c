@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 09:20:19 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 09:39:18 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,10 +184,8 @@ int			builtin_exist(char *cmd)
 int			launch_process_blt(t_job *j, t_process *p, t_pos *pos,
 				int fg)
 {
-	char	**environ;
 	int		verif;
 
-	environ = create_list_env(get_env(0, NULL), 1);
 	config_pid_process(j->pgid, fg);
 	redirection_fd(p->r);
 	verif = is_builtin(j, p, pos);

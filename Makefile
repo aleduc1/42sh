@@ -41,6 +41,7 @@ VPATH = objs:\
 		srcs/interpreter:\
 		srcs/builtins:\
 		srcs/builtins/bt_jobs:\
+		srcs/builtins/bt_test:\
 		srcs/redirection:\
 		srcs/hash_table
 
@@ -206,7 +207,12 @@ SRCS_NAMES = main.c \
 			 bt_fg.c\
 			 bt_bg.c\
 			 bt_fg_bg_tools.c\
-			 bt_type.c
+			 bt_type.c \
+			 bt_test.c \
+			 precedence_alg.c \
+			 unary_lists.c \
+			 unary_primaries.c \
+			 binary_primaries.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

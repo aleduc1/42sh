@@ -66,6 +66,12 @@ typedef struct		s_repalias
 	struct s_repalias	*next;
 }					t_repalias;
 
+typedef struct		s_unary_tab
+{
+	char			*str;
+	int				(*f)(char *str1, char *str2, char *str3);
+}					t_unary_tab;
+
 int					bt_exit(t_job *j, t_pos *pos, t_redirection *r);
 int					bt_echo(char **av, t_redirection *r);
 
@@ -86,6 +92,49 @@ int					cd_canonical_del(t_cd *cd, size_t a, size_t b, size_t len);
 int					cd_chdir(t_cd *cd);
 int					cd_err(t_cd *cd);
 int					cd_getopt(char ac, char **av, t_cd *cd);
+
+/*
+** bt_test.c
+*/
+
+int					bt_test(char **av, t_redirection *r);
+int					is_binary(char *str2);
+int					unary_test(char *str1, char *str2);
+int					binary_test(char *str1, char *str2, char *str3);
+
+int					bt_1(char *av1);
+int					bt_2(char *av1, char *av2);
+int					bt_3(char *av1, char *av2, char *av3);
+int					bt_4(char *av1, char *av2, char *av3, char *av4);
+int					bt_5(void);
+
+void				create_unary_list(t_unary_tab **tab);
+void				create_binary_list(t_unary_tab **tab);
+
+int					b_test(char *str1, char *str2, char *str3);
+int					c_test(char *str1, char *str2, char *str3);
+int					d_test(char *str1, char *str2, char *str3);
+int					e_test(char *str1, char *str2, char *str3);
+int					f_test(char *str1, char *str2, char *str3);
+int					g_test(char *str1, char *str2, char *str3);
+int					L_test(char *str1, char *str2, char *str3);
+int					p_test(char *str1, char *str2, char *str3);
+int					r_test(char *str1, char *str2, char *str3);
+int					S_test(char *str1, char *str2, char *str3);
+int					s_test(char *str1, char *str2, char *str3);
+int					u_test(char *str1, char *str2, char *str3);
+int					w_test(char *str1, char *str2, char *str3);
+int					x_test(char *str1, char *str2, char *str3);
+int					z_test(char *str1, char *str2, char *str3);
+
+int					equal_test(char *str1, char *str2, char *str3);
+int					notequal_test(char *str1, char *str2, char *str3);
+int					eq_test(char *str1, char *str2, char *str3);
+int					ne_test(char *str1, char *str2, char *str3);
+int					ge_test(char *str1, char *str2, char *str3);
+int					lt_test(char *str1, char *str2, char *str3);
+int					le_test(char *str1, char *str2, char *str3);
+
 
 /*
 ** bt_jobs.c

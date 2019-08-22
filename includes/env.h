@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 21:03:35 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 21:07:47 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#	ifdef _linux_
+#	ifdef __linux__
 #	define OS 1
 #	else
 #	define OS 0

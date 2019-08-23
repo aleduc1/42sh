@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 16:44:29 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/07 17:41:28 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 06:06:47 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,11 @@ int			open_file_command(t_redir *redir, t_pos *pos)
 	verif = 0;
 	if (!redir)
 		return (-1);
-	if (redir->type == LESSAMP && ft_strequ(redir->src_fd[0], "1"))
+/*	if (redir->type == LESSAMP && ft_strequ(redir->src_fd[0], "1"))
 	{
 		ft_strdel(&redir->src_fd[0]);
 		redir->src_fd[0] = ft_strdup("0");
-	}
+	}*/
 	verif = open_file_command_bis(&redir, pos, verif);
 	if (verif_file_descriptor(redir->src_fd, redir->dest_fd) == -1)
 		verif = -1;

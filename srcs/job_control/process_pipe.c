@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/23 01:03:48 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 04:57:02 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,6 @@ static void	pipe_error(int error)
 	bt_exit(NULL, NULL, NULL);
 }
 
-int		verif_is_fork(t_process *p)
-{
-	while (p)
-	{
-		if (!p->cmd)
-			return (-1);
-		p = p->next;
-	}
-	return (0);
-}
-
 /*
 ** LINE 221: fd[0] = j->r->in;//open(STDIN_FILENO, O_RDWR);// j->r->in;
 */
@@ -100,8 +89,6 @@ void		launch_job_pipe(t_job *j, int fg)
 
 	p = j->first_process;
 	fd[0] = STDIN_FILENO;
-	if (verif_is_fork(p) == -1)
-		return ;
 	while (p)
 	{
 		if (p->next)

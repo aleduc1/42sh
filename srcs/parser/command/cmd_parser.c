@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 03:02:22 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/23 01:04:04 by hab              ###   ########.fr       */
+/*   Updated: 2019/08/23 05:20:20 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		**get_argv(t_token *cmd_list)
 	return (argv);
 }
 
-int		files_handler(t_token *cmd_list, t_pos *pos)
+int		files_handler(char ***argv, t_token *cmd_list, t_pos *pos)
 {
 	t_lex	*cursor;
 
@@ -60,7 +60,10 @@ int		files_handler(t_token *cmd_list, t_pos *pos)
 	{
 		if (cursor->token->type == REDIR)
 			if (open_file_command(cursor->redir, pos) == -1)
+			{
+				ft_arraydel(argv);
 				return (-1);
+			}
 		cursor = cursor->next;
 	}
 	return (0);
@@ -71,7 +74,8 @@ int			*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe, int bg)
 	char	**argv;
 
 	argv = get_argv(cmd_list);
-	if (files_handler(cmd_list, pos) != -1)
+//	if (files_handler(cmd_list, pos) != -1)
+	files_handler(&argv, cmd_list, pos);
 		ft_pipe(argv, cmd_list, end_pipe, bg);
 	ft_arraydel(&argv);
 	return (0);
@@ -82,7 +86,7 @@ int			*run_cmd(t_token *cmd_list, t_pos *pos, int bg)
 	char	**argv;
 
 	argv = get_argv(cmd_list);
-	if (files_handler(cmd_list, pos) != -1)
+	if (files_handler(&argv, cmd_list, pos) != -1)
 		ft_simple_command(argv, cmd_list, pos, bg);
 	ft_arraydel(&argv);
 	return (0);

@@ -6,19 +6,35 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 13:16:25 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 05:55:46 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "job.h"
 
+int		verif_is_fork(t_process *p)
+{
+	while (p)
+	{
+		if (!(p->cmd))
+			return (-1);
+		p = p->next;
+	}
+	return (0);
+}
+
 static void	stock_process(char **argv, t_token *token, int end_pipe, int fg)
 {
 	if (end_pipe == 0)
 		create_new_job(argv, token, NULL, fg);
 	else
-		add_process(argv, token, fg);
+	{
+		if (verif_is_fork(get_end_job()->first_process) == -1)
+			add_process(argv, NULL, fg);
+		else
+			add_process(argv, token, fg);
+	}
 }
 
 static void	prepare_exec_pipe(int fg)
@@ -27,6 +43,8 @@ static void	prepare_exec_pipe(int fg)
 
 	j = get_end_job();
 	j->fg = fg;
+	if (verif_is_fork(j->first_process) == -1)
+		return ;
 	launch_job_pipe(j, fg);
 }
 
@@ -45,8 +63,6 @@ int			ft_pipe(char **argv, t_token *token, int end_pipe, int bg)
 	t_process	*p;
 	int			fg;
 
-	if ((!argv) || (!*argv))
-		return (-1);
 	if (bg != 0)
 		manage_id_job(bg);
 	fg = (bg > 0) ? 0 : 1;
@@ -60,6 +76,10 @@ int			ft_pipe(char **argv, t_token *token, int end_pipe, int bg)
 		gest_return(1);
 	}
 	if (end_pipe == 2)
+	{
+		if (verif_is_fork(get_end_job()->first_process) == -1)
+			return (-1);
 		prepare_exec_pipe(fg);
+	}
 	return (0);
 }

@@ -235,3 +235,13 @@ test 9 = 1239
 test 9 = 9
 test 9 -eq oasd 2>&-
 exit
+ls -la & pwd
+ls -la & pwd & ls &
+ls
+b | wc
+jobs %base
+fg
+b | cat -e
+b | cat -e &
+ls
+fg

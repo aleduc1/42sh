@@ -295,6 +295,7 @@ clean_inside_token	srcs/cleaning/clean_lex.c	/^void	clean_inside_token(t_token *
 clean_lex	srcs/cleaning/clean_lex.c	/^void	clean_lex(t_lex **lex)$/;"	f
 clean_redir	srcs/cleaning/clean_redir.c	/^void	clean_redir(t_redir **redir)$/;"	f
 clean_redirection	srcs/job_control/free_job_file.c	/^void		clean_redirection(t_redirection *r)$/;"	f
+clean_test_tab	srcs/builtins/bt_test/unary_lists.c	/^void	clean_test_tab(t_unary_tab **tab_lst)$/;"	f
 clipboard	includes/sh21.h	/^	char			*clipboard;$/;"	m	struct:s_pos
 close	includes/lexer.h	/^	int		close;$/;"	m	struct:s_redir
 close_base_std	srcs/builtins/bt_exit.c	/^static void	close_base_std(void)$/;"	f	file:
@@ -1204,8 +1205,10 @@ value_parameter_percents	srcs/environnement/expansion_percent.c	/^static char	*v
 verif_close	srcs/redirection/delete_redirection.c	/^int		verif_close(int fd)$/;"	f
 verif_file_descriptor	srcs/redirection/manage_file.c	/^int			verif_file_descriptor(char **src, char *dst)$/;"	f
 verif_float_zero	libft/srcs/ft_printf/apply_arg_float.c	/^int		verif_float_zero(t_printf *lst)$/;"	f
+verif_is_fork	srcs/job_control/process_pipe.c	/^int		verif_is_fork(t_process *p)$/;"	f
 verif_set	srcs/commands/is_builtin.c	/^static int	verif_set(char **argv, int nb, t_redirection *r, char *name)$/;"	f	file:
 verif_syntax_key	srcs/environnement/manage_set.c	/^int			verif_syntax_key(char *key)$/;"	f
+verify_only_alpha	srcs/builtins/bt_test/binary_primaries.c	/^int		verify_only_alpha(char *str1, char *str2)$/;"	f
 w_test	srcs/builtins/bt_test/unary_primaries.c	/^int		w_test(char *str1, char *str2, char *str3)$/;"	f
 wait_for_job	srcs/job_control/gest_process.c	/^void		wait_for_job(t_job *j)$/;"	f
 welcome	srcs/prompt/others/terminit.c	/^void				welcome(void)$/;"	f

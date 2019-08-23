@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 12:47:09 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 23:07:33 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int				ft_simple_command_fc(char *editor)
 ** Copy struct redirection to ft_simple_command_redirection
 */
 
-t_redirection	*cpy_redirection(t_redirection *r)
+static t_redirection	*cpy_redirection(t_redirection *r)
 {
 	t_redirection	*cpy;
 

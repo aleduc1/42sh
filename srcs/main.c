@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/22 23:55:19 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/24 00:35:45 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,16 @@ void		run(char *input, t_pos *pos)
 {
 	t_lex	*lex;
 	t_ast	*ast;
+	int		verif;
 
 	lex = NULL;
 	ast = NULL;
 	input = alias_replace(input);
-	if ((check_whitespace_input(input)) && (lex = lexer(input)))
-	{
-		ft_strdel(&input);
+	verif = check_whitespace_input(input);
+	if (verif && (lex = lexer(input)))
 		if ((ast = ast_parser(lex)) && (solo_tree(ast, pos) < 0))
 			interpreter(ast, pos, 0);
-		clean_lex(&lex);
-		clean_ast(ast);
-	}
-	else if (input)
+	if (input)
 	{
 		ft_strdel(&input);
 		clean_lex(&lex);
@@ -165,19 +162,16 @@ int			main(int argc, char **argv, char **environ)
 	input = NULL;
 	multi_input = NULL;
 	edit_shell();
-	(argc == 1) ? welcome() : 0;
+	welcome();
 	flags(argc, argv);
 	init_prompt(&pos);
 	init_alias();
-	if (argc > 1)
-		script_test(argv + 1, pos);
 	while (21)
 	{
 		if (argc && argv && environ)
 			if ((input = prompt(multi_input, &pos)))
 				run(input, &pos);
 		job_notif();
-//		update_status();
 		manage_id_job(0);
 	}
 	return (0);

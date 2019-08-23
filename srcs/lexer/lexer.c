@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:29 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/23 06:20:01 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/23 22:02:26 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ t_lex	*lexer(char *input)
 		ft_error(0);
 		return (NULL);
 	}
-	ft_printf("Je suis dans lexer.c:83\t\n");
-	dllprinthead(&lex);
+//	ft_printf("Je suis dans lexer.c:83\t\n");
+//	dllprinthead(&lex);
 	remove_space_token(&lex);
 	return (lex);
 }

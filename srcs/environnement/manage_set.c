@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 17:36:23 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 00:12:46 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,47 @@ int			edit_set_no_command(char **value)
 	return (i);
 }
 
-int			edit_set_command(char **value, t_redirection *r, t_pos *pos)
+int			edit_set_no_command_env(char **value)
+{
+	char	*key;
+	int		i;
+	int		cnt;
+
+	i = -1;
+	while (value[++i])
+	{
+		if ((cnt = ft_chr_index(value[i], '=')) > 0)
+		{
+			key = ft_strsub(value[i], 0, cnt);
+			if (verif_syntax_key(key) == 0)
+			{
+				ft_strdel(&key);
+				return (-1);
+			}
+			else if (key && ft_strlen(key) > 0)
+			{
+				reset_hash_verif(key);
+				edit_setenv(key, value[i] + cnt + 1);
+				ft_strdel(&key);
+			}
+		}
+		else
+			break ;
+	}
+	return (i);
+}
+
+int			edit_set_command(char **value, t_redirection *r, t_pos *pos,
+		int index)
 {
 	t_env	*cpy_env;
 	int		result;
 
 	cpy_env = ft_cpy_env();
-	result = edit_set_no_command(value);
+	if (ft_strequ(value[index], "env"))
+		result = edit_set_no_command_env(value);
+	else
+		result = edit_set_no_command(value);
 	ft_simple_command_redirection(value + result, r, pos, 1);
 	get_env(1, NULL);
 	get_env(0, cpy_env);
@@ -81,7 +115,7 @@ int			edit_set(char **value, t_redirection *r, t_pos *pos)
 	if (!value[i])
 		result = edit_set_no_command(value);
 	else
-		edit_set_command(value, r, pos);
+		edit_set_command(value, r, pos, i);
 	return (result != -1 ? 0 : 1);
 }
 

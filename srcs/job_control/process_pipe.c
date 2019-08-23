@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/23 04:57:02 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 22:55:32 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	launch_process_pipe(t_process *p)
 {
 	char	**environ;
 
-	environ = create_list_env(get_env(0, NULL), 0);
+	environ = create_list_env(get_env(0, NULL), 1);
 	execve(p->cmd_path, p->cmd, environ);
 	exit(1);
 }

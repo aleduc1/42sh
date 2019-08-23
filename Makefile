@@ -214,7 +214,6 @@ SRCS_NAMES = main.c \
 			 unary_primaries.c \
 			 binary_primaries.c
 
-
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 HEADERS_NAMES = sh21.h lexer.h parser.h env.h builtins.h job.h
 LIBS_NAMES = libft.a

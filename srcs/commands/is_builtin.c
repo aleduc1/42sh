@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 19:52:07 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 23:02:13 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,8 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	if (verif != -1)
 	{
 		restore_redirection();
-		gest_return(verif == -2 ? 1 : verif);
+//		if (!ft_strequ(av[0], "test"))
+			gest_return(verif == -2 ? 1 : verif);
 	}
 	return (verif);
 }

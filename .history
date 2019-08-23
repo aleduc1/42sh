@@ -86,3 +86,152 @@ fc -lr
 ls DOESNOTEXIST
 ls DOESNOTEXIST
 fc -l fc 1
+ls -l
+test -s author
+echo $?
+test 
+make
+make re
+man test
+test -b ertyui
+fc
+fc -1
+fc -l 1
+test sdfg
+test -d sdfg
+test dfgh
+?
+test auteur
+?
+man test
+test -c author
+?
+test 1=1
+?
+man test
+test salut=salut
+test salut = salut
+test salut -eq salut
+test -eq salut salut
+make
+test -eq salut salut
+test salut -eq salut
+make
+test salut -eq salut
+mke
+test salut -eq salut
+test salut -eq salu
+?
+make
+test salut -eq salu
+test salut -eq salut
+make
+test -d sdfgh
+test -d auteur
+test -z
+test -z dfgh
+test -Z fghj
+test -PFSF
+test salut -eq salut
+echo $?
+test salut -eq salue
+echo $?
+exit
+ ; ; ; ; ; ; ; ; ; 
+posix
+ls & 
+test weyj -eq dfgh
+?
+mke
+make
+test weyj -eq dfgh
+test erty -eq dfghjk
+exit
+touch read noread; chmod u-r noread
+test -r read && echo ok || echo wrong
+ls -l
+exit
+test -r read && echo ok || echo wrong
+make
+./42sh
+test -r read && echo ok || echo wrong
+ls -la
+chmod 700 read
+test -r read && echo ok || echo wrong
+chmod 770 read
+test -r read && echo ok || echo wrong
+chmod 777 read
+test -r read && echo ok || echo wrong
+mke
+make
+test -r read && echo ok || echo wrong
+exit
+ls -l
+test -d srcs
+exit
+test -d srcs
+ls -l
+rm -rf noread
+touch read noread; chmod u-r noread
+ls -l
+rm read
+rm noread
+ls -l
+touch read noread; chmod u-r noread
+ls -l
+test -r read
+vim binary
+ls -l
+rm binary
+ls -l
+test -r read
+exit
+ls -l
+test -r read
+test -r noread
+vim bina
+vim binary
+ls -l
+rm binary
+ls -l
+exit
+test -L /dev/null && echo ok || echo wrong
+test -L /var && echo ok || echo wrong
+exit
+find /var/run -type s 2>/dev/null
+socketfile=find /var/run -type s 2>/dev/null
+unset socketfile
+ls -l
+set
+socketfile=/var/run/.sim_diagnosticd_socket
+test -S ${socketfile} && echo ok || echo wrong
+exit
+set
+socketfile=/var/run/.sim_diagnosticd_socket
+test -S ${socketfile} && echo ok || echo wrong
+test -S /dev/null && echo ok || echo wrong
+exit
+ls -l
+test 9312 -eq 9312
+?
+test 9312 -eq 9312e
+?
+test 9312 -eq 9312e
+?
+test 9312 -eq 9312e 2>&-
+?
+exit
+xit
+exit
+test -d srcs
+test -s author
+test 9 -eq oasd
+test 9 -eq 9
+test 9 -eq o9
+test 9 -eq 1239
+test 9 != 1239
+test 9 == 1239
+test 9 = 1239
+test 9 = 9
+test 9 -eq oasd 2>&-
+exit

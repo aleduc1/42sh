@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   precedence_alg.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/23 05:36:08 by aleduc            #+#    #+#             */
+/*   Updated: 2019/08/23 05:36:27 by aleduc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtins.h"
 
 int		bt_1(char *av1)
@@ -62,6 +74,6 @@ int		bt_4(char *av1, char *av2, char *av3, char *av4)
 
 int		bt_5(void)
 {
-	ft_putendl("Test usage = up to 4 arguments only");
-	return (2);
+	ft_putendl_fd("42sh: test: up to 4 arguments only", STDERR_FILENO);
+	return (30);
 }

@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/22 07:45:08 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 05:59:13 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int					w_test(char *str1, char *str2, char *str3);
 int					x_test(char *str1, char *str2, char *str3);
 int					z_test(char *str1, char *str2, char *str3);
 
+int					verify_only_alpha(char *str1, char *str2);
 int					equal_test(char *str1, char *str2, char *str3);
 int					notequal_test(char *str1, char *str2, char *str3);
 int					eq_test(char *str1, char *str2, char *str3);
@@ -138,6 +139,7 @@ int					ge_test(char *str1, char *str2, char *str3);
 int					lt_test(char *str1, char *str2, char *str3);
 int					le_test(char *str1, char *str2, char *str3);
 
+void				clean_test_tab(t_unary_tab **tab_lst);
 
 /*
 ** bt_jobs.c

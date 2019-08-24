@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 01:47:53 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 05:52:06 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,16 @@ void			display_jobs_options(void (*p)(t_job*, int, t_redirection*),
 	i = (ft_strequ(*av, "--")) ? 1 : 0;
 	while (av[i])
 	{
-//		verif = 0;
 		j = search_job(av[i]);
 		if (j)
 		{
-//			verif = 1;
 			if (job_is_completed(j) || job_is_stopped(j))
-			{
 				(*p)(j, max_current, r);
-			}
 			else
-				display_no_such_job(r, av[i]);
+				display_no_such_job(r, "jobs", av[i]);
 		}
 		else
-			display_no_such_job(r, av[i]);
+			display_no_such_job(r, "jobs", av[i]);
 		++i;
 	}
 }

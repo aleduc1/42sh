@@ -80,7 +80,8 @@ int			mark_process_status(pid_t pid, int status)
 			}
 			j = j->next;
 		}
-		ft_dprintf(STDERR_FILENO, "42sh: No child process %d.\n", pid);
+		ft_dprintf(STDERR_FILENO, "%s: No child process %d.\n",
+			get_shell()->name_shell, pid);
 		return (-1);
 	}
 	return (-1);

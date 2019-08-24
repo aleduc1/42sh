@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/23 23:07:33 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 09:11:12 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int				ft_simple_command_fc(char *editor)
 static t_redirection	*cpy_redirection(t_redirection *r)
 {
 	t_redirection	*cpy;
+	t_redirect		*head;
 
 	if (!(cpy = (t_redirection*)malloc(sizeof(t_redirection) * 1)))
 		return (NULL);
@@ -111,14 +112,16 @@ static t_redirection	*cpy_redirection(t_redirection *r)
 	cpy->out = r->out;
 	cpy->error = r->error;
 	cpy->redirect = ft_init_redirect();
+	head = r->redirect;
 	while (r->redirect && r->redirect->base != -1)
 	{
-		ft_create_maillon_redirect(cpy->redirect, r->redirect->base,
-			r->redirect->new_fd, r->redirect->type);
+		ft_create_maillon_redirect_env(cpy->redirect, r->redirect->base,
+			r->redirect->new_fd, r->redirect->name_file, r->redirect->type);
 		r->redirect = r->redirect->next;
 	}
+	r->redirect = head;
 	ft_create_maillon_redirect(cpy->redirect, -1,
-			-1, -1);
+			-1, NULL);
 	return (cpy);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 23:23:34 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/17 14:02:50 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 07:31:31 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		send_dev_null(void)
 }
 
 static void		ft_apply_one_redirection(t_redirection *r, int num_src,
-					int num_dest, int type)
+					int num_dest, t_redir *redirect)
 {
 	int	final_src;
 
@@ -45,7 +45,7 @@ static void		ft_apply_one_redirection(t_redirection *r, int num_src,
 		r->error = num_dest;
 		final_src = STDERR_FILENO;
 	}
-	ft_create_maillon_redirect(r->redirect, final_src, num_dest, type);
+	ft_create_maillon_redirect(r->redirect, final_src, num_dest, redirect);
 }
 
 static void		ft_apply_redirection(t_lex *h, t_redirection *r)
@@ -59,7 +59,7 @@ static void		ft_apply_redirection(t_lex *h, t_redirection *r)
 	{
 		num_src = ft_atoi(h->redir->src_fd[i]);
 		num_dest = h->redir->dest_fd ? ft_atoi(h->redir->dest_fd) : -1;
-		ft_apply_one_redirection(r, num_src, num_dest, h->redir->type);
+		ft_apply_one_redirection(r, num_src, num_dest, h->redir);
 	}
 }
 

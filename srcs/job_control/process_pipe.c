@@ -74,7 +74,7 @@ static void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 
 static void	pipe_error(int error)
 {
-	ft_dprintf(error, "42sh: error pipe\n");
+	ft_dprintf(error, "%s: error pipe\n", get_shell()->name_shell);
 	bt_exit(NULL, NULL, NULL);
 }
 

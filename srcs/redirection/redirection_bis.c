@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/06/19 18:06:24 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/24 09:45:17 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,15 @@ void	redir_error(t_redirection *r)
 **	close(src);
 */
 
-void	other_redir(int src, int new_fd)
+void	other_redir(t_redirect *r)
 {
+	int	new_fd;
+	int	src;
+
+	new_fd = r->new_fd;
+	src = r->base;
+	if (r->name_file)
+		new_fd = open(r->name_file, O_RDWR);
 	if (new_fd == -1)
 		return ;
 	if (src != new_fd)

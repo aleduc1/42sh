@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 12:02:28 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/13 14:27:15 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 05:27:13 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@ char			*gest_expansion(char *key, char *value)
 {
 	char	*(**conv)(char*, char*);
 	char	*final;
+	char	*value_expand;
 
 	conv = init_array();
 	final = NULL;
 	if (value && (int)value[0] != 0 && conv[(int)value[0]])
-		final = (*conv[(int)value[0]])(key, value + 1);
+	{
+		value_expand = search_var(value + 1);
+		final = (*conv[(int)value[0]])(key, value_expand);
+		ft_strdel(&value_expand);
+	}
 	else
 		display_error_syntax(key, value);
 	free(conv);

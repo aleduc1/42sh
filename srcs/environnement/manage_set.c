@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 00:12:46 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 09:14:51 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int			ft_unset(char **value)
 	int	i;
 
 	i = 0;
+	verif = 1;
 	while (value[++i])
 		verif = free_maillon_env(value[i], 0);
 	return (verif);

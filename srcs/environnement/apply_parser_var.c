@@ -6,11 +6,12 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 09:57:34 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 04:50:53 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "job.h"
 
 static int	is_special_parameters(char c)
 {
@@ -39,6 +40,19 @@ static int	ft_chr_index_last(char *str, char c, char d)
 			if (not_end < 1)
 				break ;
 		}
+	}
+	if (not_end)
+	{
+		ft_dprintf(STDERR_FILENO, "%s: error expansion\n",
+			get_shell()->name_shell);
+		index = ft_strlen(str) * -1;
+			gest_return(-5);
+		return (index);
+	}
+	else if (index == 0)
+	{
+		display_error_expansion("");
+		gest_return(-5);
 	}
 	return (index);
 }
@@ -73,9 +87,14 @@ int			apply_rules(char *src, char **dst, int index)
 	{
 		index += 2;
 		i = ft_chr_index_last(src + index, '{', '}');
-		tmp = ft_strsub(src + index, 0, i);
+		if (i > 0)
+		{
+			tmp = ft_strsub(src + index, 0, i);
+			parameter_expansion(tmp, dst);
+		}
+		else
+			i *= -1;
 		i += index;
-		parameter_expansion(tmp, dst);
 	}
 	else
 		i = apply_simple_var(index, src, dst);

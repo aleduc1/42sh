@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/24 00:35:45 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 04:23:20 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,6 @@ void		run(char *input, t_pos *pos)
 	}
 }
 
-void		script_test(char **av, t_pos pos)
-{
-	int		i;
-	char	*str;
-
-	i = -1;
-	raw_term_mode();
-	while (av[++i])
-	{
-		str = ft_strdup(av[i]);
-		run(str, &pos);
-	}
-	t_job *j = get_first_job(NULL);
-	(void)j;
-	free_all_job();
-	default_term_mode();
-	delete_shell();
-	get_env(1, NULL);
-	exit(0);
-}
-
 static void	cpy_std(int in, int out, int error)
 {
 	char	*s_in;
@@ -114,7 +93,20 @@ static void	cpy_std(int in, int out, int error)
 	ft_strdel(&s_error);
 }
 
-static void	edit_shell(void)
+static void	ft_name_exec(char *name_exec)
+{
+	int		len;
+	char	*cache;
+
+	len = ft_strlen(name_exec);
+	if (len < 3)
+		return ;
+	cache = ft_strsub(name_exec, 2, len);
+	add_set_value("0", cache);
+	ft_strdel(&cache);
+}
+
+static void	edit_shell(char *name_exec)
 {
 	int	in;
 	int	out;
@@ -133,6 +125,7 @@ static void	edit_shell(void)
 	if ((dup2(STDERR_FILENO, out)) == -1)
 		exit(1);
 	cpy_std(in, out, error);
+	ft_name_exec(name_exec);
 }
 
 static void	init_alias(void)
@@ -161,7 +154,7 @@ int			main(int argc, char **argv, char **environ)
 
 	input = NULL;
 	multi_input = NULL;
-	edit_shell();
+	edit_shell(argv[0]);
 	welcome();
 	flags(argc, argv);
 	init_prompt(&pos);

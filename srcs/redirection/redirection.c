@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 09:29:22 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 10:03:36 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,21 @@ static void	standard_redirection(t_redirection *r)
 static void	custom_redirection(t_redirection *r, t_redirect *lst)
 {
 	if (lst->base != -1)
-	{
+	{/*
 		if (STDIN_FILENO == lst->base)
 			redir_in(r);
 		else if (STDOUT_FILENO == lst->base)
 			redir_out(r);
 		else if (STDERR_FILENO == lst->base)
 			redir_error(r);
+		else*/
+		if (lst->type == LESSAMPHYPH || lst->type == GREATAMPHYPH)
+		{
+			close(STDIN_FILENO);
+			close(STDOUT_FILENO);
+		}
 		else
-			other_redir(lst->base, lst->new_fd);
+			other_redir(lst);
 	}
 }
 
@@ -83,10 +89,12 @@ static int	check_fd_is_good(t_redirection *r)
 	t_redirect	*redirect;
 	t_redirect	*head;
 	t_redirect	*test;
+	t_redirect	*sup;
 	int			verif;
 
 	redirect = r->redirect;
 	head = r->redirect;
+	sup = r->redirect;
 	while (redirect && redirect->base != -1)
 	{
 		test = head;
@@ -100,6 +108,7 @@ static int	check_fd_is_good(t_redirection *r)
 			return (-1);
 		redirect = redirect->next;
 	}
+	r->redirect = sup;
 	return (0);
 }
 
@@ -107,6 +116,9 @@ void		redirection_fd(t_redirection *r)
 {
 	t_redirect	*lst;
 
+	display_redirection(r);
+	if (!r)
+		return ;
 	if (check_fd_is_good(r) == -1)
 	{
 		display_bad_file_descriptor(STDERR_FILENO);
@@ -119,6 +131,7 @@ void		redirection_fd(t_redirection *r)
 		custom_redirection(r, lst);
 		lst = lst->next;
 	}
+	lst = r->redirect;
 	standard_redirection(r);
 	if (verif_close(r->in) && ft_fd_redirect_exist(r->redirect, STDIN_FILENO))
 		close(r->in);
@@ -127,4 +140,5 @@ void		redirection_fd(t_redirection *r)
 	if (verif_close(r->error)
 		&& ft_fd_redirect_exist(r->redirect, STDERR_FILENO))
 		close(r->error);
+	r->redirect = lst;
 }

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/23 22:54:44 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 09:39:44 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,51 @@ int			launch_process(t_process *p, pid_t pgid, int fg)
 	redirection_fd(p->r);
 	verif = execve(p->cmd_path, p->cmd, environ);
 	display_command_not_found(p->r, p->cmd[0]);
+//	execve("/bin/test", NULL, NULL);
 	execve_bin_test();
 	exit(verif);
 }
 
+void		whois_type(int type)
+{
+	if (type == LESS)
+		ft_printf("type is LESS\n");
+	if (type == DLESS)
+		ft_printf("type is DLESS\n");
+	if (type == GREAT)
+		ft_printf("type is GREAT\n");
+	if (type == DGREAT)
+		ft_printf("type is DGREAT\n");
+	if (type == AMPGREAT)
+		ft_printf("type is AMPGREAT\n");
+	if (type == GREATAMP)
+		ft_printf("type is GREATAMP\n");
+	if (type == AMPLESS)
+		ft_printf("type is AMPLESS\n");
+	if (type == LESSAMP)
+		ft_printf("type is LESSAMP\n");
+	if (type == LESSAMPHYPH)
+		ft_printf("type is LESSAMPHYPH\n");
+	if (type == GREATAMPHYPH)
+		ft_printf("type is GREATAMPHYPH\n");
+}
+
 void		display_redirection(t_redirection *r)
 {
+	t_redirect	*redir;
+
+	if (!r)
+		return ;
 	ft_printf("in = %d\n", r->in);
 	ft_printf("out = %d\n", r->out);
 	ft_printf("error = %d\n", r->error);
-	while (r->redirect)
+	redir = r->redirect;
+	while (redir)
 	{
-		ft_printf("base = %d, new_fd = %d\n",
-			r->redirect->base, r->redirect->new_fd);
-		r->redirect = r->redirect->next;
+		ft_printf("base = %d, new_fd = %d, type = %d\n",
+			redir->base, redir->new_fd, redir->type);
+		whois_type(redir->type);
+		redir = redir->next;
 	}
 }
 
@@ -55,7 +86,10 @@ int			launch_job(t_job *j, int fg)
 		if (pid == 0)
 		{
 			if (p->cmd_path)
+			{
 				verif = launch_process(p, j->pgid, fg);
+				execve_bin_test();
+			}
 			else
 			{
 				gest_return(12);

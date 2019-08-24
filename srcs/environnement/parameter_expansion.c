@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 12:02:28 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/13 14:24:03 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 05:12:13 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ int				search_good_expansion(char *tmp)
 	int	i;
 
 	i = -1;
-	if (tmp[0] == '#' && ((!tmp[1]) || ft_isalnum(tmp[1])
-		|| tmp[1] == '_'))
+	if (tmp[0] == '#')
 		return (1);
 	while (tmp[++i])
 	{
-		if (tmp[i] == '#' || (tmp[0] == '#' && tmp[1] && tmp[1] == '#'))
+		if (tmp[i] == '#')
 			return (2);
 		else if (tmp[i] == '%')
 			return (3);

@@ -381,7 +381,7 @@ display_kill_not_work	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void
 display_lst_job	/Users/sbelondr/Desktop/42sh/srcs/commands/clean_commands.c	/^void		display_lst_job(t_job *j)$/;"	f
 display_no_current_job	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_no_current_job(t_redirection *r, char *name)$/;"	f
 display_no_job_control	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_no_job_control(t_redirection *r, char *name)$/;"	f
-display_no_such_job	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_no_such_job(t_redirection *r, char *name)$/;"	f
+display_no_such_job	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_no_such_job(t_redirection *r, char *name_blt, char *name)$/;"	f
 display_nothing_value	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_nothing_value(t_redirection *r, char *name)$/;"	f
 display_other_error	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_other_error(int fd_error, char *name, char *error)$/;"	f
 display_permission_denied	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^void	display_permission_denied(t_redirection *r, char *cmd)$/;"	f
@@ -424,7 +424,7 @@ edit_set_command_env	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_set.
 edit_set_no_command	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_set.c	/^int			edit_set_no_command(char **value)$/;"	f
 edit_set_no_command_env	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_set.c	/^int			edit_set_no_command_env(char **value)$/;"	f
 edit_setenv	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_env.c	/^int			edit_setenv(char *key, char *value)$/;"	f
-edit_shell	/Users/sbelondr/Desktop/42sh/srcs/main.c	/^static void	edit_shell(void)$/;"	f	file:
+edit_shell	/Users/sbelondr/Desktop/42sh/srcs/main.c	/^static void	edit_shell(char *name_exec)$/;"	f	file:
 editline	/Users/sbelondr/Desktop/42sh/srcs/prompt/edition/editline.c	/^t_node		*editline(t_pos *pos, t_node *lstcursor,$/;"	f
 editor	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	char		*editor;$/;"	m	struct:s_fc
 end_grammar_great	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/redirect/grammar/rules_great.c	/^int		end_grammar_great(t_lex **start, t_lex **end, t_type type_check)$/;"	f
@@ -553,6 +553,7 @@ ft_convert_base_us	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/ft_convert_
 ft_cpy_env	/Users/sbelondr/Desktop/42sh/srcs/environnement/list_env.c	/^t_env		*ft_cpy_env(void)$/;"	f
 ft_cpy_str	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/tools.c	/^void	ft_cpy_str(char (*dst)[BUF_S], char str[BUF_S])$/;"	f
 ft_create_maillon_redirect	/Users/sbelondr/Desktop/42sh/srcs/redirection/list_redirect.c	/^int			ft_create_maillon_redirect(t_redirect *r, int base, int new_fd,$/;"	f
+ft_create_maillon_redirect_env	/Users/sbelondr/Desktop/42sh/srcs/redirection/list_redirect.c	/^int			ft_create_maillon_redirect_env(t_redirect *r, int base, int new_fd,$/;"	f
 ft_debug	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_debug.c	/^int		ft_debug(void)$/;"	f
 ft_default	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/redirect/redirect.c	/^void	ft_default(t_redir **redir_info)$/;"	f
 ft_del_lst	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/ft_printf.c	/^void	ft_del_lst(t_printf **lst)$/;"	f
@@ -634,6 +635,7 @@ ft_memdel	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_memdel.c	/^void	ft_memdel(v
 ft_memmove	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_memmove.c	/^void	*ft_memmove(void *dst, const void *src, size_t len)$/;"	f
 ft_memset	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_memset.c	/^void	*ft_memset(void *b, int c, size_t len)$/;"	f
 ft_mergesort	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_mergesort.c	/^void			ft_mergesort(int array[], int min, int max)$/;"	f
+ft_name_exec	/Users/sbelondr/Desktop/42sh/srcs/main.c	/^static void	ft_name_exec(char *name_exec)$/;"	f	file:
 ft_name_sig	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_jobs_tools_bis.c	/^char		*ft_name_sig(int sig)$/;"	f
 ft_new_line	/Users/sbelondr/Desktop/42sh/libft/srcs/get_next_line.c	/^int		ft_new_line(char **s, char **line, int fd, int ret)$/;"	f
 ft_nextprime	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_prime.c	/^int		ft_nextprime(int x)$/;"	f
@@ -935,7 +937,7 @@ manage_cycle_redirect	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/redire
 manage_float	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/manage_float.c	/^void	manage_float(char (*lst)[BUF_S])$/;"	f
 manage_home	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_variable.c	/^int		manage_home(char *src, char **dst, int index)$/;"	f
 manage_id_job	/Users/sbelondr/Desktop/42sh/srcs/job_control/manage_id_job.c	/^int	manage_id_job(int action)$/;"	f
-manage_is_quote	/Users/sbelondr/Desktop/42sh/srcs/environnement/parser_var_bis.c	/^int			manage_is_quote(char c, int expand)$/;"	f
+manage_is_quote	/Users/sbelondr/Desktop/42sh/srcs/environnement/parser_var_bis.c	/^int			manage_is_quote(char *value, int index, int expand)$/;"	f
 manage_mantissa	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/manage_float.c	/^void	manage_mantissa(char (*lst)[BUF_S])$/;"	f
 manage_parameter_extension	/Users/sbelondr/Desktop/42sh/srcs/environnement/parameter_expansion.c	/^void			manage_parameter_extension(char **dst, char *tmp, int i)$/;"	f
 manage_var	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_variable.c	/^char	*manage_var(char *str)$/;"	f
@@ -946,6 +948,9 @@ modify_dst	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_variable.c	/^i
 mult_mantissa	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/multiplication_float.c	/^void	mult_mantissa(char (*lst)[BUF_S], int d)$/;"	f
 multi_push	/Users/sbelondr/Desktop/42sh/srcs/prompt/others/dlist_plus.c	/^void	multi_push(t_multi **head)$/;"	f
 multiline	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	int				multiline;$/;"	m	struct:s_pos
+name_exec_error	/Users/sbelondr/Desktop/42sh/srcs/commands/errors.c	/^char	*name_exec_error(void)$/;"	f
+name_file	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	char				*name_file;$/;"	m	struct:s_redirect
+name_shell	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	char			*name_shell;$/;"	m	struct:s_shell
 nblines	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	size_t			nblines;$/;"	m	struct:s_pos
 ne_test	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/binary_primaries.c	/^int		ne_test(char *str1, char *str2, char *str3)$/;"	f
 new_fd	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	int					new_fd;$/;"	m	struct:s_redirect
@@ -977,7 +982,7 @@ options	/Users/sbelondr/Desktop/42sh/libft/includes/ft_printf.h	/^	char			option
 options	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/parser.c	/^void	options(t_printf **lst)$/;"	f
 options_n	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/apply_arg_n.c	/^void		options_n(t_printf **lst, int stock[3], int neg, int rd)$/;"	f
 other_options	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/parser.c	/^void	other_options(t_printf **lst)$/;"	f
-other_redir	/Users/sbelondr/Desktop/42sh/srcs/redirection/redirection_bis.c	/^void	other_redir(int src, int new_fd)$/;"	f
+other_redir	/Users/sbelondr/Desktop/42sh/srcs/redirection/redirection_bis.c	/^void	other_redir(t_redirect *r)$/;"	f
 out	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	int			out;$/;"	m	struct:s_redirection
 p_test	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/unary_primaries.c	/^int		p_test(char *str1, char *str2, char *str3)$/;"	f
 parameter_equals	/Users/sbelondr/Desktop/42sh/srcs/environnement/formats_parameter_bis.c	/^char	*parameter_equals(char *parameter, char *word)$/;"	f
@@ -1096,7 +1101,6 @@ savecolumn	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	size_t			savecolumn;$
 savecursor	/Users/sbelondr/Desktop/42sh/srcs/prompt/edition/stalkcursor.c	/^void			savecursor(t_pos *pos)$/;"	f
 saverow	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	size_t			saverow;$/;"	m	struct:s_pos
 scolon_case	/Users/sbelondr/Desktop/42sh/srcs/interpreter/interpreter.c	/^void	scolon_case(t_ast *node, t_pos *pos, int bg)$/;"	f
-script_test	/Users/sbelondr/Desktop/42sh/srcs/main.c	/^void		script_test(char **av, t_pos pos)$/;"	f
 search_and_print	/Users/sbelondr/Desktop/42sh/srcs/prompt/history/history_search.c	/^char			*search_and_print(char *input, t_pos *pos)$/;"	f
 search_conversion	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/parser.c	/^void	search_conversion(t_printf **lst)$/;"	f
 search_good_expansion	/Users/sbelondr/Desktop/42sh/srcs/environnement/parameter_expansion.c	/^int				search_good_expansion(char *tmp)$/;"	f
@@ -1214,7 +1218,7 @@ verify_only_alpha	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/binary_prim
 w_test	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/unary_primaries.c	/^int		w_test(char *str1, char *str2, char *str3)$/;"	f
 wait_for_job	/Users/sbelondr/Desktop/42sh/srcs/job_control/gest_process.c	/^void		wait_for_job(t_job *j)$/;"	f
 welcome	/Users/sbelondr/Desktop/42sh/srcs/prompt/others/terminit.c	/^void				welcome(void)$/;"	f
-whois_type	/Users/sbelondr/Desktop/42sh/srcs/redirection/manage_file.c	/^void		whois_type(int type)$/;"	f
+whois_type	/Users/sbelondr/Desktop/42sh/srcs/job_control/process.c	/^void		whois_type(int type)$/;"	f
 word_or_number	/Users/sbelondr/Desktop/42sh/srcs/lexer/adding_token.c	/^t_token	*word_or_number(char *data)$/;"	f
 wrapping	/Users/sbelondr/Desktop/42sh/srcs/prompt/edition/editline.c	/^void		wrapping(t_pos *pos)$/;"	f
 x_test	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/unary_primaries.c	/^int		x_test(char *str1, char *str2, char *str3)$/;"	f

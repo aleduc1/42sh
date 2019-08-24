@@ -206,7 +206,8 @@ SRCS_NAMES = main.c \
 			 bt_fg.c\
 			 bt_bg.c\
 			 bt_fg_bg_tools.c\
-			 bt_type.c
+			 bt_type.c\
+			 history_replace.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

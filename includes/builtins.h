@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/20 05:39:34 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/20 11:45:27 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,6 @@ int					ft_getopt(int ac, char *const *av, const char *optstr);
 void				ft_getopt_reset(void);
 
 char				*alias_replace(char *input);
+char				*history_replace(char *input, t_pos *pos);
 
 #	endif

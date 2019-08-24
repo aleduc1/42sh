@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/19 01:53:52 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 19:17:10 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void		run(char *input, t_pos *pos)
 
 	lex = NULL;
 	ast = NULL;
+	input = history_replace(input, pos);
 	input = alias_replace(input);
 	if ((check_whitespace_input(input)) && (lex = lexer(input)))
 	{

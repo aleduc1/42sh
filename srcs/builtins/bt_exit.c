@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 13:52:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/20 02:37:25 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 22:34:50 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ static void	close_base_std(void)
 int			bt_exit(t_job *j, t_pos *pos, t_redirection *r)
 {
 	int	rt;
+	int	ret;
 
 	if (r)
 		redirection_fd(r);
@@ -142,10 +143,11 @@ int			bt_exit(t_job *j, t_pos *pos, t_redirection *r)
 	}
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
 	{
+		ret = check_last_command();
 		exec_reset_shell(pos);
-		ft_dprintf(2, "exit\n");
+		ft_dprintf(STDERR_FILENO, "exit\n");
 		close_base_std();
-		exit(0);
+		exit(ret);
 	}
 	if (ft_isstrnum(j->first_process->cmd[1]))
 	{
@@ -153,14 +155,14 @@ int			bt_exit(t_job *j, t_pos *pos, t_redirection *r)
 		{
 			rt = ft_atoi(j->first_process->cmd[1]);
 			exec_reset_shell(pos);
-			ft_dprintf(2, "exit\n");
+			ft_dprintf(STDERR_FILENO, "exit\n");
 			close_base_std();
 			exit(rt);
 		}
-		ft_dprintf(2, "42sh: exit: too many arguments\n");
+		ft_dprintf(STDERR_FILENO, "42sh: exit: too many arguments\n");
 		return (1);
 	}
-	ft_dprintf(2, "42sh: exit: %s: numeric argument required\n",
+	ft_dprintf(STDERR_FILENO, "42sh: exit: %s: numeric argument required\n",
 			j->first_process->cmd[1]);
 	exec_reset_shell(pos);
 	close_base_std();

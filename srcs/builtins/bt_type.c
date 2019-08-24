@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:09:25 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/20 02:25:45 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 22:12:34 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int			type_builtin(char *command)
 		return (1);
 	else if ((ft_strequ(command, "unsetenv") || (ft_strequ(command, "export"))))
 		return (1);
-	else if (ft_strequ(command, "unset"))
+	else if (ft_strequ(command, "unset") || (ft_strequ(command, "test")))
 		return (1);
 	return (0);
 }

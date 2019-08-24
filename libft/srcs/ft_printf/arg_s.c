@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
+#include "ft_printf.h"
 
 void	ft_arg_array_s(t_printf **lst)
 {

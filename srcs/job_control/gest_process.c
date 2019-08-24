@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/18 01:35:15 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 00:37:24 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,12 @@ static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 			p->completed = 1;
 			if (WIFSIGNALED(status))
 			{
-				if (WTERMSIG(status) == 3 && (!j->notified))
+//				if (WTERMSIG(status) == 3 && (!j->notified))
+				if (!j->notified)
+				{
 					bt_jobs_s(j, get_shell()->max_job_current, j->r);
+					p->last_status = status;
+				}
 				j->notified = 1;
 				gest_return(WTERMSIG(p->status));
 			}
@@ -76,7 +80,8 @@ int			mark_process_status(pid_t pid, int status)
 			}
 			j = j->next;
 		}
-		ft_dprintf(STDERR_FILENO, "42sh: No child process %d.\n", pid);
+		ft_dprintf(STDERR_FILENO, "%s: No child process %d.\n",
+			get_shell()->name_shell, pid);
 		return (-1);
 	}
 	return (-1);

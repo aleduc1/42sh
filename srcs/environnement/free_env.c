@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 14:18:41 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 01:21:50 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:38:06 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	free_that(t_env *my_env, t_env *last)
 	my_env = NULL;
 	if (verif)
 		get_env(0, last);
-	return (1);
+	return (0);
 }
 
 void		reset_hash_verif(char *key)
@@ -50,7 +50,7 @@ int			free_maillon_env(char *key, int env)
 
 	my_env = get_env(0, NULL);
 	last = NULL;
-	verif = 0;
+	verif = 1;
 	reset_hash_verif(key);
 	while (my_env->next)
 	{

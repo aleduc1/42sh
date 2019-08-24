@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 00:26:45 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/05/08 00:26:51 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/20 11:38:09 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_node		*try_to_match(t_node *cursor, t_integrity *count, char type)
 
 	cursorcpy = cursor;
 	cursor = cursor->prev;
-	while (cursor->prev)
+	while (cursor && cursor->prev)
 	{
 		if (cursor->key == type)
 		{

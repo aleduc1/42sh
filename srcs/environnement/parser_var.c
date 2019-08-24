@@ -6,11 +6,19 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/08 00:11:24 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 03:44:55 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+/*
+** Remplace les variables.
+** Args:	char *value -> la commande de base
+**			char **dst -> la commande avec les modifications
+**			int *i -> adresse de l'index actuel de value
+**			int last -> adresse de l'index value de la derniere modification
+*/
 
 int			apply_parser_var(char *value, char **dst, int *i, int last)
 {
@@ -22,6 +30,11 @@ int			apply_parser_var(char *value, char **dst, int *i, int last)
 		(*i) = apply_rules(value, dst, (*i));
 	return ((*i) + 1);
 }
+
+/*
+** Parcours un char* pour chercher les valeurs a remplacer
+** Args:	char **value -> adresse d'un char*
+*/
 
 void		parser_var_simple(char **value)
 {
@@ -38,8 +51,9 @@ void		parser_var_simple(char **value)
 	dst = ft_strdup("");
 	while (++i < len)
 	{
-		expand = manage_is_quote((*value)[i], expand);
-		if (expand <= 0 && ((*value)[i] == '$'
+		expand = manage_is_quote((*value), i, expand);
+		if (expand <= 0 && (i - 1 < 0 || (*value)[i - 1] != '\\')
+			&& ((*value)[i] == '$'
 			|| ((*value)[i] == '~' && is_expand_tild(*value, i, expand))))
 			last = apply_parser_var(*value, &dst, &i, last);
 	}
@@ -49,6 +63,12 @@ void		parser_var_simple(char **value)
 	*value = dst;
 	remove_quote_line(value);
 }
+
+/*
+** Gestion des variables. Parcours un tableaux de char* et envoie chaque ligne
+** dans la fonction parser_var_simple.
+** Args:	char ***value -> adresse d'un tableau de char*
+*/
 
 void		parser_var(char ***value)
 {

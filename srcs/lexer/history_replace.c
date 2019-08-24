@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 00:07:18 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/24 19:28:51 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/24 20:17:11 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char		*hist_rep_replace(t_hist_rep *replace, t_pos *pos)
 	char		*bin;
 
 	curr = replace;
-	new = NULL;
+	new = ft_strnew(0);
 	while (curr != NULL)
 	{
 		if (curr->isrep == 0)
@@ -64,14 +64,18 @@ char		*hist_rep_replace(t_hist_rep *replace, t_pos *pos)
 		}
 		else
 		{
-			if (hist_rep_exists(curr, pos))
+			if (hist_rep_exists(curr, pos) && curr->value != NULL)
 			{
 				bin = new;
-				new = ft_strjoin(new, curr->base);
+				new = ft_strjoin(new, curr->value);
 				ft_strdel(&bin);
 			}
 			else
+			{
+				ft_strdel(&new);
+				ft_dprintf(2, "42sh: event not found: %s\n", curr->base);
 				return (NULL);	//  		ERR
+			}
 		}
 		curr = curr->next;
 	}
@@ -95,6 +99,7 @@ t_hist_rep	*hist_rep_saveexp(char *input, int start, int i, t_hist_rep *replace)
 {
 	t_hist_rep		*new;
 	t_hist_rep		*curr;
+	int				j;
 
 	if (start == i)
 		return (replace);
@@ -108,9 +113,11 @@ t_hist_rep	*hist_rep_saveexp(char *input, int start, int i, t_hist_rep *replace)
 		ft_memdel((void**)&new);
 		return (replace);
 	}
+	j = 0;
 	while (start < i)
 	{
-		new->base[start] = input[start];
+		new->base[j] = input[start];
+		++j;
 		++start;
 	}
 	new->base[i] = '\0';
@@ -127,6 +134,7 @@ t_hist_rep	*hist_rep_save(char *input, int start, int i, t_hist_rep *replace)
 {
 	t_hist_rep		*new;
 	t_hist_rep		*curr;
+	int				j;
 
 	if (start == i)
 		return (replace);
@@ -140,9 +148,11 @@ t_hist_rep	*hist_rep_save(char *input, int start, int i, t_hist_rep *replace)
 		ft_memdel((void**)&new);
 		return (replace);
 	}
+	j = 0;
 	while (start < i)
 	{
-		new->base[start] = input[start];
+		new->base[j] = input[start];
+		++j;
 		++start;
 	}
 	new->base[i] = '\0';
@@ -187,6 +197,12 @@ char		*history_replace(char *input, t_pos *pos)
 			replace = hist_rep_saveexp(input, start, i, replace);
 			start = i;
 		}
+		else if (!input[i + 1] && replace != NULL)
+		{
+			replace = hist_rep_save(input, start, i + 1, replace);
+			++i;
+			start = i;
+		}
 		else
 			++i;
 	}
@@ -194,7 +210,6 @@ char		*history_replace(char *input, t_pos *pos)
 		return (input);
 	new_input = hist_rep_replace(*(&replace), pos);
 	hist_rep_delstruct(&(*replace));
-	ft_printf("Input = %s\n", input);
-	ft_printf("New input = %s\n", new_input);
+	ft_strdel(&input);
 	return (new_input);
 }

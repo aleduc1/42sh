@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:17:27 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/24 19:22:22 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/24 19:34:55 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,9 +200,10 @@ void				init_prompt(t_pos *pos);
 t_node				*read_input(t_node **input, t_pos *pos);
 char				*prompt(t_multi *input, t_pos *pos);
 
-char	*expand_double_schriek(t_pos *pos);
-char	*expand_schriek_word(t_pos *pos, char *word);
-char	*expand_schriek_number(t_pos *pos, int number);
-char	*expand_schriek_less(t_pos *pos, int number);
+char				*expand_double_schriek(t_pos *pos);
+char				*expand_schriek_word(t_pos *pos, char *word);
+char				*expand_schriek_number(t_pos *pos, int number);
+char				*expand_schriek_less(t_pos *pos, int number);
 
+void				run(char *input, t_pos *pos);
 #endif

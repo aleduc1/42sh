@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
+#include "ft_printf.h"
 
 char	*ft_precision_float(char (*dst)[BUF_S], t_printf **lst)
 {

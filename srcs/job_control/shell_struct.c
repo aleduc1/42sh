@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 10:40:08 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 12:02:22 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 04:17:18 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_shell	*init_shell_list(void)
 
 	if (!(shell = (t_shell*)malloc(sizeof(t_shell) * 1)))
 		return (NULL);
+	shell->name_shell = value_line_path("0", 0);
 	shell->max_job_current = 0;
 	return (shell);
 }
@@ -49,6 +50,7 @@ void			delete_shell(void)
 	t_shell	**shell;
 
 	shell = static_shell();
+	ft_strdel(&((*shell)->name_shell));
 	free(*shell);
 	*shell = NULL;
 }

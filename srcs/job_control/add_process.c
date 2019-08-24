@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/05/28 11:50:48 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 05:34:09 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void	add_process(char **av, t_token *t, int fg)
 	p->cmd = ft_arraydup(av);
 	parser_var(&(p->cmd));
 	p->fg = fg;
-	p->r = fill_redirection(t);
+	p->r = (t) ? fill_redirection(t) : NULL;
 }

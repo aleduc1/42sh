@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 14:19:28 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/19 02:09:26 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 23:58:25 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,6 @@ static int	echo_arg(char **av)
 		i++;
 	}
 	return (n);
-}
-
-/*
-** Simple echo builtin
-*/
-
-void		test(void)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 10)
-	{
-		ft_printf("coucou\n");
-		sleep(1);
-	}
 }
 
 int			bt_echo(char **av, t_redirection *r)

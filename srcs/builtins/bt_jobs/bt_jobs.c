@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:56:38 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/22 19:13:24 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "builtins.h"
 
 static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
-	t_redirection *r, char **av)
+		t_redirection *r, char **av)
 {
 	t_job	*j;
 	int		max_current;
@@ -34,8 +34,38 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 		display_jobs_options(p, r, av);
 }
 
+int			opt_bt_jobs(char *av)
+{
+	int	result;
+	int	i;
+
+	if (av[0] != '-' || (!av[1]))
+		return (-1);
+	i = 0;
+	result = 0;
+	while (av[++i])
+	{
+		if (av[i] == 'l')
+			result = 1;
+		else if (av[i] == 'p')
+			result = 2;
+		else if (av[i] == '-')
+		{
+			result = 3;
+			break ;
+		}
+		else
+		{
+			result = 0;
+			break ;
+		}
+	}
+	return (result);
+}
+
 int			bt_jobs(t_job *j, char **av, t_redirection *r)
 {
+	int		result;
 	void	(*p)(t_job*, int, t_redirection*);
 
 	if (j->fg == 0)
@@ -47,17 +77,13 @@ int			bt_jobs(t_job *j, char **av, t_redirection *r)
 	p = &bt_jobs_s;
 	while (*(++av))
 	{
-		if (ft_strequ(*av, "-p"))
-			p = &bt_jobs_p;
-		else if (ft_strequ(*av, "-l"))
+		result = opt_bt_jobs(*av);
+		if (result == 1)
 			p = &bt_jobs_l;
-		else if (ft_strequ(*av, "--") || ft_strchr_exist(*av, '%'))
-			break ;
+		else if (result == 2)
+			p = &bt_jobs_p;
 		else
-		{
-			display_invalid_option_job(r, *av);
-			return (-2);
-		}
+			break ;
 	}
 	display_jobs(p, r, av);
 	return (0);

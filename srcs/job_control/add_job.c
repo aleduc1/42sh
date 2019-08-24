@@ -6,12 +6,16 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 13:59:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 01:33:43 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 09:01:18 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
 #include "sh21.h"
+
+/*
+** Decrement j->current if lower than value to know the last launch job
+*/
 
 void		edit_current_value(int value)
 {
@@ -26,19 +30,30 @@ void		edit_current_value(int value)
 	}
 }
 
+/*
+** Donne un id au dernier job, si il n'en a pas deja un, puis decrementer la
+** valeur de j->current pour les commandes qui sont en dessous de la valeur
+** du pgid donner en parametre
+** Args:	pid_t pgid -> valeur du process a comparer
+**			t_job *new_job -> le nouveau job dont la valeur doit etre
+**				initialiser a la valeur max_job_current + 1
+*/
+
 static void	assign_value_current(pid_t pgid, t_job *new_job)
 {
+	t_shell	*shell;
 	t_job	*j;
 	int		max;
 	int		min;
 
+	shell = get_shell();
 	if (new_job->current == 0)
 	{
-		get_shell()->max_job_current += 1;
-		new_job->current = get_shell()->max_job_current;
+		shell->max_job_current += 1;
+		new_job->current = shell->max_job_current;
 	}
 	j = get_first_job(NULL);
-	max = get_shell()->max_job_current;
+	max = shell->max_job_current;
 	while (j)
 	{
 		if (j->pgid == pgid)
@@ -52,11 +67,10 @@ static void	assign_value_current(pid_t pgid, t_job *new_job)
 }
 
 /*
-** TCSADRAIN
-** The change occurs after all output written to fildes has been transmitted to
-** the terminal.
-** kill(-pgid, SIG) -> kill un grp d'id
-** if (tcsetattr(shell->term, TCSADRAIN, &(j->tmodes)) == -1)
+** Kill job and restore shell value
+** TCSADRAIN -> the change occurs after all output written to fildes has been
+**				transmitted to the terminal.
+** kill(-pgid, SIG) -> kill un groupe d'id
 */
 
 static void	kill_pgid(t_shell *shell, t_job *j)
@@ -76,6 +90,12 @@ static void	init_process_before_launch(t_process *p)
 		p = p->next;
 	}
 }
+
+/*
+** Launch job in foreground
+** Args:	t_job *j -> process to launch in foreground
+**			int value -> kill process if value is different from 0
+*/
 
 void		add_in_fg(t_job *j, int value)
 {
@@ -101,6 +121,12 @@ void		add_in_fg(t_job *j, int value)
 	if (tcsetattr(shell->term, TCSADRAIN, &(shell->term_shell)) == -1)
 		display_error_tc(j->r, "tcsetattr");
 }
+
+/*
+** Launch job in background
+** Args:	t_job *j -> process to launch in background
+**			int value -> kill process if value is different from 0
+*/
 
 void		add_in_bg(t_job *j, int value)
 {

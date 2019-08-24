@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 04:59:11 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 02:15:44 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,14 @@ char		*ft_inter_signal(int sig, t_job *j)
 	char	*str;
 
 	str = NULL;
-	if (sig == 0 && job_is_completed(j))
+	if (sig == 0 && job_is_completed(j) && j->fg == 1)
 		str = ft_strdup("Terminated: 15");
+	else if (sig == 0 && job_is_completed(j) && j->fg == 0)
+		str = ft_strdup("Done\t\t");
 	else if (sig == 0 && (!job_is_completed(j)) && (!job_is_stopped(j)))
 		str = ft_strdup("Running\t\t");
 	else if (sig == 1)
-		str = ft_strdup("Terminated(SIGHUP)");
+		str = ft_strdup("Done(SIGHUP)");
 	else if (sig == 2)
 		str = ft_strdup("Terminated(SIGINT)");
 	else if (sig == 3)

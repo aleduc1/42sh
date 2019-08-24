@@ -6,82 +6,63 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 01:21:45 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 23:09:59 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "job.h"
 
-/*
-** Check all command in own job and display errors before launch
-** Args:	t_job *j -> job to test
-*/
-
-static int	check_error_job_pipe(t_job *j)
+int		verif_is_fork(t_process *p)
 {
-	t_process	*p;
-	char		*src;
-	int			verif;
-
-	p = j->first_process;
 	while (p)
 	{
-		if (!builtin_exist(p->cmd[0]))
-		{
-			src = is_in_path(p->cmd[0]);
-			if (!src)
-				verif = gest_error_path(p->cmd[0], p->r);
-			else
-			{
-				ft_strdel(&src);
-				verif = 0;
-			}
-		}
-		else
-			verif = 0;
+		if (!(p->cmd))
+			return (-1);
 		p = p->next;
 	}
-	return (verif);
+	return (0);
 }
-
-/*
-** Stock process in job
-** Args:	char **argv -> command
-**			t_token *token -> struct token
-**			int end_pipe -> 0: create a new job, others: add process in last
-**					job
-**			int fg -> 0: is background process, 1: is foreground process
-*/
 
 static void	stock_process(char **argv, t_token *token, int end_pipe, int fg)
 {
 	if (end_pipe == 0)
 		create_new_job(argv, token, NULL, fg);
 	else
-		add_process(argv, token, fg);
+	{
+		if (verif_is_fork(get_end_job()->first_process) == -1)
+			add_process(argv, NULL, fg);
+		else
+			add_process(argv, token, fg);
+	}
 }
 
 static void	prepare_exec_pipe(int fg)
 {
 	t_job	*j;
-	int		verif;
 
 	j = get_end_job();
 	j->fg = fg;
-	verif = check_error_job_pipe(j);
+	if (verif_is_fork(j->first_process) == -1)
+		return ;
 	launch_job_pipe(j, fg);
-	if (verif != 0)
-		gest_return(verif);
 }
+
+/*
+** Pipe command
+** Args:	char **argv -> command
+**			t_token *token -> struct token (contain redirection of file)
+**			int end_pipe -> 0: create a new job and add process in this job
+**							1: add process in last job
+**							2 add process in last job and execute this job
+**			int bg -> 0: foreground process, 1: id of background process
+*/
 
 int			ft_pipe(char **argv, t_token *token, int end_pipe, int bg)
 {
 	t_process	*p;
 	int			fg;
 
-	if ((!argv) || (!*argv))
-		return (-1);
 	if (bg != 0)
 		manage_id_job(bg);
 	fg = (bg > 0) ? 0 : 1;
@@ -95,6 +76,10 @@ int			ft_pipe(char **argv, t_token *token, int end_pipe, int bg)
 		gest_return(1);
 	}
 	if (end_pipe == 2)
+	{
+		if (verif_is_fork(get_end_job()->first_process) == -1)
+			return (-1);
 		prepare_exec_pipe(fg);
+	}
 	return (0);
 }

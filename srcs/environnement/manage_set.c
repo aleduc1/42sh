@@ -6,11 +6,22 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 01:25:06 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 09:14:51 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int			verif_syntax_key(char *key)
+{
+	while (*key)
+	{
+		if (ft_isalnum(*key) == 0 && (*key) != '_')
+			return (0);
+		++key;
+	}
+	return (1);
+}
 
 int			edit_set_no_command(char **value)
 {
@@ -24,9 +35,17 @@ int			edit_set_no_command(char **value)
 		if ((cnt = ft_chr_index(value[i], '=')) > 0)
 		{
 			key = ft_strsub(value[i], 0, cnt);
-			reset_hash_verif(key);
-			add_set_value(key, value[i] + cnt + 1);
-			ft_strdel(&key);
+			if (verif_syntax_key(key) == 0)
+			{
+				ft_strdel(&key);
+				return (-1);
+			}
+			else if (key && ft_strlen(key) > 0)
+			{
+				reset_hash_verif(key);
+				add_set_value(key, value[i] + cnt + 1);
+				ft_strdel(&key);
+			}
 		}
 		else
 			break ;
@@ -34,13 +53,47 @@ int			edit_set_no_command(char **value)
 	return (i);
 }
 
-int			edit_set_command(char **value, t_redirection *r, t_pos *pos)
+int			edit_set_no_command_env(char **value)
+{
+	char	*key;
+	int		i;
+	int		cnt;
+
+	i = -1;
+	while (value[++i])
+	{
+		if ((cnt = ft_chr_index(value[i], '=')) > 0)
+		{
+			key = ft_strsub(value[i], 0, cnt);
+			if (verif_syntax_key(key) == 0)
+			{
+				ft_strdel(&key);
+				return (-1);
+			}
+			else if (key && ft_strlen(key) > 0)
+			{
+				reset_hash_verif(key);
+				edit_setenv(key, value[i] + cnt + 1);
+				ft_strdel(&key);
+			}
+		}
+		else
+			break ;
+	}
+	return (i);
+}
+
+int			edit_set_command(char **value, t_redirection *r, t_pos *pos,
+		int index)
 {
 	t_env	*cpy_env;
 	int		result;
 
 	cpy_env = ft_cpy_env();
-	result = edit_set_no_command(value);
+	if (ft_strequ(value[index], "env"))
+		result = edit_set_no_command_env(value);
+	else
+		result = edit_set_no_command(value);
 	ft_simple_command_redirection(value + result, r, pos, 1);
 	get_env(1, NULL);
 	get_env(0, cpy_env);
@@ -55,13 +108,15 @@ int			edit_set(char **value, t_redirection *r, t_pos *pos)
 	i = -1;
 	result = 0;
 	while (value[++i])
-		if (ft_chr_index(value[i], '=') < 2)
+		if (ft_chr_index(value[i], '=') < 1)
 			break ;
+	if (i == 0)
+		return (-1);
 	if (!value[i])
 		result = edit_set_no_command(value);
 	else
-		edit_set_command(value, r, pos);
-	return (result);
+		edit_set_command(value, r, pos, i);
+	return (result != -1 ? 0 : 1);
 }
 
 int			ft_unset(char **value)
@@ -70,6 +125,7 @@ int			ft_unset(char **value)
 	int	i;
 
 	i = 0;
+	verif = 1;
 	while (value[++i])
 		verif = free_maillon_env(value[i], 0);
 	return (verif);

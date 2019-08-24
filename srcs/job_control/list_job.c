@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:24:08 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:22:43 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 05:29:14 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ t_job		*create_new_job(char **argv, t_token *t, t_redirection *r, int fg)
 	parser_var(&p->cmd);
 	j->process_id = process_id;
 	p->fg = fg;
-	p->r = (t) ? fill_redirection(t) : r;
+	p->r = (t && argv) ? fill_redirection(t) : r;
 	return (j);
 }

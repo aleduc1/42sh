@@ -6,11 +6,15 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:56:38 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 02:39:07 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
+
+/*
+** Retourne le dernier job si il ne trouve rien retourne NULL
+*/
 
 t_job	*last_jobs(void)
 {
@@ -28,12 +32,19 @@ t_job	*last_jobs(void)
 	return (NULL);
 }
 
+/*
+** Retourne l'avant dernier job si il ne le trouve pas, appel last_jobs
+** pour retourner le dernier
+*/
+
 t_job	*previous_jobs(void)
 {
 	t_job	*j;
 	int		max_current;
 
 	max_current = get_shell()->max_job_current - 1;
+	if (max_current == 0)
+		++max_current;
 	j = get_first_job(NULL);
 	while (j)
 	{
@@ -43,6 +54,10 @@ t_job	*previous_jobs(void)
 	}
 	return (NULL);
 }
+
+/*
+** Retourne le job dont le j->pgid a la meme valeur que le parametre pid
+*/
 
 t_job	*ft_search_pid_job(pid_t pid)
 {
@@ -57,6 +72,12 @@ t_job	*ft_search_pid_job(pid_t pid)
 	}
 	return (NULL);
 }
+
+/*
+** Retourne le job dont l'id du job demande
+** Args:	char *av -> un argument du builtin
+**			int index -> l'endroit ou on doit extraire la valeur de l'id
+*/
 
 t_job	*ft_search_id_job(char *av, int index)
 {
@@ -74,6 +95,12 @@ t_job	*ft_search_id_job(char *av, int index)
 	return (NULL);
 }
 
+/*
+** Retourne le job recherche si il est unique sinon retourne NULL
+** Args:	char *av -> un argument du builtin
+**			int index -> l'endroit ou on doit extraire la valeur de l'id
+*/
+
 t_job	*ft_search_str_job(char *av, int index)
 {
 	t_job	*job;
@@ -84,14 +111,17 @@ t_job	*ft_search_str_job(char *av, int index)
 	final = NULL;
 	while (job)
 	{
-		str = ft_strnstr(job->first_process->cmd[0], av + index,
-				ft_strlen(av + index));
-		if (str)
+		if (job->first_process && job->first_process->cmd)
 		{
-			if (final)
-				return (NULL);
-			else
-				final = job;
+			str = ft_strnstr(job->first_process->cmd[0], av + index,
+					ft_strlen(av + index));
+			if (str)
+			{
+				if (final)
+					return (NULL);
+				else
+					final = job;
+			}
 		}
 		job = job->next;
 	}

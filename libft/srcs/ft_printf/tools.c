@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
+#include "ft_printf.h"
 
 void	ft_stock(t_printf **lst, char dst[BUF_S], int (*stock)[3])
 {

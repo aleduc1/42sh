@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/11 03:04:00 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 05:33:43 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int			gest_return(int verif)
 		verif = 128 + verif;
 	if (verif > 255)
 		verif %= 255;
+	if (verif == 30)
+		verif = 2;
 	value = ft_itoa(verif);
 	verif = add_set_value("?", value);
 	ft_strdel(&value);

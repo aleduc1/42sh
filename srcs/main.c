@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/24 19:17:10 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/24 19:35:45 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,46 +59,22 @@ void		run(char *input, t_pos *pos)
 {
 	t_lex	*lex;
 	t_ast	*ast;
+	int		verif;
 
 	lex = NULL;
 	ast = NULL;
 	input = history_replace(input, pos);
 	input = alias_replace(input);
-	if ((check_whitespace_input(input)) && (lex = lexer(input)))
-	{
-		ft_strdel(&input);
+	verif = check_whitespace_input(input);
+	if (verif && (lex = lexer(input)))
 		if ((ast = ast_parser(lex)) && (solo_tree(ast, pos) < 0))
 			interpreter(ast, pos, 0);
-		clean_lex(&lex);
-		clean_ast(ast);
-	}
-	else if (input)
+	if (input)
 	{
 		ft_strdel(&input);
 		clean_lex(&lex);
 		clean_ast(ast);
 	}
-}
-
-void		script_test(char **av, t_pos pos)
-{
-	int		i;
-	char	*str;
-
-	i = -1;
-	raw_term_mode();
-	while (av[++i])
-	{
-		str = ft_strdup(av[i]);
-		run(str, &pos);
-	}
-	t_job *j = get_first_job(NULL);
-	(void)j;
-	free_all_job();
-	default_term_mode();
-	delete_shell();
-	get_env(1, NULL);
-	exit(0);
 }
 
 static void	cpy_std(int in, int out, int error)
@@ -118,7 +94,20 @@ static void	cpy_std(int in, int out, int error)
 	ft_strdel(&s_error);
 }
 
-static void	edit_shell(void)
+static void	ft_name_exec(char *name_exec)
+{
+	int		len;
+	char	*cache;
+
+	len = ft_strlen(name_exec);
+	if (len < 3)
+		return ;
+	cache = ft_strsub(name_exec, 2, len);
+	add_set_value("0", cache);
+	ft_strdel(&cache);
+}
+
+static void	edit_shell(char *name_exec)
 {
 	int	in;
 	int	out;
@@ -137,13 +126,20 @@ static void	edit_shell(void)
 	if ((dup2(STDERR_FILENO, out)) == -1)
 		exit(1);
 	cpy_std(in, out, error);
+	ft_name_exec(name_exec);
 }
 
 static void	init_alias(void)
 {
 	g_hash_table = ht_hash_new();
 	g_alias_table = ht_hash_new();
-	ht_hash_insert(g_alias_table, "ls", "ls -G");
+	if (OS == 0)
+		ht_hash_insert(g_alias_table, "ls", "ls -G");
+	else
+	{
+		free_maillon_env("LS_COLORS", 0);
+		ht_hash_insert(g_alias_table, "ls", "ls --color");
+	}
 	ht_hash_insert(g_alias_table, "b", "base64 /dev/urandom");
 	ht_hash_insert(g_alias_table, "..", "cd ..");
 	ht_hash_insert(g_alias_table, "-", "cd -");
@@ -159,21 +155,17 @@ int			main(int argc, char **argv, char **environ)
 
 	input = NULL;
 	multi_input = NULL;
-	edit_shell();
-	(argc == 1) ? welcome() : 0;
+	edit_shell(argv[0]);
+	welcome();
 	flags(argc, argv);
 	init_prompt(&pos);
 	init_alias();
-	if (argc > 1)
-		script_test(argv + 1, pos);
-	// dfl_signaux();
 	while (21)
 	{
 		if (argc && argv && environ)
 			if ((input = prompt(multi_input, &pos)))
 				run(input, &pos);
 		job_notif();
-//		update_status();
 		manage_id_job(0);
 	}
 	return (0);

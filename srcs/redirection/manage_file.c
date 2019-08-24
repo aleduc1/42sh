@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 16:44:29 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/07 17:41:28 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 09:37:50 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,12 @@ int			verif_file_descriptor(char **src, char *dst)
 	return (0);
 }
 
-void		whois_type(int type)
-{
-	if (type == LESS)
-		ft_printf("type is LESS\n");
-	if (type == DLESS)
-		ft_printf("type is DLESS\n");
-	if (type == GREAT)
-		ft_printf("type is GREAT\n");
-	if (type == DGREAT)
-		ft_printf("type is DGREAT\n");
-	if (type == AMPGREAT)
-		ft_printf("type is AMPGREAT\n");
-	if (type == GREATAMP)
-		ft_printf("type is GREATAMP\n");
-	if (type == AMPLESS)
-		ft_printf("type is AMPLESS\n");
-	if (type == LESSAMP)
-		ft_printf("type is LESSAMP\n");
-}
-
 static int	open_file_command_bis(t_redir **redir, t_pos *pos, int verif)
 {
 	if ((*redir)->filename)
+	{
 		parser_var_simple(&((*redir)->filename));
+	}
 	if ((*redir)->type == GREAT || (*redir)->type == DGREAT
 		|| (*redir)->type == LESS || (*redir)->type == AMPGREAT
 		|| (*redir)->type == AMPLESS || (*redir)->type == LESSAMP
@@ -92,6 +74,11 @@ static int	open_file_command_bis(t_redir **redir, t_pos *pos, int verif)
 	return (verif);
 }
 
+/*
+** Verifie si c'est possible, puis ouvre les fds et creer les fichiers
+** si besoin. Ensuite stock les nouvelles infos dans t_redir *redir
+*/
+
 int			open_file_command(t_redir *redir, t_pos *pos)
 {
 	int	verif;
@@ -99,13 +86,9 @@ int			open_file_command(t_redir *redir, t_pos *pos)
 	verif = 0;
 	if (!redir)
 		return (-1);
-	if (redir->type == LESSAMP && ft_strequ(redir->src_fd[0], "1"))
-	{
-		ft_strdel(&redir->src_fd[0]);
-		redir->src_fd[0] = ft_strdup("0");
-	}
 	verif = open_file_command_bis(&redir, pos, verif);
-	if (verif_file_descriptor(redir->src_fd, redir->dest_fd) == -1)
+	if (verif != -1
+			&& verif_file_descriptor(redir->src_fd, redir->dest_fd) == -1)
 		verif = -1;
 	if (verif > -1)
 		verif = 0;

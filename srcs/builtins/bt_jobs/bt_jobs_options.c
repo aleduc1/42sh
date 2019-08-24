@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:56:38 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 05:52:06 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ static int		ft_good_syntax(char *av)
 	return (ft_isnumbers(av + i) ? 3 * percent : 4 * percent);
 }
 
+/*
+** Retourne le bon job suivant l'option utilisee
+** Si il y a une erreur ou si il n'y a pas de job la fonction renvoie null
+**
+** Si il n'y a pas de % avant l'option alors les valeurs suivantes seront
+** negatif:
+** % ou + -> 1
+** - -> 2
+** ? -> 5
+** le reste -> 4
+** Args: char *av -> les arguments du builtins
+*/
+
 t_job			*search_job(char *av)
 {
 	int	job_id;
@@ -57,27 +70,22 @@ void			display_jobs_options(void (*p)(t_job*, int, t_redirection*),
 {
 	t_job	*j;
 	int		i;
-	int		verif;
 	int		max_current;
 
 	max_current = get_shell()->max_job_current;
 	i = (ft_strequ(*av, "--")) ? 1 : 0;
 	while (av[i])
 	{
-		verif = 0;
 		j = search_job(av[i]);
 		if (j)
 		{
-			verif = 1;
 			if (job_is_completed(j) || job_is_stopped(j))
-			{
 				(*p)(j, max_current, r);
-			}
 			else
-				display_no_such_job(r, av[i]);
+				display_no_such_job(r, "jobs", av[i]);
 		}
 		else
-			display_no_such_job(r, av[i]);
+			display_no_such_job(r, "jobs", av[i]);
 		++i;
 	}
 }

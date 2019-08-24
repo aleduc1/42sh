@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 14:07:13 by aleduc            #+#    #+#             */
-/*   Updated: 2017/11/22 13:40:44 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/22 13:06:47 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 
 void	ft_putstr_fd(char const *s, int fd)
 {
-	size_t	i;
-
 	if (!s)
 		return ;
-	i = 0;
-	while (s[i])
-	{
-		ft_putchar_fd(s[i], fd);
-		i++;
-	}
+	write(fd, s, ft_strlen(s));
 }

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/19 22:04:22 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 09:11:12 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,8 @@
 #include "builtins.h"
 
 /*
-** launch command in a fork if not builtin command
+** Add path command and dysplay error
 */
-
-int run_editor(char **av)
-{
-	int status;
-	pid_t pid;
-	char **environ = create_list_env(get_env(0, NULL), 1);
-	char **argv = (char **)malloc(sizeof(char*) * 2);
-	
-	argv[0] = ft_strdup(av[0]);
-	argv[1] = ft_strdup("/tmp/42sh-fc.file");
-	printf("test\n");
-	pid = fork();
-	if (pid == 0)
-	{
-	  execve(is_in_path(av[0]), argv, environ);
-	  exit(0);
-	}
-	else if (pid > 0)
-	  wait(&status);
-	else
-	{
-	  ft_printf("42sh: Fork Error");
-	  return (-1);
-	}
-	return (1);
-}
 
 static int		is_not_builtin(t_job *j, t_process *p, int fg)
 {
@@ -93,7 +67,11 @@ int				ft_simple_command(char **argv, t_token *t, t_pos *pos, int bg)
 	if (!builtin_exist(p->cmd[0]))
 		verif = is_not_builtin(j, p, fg);
 	else
+	{
 		verif = builtin(j, p, pos, fg);
+		if (verif == -1)
+			verif = is_not_builtin(j, p, fg);
+	}
 	return (verif);
 }
 
@@ -123,9 +101,10 @@ int				ft_simple_command_fc(char *editor)
 ** Copy struct redirection to ft_simple_command_redirection
 */
 
-t_redirection	*cpy_redirection(t_redirection *r)
+static t_redirection	*cpy_redirection(t_redirection *r)
 {
 	t_redirection	*cpy;
+	t_redirect		*head;
 
 	if (!(cpy = (t_redirection*)malloc(sizeof(t_redirection) * 1)))
 		return (NULL);
@@ -133,14 +112,16 @@ t_redirection	*cpy_redirection(t_redirection *r)
 	cpy->out = r->out;
 	cpy->error = r->error;
 	cpy->redirect = ft_init_redirect();
+	head = r->redirect;
 	while (r->redirect && r->redirect->base != -1)
 	{
-		ft_create_maillon_redirect(cpy->redirect, r->redirect->base,
-			r->redirect->new_fd, r->redirect->type);
+		ft_create_maillon_redirect_env(cpy->redirect, r->redirect->base,
+			r->redirect->new_fd, r->redirect->name_file, r->redirect->type);
 		r->redirect = r->redirect->next;
 	}
+	r->redirect = head;
 	ft_create_maillon_redirect(cpy->redirect, -1,
-			-1, -1);
+			-1, NULL);
 	return (cpy);
 }
 

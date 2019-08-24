@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 04:37:41 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 02:22:12 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static int	bt_jobs_l_display(t_process *p, t_redirection *r, int last)
 	cmd = assembly_cmd_process(p);
 	if (last == -1 || last != p->status)
 	{
-		if (last == -1)
-			last = p->status;
+		last = p->status;
 		num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
 		name_sig = ft_name_sig(num_sig);
 		if (num_sig > 0)
@@ -84,6 +83,43 @@ void		bt_jobs_l(t_job *j, int max_current, t_redirection *r)
 	}
 }
 
+int			convert_value_signal(int status)
+{
+	int	sig;
+
+	sig = status;
+	if (sig > 31)
+		sig = WSTOPSIG(status);
+	if (sig == 0)
+		sig = WTERMSIG(status);
+	if (sig == 0)
+		sig = WEXITSTATUS(status);
+	return (sig);
+}
+
+int			this_signal(t_process *p)
+{
+	int		sig;
+	int		num_sig;
+
+	sig = convert_value_signal(p->status);
+	//(p->status < 32) ? p->status : WSTOPSIG(p->status);
+//	if (sig == 0)
+//		sig = WTERMSIG(p->status);
+	num_sig = 0;
+	while (p)
+	{
+		num_sig = convert_value_signal(p->status);//(p->status < 32) ? p->status : WSTOPSIG(p->status);
+//		if (num_sig == 0)
+//			num_sig = WTERMSIG(p->status);
+		if (sig == 0 || (num_sig != 2 && num_sig != 3 && num_sig != 9
+							&& num_sig != 13 && num_sig != 15))
+			sig = num_sig;
+		p = p->next;
+	}
+	return (sig);
+}
+
 void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 {
 	t_process	*p;
@@ -93,13 +129,7 @@ void		bt_jobs_s(t_job *j, int max_current, t_redirection *r)
 	int			num_sig;
 
 	p = j->first_process;
-/*	while (p)
-	{
-		if (!p->next)
-			break ;
-		p = p->next;
-	}
-*/	num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
+	num_sig = this_signal(p);
 	str = ft_inter_signal(num_sig, j);
 	if (!str)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/07/08 00:11:24 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 04:04:52 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,13 @@ char		*search_var(char *src)
 	return (dst);
 }
 
-int			manage_is_quote(char c, int expand)
+int			manage_is_quote(char *value, int index, int expand)
 {
+	char	c;
+
+	c = value[index];
+	if (index - 1 > -1 && value[index - 1] == '\\')
+		return (expand);
 	if (c == '\'')
 	{
 		if (expand == 0)

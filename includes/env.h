@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 05:39:07 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/24 19:37:12 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #	define ENV_H
 
 #include "sh21.h"
+#include "lexer.h"
 #include "parser.h"
 #include "libft.h"
 #include <curses.h>
@@ -28,6 +29,12 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
+
+#	ifdef __linux__
+#	define OS 1
+#	else
+#	define OS 0
+#	endif
 
 typedef struct		s_fc
 {
@@ -46,6 +53,7 @@ typedef struct		s_redirect
 	int					base;
 	int					new_fd;
 	int					type;
+	char				*name_file;
 	struct s_redirect	*next;
 }					t_redirect;
 
@@ -68,6 +76,7 @@ typedef struct		s_env
 typedef struct		s_shell
 {
 	pid_t			pgid;
+	char			*name_shell;
 	struct termios	term_shell;
 	int				interactive;
 	int				term;
@@ -129,7 +138,7 @@ void				redirection_fd(t_redirection *r);
 void				redir_in(t_redirection *r);
 void				redir_out(t_redirection *r);
 void				redir_error(t_redirection *r);
-void				other_redir(int src, int new_fd);
+void				other_redir(t_redirect *r);
 
 /*
 ** check_last.c
@@ -196,7 +205,7 @@ void				parser_var_simple(char **value);
 
 void				copy_value(char *src, char **dst, int start, int end);
 char				*search_var(char *src);
-int					manage_is_quote(char c, int expand);
+int					manage_is_quote(char *value, int index, int expand);
 int					is_expand_tild(char *value, int index, int expand);
 
 /*
@@ -218,6 +227,7 @@ char				**create_list_env(t_env *my_env, int env);
 ** manage_set.c
 */
 
+int					verif_syntax_key(char *key);
 int					edit_set(char **value, t_redirection *r, t_pos *pos);
 int					ft_unset(char **value);
 int					edit_set_command_env(char *str, t_env *my_env);
@@ -302,6 +312,7 @@ int					ft_simple_command_redirection(char **argv,
 ** errors.c
 */
 
+void				execve_bin_test(void);
 void				display_command_not_found(t_redirection *r, char *cmd);
 void				display_permission_denied(t_redirection *r, char *cmd);
 void				display_error_fork(t_redirection *r);
@@ -309,7 +320,8 @@ void				display_too_many_arg(t_redirection *r, char *name);
 void				display_too_few_arg(t_redirection *r, char *name);
 void				display_nothing_value(t_redirection *r, char *name);
 void				display_bad_file_descriptor(int error);
-void				display_no_such_job(t_redirection *r, char *name);
+void				display_no_such_job(t_redirection *r, char *name_blt,
+						char *name);
 void				display_invalid_option_job(t_redirection *r, char *name);
 void				display_no_current_job(t_redirection *r, char *name);
 void				display_no_job_control(t_redirection *r, char *name);
@@ -378,7 +390,9 @@ int					check_format_variable(char *str);
 */
 
 int					ft_create_maillon_redirect(t_redirect *r, int base,
-						int new_fd, int type);
+						int new_fd, t_redir *redir);
+int					ft_create_maillon_redirect_env(t_redirect *r, int base,
+						int new_fd, char *name, int type);
 t_redirect			*ft_init_redirect(void);
 int					ft_fd_redirect_exist(t_redirect *r, int base);
 

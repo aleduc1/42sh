@@ -41,6 +41,7 @@ VPATH = objs:\
 		srcs/interpreter:\
 		srcs/builtins:\
 		srcs/builtins/bt_jobs:\
+		srcs/builtins/bt_test:\
 		srcs/redirection:\
 		srcs/hash_table
 
@@ -206,9 +207,13 @@ SRCS_NAMES = main.c \
 			 bt_fg.c\
 			 bt_bg.c\
 			 bt_fg_bg_tools.c\
-			 bt_type.c\
-			 history_replace.c
-
+			 history_replace.c\
+			 bt_type.c \
+			 bt_test.c \
+			 precedence_alg.c \
+			 unary_lists.c \
+			 unary_primaries.c \
+			 binary_primaries.c
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 HEADERS_NAMES = sh21.h lexer.h parser.h env.h builtins.h job.h
@@ -254,7 +259,7 @@ $(NAME) : $(LIBS) $(OBJS_NAMES)
 libs :
 	@$(MAKE) -j3 -C $(LIBDIR)
 
-%.o : %.c $(HEADER)
+%.o : %.c $(HEADERS)
 	@$(CREATE) $(OBJDIR)
 	@$(CC) -o $(OBJDIR)$@ -c $< $(CFLAGS) $(CPPFLAGS)
 

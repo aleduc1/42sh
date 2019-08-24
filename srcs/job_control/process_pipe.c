@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/20 02:27:02 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/23 22:55:32 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	launch_process_pipe(t_process *p)
 {
 	char	**environ;
 
-	environ = create_list_env(get_env(0, NULL), 0);
+	environ = create_list_env(get_env(0, NULL), 1);
 	execve(p->cmd_path, p->cmd, environ);
 	exit(1);
 }
@@ -31,7 +31,7 @@ static int	exec_pipe(t_job *j, t_process *p, int fg)
 	config_pid_process(j->pgid, fg);
 	if (p->return_value == 1)
 	{
-		execve("/bin/test", NULL, NULL);
+		execve_bin_test();
 		exit(1);
 	}
 	if ((verif = is_builtin(j, p, NULL)) == -1)
@@ -42,8 +42,10 @@ static int	exec_pipe(t_job *j, t_process *p, int fg)
 			redirection_fd(p->r);
 			launch_process_pipe(p);
 		}
+		else
+			display_command_not_found(p->r, p->cmd[0]);
 	}
-	execve("/bin/test", NULL, NULL);
+	execve_bin_test();
 	exit(verif);
 }
 
@@ -72,7 +74,7 @@ static void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])
 
 static void	pipe_error(int error)
 {
-	ft_dprintf(error, "42sh: error pipe\n");
+	ft_dprintf(error, "%s: error pipe\n", get_shell()->name_shell);
 	bt_exit(NULL, NULL, NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 05:53:51 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 05:47:57 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ static t_job	*job_for_bg_fg_opt(char **av, t_redirection *r)
 			if (job_is_completed(j) || job_is_stopped(j) || j->pgid > 0)
 				job_launch = j;
 			else
-				display_no_such_job(r, av[i]);
+				display_no_such_job(r, av[0], av[i]);
 		}
 		else
-			display_no_such_job(r, av[i]);
+			display_no_such_job(r, av[0], av[i]);
 		++i;
 	}
 	return (job_launch);
@@ -57,14 +57,16 @@ t_job			*job_for_bg_fg(char **av, t_redirection *r)
 	update_status();
 	if (!av[1])
 	{
-		j = get_first_job(NULL);
 		job_launch = NULL;
+		j = get_first_job(NULL);
 		while (j)
 		{
 			if (j->first_process->stopped == 1 || j->pgid > 0)
 				job_launch = j;
 			j = j->next;
 		}
+		if (!job_launch)
+			display_no_current_job(r, av[0]);
 	}
 	else
 		job_launch = job_for_bg_fg_opt(av, r);

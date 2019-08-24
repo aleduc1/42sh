@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
+#include "ft_printf.h"
 
 void	ft_inf_nan(char (*str)[BUF_S], t_printf **lst, int stock[3])
 {

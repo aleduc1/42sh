@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 00:07:18 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/24 21:56:29 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/24 23:30:00 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int			hist_rep_getexp(char *input)
 			++i;
 		return (i);
 	}
+	else if (input[i] == '!')
+		return (++i);
 	while (input && input[i] && input[i] != ' ' && input[i] != '\t'
 			&& input[i] != ';' && input[i] != '|' && input[i] != '&'
 			&& input[i] != '(' && input[i] != ')' && input[i] != '<'

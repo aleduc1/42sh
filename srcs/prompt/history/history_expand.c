@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:31:14 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/24 19:28:45 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/24 21:18:05 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@
 
 char	*expand_double_schriek(t_pos *pos)
 {
-	ft_printf("Double Schriek\n");
-	if (pos->history->next)
-	{
-		return (pos->history->next->line);
-	}
+	if (pos->history->next && pos->history->next->next)
+		return (pos->history->next->next->line);
 	else
 		return (NULL);
 }
@@ -35,8 +32,10 @@ char	*expand_schriek_word(t_pos *pos, char *word)
 {
 	t_node *cursor;
 
-	ft_printf("Schriek Word\n");
-	cursor = pos->history->next;
+	if (pos->history->next && pos->history->next->next)
+		cursor = pos->history->next->next;
+	else
+		cursor = NULL;
 	while (cursor)
 	{
 		if (ft_strncmp(cursor->line, word, ft_strlen(word)))
@@ -55,12 +54,14 @@ char	*expand_schriek_number(t_pos *pos, int number)
 	t_node *cursor;
 	int i;
 
-	ft_printf("Schriek Number\n");
 	i = 1;
-	cursor = pos->history;
-	while(cursor->next)
+	if (pos->history->next && pos->history->next->next)
+		cursor = pos->history->next->next;
+	else
+		cursor = NULL;
+	while(cursor && cursor->next)
 		cursor = cursor->next;
-	while (cursor->prev)
+	while (cursor && cursor->prev)
 	{
 		if (i == number)
 			return (cursor->line);
@@ -79,9 +80,12 @@ char	*expand_schriek_less(t_pos *pos, int number)
 	t_node *cursor;
 	int i;
 
-	ft_printf("Schriek Less\n");
 	i = 1;
-	cursor = pos->history->next;
+	if (pos->history->next && pos->history->next->next)
+		cursor = pos->history->next->next;
+	else
+		cursor = NULL;
+	
 	while (cursor)
 	{
 		if (i == number)

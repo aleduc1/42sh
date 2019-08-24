@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 00:07:18 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/24 20:17:11 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/24 21:56:29 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			hist_rep_exists(t_hist_rep *replace, t_pos *pos)
 	{
 		num = ft_atoi(&(replace->base[1]));
 		if (num < 0)
-			replace->value = expand_schriek_less(pos, num);
+			replace->value = expand_schriek_less(pos, num * -1);
 		else
 			replace->value = expand_schriek_number(pos, num);
 	}
@@ -53,7 +53,7 @@ char		*hist_rep_replace(t_hist_rep *replace, t_pos *pos)
 	char		*bin;
 
 	curr = replace;
-	new = ft_strnew(0);
+	new = ft_strnew(1);
 	while (curr != NULL)
 	{
 		if (curr->isrep == 0)
@@ -73,7 +73,7 @@ char		*hist_rep_replace(t_hist_rep *replace, t_pos *pos)
 			else
 			{
 				ft_strdel(&new);
-				ft_dprintf(2, "42sh: event not found: %s\n", curr->base);
+				ft_dprintf(2, "42sh: %s: event not found\n", curr->base);
 				return (NULL);	//  		ERR
 			}
 		}
@@ -87,6 +87,13 @@ int			hist_rep_getexp(char *input)
 	int		i;
 
 	i = 1;
+	if (input[i] == '-' || ft_isdigit(input[i]))
+	{
+		++i;
+		while (input && ft_isdigit(input[i]))
+			++i;
+		return (i);
+	}
 	while (input && input[i] && input[i] != ' ' && input[i] != '\t'
 			&& input[i] != ';' && input[i] != '|' && input[i] != '&'
 			&& input[i] != '(' && input[i] != ')' && input[i] != '<'
@@ -120,7 +127,7 @@ t_hist_rep	*hist_rep_saveexp(char *input, int start, int i, t_hist_rep *replace)
 		++j;
 		++start;
 	}
-	new->base[i] = '\0';
+	new->base[j] = '\0';
 	if (!(replace))
 		return (new);
 	curr = replace;
@@ -155,7 +162,7 @@ t_hist_rep	*hist_rep_save(char *input, int start, int i, t_hist_rep *replace)
 		++j;
 		++start;
 	}
-	new->base[i] = '\0';
+	new->base[j] = '\0';
 	if (!(replace))
 		return (new);
 	curr = replace;
@@ -211,5 +218,7 @@ char		*history_replace(char *input, t_pos *pos)
 	new_input = hist_rep_replace(*(&replace), pos);
 	hist_rep_delstruct(&(*replace));
 	ft_strdel(&input);
+	if (new_input)
+		ft_printf("%s\n", new_input);
 	return (new_input);
 }

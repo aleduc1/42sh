@@ -245,3 +245,14 @@ b | cat -e
 b | cat -e &
 ls
 fg
+ls || || pwd
+ls | | pwd
+rm vgcore.*
+cd ..
+ls -l
+cd 42
+cd 42sh
+ls | | pwd
+ls |
+ls | |
+ls ;

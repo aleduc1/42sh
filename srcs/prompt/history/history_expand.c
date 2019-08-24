@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_expand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:31:14 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/05/27 12:16:04 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/24 20:32:16 by hab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*expand_double_schriek(t_pos *pos)
 {
-	if (pos->history->next)
-		return (pos->history->next->line);
+	if (pos->history->next && pos->history->next->next)
+		return (pos->history->next->next->line);
 	else
 		return (NULL);
 }
@@ -24,7 +24,10 @@ char	*expand_schriek_word(t_pos *pos, char *word)
 {
 	t_node *cursor;
 
-	cursor = pos->history->next;
+	if (pos->history->next && pos->history->next->next)
+		cursor = pos->history->next->next;
+	else
+		cursor = NULL;
 	while (cursor)
 	{
 		if (ft_strncmp(cursor->line, word, ft_strlen(word)))
@@ -40,10 +43,13 @@ char	*expand_schriek_number(t_pos *pos, int number)
 	int i;
 
 	i = 1;
-	cursor = pos->history;
-	while(cursor->next)
+	if (pos->history->next && pos->history->next->next)
+		cursor = pos->history->next->next;
+	else
+		cursor = NULL;
+	while(cursor && cursor->next)
 		cursor = cursor->next;
-	while (cursor->prev)
+	while (cursor && cursor->prev)
 	{
 		if (i == number)
 			return (cursor->line);
@@ -59,7 +65,11 @@ char	*expand_schriek_less(t_pos *pos, int number)
 	int i;
 
 	i = 1;
-	cursor = pos->history->next;
+	if (pos->history->next && pos->history->next->next)
+		cursor = pos->history->next->next;
+	else
+		cursor = NULL;
+	
 	while (cursor)
 	{
 		if (i == number)

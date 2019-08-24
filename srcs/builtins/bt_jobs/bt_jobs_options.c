@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 09:40:29 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 01:47:53 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ static int		ft_good_syntax(char *av)
 	return (ft_isnumbers(av + i) ? 3 * percent : 4 * percent);
 }
 
+/*
+** Retourne le bon job suivant l'option utilisee
+** Si il y a une erreur ou si il n'y a pas de job la fonction renvoie null
+**
+** Si il n'y a pas de % avant l'option alors les valeurs suivantes seront
+** negatif:
+** % ou + -> 1
+** - -> 2
+** ? -> 5
+** le reste -> 4
+** Args: char *av -> les arguments du builtins
+*/
+
 t_job			*search_job(char *av)
 {
 	int	job_id;
@@ -57,7 +70,6 @@ void			display_jobs_options(void (*p)(t_job*, int, t_redirection*),
 {
 	t_job	*j;
 	int		i;
-//	int		verif;
 	int		max_current;
 
 	max_current = get_shell()->max_job_current;

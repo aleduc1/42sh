@@ -258,7 +258,7 @@ $(NAME) : $(LIBS) $(OBJS_NAMES)
 libs :
 	@$(MAKE) -j3 -C $(LIBDIR)
 
-%.o : %.c $(HEADER)
+%.o : %.c $(HEADERS)
 	@$(CREATE) $(OBJDIR)
 	@$(CC) -o $(OBJDIR)$@ -c $< $(CFLAGS) $(CPPFLAGS)
 

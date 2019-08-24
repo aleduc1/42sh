@@ -324,6 +324,7 @@ continue_job	/Users/sbelondr/Desktop/42sh/srcs/job_control/status_process.c	/^vo
 conversion	/Users/sbelondr/Desktop/42sh/libft/includes/ft_printf.h	/^	char			conversion[3];$/;"	m	struct:s_printf
 convert_to	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/arg_convert.c	/^void		convert_to(t_printf **lst, int base)$/;"	f
 convert_type	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/arg_convert.c	/^void		convert_type(t_printf **lst, char (*str)[BUF_S], int base)$/;"	f
+convert_value_signal	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_jobs_display.c	/^int			convert_value_signal(int status)$/;"	f
 copy_selection	/Users/sbelondr/Desktop/42sh/srcs/prompt/selection/copy_paste.c	/^void		copy_selection(t_node *lstcursor, t_pos *pos)$/;"	f
 copy_selection_left	/Users/sbelondr/Desktop/42sh/srcs/prompt/selection/copy_paste.c	/^void		copy_selection_left(t_node *cursorcpy, t_pos *pos, int count)$/;"	f
 copy_selection_right	/Users/sbelondr/Desktop/42sh/srcs/prompt/selection/copy_paste.c	/^void		copy_selection_right(t_node *cursorcpy, t_pos *pos, int count)$/;"	f
@@ -873,7 +874,6 @@ is_in_path	/Users/sbelondr/Desktop/42sh/srcs/environnement/path.c	/^char		*is_in
 is_in_tab	/Users/sbelondr/Desktop/42sh/srcs/lexer/if_checks.c	/^int		is_in_tab(t_tab_type **tab_of_type, char c)$/;"	f
 is_lesser_greater	/Users/sbelondr/Desktop/42sh/srcs/lexer/if_checks.c	/^int		is_lesser_greater(char c)$/;"	f
 is_not_builtin	/Users/sbelondr/Desktop/42sh/srcs/commands/commands.c	/^static int		is_not_builtin(t_job *j, t_process *p, int fg)$/;"	f	file:
-is_not_builtin_redirection	/Users/sbelondr/Desktop/42sh/srcs/commands/commands_redirection.c	/^static int			is_not_builtin_redirection(t_job *j, t_process *p, int fg)$/;"	f	file:
 is_only_space	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/remove_space/remove_space_token.c	/^int		is_only_space(t_lex **node_cmd)$/;"	f
 is_operator	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/simple_command/type_check.c	/^int		is_operator(t_type type)$/;"	f
 is_other_expansion	/Users/sbelondr/Desktop/42sh/srcs/environnement/parameter_expansion.c	/^int				is_other_expansion(char *tmp, char **dst)$/;"	f
@@ -912,11 +912,9 @@ last_status	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	int					last_status;$
 launch_job	/Users/sbelondr/Desktop/42sh/srcs/job_control/process.c	/^int			launch_job(t_job *j, int fg)$/;"	f
 launch_job_blt	/Users/sbelondr/Desktop/42sh/srcs/commands/is_builtin.c	/^int			launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)$/;"	f
 launch_job_pipe	/Users/sbelondr/Desktop/42sh/srcs/job_control/process_pipe.c	/^void		launch_job_pipe(t_job *j, int fg)$/;"	f
-launch_job_redir	/Users/sbelondr/Desktop/42sh/srcs/commands/commands_redirection.c	/^int			launch_job_redir(t_job *j, int fg)$/;"	f
 launch_process	/Users/sbelondr/Desktop/42sh/srcs/job_control/process.c	/^int			launch_process(t_process *p, pid_t pgid, int fg)$/;"	f
 launch_process_blt	/Users/sbelondr/Desktop/42sh/srcs/commands/is_builtin.c	/^int			launch_process_blt(t_job *j, t_process *p, t_pos *pos,$/;"	f
 launch_process_pipe	/Users/sbelondr/Desktop/42sh/srcs/job_control/process_pipe.c	/^static void	launch_process_pipe(t_process *p)$/;"	f	file:
-launch_process_redir	/Users/sbelondr/Desktop/42sh/srcs/commands/commands_redirection.c	/^int			launch_process_redir(t_process *p, pid_t pgid, int fg)$/;"	f
 le_test	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/binary_primaries.c	/^int		le_test(char *str1, char *str2, char *str3)$/;"	f
 led	/Users/sbelondr/Desktop/42sh/srcs/parser/ast/ast_parser.c	/^t_ast			*led(t_ast *left, t_token *t)$/;"	f
 left	/Users/sbelondr/Desktop/42sh/includes/builtins.h	/^	struct s_hash_tree	*left;$/;"	m	struct:s_hash_tree	typeref:struct:s_hash_tree::s_hash_tree

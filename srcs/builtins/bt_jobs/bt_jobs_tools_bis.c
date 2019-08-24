@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 05:42:00 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/24 02:40:22 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,19 @@ static int	ft_search_exist_in_process(t_job *job, t_job **final,
 	int			i;
 
 	p = job->first_process;
-	while (p)
+	i = -1;
+	if ((!p) || (!p->cmd))
+		return (0);
+	while (p->cmd[++i])
 	{
-		i = -1;
-		while (p->cmd[++i])
+		str = ft_strstr(p->cmd[i], av + index + 1);
+		if (str)
 		{
-			str = ft_strstr(p->cmd[i], av + index + 1);
-			if (str)
-			{
-				if (*final)
-					return (1);
-				else
-					*final = job;
-			}
+			if (*final)
+				return (1);
+			else
+				*final = job;
 		}
-		p = p->next;
 	}
 	return (0);
 }

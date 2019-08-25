@@ -294,3 +294,22 @@ EDITOR=vim
 EDITOR=vim
 EDITOR=vim
 fc -l
+echo /ne
+echo \ne
+echo \neexit
+extit
+echo \ne
+cat
+vikm
+vim
+exit
+echo \"j'adore le pain' "
+echo \nebooo
+ls -l
+echo \"nebooo exit "
+echo \nebooo
+echo \"nebooo "
+echo \>nebooo
+echo a\>nebooo
+echo a'\>nebooo'b
+exit

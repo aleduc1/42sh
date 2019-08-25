@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:29 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/25 12:52:37 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 00:18:19 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ int		init_variables(t_token **tok, int *to_check, int *i, t_tab_type **t)
 	return (0);
 }
 
+int		fonction_moche(int *i, char **input)
+{
+	if ((*input)[(*i)] && (*input)[(*i) + 1] && !((*input)[(*i) + 2]))
+		(*i)++;
+	if ((*input)[(*i)] && (*input)[(*i) + 1] && (*input)[(*i) + 2])
+		(*i) = (*i) + 2;
+	return (1);
+}
+
 void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)
 {
 	int		i;
@@ -43,10 +52,14 @@ void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)
 		{
 			if (ft_isspace(input[i]) && (i != last_t))
 				to_check = 1;
+			else if (input[i] == '\\' && (i != last_t))
+				to_check = 1;
 			else if (input[i] == '\"' || input[i] == '\'')
 				to_check = handle_string_case(&i, &last_t, &input, tok);
 			else if (is_in_tab(t, input[i]))
 				to_check = handle_classic_case(&i, &last_t, &input);
+			else if (input[i] == '\\')
+				to_check = fonction_moche(&i, &input);
 			else
 				handle_word_case(&i, &input, &last_t, &to_check);
 		}
@@ -73,6 +86,7 @@ t_lex	*lexer(char *input)
 	lex = NULL;
 	reading_input(input, &lex);
 	lex = add_delim(&lex);
+//	dllprinthead(&lex);
 	handle_quotes(&lex);
 	simple_command(&lex);
 	if (handle_redir(&lex))
@@ -82,6 +96,6 @@ t_lex	*lexer(char *input)
 		return (NULL);
 	}
 	remove_space_token(&lex);
-//	dllprinthead(&lex);
+	dllprinthead(&lex);
 	return (lex);
 }

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 18:06:59 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 20:05:19 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@
 ** WIFSTOPPED -> True if the process has not terminated, but has stopped
 **					and can be restarted.
 */
+
+static void	action_process_signal(t_job *j, t_process *p, int status)
+{
+	if (!j->notified)
+	{
+		bt_jobs_s(j, get_shell()->max_job_current);
+		p->last_status = status;
+	}
+	j->notified = 1;
+	gest_return(WTERMSIG(p->status));
+}
 
 static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 {
@@ -38,15 +49,7 @@ static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 		{
 			p->completed = 1;
 			if (WIFSIGNALED(status))
-			{
-				if (!j->notified)
-				{
-					bt_jobs_s(j, get_shell()->max_job_current);
-					p->last_status = status;
-				}
-				j->notified = 1;
-				gest_return(WTERMSIG(p->status));
-			}
+				action_process_signal(j, p, status);
 		}
 		return (0);
 	}
@@ -70,7 +73,6 @@ int			mark_process_status(pid_t pid, int status)
 		while (j)
 		{
 			p = j->first_process;
-//			j->notified = 0;
 			while (p)
 			{
 				if (action_process_status(j, pid, status, p) == 0)

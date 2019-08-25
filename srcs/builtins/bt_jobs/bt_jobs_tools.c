@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 16:39:11 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 20:28:50 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,11 @@ char		*ft_inter_signal_4(int sig)
 char		*ft_inter_signal_3(int sig)
 {
 	char	*str;
-	
+
 	str = NULL;
-	if (sig == 14)
+	if (sig == 13)
+		str = ft_strdup("Terminated(SIGPIPE)");
+	else if (sig == 14)
 		str = ft_strdup("Terminated(SIGALRM)");
 	else if (sig == 15)
 		str = ft_strdup("Terminated(SIGTERM)");
@@ -162,9 +164,7 @@ char		*ft_inter_signal_2(int sig)
 		str = ft_strdup("Terminated(SIGSEGV)");
 	else if (sig == 12)
 		str = ft_strdup("Terminated(SIGSYS)");
-	else if (sig == 13)
-		str = ft_strdup("Terminated(SIGPIPE)");
-	else if (sig > 13)
+	else if (sig > 12)
 		str = ft_inter_signal_3(sig);
 	return (str);
 }

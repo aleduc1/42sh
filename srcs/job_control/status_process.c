@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 01:41:51 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 20:08:36 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	display_stat_process(t_job *j, t_process *p, int notified)
 	{
 		if (j->fg == 0 && job_is_completed(j))
 			bt_jobs_s(j, get_shell()->max_job_current);
-			//job_done(j);
 		else if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
 		{
 			ft_putchar('\n');

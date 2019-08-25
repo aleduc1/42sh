@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 08:15:44 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 20:24:31 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,18 @@ static int	check_fd_is_good(t_redirection *r)
 	return (0);
 }
 
+void		redirection_fd_bis(t_redirection *r)
+{
+	standard_redirection(r);
+	if (verif_close(r->in) && ft_fd_redirect_exist(r->redirect, STDIN_FILENO))
+		close(r->in);
+	if (verif_close(r->out) && ft_fd_redirect_exist(r->redirect, STDOUT_FILENO))
+		close(r->out);
+	if (verif_close(r->error)
+		&& ft_fd_redirect_exist(r->redirect, STDERR_FILENO))
+		close(r->error);
+}
+
 void		redirection_fd(t_redirection *r)
 {
 	t_redirect	*lst;
@@ -135,13 +147,6 @@ void		redirection_fd(t_redirection *r)
 		lst = lst->next;
 	}
 	lst = r->redirect;
-	standard_redirection(r);
-	if (verif_close(r->in) && ft_fd_redirect_exist(r->redirect, STDIN_FILENO))
-		close(r->in);
-	if (verif_close(r->out) && ft_fd_redirect_exist(r->redirect, STDOUT_FILENO))
-		close(r->out);
-	if (verif_close(r->error)
-		&& ft_fd_redirect_exist(r->redirect, STDERR_FILENO))
-		close(r->error);
+	redirection_fd_bis(r);
 	r->redirect = lst;
 }

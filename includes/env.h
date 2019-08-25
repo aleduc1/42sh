@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 18:31:56 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 20:21:21 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,8 +392,8 @@ int					check_format_variable(char *str);
 
 int					ft_create_maillon_redirect(t_redirect *r, int base,
 						int new_fd, t_redir *redir);
-int					ft_create_maillon_redirect_env(t_redirect *r, int base,
-						int new_fd, char *name, int type);
+int					ft_create_maillon_redirect_env(t_redirect *r,
+		t_redirect *old);
 t_redirect			*ft_init_redirect(void);
 int					ft_fd_redirect_exist(t_redirect *r, int base);
 

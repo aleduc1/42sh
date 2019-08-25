@@ -6,7 +6,7 @@
 /*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 23:02:13 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/25 19:53:59 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static int	verif_set(char **argv, int nb, t_redirection *r, char *name)
 /*
 **	setenv -> edit_setenv(av[1], av[2]);
 **	unsetenv -> ft_unsetenv(av);
-** Args:	
 */
 
 static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
@@ -131,6 +130,15 @@ void		restore_redirection(void)
 ** if exist and good execution return 0 otherwise return -2
 */
 
+void		restore_and_return_builtin(int verif)
+{
+	restore_redirection();
+	if (verif == -2)
+		gest_return(1);
+	else
+		gest_return(verif);
+}
+
 int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 {
 	int		verif;
@@ -155,11 +163,7 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	else
 		verif = -1;
 	if (verif != -1)
-	{
-		restore_redirection();
-//		if (!ft_strequ(av[0], "test"))
-			gest_return(verif == -2 ? 1 : verif);
-	}
+		restore_and_return_builtin(verif);
 	return (verif);
 }
 

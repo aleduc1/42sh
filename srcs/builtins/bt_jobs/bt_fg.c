@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 01:48:04 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 20:26:18 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ int			bt_fg(t_job *j, char **av, t_redirection *r)
 	}
 	job_launch = job_for_bg_fg(av);
 	if (!job_launch)
-	{
-//		display_no_current_job(r, "fg");
 		return (-2);
-	}
 	change_fg_var_job(job_launch, 1);
 	cmd = cmd_job_s(job_launch);
 	if (cmd)

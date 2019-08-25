@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:28:27 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/21 15:56:24 by hab              ###   ########.fr       */
+/*   Updated: 2019/08/25 20:26:22 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strncpy(char *dst, const char *src, size_t len )
+char				*ft_strncpy(char *dst, const char *src, size_t len )
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (src && (i < len))

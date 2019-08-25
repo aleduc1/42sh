@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:19:28 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/09 13:42:50 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:34:20 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,36 @@ void				default_term_mode(void)
 	s->term_shell = term;
 }
 
+void				fill_shell_dumb_mode(void)
+{
+	t_shell			*s;
+	int				interactive;
+	int				pgid;
+	struct termios	term;
+	static int		pass;
+
+	if (pass > 0)
+		return ;
+	ign_signaux();
+	++pass;
+	interactive = isatty(STDIN_FILENO);
+	if (!interactive)
+		return ;
+	pgid = getpid();
+	tcsetpgrp(STDIN_FILENO, getpid());
+	tcgetattr(STDIN_FILENO, &term);
+	s = get_shell();
+	s->pgid = pgid;
+	s->term = STDIN_FILENO;
+	s->interactive = interactive;
+	s->term_shell = term;
+}
+
 void				fill_shell(int interactive, struct termios term,
 							int pgid)
 {
 	t_shell			*s;
-
+	
 	s = get_shell();
 	s->pgid = pgid;
 	s->term = STDIN_FILENO;

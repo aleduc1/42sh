@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 09:39:44 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 20:08:10 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int			launch_process(t_process *p, pid_t pgid, int fg)
 	redirection_fd(p->r);
 	verif = execve(p->cmd_path, p->cmd, environ);
 	display_command_not_found(p->r, p->cmd[0]);
-//	execve("/bin/test", NULL, NULL);
 	execve_bin_test();
 	exit(verif);
 }
@@ -72,6 +71,24 @@ void		display_redirection(t_redirection *r)
 	}
 }
 
+int			launch_job_fork(t_job *j, t_process *p, int fg)
+{
+	int	verif;
+
+	verif = 0;
+	if (p->cmd_path)
+	{
+		verif = launch_process(p, j->pgid, fg);
+		execve_bin_test();
+	}
+	else
+	{
+		gest_return(12);
+		execve_bin_test();
+	}
+	return (verif);
+}
+
 int			launch_job(t_job *j, int fg)
 {
 	t_process	*p;
@@ -84,18 +101,7 @@ int			launch_job(t_job *j, int fg)
 	{
 		pid = fork();
 		if (pid == 0)
-		{
-			if (p->cmd_path)
-			{
-				verif = launch_process(p, j->pgid, fg);
-				execve_bin_test();
-			}
-			else
-			{
-				gest_return(12);
-				execve_bin_test();
-			}
-		}
+			verif = launch_job_fork(j, p, fg);
 		else if (pid < 0)
 			display_error_fork(p->r);
 		else

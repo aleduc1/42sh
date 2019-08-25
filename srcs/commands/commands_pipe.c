@@ -6,14 +6,14 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/23 23:09:59 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:38:26 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "job.h"
 
-int		verif_is_fork(t_process *p)
+int			verif_is_fork(t_process *p)
 {
 	while (p)
 	{

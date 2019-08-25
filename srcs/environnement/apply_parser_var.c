@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 04:50:53 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:49:13 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,24 @@ static int	is_special_parameters(char c)
 	if (c == '#' || c == '?' || c == '-' || c == '$' || c == '!' || c == '0')
 		return (1);
 	return (0);
+}
+
+static int	ft_chr_index_last_bis(int not_end, int index, char *str)
+{
+	if (not_end)
+	{
+		ft_dprintf(STDERR_FILENO, "%s: error expansion\n",
+			get_shell()->name_shell);
+		index = ft_strlen(str) * -1;
+		gest_return(-5);
+		return (index);
+	}
+	else if (index == 0)
+	{
+		display_error_expansion("");
+		gest_return(-5);
+	}
+	return (index);
 }
 
 static int	ft_chr_index_last(char *str, char c, char d)
@@ -41,19 +59,7 @@ static int	ft_chr_index_last(char *str, char c, char d)
 				break ;
 		}
 	}
-	if (not_end)
-	{
-		ft_dprintf(STDERR_FILENO, "%s: error expansion\n",
-			get_shell()->name_shell);
-		index = ft_strlen(str) * -1;
-			gest_return(-5);
-		return (index);
-	}
-	else if (index == 0)
-	{
-		display_error_expansion("");
-		gest_return(-5);
-	}
+	index = ft_chr_index_last_bis(not_end, index, str);
 	return (index);
 }
 

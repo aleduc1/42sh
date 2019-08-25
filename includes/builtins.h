@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/26 00:29:25 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/26 01:23:04 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,8 +217,6 @@ t_job				*ft_search_str_job(char *av, int index);
 */
 int					bt_export(char **value, t_redirection *r);
 
-int					builtin_fc(char **av, t_pos *pos);
-
 /*
 ** builtin_env.c
 */
@@ -272,5 +270,51 @@ int					hist_rep_isbslashed(char *input, int i, int expand);
 char				*hist_rep_reperr(char *new, t_hist_rep *curr);
 char				*hist_rep_rep(char *bin, char *value);
 int					hist_rep_exists(t_hist_rep *replace, t_pos *pos);
+
+/*
+** history_fc.c
+*/
+
+int			fc_no_flags(char **av, t_fc *fc);
+int			fc_flags_e(char **av, t_fc *fc);
+int			fc_flags_s(char **av, t_fc *fc);
+int			fc_get_args(char **av, int argc, t_fc *fc);
+int			fc_flags_lnr(char **av, t_fc *fc);
+
+int			fc_print_first_last(t_fc *fc, t_node *lstcursor, int i);
+int			fc_print_last_first(t_fc *fc, t_node *lstcursor, int i);
+
+char		*fc_rep(char *str, char *pat_rep);
+int			fc_s_all(t_fc *fc, t_node *lstcursor, t_pos *pos, int count);
+int			fc_s(t_fc* fc, t_pos *pos);
+
+int			fc_check_editor(t_fc *fc);
+void		fc_filter_history(t_fc *fc, t_pos *pos);
+int			fc_e_run_command(t_pos *pos);
+int			fc_write_last_first(t_fc *fc, t_node *lstcursor, int count);
+int			fc_write_file(t_fc *fc, t_node *lstcursor, int count);
+int			fc_e_basic(t_fc *fc, t_node *lstcursor, t_pos *pos);
+int			fc_e_first(t_fc *fc, t_node *lstcursor, t_pos *pos, int count);
+int			fc_e_first_last(t_fc *fc, t_node *lstcursor, t_pos *pos, int count);
+int			fc_e(t_fc *fc, t_pos *pos);
+
+int			fc_lr_basic(t_fc *fc, t_node *lstcursor, int count, int i);
+int			fc_l_basic(t_fc *fc, t_node *lstcursor, int count, int i);
+int			fc_lr_first_nb(t_fc *fc, t_node *lstcursor, int count, int i);
+int			fc_l_first_nb(t_fc *fc, t_node *lstcursor, int count, int i);
+int			fc_lr_first_word(t_fc *fc, t_node *lstcursor, int count, int i);
+int			fc_l_first_word(t_fc *fc, t_node *lstcursor, int count, int i);
+int			fc_l_first(t_fc *fc, t_node *lstcursor, int count, int i);
+int			fc_l_first_last(t_fc *fc, t_node *lstcursor, int count, int i);
+int			fc_l_minus(t_fc *fc, int count);
+int			fc_l(t_fc *fc, t_pos *pos);
+
+int			fc_usage(int return_value, t_fc *fc, int error);
+void		fc_debug(t_fc *fc);
+int			fc_count(t_node *history);
+int 		fc_get_index_len(t_node *lstcursor, char *fc_first_last);
+int			fc_get_index(t_node *lstcursor, int count, int *fc_index, \
+												char *fc_first_last);
+int			builtin_fc(char **av, t_pos *pos);
 
 #	endif

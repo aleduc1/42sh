@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/25 13:14:43 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:03:06 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ static void	ft_name_exec(char *name_exec)
 		return ;
 	cache = ft_strsub(name_exec, 2, len);
 	add_set_value("0", cache);
+	add_set_value("EDITOR", "vim");
+	add_set_value("FCEDIT", "vim");
 	ft_strdel(&cache);
 }
 

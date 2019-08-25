@@ -1,0 +1,67 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+add_delim	adding_token.c	/^t_lex	*add_delim(t_lex **lex)$/;"	f
+add_dquote_to_str	add_quote.c	/^char	*add_dquote_to_str(char *str)$/;"	f
+add_squote_to_str	add_quote.c	/^char	*add_squote_to_str(char **str_addr)$/;"	f
+add_token	adding_token.c	/^void	add_token(t_lex **lexer, t_token **token)$/;"	f
+alias	alias_replace.c	/^static t_repalias	*alias;$/;"	v	file:
+alias_change	alias_replace.c	/^static char			*alias_change(char *str)$/;"	f	file:
+alias_isreplace	alias_replace.c	/^static int			alias_isreplace(char *str)$/;"	f	file:
+alias_replace	alias_replace.c	/^char				*alias_replace(char *input)$/;"	f
+check_double	handle_stuff.c	/^void	check_double(char *input, int *i)$/;"	f
+check_type	adding_token.c	/^t_token	*check_type(t_tab_type **tab_of_type, char *input, int start, int end)$/;"	f
+compare_types	adding_token.c	/^void	compare_types(t_tab_type **tab_of_type, t_token **token, char *word)$/;"	f
+create_command_token	token/token.c	/^t_token		*create_command_token(t_lex **command, t_type types)$/;"	f
+create_token	token/token.c	/^t_token		*create_token(char *str, t_type types)$/;"	f
+dll_del_node	dll_lex/dll_del.c	/^void	dll_del_node(t_lex **node)$/;"	f
+dlldelfirst	dll_lex/dll_del.c	/^void	dlldelfirst(t_lex **head)$/;"	f
+dlldellast	dll_lex/dll_del.c	/^t_lex	*dlldellast(t_lex **tail)$/;"	f
+dlldelone	dll_lex/dll_del.c	/^t_lex	*dlldelone(t_lex **head, char *data)$/;"	f
+dllinsafter	dll_lex/dll_ins.c	/^void	dllinsafter(t_lex **prev_node, t_lex **node)$/;"	f
+dllinsback	dll_lex/dll_ins.c	/^void	dllinsback(t_lex **tail, t_lex **node)$/;"	f
+dllinsbefore	dll_lex/dll_ins.c	/^void	dllinsbefore(t_lex **next_node, t_lex **node)$/;"	f
+dllinsfront	dll_lex/dll_ins.c	/^void	dllinsfront(t_lex **head, t_lex **node)$/;"	f
+dlliter	dll_lex/dll_iter.c	/^int		dlliter(t_lex **head)$/;"	f
+dlllastnode	dll_lex/dll_iter.c	/^t_lex	*dlllastnode(t_lex **head)$/;"	f
+dllprinthead	dll_lex/dll_iter.c	/^void	dllprinthead(t_lex **head)$/;"	f
+dllprinttail	dll_lex/dll_iter.c	/^void	dllprinttail(t_lex **tail)$/;"	f
+dub_possible	lexer.c	/^int		dub_possible(char c)$/;"	f
+ft_delrepalias	alias_replace.c	/^static void			ft_delrepalias(t_repalias *del)$/;"	f	file:
+ft_error	reading_tools.c	/^void	ft_error(int code_error)$/;"	f
+ft_isnumbers	if_checks.c	/^int		ft_isnumbers(char *str)$/;"	f
+get_first_word	alias_replace.c	/^static char			*get_first_word(char *str)$/;"	f	file:
+handle_classic_case	reading_tools.c	/^int		handle_classic_case(int *i, int *last_t, char **input)$/;"	f
+handle_string	handle_stuff.c	/^t_token	*handle_string(char *input, int *i, int *last_t, char c)$/;"	f
+handle_string_case	reading_tools.c	/^int		handle_string_case(int *i, int *last_t, char **input, t_token **tok)$/;"	f
+handle_string_squote	handle_stuff.c	/^t_token	*handle_string_squote(char *input, int *i, int *last_t, char c)$/;"	f
+handle_tok	reading_tools.c	/^int		handle_tok(t_token **tok, t_lex **lex)$/;"	f
+handle_whitespace	handle_stuff.c	/^int		handle_whitespace(char *input, int i, t_lex **lex)$/;"	f
+handle_word_case	reading_tools.c	/^void	handle_word_case(int *i, char **input, int *last_t, int *to_check)$/;"	f
+hist_rep_delstruct	history_replace.c	/^void		hist_rep_delstruct(t_hist_rep *to_del)$/;"	f
+hist_rep_exists	history_replace.c	/^int			hist_rep_exists(t_hist_rep *replace, t_pos *pos)$/;"	f
+hist_rep_getexp	history_replace.c	/^int			hist_rep_getexp(char *input)$/;"	f
+hist_rep_isbslashed	history_replace.c	/^int			hist_rep_isbslashed(char *input, int i, int expand)$/;"	f
+hist_rep_isvalid	history_replace.c	/^int			hist_rep_isvalid(char *input)$/;"	f
+hist_rep_replace	history_replace.c	/^char		*hist_rep_replace(t_hist_rep *replace, t_pos *pos)$/;"	f
+hist_rep_save	history_replace.c	/^t_hist_rep	*hist_rep_save(char *input, int start, int i, t_hist_rep *replace)$/;"	f
+hist_rep_saveexp	history_replace.c	/^t_hist_rep	*hist_rep_saveexp(char *input, int start, int i, t_hist_rep *replace)$/;"	f
+history_replace	history_replace.c	/^char		*history_replace(char *input, t_pos *pos)$/;"	f
+init_variables	lexer.c	/^int		init_variables(t_token **tok, int *to_check, int *i, t_tab_type **t)$/;"	f
+is_amper	if_checks.c	/^int		is_amper(char c)$/;"	f
+is_hyph	if_checks.c	/^int		is_hyph(char c)$/;"	f
+is_in_tab	if_checks.c	/^int		is_in_tab(t_tab_type **tab_of_type, char c)$/;"	f
+is_lesser_greater	if_checks.c	/^int		is_lesser_greater(char c)$/;"	f
+is_reserved_word	alias_replace.c	/^static int			is_reserved_word(char *str)$/;"	f	file:
+lexer	lexer.c	/^t_lex	*lexer(char *input)$/;"	f
+new_node	dll_lex/dll_new.c	/^t_lex	*new_node(t_token **tok)$/;"	f
+new_redir_node	dll_lex/dll_new.c	/^t_lex	*new_redir_node(t_token **tok, t_redir **redir_info)$/;"	f
+reading_input	lexer.c	/^void	reading_input(char *input, t_lex **lex)$/;"	f
+reading_loop	lexer.c	/^void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)$/;"	f
+replace_alias	alias_replace.c	/^static char			*replace_alias(char *inpu, char *str, char *fir, char *val)$/;"	f	file:
+set_tab_types	types.c	/^void	set_tab_types(t_tab_type **tab_of_types)$/;"	f
+set_tab_types_2	types.c	/^void	set_tab_types_2(t_tab_type **tab_of_types)$/;"	f
+word_or_number	adding_token.c	/^t_token	*word_or_number(char *data)$/;"	f

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 23:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 05:11:36 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 20:21:36 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ t_redirect	*ft_init_redirect(void)
 	return (r);
 }
 
-int			ft_create_maillon_redirect_env(t_redirect *r, int base, int new_fd,
-				char *name, int type)
+int			ft_create_maillon_redirect_env(t_redirect *r, t_redirect *old)
 {
 	t_redirect	*last;
 
@@ -42,10 +41,10 @@ int			ft_create_maillon_redirect_env(t_redirect *r, int base, int new_fd,
 		r = ft_init_redirect();
 	if (r)
 	{
-		r->base = base;
-		r->new_fd = new_fd;
-		r->name_file = ft_strdup(name);
-		r->type = type;
+		r->base = old->base;
+		r->new_fd = old->new_fd;
+		r->name_file = ft_strdup(old->name_file);
+		r->type = old->type;
 		if (last)
 			last->next = r;
 		return (0);

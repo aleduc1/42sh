@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 14:10:56 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 17:23:41 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,15 @@ int			this_signal(t_process *p)
 	int		num_sig;
 
 	sig = convert_value_signal(p->status);
-	num_sig = 0;
+	num_sig = sig;
 	while (p)
 	{
 		num_sig = convert_value_signal(p->status);
-		if (sig == 0 || (num_sig != 2 && num_sig != 3 && num_sig != 9
-							&& num_sig != 13 && num_sig != 15))
+		if (p->fg == 0 && (sig == 0 || (num_sig != 2 && num_sig != 3
+					&& num_sig != 9 && num_sig != 13 && num_sig != 15)))
+			sig = num_sig;
+		else if (sig == 0 || (num_sig != 0 && num_sig != 2 && num_sig != 3
+					&& num_sig != 9 && num_sig != 13 && num_sig != 15))
 			sig = num_sig;
 		p = p->next;
 	}

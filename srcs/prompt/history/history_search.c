@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 12:57:27 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/06/15 18:35:40 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:54:08 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ char			*search_and_print(char *input, t_pos *pos)
 	return (NULL);
 }
 
-int				search_keyhook(t_node **input, char buffer[], char *current_choice)
+int				search_keyhook(t_node **input, char buffer[], \
+										char *current_choice)
 {
 	if (PRINTABLE)
 	{
@@ -72,7 +73,8 @@ int				search_keyhook(t_node **input, char buffer[], char *current_choice)
 	return (0);
 }
 
-char			*input_search(t_node **input, char *passed_input, t_pos *pos, int *ret)
+char			*input_search(t_node **input, char *passed_input, \
+											t_pos *pos, int *ret)
 {
 	char		*current_input;
 	char		*current_choice;
@@ -82,7 +84,7 @@ char			*input_search(t_node **input, char *passed_input, t_pos *pos, int *ret)
 	ft_bzero(buffer, 4096);
 	current_choice = search_and_print(passed_input, pos);
 	while (read(STDIN_FILENO, &buffer, 4095) < 4095 && \
-		  (PRINTABLE || BACKSPACE || CTRL_C || CTRL_D))
+			(PRINTABLE || BACKSPACE || CTRL_C || CTRL_D))
 	{
 		*ret = search_keyhook(input, buffer, current_choice);
 		ft_bzero(buffer, 4096);
@@ -91,7 +93,7 @@ char			*input_search(t_node **input, char *passed_input, t_pos *pos, int *ret)
 		current_choice = search_and_print(current_input, pos);
 		ft_strdel(&current_input);
 		if (*ret < 0)
-			break;
+			break ;
 	}
 	tputs(tgoto(tgetstr("cm", NULL), 0, pos->row - 1), 1, ft_outc);
 	ft_putstr(tgetstr("cd", NULL));

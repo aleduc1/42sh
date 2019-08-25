@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 02:40:22 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:13:54 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		*ft_name_sig(int sig)
 	str = NULL;
 	if (sig == 0)
 		str = ft_strdup("Running");
-	else if (sig >= 1 && sig <= 15)
+	else if ((sig >= 1 && sig <= 16) || sig == 20 || (sig >= 23 && sig <= 31))
 		str = ft_strdup("Terminated");
 	else if (sig == 17 || sig == 18 || sig == 21 || sig == 22)
 		str = ft_strdup("Stopped");

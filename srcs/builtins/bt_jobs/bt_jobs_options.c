@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 05:52:06 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 01:38:02 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ t_job			*search_job(char *av)
 		return (NULL);
 }
 
-void			display_jobs_options(void (*p)(t_job*, int, t_redirection*),
-	t_redirection *r, char **av)
+void			display_jobs_options(void (*p)(t_job*, int), char **av)
 {
 	t_job	*j;
 	int		i;
@@ -80,12 +79,12 @@ void			display_jobs_options(void (*p)(t_job*, int, t_redirection*),
 		if (j)
 		{
 			if (job_is_completed(j) || job_is_stopped(j))
-				(*p)(j, max_current, r);
+				(*p)(j, max_current);
 			else
-				display_no_such_job(r, "jobs", av[i]);
+				display_no_such_job("jobs", av[i]);
 		}
 		else
-			display_no_such_job(r, "jobs", av[i]);
+			display_no_such_job("jobs", av[i]);
 		++i;
 	}
 }

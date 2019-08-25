@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 10:03:36 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 08:15:44 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,26 @@ static void	standard_redirection(t_redirection *r)
 	}
 }
 
-static void	custom_redirection(t_redirection *r, t_redirect *lst)
+static void	custom_redirection(t_redirect *lst)
 {
 	if (lst->base != -1)
-	{/*
-		if (STDIN_FILENO == lst->base)
-			redir_in(r);
-		else if (STDOUT_FILENO == lst->base)
-			redir_out(r);
-		else if (STDERR_FILENO == lst->base)
-			redir_error(r);
-		else*/
-		if (lst->type == LESSAMPHYPH || lst->type == GREATAMPHYPH)
+	{
+		if (lst->type == DGREAT)
 		{
-			close(STDIN_FILENO);
-			close(STDOUT_FILENO);
+			lst->new_fd = get_end_line(lst->name_file);
+			ft_strdel(&lst->name_file);
 		}
+		else if (lst->type == AMPGREAT && lst->base == STDERR_FILENO)
+			lst->new_fd = STDOUT_FILENO;
+		else
+		{
+			if (lst->name_file)
+				lst->new_fd = open(lst->name_file, O_RDWR);
+		}
+		if (lst->type == LESSAMPHYPH)
+			close(STDIN_FILENO);
+		else if (lst->type == GREATAMPHYPH)
+			close(STDOUT_FILENO);
 		else
 			other_redir(lst);
 	}
@@ -116,7 +120,6 @@ void		redirection_fd(t_redirection *r)
 {
 	t_redirect	*lst;
 
-	display_redirection(r);
 	if (!r)
 		return ;
 	if (check_fd_is_good(r) == -1)
@@ -128,7 +131,7 @@ void		redirection_fd(t_redirection *r)
 	lst = r->redirect;
 	while (lst)
 	{
-		custom_redirection(r, lst);
+		custom_redirection(lst);
 		lst = lst->next;
 	}
 	lst = r->redirect;

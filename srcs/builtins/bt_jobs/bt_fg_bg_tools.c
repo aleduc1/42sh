@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 05:47:57 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 01:45:42 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Find option for fg or bg command
 */
 
-static t_job	*job_for_bg_fg_opt(char **av, t_redirection *r)
+static t_job	*job_for_bg_fg_opt(char **av)
 {
 	t_job	*j;
 	t_job	*job_launch;
@@ -36,10 +36,10 @@ static t_job	*job_for_bg_fg_opt(char **av, t_redirection *r)
 			if (job_is_completed(j) || job_is_stopped(j) || j->pgid > 0)
 				job_launch = j;
 			else
-				display_no_such_job(r, av[0], av[i]);
+				display_no_such_job(av[0], av[i]);
 		}
 		else
-			display_no_such_job(r, av[0], av[i]);
+			display_no_such_job(av[0], av[i]);
 		++i;
 	}
 	return (job_launch);
@@ -49,7 +49,7 @@ static t_job	*job_for_bg_fg_opt(char **av, t_redirection *r)
 ** Select job to launch for fg or bg command
 */
 
-t_job			*job_for_bg_fg(char **av, t_redirection *r)
+t_job			*job_for_bg_fg(char **av)
 {
 	t_job	*j;
 	t_job	*job_launch;
@@ -66,10 +66,10 @@ t_job			*job_for_bg_fg(char **av, t_redirection *r)
 			j = j->next;
 		}
 		if (!job_launch)
-			display_no_current_job(r, av[0]);
+			display_no_current_job(av[0]);
 	}
 	else
-		job_launch = job_for_bg_fg_opt(av, r);
+		job_launch = job_for_bg_fg_opt(av);
 	return (job_launch);
 }
 

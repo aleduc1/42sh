@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/23 22:55:32 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 08:04:24 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	launch_process_pipe(t_process *p)
 	char	**environ;
 
 	environ = create_list_env(get_env(0, NULL), 1);
+	redirection_fd(p->r);
 	execve(p->cmd_path, p->cmd, environ);
 	exit(1);
 }
@@ -38,10 +39,7 @@ static int	exec_pipe(t_job *j, t_process *p, int fg)
 	{
 		p->cmd_path = is_in_path(p->cmd[0]);
 		if (p->cmd_path)
-		{
-			redirection_fd(p->r);
 			launch_process_pipe(p);
-		}
 		else
 			display_command_not_found(p->r, p->cmd[0]);
 	}

@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/24 19:37:22 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 01:45:39 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int					bt_fg(t_job *j, char **av, t_redirection *r);
 ** bt_fg_bg_tools.c
 */
 
-t_job				*job_for_bg_fg(char **av, t_redirection *r);
+t_job				*job_for_bg_fg(char **av);
 void				change_fg_var_job(t_job *j, int fg);
 
 /*
@@ -194,17 +194,16 @@ t_job				*ft_search_exist_job(char *av, int index);
 */
 
 t_job				*search_job(char *av);
-void				display_jobs_options(void (*p)(t_job*, int, t_redirection*),
-						t_redirection *r, char **av);
+void				display_jobs_options(void (*p)(t_job*, int), char **av);
 
 /*
 ** bt_jobs_display.c
 */
 
 char				value_char_job(int current, int max);
-void				bt_jobs_p(t_job *j, int max_current, t_redirection *r);
-void				bt_jobs_l(t_job *j, int max_current, t_redirection *r);
-void				bt_jobs_s(t_job *j, int max_current, t_redirection *r);
+void				bt_jobs_p(t_job *j, int max_current);
+void				bt_jobs_l(t_job *j, int max_current);
+void				bt_jobs_s(t_job *j, int max_current);
 
 /*
 ** search_job.c

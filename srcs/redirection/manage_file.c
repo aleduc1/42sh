@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 16:44:29 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 09:37:50 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 08:37:18 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ int			verif_file_descriptor(char **src, char *dst)
 	lim_cur = (uintmax_t)lim.rlim_cur;
 	i = -1;
 	while (src && src[++i])
-		if ((uintmax_t)ft_atoi(src[i]) > lim_cur)
+		if ((uintmax_t)ft_atoi(src[i]) > lim_cur
+				|| fcntl(ft_atoi(src[i]), F_GETFL) < 0)
 		{
 			display_bad_file_descriptor(STDERR_FILENO);
 			return (-1);
 		}
-	if (dst && (uintmax_t)ft_atoi(dst) > lim_cur)
+	if (dst && ((uintmax_t)ft_atoi(dst) > lim_cur
+			|| fcntl(ft_atoi(dst), F_GETFL) < 0))
 	{
 		display_bad_file_descriptor(STDERR_FILENO);
 		return (-1);
@@ -49,27 +51,16 @@ int			verif_file_descriptor(char **src, char *dst)
 	return (0);
 }
 
-static int	open_file_command_bis(t_redir **redir, t_pos *pos, int verif)
+static int	open_file_command_bis(t_redir **redir)
 {
+	int	verif;
+
+	verif = 0;
 	if ((*redir)->filename)
 	{
 		parser_var_simple(&((*redir)->filename));
-	}
-	if ((*redir)->type == GREAT || (*redir)->type == DGREAT
-		|| (*redir)->type == LESS || (*redir)->type == AMPGREAT
-		|| (*redir)->type == AMPLESS || (*redir)->type == LESSAMP
-		|| (*redir)->type == GREATAMP)
-	{
-		if (open_file_great(*redir) == -1)
-		{
-			gest_return(1);
-			return (-1);
-		}
-	}
-	else if ((*redir)->type == DLESS)
-	{
-		if ((verif = open_file_dless(*redir, pos)) == -1)
-			display_bad_file_descriptor(STDERR_FILENO);
+		verif = file_exist((*redir)->filename, (*redir)->type);
+		open_file_great(*redir);
 	}
 	return (verif);
 }
@@ -86,10 +77,12 @@ int			open_file_command(t_redir *redir, t_pos *pos)
 	verif = 0;
 	if (!redir)
 		return (-1);
-	verif = open_file_command_bis(&redir, pos, verif);
-	if (verif != -1
+	verif = open_file_command_bis(&redir);
+	if (verif != -1 && redir->type != DLESS
 			&& verif_file_descriptor(redir->src_fd, redir->dest_fd) == -1)
 		verif = -1;
+	if (redir->type == DLESS)
+		open_file_dless(redir, pos);
 	if (verif > -1)
 		verif = 0;
 	else

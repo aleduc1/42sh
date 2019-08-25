@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 13:47:32 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 01:41:51 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static int	display_stat_process(t_job *j, t_process *p, int notified)
 	if ((!notified) && (p->status != p->last_status && p->status != 2))
 	{
 		if (j->fg == 0 && job_is_completed(j))
-			bt_jobs_s(j, get_shell()->max_job_current, j->r);
+			bt_jobs_s(j, get_shell()->max_job_current);
 			//job_done(j);
 		else if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
 		{
 			ft_putchar('\n');
-			bt_jobs_s(j, get_shell()->max_job_current, j->r);
+			bt_jobs_s(j, get_shell()->max_job_current);
 		}
 		notified = 1;
 	}
@@ -76,7 +76,7 @@ static void	display_stat_job(t_job *j)
 	if (check_is_terminated(j))
 	{
 		if (j->first_process->status != 0)
-			bt_jobs_s(j, get_shell()->max_job_current, j->r);
+			bt_jobs_s(j, get_shell()->max_job_current);
 		return ;
 	}
 	if (j->first_process->fg == 0)

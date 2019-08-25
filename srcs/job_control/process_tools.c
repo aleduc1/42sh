@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/17 01:23:34 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 01:41:22 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	act_job(t_job *j, int fg)
 		add_in_fg(j, 0);
 	else
 	{
-		bt_jobs_p(j, 0, j->r);
+		bt_jobs_p(j, 0);
 		add_in_bg(j, 0);
 	}
 }

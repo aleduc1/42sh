@@ -6,15 +6,14 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/22 19:13:24 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 01:48:57 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
 #include "builtins.h"
 
-static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
-		t_redirection *r, char **av)
+static void	display_jobs(void (*p)(t_job*, int), char **av)
 {
 	t_job	*j;
 	int		max_current;
@@ -26,12 +25,12 @@ static void	display_jobs(void (*p)(t_job*, int, t_redirection*),
 		while (j)
 		{
 			if (job_is_completed(j) || job_is_stopped(j) || j->pgid > 0)
-				(*p)(j, max_current, r);
+				(*p)(j, max_current);
 			j = j->next;
 		}
 	}
 	else
-		display_jobs_options(p, r, av);
+		display_jobs_options(p, av);
 }
 
 int			opt_bt_jobs(char *av)
@@ -66,11 +65,12 @@ int			opt_bt_jobs(char *av)
 int			bt_jobs(t_job *j, char **av, t_redirection *r)
 {
 	int		result;
-	void	(*p)(t_job*, int, t_redirection*);
+	void	(*p)(t_job*, int);
 
+	redirection_fd(r);
 	if (j->fg == 0)
 	{
-		display_no_job_control(r, "jobs");
+		display_no_job_control("jobs");
 		return (1);
 	}
 	update_status();
@@ -85,6 +85,6 @@ int			bt_jobs(t_job *j, char **av, t_redirection *r)
 		else
 			break ;
 	}
-	display_jobs(p, r, av);
+	display_jobs(p, av);
 	return (0);
 }

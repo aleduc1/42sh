@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 06:16:49 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 01:47:49 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ void	display_bad_file_descriptor(int error)
 	ft_dprintf(error, "%s: Bad file descriptor\n", get_shell()->name_shell);
 }
 
-void	display_no_such_job(t_redirection *r, char *name_blt, char *name)
+void	display_no_such_job(char *name_blt, char *name)
 {
-	ft_dprintf(r->error, "%s: %s: %s: no such job\n", get_shell()->name_shell,
+	ft_dprintf(STDERR_FILENO, "%s: %s: %s: no such job\n",
+			get_shell()->name_shell,
 		name_blt, name);
 }
 
@@ -116,13 +117,13 @@ void	display_invalid_option_job(t_redirection *r, char *name)
 	ft_dprintf(r->error, "jobs: usage: jobs [-l | -p] [job_id...]\n");
 }
 
-void	display_no_current_job(t_redirection *r, char *name)
+void	display_no_current_job(char *name)
 {
-	ft_dprintf(r->error, "%s: %s: no current job\n",
+	ft_dprintf(STDERR_FILENO, "%s: %s: no current job\n",
 			get_shell()->name_shell, name);
 }
 
-void	display_no_job_control(t_redirection *r, char *name)
+void	display_no_job_control(char *name)
 {
 	char	*name_shell;
 	char	*data;
@@ -132,7 +133,7 @@ void	display_no_job_control(t_redirection *r, char *name)
 	cache = ft_strjoin(name_shell, name);
 	ft_strdel(&name);
 	data = ft_strjoin(cache, ": no job control\n");
-	ft_putstr_fd(data, r->error);
+	ft_putstr_fd(data, STDERR_FILENO);
 	ft_strdel(&cache);
 	ft_strdel(&data);
 }

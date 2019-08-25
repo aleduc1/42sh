@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 19:37:12 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 01:47:15 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,11 +320,10 @@ void				display_too_many_arg(t_redirection *r, char *name);
 void				display_too_few_arg(t_redirection *r, char *name);
 void				display_nothing_value(t_redirection *r, char *name);
 void				display_bad_file_descriptor(int error);
-void				display_no_such_job(t_redirection *r, char *name_blt,
-						char *name);
+void				display_no_such_job(char *name_blt, char *name);
 void				display_invalid_option_job(t_redirection *r, char *name);
-void				display_no_current_job(t_redirection *r, char *name);
-void				display_no_job_control(t_redirection *r, char *name);
+void				display_no_current_job(char *name);
+void				display_no_job_control(char *name);
 void				display_job_stopped(void);
 void				display_kill_not_work(t_redirection *r, char *name);
 void				display_error_tc(t_redirection *r, char *name);

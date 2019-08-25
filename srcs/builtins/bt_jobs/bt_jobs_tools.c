@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 02:15:44 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 14:04:54 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,12 @@ char		*ft_inter_signal(int sig, t_job *j)
 	char	*str;
 
 	str = NULL;
-	if (sig == 0 && job_is_completed(j) && j->fg == 1)
+	if (sig == 0 && job_is_stopped(j) && job_is_completed(j) && j->fg == 1)
 		str = ft_strdup("Terminated: 15");
 	else if (sig == 0 && job_is_completed(j) && j->fg == 0)
 		str = ft_strdup("Done\t\t");
-	else if (sig == 0 && (!job_is_completed(j)) && (!job_is_stopped(j)))
+	else if (sig == 0 && j->fg == 0
+			&& (!job_is_completed(j)) && (!job_is_stopped(j)))
 		str = ft_strdup("Running\t\t");
 	else if (sig == 1)
 		str = ft_strdup("Done(SIGHUP)");
@@ -104,6 +105,8 @@ char		*ft_inter_signal(int sig, t_job *j)
 		str = ft_strdup("Terminated(SIGQUIT)");
 	else if (sig == 9)
 		str = ft_strdup("Terminated(SIGKILL)");
+	else if (sig == 11)
+		str = ft_strdup("Terminated(SIGSEGV)");
 	else if (sig == 13)
 		str = ft_strdup("Terminated(SIGPIPE)");
 	else if (sig == 15)
@@ -118,7 +121,7 @@ char		*ft_inter_signal(int sig, t_job *j)
 		str = ft_strdup("Stopped(SIGTTIN)");
 	else if (sig == 22)
 		str = ft_strdup("Stopped(SIGTTOU)");
-	else
+	else if (sig != 0)
 		str = ft_itoa(sig);
 	return (str);
 }

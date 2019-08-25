@@ -284,3 +284,13 @@ echo coucou"'$TERM'"'$TERM'"salut toi "la
 echo coucou"'$TERM'"\'$TERM\'"salut toi "la
 posix
 exit
+ls -l
+ls -l
+ls -l
+ls -l
+echo $EDITOR
+echo $EDITOR
+EDITOR=vim
+EDITOR=vim
+EDITOR=vim
+fc -l

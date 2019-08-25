@@ -23,6 +23,7 @@ VPATH = objs:\
 		srcs/prompt:\
 		srcs/prompt/edition:\
 		srcs/prompt/history:\
+		srcs/prompt/history/fc:\
 		srcs/prompt/multiline:\
 		srcs/prompt/others:\
 		srcs/prompt/selection:\
@@ -88,6 +89,14 @@ SRCS_NAMES = main.c \
 			 history_file.c \
 			 history_expand.c \
 			 history_search.c \
+			 fc_e_more.c \
+			 fc_e.c \
+			 fc_l_more.c \
+			 fc_l.c \
+			 fc_parse.c \
+			 fc_print.c \
+			 fc_s.c \
+			 fc_tools.c \
 			 history_fc.c \
 			 prompt.c \
 			 keyhook.c \

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 01:40:55 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:06:59 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 			p->completed = 1;
 			if (WIFSIGNALED(status))
 			{
-//				if (WTERMSIG(status) == 3 && (!j->notified))
 				if (!j->notified)
 				{
 					bt_jobs_s(j, get_shell()->max_job_current);

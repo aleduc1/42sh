@@ -593,6 +593,9 @@ ft_good_syntax	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_jobs_option
 ft_inf_nan	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/tools_float.c	/^void	ft_inf_nan(char (*str)[BUF_S], t_printf **lst, int stock[3])$/;"	f
 ft_init_redirect	/Users/sbelondr/Desktop/42sh/srcs/redirection/list_redirect.c	/^t_redirect	*ft_init_redirect(void)$/;"	f
 ft_inter_signal	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_jobs_tools.c	/^char		*ft_inter_signal(int sig, t_job *j)$/;"	f
+ft_inter_signal_2	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_jobs_tools.c	/^char		*ft_inter_signal_2(int sig)$/;"	f
+ft_inter_signal_3	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_jobs_tools.c	/^char		*ft_inter_signal_3(int sig)$/;"	f
+ft_inter_signal_4	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_jobs_tools.c	/^char		*ft_inter_signal_4(int sig)$/;"	f
 ft_isalnum	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_isalnum.c	/^int		ft_isalnum(int c)$/;"	f
 ft_isalpha	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_isalpha.c	/^int		ft_isalpha(int c)$/;"	f
 ft_isascii	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_isascii.c	/^int		ft_isascii(int c)$/;"	f

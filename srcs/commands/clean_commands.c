@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/18 01:42:59 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 16:17:56 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void		display_lst_job(t_job *j)
 					&p->cmd_path);
 			ft_printf("redirection = %p\n", &p->r);
 			ft_printf("pid = %d\ncompleted = %d\n", p->pid, p->completed);
-			ft_printf("stopped = %d\nstatus = %d\n", p->stopped,
-					p->status);
+			ft_printf("stopped = %d\nstatus = %d, last_status = %d\n",
+					p->stopped, p->status, p->last_status);
 			p = p->next;
 		}
 		sv = sv->next;

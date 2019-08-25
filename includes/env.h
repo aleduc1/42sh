@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 01:47:15 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:31:56 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ void				edit_current_value(int value);
 void				reset_hash_verif(char *key);
 
 int					ft_simple_command_fc(char *editor);
+
+void				fill_shell_dumb_mode(void);
 
 /*
 ** redirection.c

@@ -245,3 +245,42 @@ b | cat -e
 b | cat -e &
 ls
 fg
+cooucou]
+echo \'coucou\'
+ls -l
+exit
+echo adasa'ada"adsad'e"sup'qeqw"o"wo" 
+exit
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+exit
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+make
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+make
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+make
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+make
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+make
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+exit
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+exit
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+exit
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+make
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+exit
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+exit
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+make
+echo OwO"salu'j'adore"l'av'"ie"AhaExcellent
+exit
+echo "'$TERM'"
+echo coucou"'$TERM'"'$TERM'"salut toi "la
+echo coucou"'$TERM'"\'$TERM\'"salut toi "la
+posix
+exit

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:15:13 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/15 15:59:34 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 06:22:14 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,5 +186,17 @@ void	clean_redir(t_redir **redir);
 
 char	*add_dquote_to_str(char *str);
 char	*add_squote_to_str(char **str_addr);
+
+/*
+** Handle_quotes
+*/
+
+void	handle_quotes(t_lex **head);
+void	merge_string_token(t_lex **start, t_lex **end);
+char	*create_merged_string(t_lex **head);
+t_lex	*create_the_node(char **str);
+
+t_lex	*identify_start(t_lex **head);
+t_lex	*identify_end(t_lex **start);
 
 #endif

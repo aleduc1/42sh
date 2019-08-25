@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:13:21 by aleduc            #+#    #+#             */
-/*   Updated: 2019/06/10 22:53:27 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:32:05 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char			*check_prompt(char *inputstr, t_multi **multi)
 	}
 	else
 	{
+		fill_shell_dumb_mode();
 		ft_putstr("\n\033[31m[DUMB_MODE] &> \033[0m");
 		if ((get_next_line(STDIN_FILENO, &inputstr) != -1)
 			&& !ft_strequ(inputstr, ""))

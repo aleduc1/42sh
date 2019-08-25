@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 08:32:42 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/06/10 22:39:11 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:53:25 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void		history_file(t_node *history)
 {
 	t_node	*cursor;
-	int fd;
+	int		fd;
 
 	cursor = history;
 	fd = open(".history", O_RDWR | O_CREAT, 0666);
@@ -28,7 +28,7 @@ void		history_file(t_node *history)
 		write(fd, "\n", 1);
 		cursor = cursor->prev;
 	}
-	close (fd);
+	close(fd);
 }
 
 void		file_to_history(t_pos *pos)

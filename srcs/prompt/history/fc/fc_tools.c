@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:06:15 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 18:34:30 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:48:22 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			fc_get_index(t_node *lstcursor, int count, int *fc_index, \
 	i = 0;
 	if (fc_first_last[0] == '-')
 	{
-		*fc_index = count - ft_atoi(fc_first_last+1);
+		*fc_index = count - ft_atoi(fc_first_last + 1);
 		if (*fc_index > count)
 			return (-1);
 		else

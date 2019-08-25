@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 17:29:16 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 18:34:39 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:48:51 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int			fc_exec(t_fc *fc, t_pos *pos)
 	return (1);
 }
 
-
 void		fc_free(t_fc *fc)
 {
 	ft_strdel(&fc->pat_rep);
@@ -87,5 +86,5 @@ int			builtin_fc(char **av, t_pos *pos)
 	if (fc_exec(&fc, pos) == -1)
 		return (-2);
 	fc_free(&fc);
-	return 0;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:09:20 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 18:23:46 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:50:17 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int			fc_l_first(t_fc *fc, t_node *lstcursor, int count, int i)
 
 	first_nb = ft_isnumbers(fc->first);
 	if (first_nb == 1 && (fc_l_first_nb(fc, lstcursor, count, i) == -1))
-			return (-1);
-	else if(first_nb != 1 && (fc_l_first_word(fc, lstcursor, count, i) == -1))
+		return (-1);
+	else if (first_nb != 1 && (fc_l_first_word(fc, lstcursor, count, i) == -1))
 		return (-1);
 	return (1);
 }
@@ -83,11 +83,11 @@ int			fc_l_first_last(t_fc *fc, t_node *lstcursor, int count, int i)
 
 int			fc_l_minus(t_fc *fc, int count)
 {
-	char 	*temp;
+	char	*temp;
+
 	if (fc->first[0] == '-')
 	{
-
-		temp = ft_itoa(count - ft_atoi(fc->first+1));
+		temp = ft_itoa(count - ft_atoi(fc->first + 1));
 		free(fc->first);
 		fc->first = ft_strdup(temp);
 		free(temp);

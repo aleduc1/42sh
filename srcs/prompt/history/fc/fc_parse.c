@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:06:59 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 18:24:14 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:44:49 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			fc_no_flags(char **av, t_fc *fc)
 		if (av[1] && av[2])
 			fc->last = ft_strdup(av[2]);
 	}
-	if (av[1] && av[1][0] == '-' && ft_isnumbers(av[1]+1))
+	if (av[1] && av[1][0] == '-' && ft_isnumbers(av[1] + 1))
 	{
 		fc->first = ft_strdup(av[1]);
 		if (av[1] && av[2])
@@ -83,13 +83,13 @@ int			fc_flags_s(char **av, t_fc *fc)
 int			fc_get_args(char **av, int argc, t_fc *fc)
 {
 	if (fc->flags[0] == 0 && (fc->flags[1] == 1 || fc->flags[2] == 1))
-		return(fc_usage(-1, fc, 1));
+		return (fc_usage(-1, fc, 1));
 	if (fc->flags[0] == 1)
 	{
 		if (av[argc])
 			fc->first = ft_strdup(av[argc]);
-		if (av[argc] && av[argc+1])
-			fc->last = ft_strdup(av[argc+1]);
+		if (av[argc] && av[argc + 1])
+			fc->last = ft_strdup(av[argc + 1]);
 		return (1);
 	}
 	else
@@ -121,7 +121,7 @@ int			fc_flags_lnr(char **av, t_fc *fc)
 			else if (av[i][j] == 'r')
 				fc->flags[2] = 1;
 			else
-				return(fc_usage(-1, fc, 1));
+				return (fc_usage(-1, fc, 1));
 			j++;
 		}
 		j = 1;

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:12:35 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 18:15:49 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:49:19 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			fc_e_basic(t_fc *fc, t_node *lstcursor, t_pos *pos)
 	fc_check_editor(fc);
 	fc->cmd = ft_strdup(lstcursor->line);
 	fd = open("/tmp/42sh-fc.file", O_RDWR | O_CREAT | O_TRUNC, 0666);
-	write(fd,fc->cmd, ft_strlen(fc->cmd));
+	write(fd, fc->cmd, ft_strlen(fc->cmd));
 	write(fd, "\n", 1);
 	ft_simple_command_fc(fc->editor);
 	close(fd);
@@ -36,9 +36,9 @@ int			fc_e_first(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 {
 	fc_check_editor(fc);
 	if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
-	 	return (fc_usage(-1, fc, 2));
+		return (fc_usage(-1, fc, 2));
 	if (fc->first_index > count || fc->first_index < 0)
-		return(fc_usage(-1, fc, 2));
+		return (fc_usage(-1, fc, 2));
 	fc_write_file(fc, lstcursor, count);
 	ft_simple_command_fc(fc->editor);
 	fc_e_run_command(pos);
@@ -49,11 +49,11 @@ int			fc_e_first_last(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 {
 	fc_check_editor(fc);
 	if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
-	 	return (fc_usage(-1, fc, 2));
+		return (fc_usage(-1, fc, 2));
 	if (fc_get_index(lstcursor, count, &fc->last_index, fc->last) == -1)
-	 	return (fc_usage(-1, fc, 2));
+		return (fc_usage(-1, fc, 2));
 	if (fc->first_index > count || fc->first_index < 0 \
-	     || fc->last_index > count || fc->last_index < 0)
+		|| fc->last_index > count || fc->last_index < 0)
 		return (fc_usage(-1, fc, 2));
 	fc_write_file(fc, lstcursor, count);
 	ft_simple_command_fc(fc->editor);
@@ -68,7 +68,6 @@ int			fc_e(t_fc *fc, t_pos *pos)
 
 	lstcursor = pos->history->next;
 	count = fc_count(pos->history);
-
 	if (!fc->first)
 		if (fc_e_basic(fc, lstcursor, pos) == -1)
 			return (-1);

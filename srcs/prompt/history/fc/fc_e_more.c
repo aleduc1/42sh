@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:14:47 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 18:15:25 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:51:39 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int			fc_write_last_first(t_fc *fc, t_node *lstcursor, int count)
 	i = fc->first_index;
 	while (lstcursor->next && i-- >= fc->last_index)
 	{
-			ft_dprintf(fd, "%s\n", lstcursor->line);
-			lstcursor = lstcursor->next;
+		ft_dprintf(fd, "%s\n", lstcursor->line);
+		lstcursor = lstcursor->next;
 	}
 	return (1);
 }
@@ -95,12 +95,11 @@ int			fc_write_file(t_fc *fc, t_node *lstcursor, int count)
 	if (fc->first_index && !fc->last_index)
 		ft_dprintf(fd, "%s\n", lstcursor->line);
 	if (fc->first_index && fc->last_index)
-	{
-		while (lstcursor->prev && lstcursor->prev->prev && i++ <= fc->last_index)
+		while (lstcursor->prev && lstcursor->prev->prev \
+								&& i++ <= fc->last_index)
 		{
 			ft_dprintf(fd, "%s\n", lstcursor->line);
 			lstcursor = lstcursor->prev;
 		}
-	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 00:07:18 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/24 23:30:00 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:17:40 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,21 +184,44 @@ int			hist_rep_isvalid(char *input)
 	return (1);
 }
 
+int			hist_rep_isbslashed(char *input, int i, int expand)
+{
+	int		isbsl;
+
+	isbsl = 0;
+	if (expand > 0)
+		return (1);
+	while (i > -1)
+	{
+		if (input[i] != '\\')
+			return (isbsl);
+		if (isbsl == 0)
+			isbsl = 1;
+		else if (isbsl == 1)
+			isbsl = 0;
+		--i;
+	}
+	return (isbsl);
+}
+
 char		*history_replace(char *input, t_pos *pos)
 {
-	char	*new_input;
+	char		*new_input;
 	t_hist_rep	*replace;
-	int		i;
-	int		start;
+	int			i;
+	int			start;
+	int			expand;
 
 	replace = NULL;
 	start = 0;
 	i = 0;
+	expand = 0;
 	if (!input)
 		return (input);
 	while (input[i])
 	{
-		if (input[i] == '!' && hist_rep_isvalid(&(input[i])))
+		expand = manage_is_quote(input, i, expand);
+		if (input[i] == '!' && hist_rep_isvalid(&(input[i])) && expand == 0 && !(hist_rep_isbslashed(input, i - 1, expand)))
 		{
 			replace = hist_rep_save(input, start, i, replace);
 			start = i;

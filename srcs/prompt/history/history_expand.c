@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:31:14 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/24 21:18:05 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:15:17 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*expand_schriek_word(t_pos *pos, char *word)
 		cursor = NULL;
 	while (cursor)
 	{
-		if (ft_strncmp(cursor->line, word, ft_strlen(word)))
+		if (ft_strncmp(cursor->line, word, ft_strlen(word)) == 0)
 			return (cursor->line);
 		cursor = cursor->next;
 	}

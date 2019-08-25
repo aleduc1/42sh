@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ht_hash_moreutils.c                               :+:      :+:    :+:   */
+/*   ht_hash_moreutils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/10 10:11:07 by apruvost          #+#    #+#             */
-/*   Updated: 2019/06/11 17:10:49 by apruvost         ###   ########.fr       */
+/*   Created: 2019/08/25 20:14:42 by apruvost          #+#    #+#             */
+/*   Updated: 2019/08/26 01:08:31 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ t_hash		g_hash_deleted = {NULL, NULL};
 
 void		ht_hash_copy(t_ht_hash *ht, t_ht_hash *new_ht)
 {
-	int	i;
+	int			i;
 	t_hash		*item;
 
+	if (!ht || !new_ht)
+		return ;
 	i = 0;
 	while (i < ht->size)
 	{
@@ -35,9 +37,12 @@ void		ht_hash_resize(t_ht_hash *ht, const int base_size)
 	int			tmp_size;
 	t_hash		**items;
 
+	if (!ht)
+		return ;
 	if (base_size < HT_HASH_BASE_SIZE)
 		return ;
-	new_ht = ht_hash_new_sized(base_size);
+	if ((new_ht = ht_hash_new_sized(base_size)) == NULL)
+		return ;
 	ht_hash_copy(ht, new_ht);
 	ht->base_size = new_ht->base_size;
 	ht->count = new_ht->count;
@@ -57,6 +62,8 @@ void		ht_hash_delete(t_ht_hash *ht, const char *key)
 	int		i;
 	int		load;
 
+	if (!ht || ht->size == 0)
+		return ;
 	load = ht->count * 100 / ht->size;
 	if (load < 10)
 		ht_hash_resize_down(ht);
@@ -65,14 +72,7 @@ void		ht_hash_delete(t_ht_hash *ht, const char *key)
 	i = 1;
 	while (item != NULL)
 	{
-		if (item != &g_hash_deleted)
-		{
-			if (ft_strcmp(item->key, key) == 0)
-			{
-				hash_del(item);
-				ht->hash[index] = &g_hash_deleted;
-			}
-		}
+		ht_hash_delete_item(ht, key, item, index);
 		index = ht_hash_get_hash(key, ht->size, i);
 		item = ht->hash[index];
 		++i;
@@ -86,6 +86,8 @@ char		*ht_hash_search(t_ht_hash *ht, const char *key)
 	int		index;
 	int		i;
 
+	if (!ht || ht->size == 0)
+		return (NULL);
 	index = ht_hash_get_hash(key, ht->size, 0);
 	item = ht->hash[index];
 	i = 1;
@@ -105,32 +107,15 @@ void		ht_hash_insert(t_ht_hash *ht, const char *key, char *value)
 {
 	t_hash	*item;
 	int		index;
-	t_hash	*cur_item;
-	int		i;
 	int		load;
 
+	if (!ht || ht->size == 0)
+		return ;
 	load = ht->count * 100 / ht->size;
 	if (load > 70)
 		ht_hash_resize_up(ht);
-	item = hash_new_item(key, value);
+	if ((item = hash_new_item(key, value)) == NULL)
+		return ;
 	index = ht_hash_get_hash(item->key, ht->size, 0);
-	cur_item = ht->hash[index];
-	i = 1;
-	while (cur_item != NULL)
-	{
-		if (cur_item != &g_hash_deleted)
-		{
-			if (ft_strcmp(cur_item->key, key) == 0)
-			{
-				hash_del(cur_item);
-				ht->hash[index] = item;
-				return ;
-			}
-		}
-		index = ht_hash_get_hash(key, ht->size, i);
-		cur_item = ht->hash[index];
-		++i;
-	}
-	ht->hash[index] = item;
-	++ht->count;
+	ht_hash_insert_item(ht, key, &(*item), index);
 }

@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 17:00:16 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/20 03:23:18 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:14:22 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ int					alias_getopt(char **av)
 	i = g_optind;
 	ft_getopt_reset();
 	return (i);
-}
-
-static void			bt_alias_show(void)
-{
-	ht_hash_show(g_alias_table, 1);
 }
 
 static int			bt_showalias(char **av, int i, int ret)
@@ -102,7 +97,7 @@ int					bt_alias(char **av, t_redirection *r)
 	ret = 0;
 	redirection_fd(r);
 	if (!av[1])
-		bt_alias_show();
+		ht_hash_show(g_alias_table, 1);
 	if (!(i = alias_getopt(av)))
 		return (1);
 	while (av[i])

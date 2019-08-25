@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 21:19:19 by apruvost          #+#    #+#             */
-/*   Updated: 2019/06/25 17:33:18 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/26 01:11:45 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static t_hash_tree			*tree_create(t_hash *hash)
 {
 	t_hash_tree	*branch;
 
-	branch = (t_hash_tree *)malloc(sizeof(t_hash_tree));
+	if ((branch = (t_hash_tree *)malloc(sizeof(t_hash_tree))) == NULL)
+		return (NULL);
 	branch->hash = hash;
 	branch->left = NULL;
 	branch->right = NULL;
@@ -78,11 +79,13 @@ static t_hash_tree			*ht_tree_add(t_hash *hash, t_hash_tree *tree)
 	}
 }
 
-void				ht_hash_show(t_ht_hash *ht, int quote)
+void						ht_hash_show(t_ht_hash *ht, int quote)
 {
 	t_hash_tree	*tree;
 	int			i;
 
+	if (!ht)
+		return ;
 	i = 0;
 	tree = NULL;
 	while (i < ht->size)

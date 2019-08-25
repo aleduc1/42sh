@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 18:27:24 by apruvost          #+#    #+#             */
-/*   Updated: 2019/05/31 07:47:07 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:12:03 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int		cd_chdir(t_cd *cd)
 
 	if (chdir(cd->curpath) == -1)
 	{
-		dprintf(2, "42sh: cd: permission denied: %s\n", cd->directory);
+		dprintf(STDERR_FILENO, "42sh: cd: permission denied: %s\n",
+				cd->directory);
 		return (cd_err(cd));
 	}
 	tmp = value_line_path("PWD", 0);
@@ -40,7 +41,7 @@ int		cd_chdir(t_cd *cd)
 		edit_setenv("PWD", bin);
 		ft_strdel(&bin);
 	}
-	else 
+	else
 		edit_setenv("PWD", cd->curpath);
 	edit_setenv("OLDPWD", tmp);
 	if (cd->arg__)
@@ -78,12 +79,18 @@ int		cd_canonical_del(t_cd *cd, size_t a, size_t b, size_t len)
 
 /*
 ** 8 - curpath shall be converted to canonical form as follows :
-**         a. dot components and any '/' that separate them from the next component shall be deleted
-**         b. For each '..', if there is a preceding component and it is neither root nor '..', then :
-**             i. If preceding component does not refer directory (ex. symbolic link), display error message and stop
-**             ii. Preceding component, '/', '..' and '/' (if any) shall be deleted
-**         c. An implementation ma further simplify curpath b removing any trailng '/' that are not also leading '/',
-**            replacing multiple consecutive '/' by a single '/', and replacing three or more leading '/' by a single '/'
+**         a. dot components and any '/' that separate them from the next
+**				component shall be deleted
+**         b. For each '..', if there is a preceding component and it is
+**					neither root nor '..', then :
+**             i. If preceding component does not refer directory
+**					(ex. symbolic link), display error message and stop
+**             ii. Preceding component, '/', '..' and '/' (if any) shall be
+**					deleted
+**         c. An implementation ma further simplify curpath b removing any
+**					trailng '/' that are not also leading '/',
+**            		replacing multiple consecutive '/' by a single '/',
+**					and replacing three or more leading '/' by a single '/'
 **     If after step 8, curpath is null, stop
 */
 
@@ -96,7 +103,8 @@ int		cd_canonical(t_cd *cd)
 	cd_canonical_c(cd);
 	if (cd->curpath[0] == '\0')
 	{
-		dprintf(2, "42sh: cd: path after canonicalization is null\n");
+		dprintf(STDERR_FILENO,
+			"42sh: cd: path after canonicalization is null\n");
 		return (0);
 	}
 	return (1);
@@ -104,8 +112,8 @@ int		cd_canonical(t_cd *cd)
 
 int		cd_getopt(char ac, char **av, t_cd *cd)
 {
-	int	i;
-	char arg;
+	int		i;
+	char	arg;
 
 	while ((arg = ft_getopt(ac, av, "LP")) != -1)
 	{
@@ -121,7 +129,7 @@ int		cd_getopt(char ac, char **av, t_cd *cd)
 		}
 		else
 		{
-			ft_dprintf(2, "usage: cd [-L|-P] [dir]\n");
+			ft_dprintf(STDERR_FILENO, "usage: cd [-L|-P] [dir]\n");
 			ft_getopt_reset();
 			return (0);
 		}

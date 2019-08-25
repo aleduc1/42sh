@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prime.c                                         :+:      :+:    :+:   */
+/*   history_replace_moreutils.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/10 14:05:30 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/25 20:29:01 by apruvost         ###   ########.fr       */
+/*   Created: 2019/08/25 23:40:05 by apruvost          #+#    #+#             */
+/*   Updated: 2019/08/26 00:29:10 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-int		ft_isprime(const int x)
+char		*hist_rep_rep(char *bin, char *value)
 {
-	int	i;
+	char	*new;
 
-	if (x < 2)
-		return (-1);
-	if (x < 4)
-		return (1);
-	if ((x % 2) == 0)
-		return (0);
-	i = 3;
-	while (i <= ft_sqrt(x))
-	{
-		if ((x % i) == 0)
-			return (0);
-		i += 2;
-	}
-	return (1);
+	new = ft_strjoin(bin, value);
+	ft_strdel(&bin);
+	return (new);
 }
 
-int		ft_nextprime(int x)
+char		*hist_rep_reperr(char *new, t_hist_rep *curr)
 {
-	while (ft_isprime(x) != 1)
-		++x;
-	return (x);
+	ft_strdel(&new);
+	ft_dprintf(2, "42sh: %s: event not found\n", curr->base);
+	return (NULL);
 }

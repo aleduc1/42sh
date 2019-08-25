@@ -173,6 +173,7 @@ SRCS_NAMES = main.c \
 			 ht_hash_show.c\
 			 bt_hash.c\
 			 alias_replace.c\
+			 alias_replace_utils.c\
 			 get_options.c\
 			 display.c\
 			 bt_cd.c\
@@ -209,6 +210,8 @@ SRCS_NAMES = main.c \
 			 bt_bg.c\
 			 bt_fg_bg_tools.c\
 			 history_replace.c\
+			 history_replace_utils.c\
+			 history_replace_moreutils.c\
 			 bt_type.c \
 			 bt_test.c \
 			 precedence_alg.c \
@@ -216,7 +219,8 @@ SRCS_NAMES = main.c \
 			 unary_primaries.c \
 			 binary_primaries.c \
 			 handle_quotes.c \
-			 identify_limits.c
+			 identify_limits.c \
+			 ht_hash_moarutils.c
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 HEADERS_NAMES = sh21.h lexer.h parser.h env.h builtins.h job.h

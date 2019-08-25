@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ht_hash_utils.c                                   :+:      :+:    :+:   */
+/*   ht_hash_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/07 16:10:12 by apruvost          #+#    #+#             */
-/*   Updated: 2019/06/11 17:10:02 by apruvost         ###   ########.fr       */
+/*   Created: 2019/08/25 19:52:09 by apruvost          #+#    #+#             */
+/*   Updated: 2019/08/25 20:14:16 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void		ht_hash_del(t_ht_hash *ht)
 	int		i;
 	t_hash	*item;
 
+	if (!ht)
+		return ;
 	i = 0;
 	while (i < ht->size)
 	{
@@ -62,15 +64,24 @@ void		ht_hash_del(t_ht_hash *ht)
 	ft_memdel((void **)&ht);
 }
 
-t_ht_hash	*ht_hash_new_sized(const int base_size)   // PRETOECT MALLOC CAREFUL
+t_ht_hash	*ht_hash_new_sized(const int base_size)
 {
 	t_ht_hash	*ht;
 
-	ht = (t_ht_hash *)malloc(sizeof(t_ht_hash));
+	if ((ht = (t_ht_hash *)malloc(sizeof(t_ht_hash))) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: malloc error\n");
+		return (NULL);
+	}
 	ht->base_size = base_size;
 	ht->size = ft_nextprime(ht->base_size);
 	ht->count = 0;
-	ht->hash = (t_hash **)malloc(sizeof(t_hash*) * ht->size);
+	if ((ht->hash = (t_hash **)malloc(sizeof(t_hash*) * ht->size)) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: malloc error\n");
+		ft_memdel((void**)&ht);
+		return (NULL);
+	}
 	ht_hash_table_null(ht->hash, ht->size);
 	return (ht);
 }

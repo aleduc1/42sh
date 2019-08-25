@@ -6,13 +6,13 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 18:35:07 by apruvost          #+#    #+#             */
-/*   Updated: 2019/05/31 07:47:27 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:39:34 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int		cd_canonical_testprev(t_cd *cd, size_t *a)
+static int		cd_canonical_testprev(t_cd *cd, size_t *a)
 {
 	int			i;
 	struct stat	sb;
@@ -36,7 +36,7 @@ int		cd_canonical_testprev(t_cd *cd, size_t *a)
 	return (1);
 }
 
-size_t	cd_canonical_getprevv(t_cd *cd, size_t i)
+static size_t	cd_canonical_getprevv(t_cd *cd, size_t i)
 {
 	while (i > 0)
 	{
@@ -53,7 +53,7 @@ size_t	cd_canonical_getprevv(t_cd *cd, size_t i)
 	return (1);
 }
 
-int		cd_canonical_getprev(t_cd *cd, size_t *a, size_t *b)
+static int		cd_canonical_getprev(t_cd *cd, size_t *a, size_t *b)
 {
 	size_t	i;
 	size_t	j;
@@ -82,12 +82,14 @@ int		cd_canonical_getprev(t_cd *cd, size_t *a, size_t *b)
 }
 
 /*
-** b. For each '..', if there is a preceding component and it is neither root nor '..', then :
-**     i. If preceding component does not refer directory (ex. symbolic link), display error message and stop
+** b. For each '..', if there is a preceding component and it is neither
+**			root nor '..', then :
+**     i. If preceding component does not refer directory (ex. symbolic link),
+**			display error message and stop
 **     ii. Preceding component, '/', '..' and '/' (if any) shall be deleted
 */
 
-int		cd_canonical_b(t_cd *cd)
+int				cd_canonical_b(t_cd *cd)
 {
 	size_t	a;
 	size_t	b;
@@ -99,14 +101,15 @@ int		cd_canonical_b(t_cd *cd)
 	{
 		if (!cd_canonical_testprev(cd, &a))
 		{
-			dprintf(2, "42sh: cd: no such file or directory: %s\n", cd->directory);
+			dprintf(STDERR_FILENO, "42sh: cd: no such file or directory: %s\n",
+					cd->directory);
 			return (1);
 		}
 		len = ft_strlen(cd->curpath);
 		len -= b - a;
 		if (!cd_canonical_del(cd, a, b, len))
 		{
-			dprintf(2,"42sh: cd: error malloc\n");
+			dprintf(STDERR_FILENO, "42sh: cd: error malloc\n");
 			return (1);
 		}
 	}

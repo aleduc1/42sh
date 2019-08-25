@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 13:56:48 by apruvost          #+#    #+#             */
-/*   Updated: 2019/06/10 14:02:15 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 20:28:34 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_sqrt(int x)
 	if (x < 0)
 		return (0);
 	if (x == 0 || x == 1)
-		return x;
+		return (x);
 	start = 1;
 	end = x;
 	while (start <= end)

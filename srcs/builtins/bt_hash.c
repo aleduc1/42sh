@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 14:52:42 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/20 03:27:53 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/25 21:21:30 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int					bt_hash(char **av, t_redirection *r)
 
 	r = 0;
 	redirection_fd(r);
+	i = 1;
 	if ((i = hash_getopt(av, &reset)) < 1)
 		return (0);
 	if (reset == 1)
@@ -79,7 +80,6 @@ int					bt_hash(char **av, t_redirection *r)
 		bt_hash_showall();
 		return (0);
 	}
-	i = 1;
 	ret = 0;
 	while (av[i] != NULL)
 	{

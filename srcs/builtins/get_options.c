@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 03:17:29 by apruvost          #+#    #+#             */
-/*   Updated: 2019/06/11 17:10:33 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:42:03 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ void		ft_getopt_reset(void)
 static int	ft_getopt_error(char *const *av, const char *optstr, int err)
 {
 	if (g_opterr == 1 && err == 1)
-		ft_dprintf(2, "%s: illegal option -- %c\n", av[0], g_optopt);
+		ft_dprintf(STDERR_FILENO, "%s: illegal option -- %c\n", av[0],
+					g_optopt);
 	else if (g_opterr == 1 && err == 2)
-		ft_dprintf(2, "%s: option requires an argument -- %c\n", av[0], g_optopt);
+		ft_dprintf(STDERR_FILENO, "%s: option requires an argument -- %c\n",
+					av[0], g_optopt);
 	if (optstr[0] == ':')
 		return (':');
 	return ('?');
@@ -45,7 +47,7 @@ static int	ft_optgetarg(int ac, char *const *av, const char *optstr, int i)
 	{
 		if (av[g_optind][i + 1] == '\0')
 		{
-			if ((g_optind + 1) >= ac  || !av[g_optind + 1])
+			if ((g_optind + 1) >= ac || !av[g_optind + 1])
 				return (ft_getopt_error(av, optstr, 2));
 			g_optarg = (char *)av[g_optind + 1];
 			g_optind += 2;
@@ -95,7 +97,8 @@ int			ft_getopt(int ac, char *const *av, const char *optstr)
 	if ((i = ft_optgetind(ac, av, nextchar)) == -1)
 		return (-1);
 	nextchar = i + 1;
-	if (ft_strchr_exist((char *)optstr, av[g_optind][i]) && av[g_optind][i] != ':')
+	if (ft_strchr_exist((char *)optstr, av[g_optind][i])
+			&& av[g_optind][i] != ':')
 	{
 		g_optopt = av[g_optind][i];
 		return (ft_optgetarg(ac, av, optstr, i));

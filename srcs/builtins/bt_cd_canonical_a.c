@@ -6,13 +6,13 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:47:29 by apruvost          #+#    #+#             */
-/*   Updated: 2019/05/31 07:47:17 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:31:27 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int		cd_canonical_getdot(t_cd *cd, size_t *a, size_t *b)
+static int		cd_canonical_getdot(t_cd *cd, size_t *a, size_t *b)
 {
 	size_t	i;
 	size_t	j;
@@ -41,10 +41,11 @@ int		cd_canonical_getdot(t_cd *cd, size_t *a, size_t *b)
 }
 
 /*
-** a. dot components and any '/' that separate them from the next component shall be deleted
+** a. dot components and any '/' that separate them from the next component
+**	  shall be deleted
 */
 
-int		cd_canonical_a(t_cd *cd)
+int				cd_canonical_a(t_cd *cd)
 {
 	size_t	a;
 	size_t	b;
@@ -58,7 +59,7 @@ int		cd_canonical_a(t_cd *cd)
 		len -= b - a;
 		if (!cd_canonical_del(cd, a, b, len))
 		{
-			dprintf(2,"42sh: cd: error malloc\n");
+			dprintf(STDERR_FILENO, "42sh: cd: error malloc\n");
 			return (1);
 		}
 	}

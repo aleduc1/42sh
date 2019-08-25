@@ -6,13 +6,22 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:20:14 by apruvost          #+#    #+#             */
-/*   Updated: 2019/05/31 07:47:35 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:28:28 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int		cd_canonical_getslash(t_cd *cd, size_t *a, size_t *b)
+static int		cd_canonical_getslashbis(t_cd *cd, size_t i)
+{
+	if (cd->curpath[i] != '\0')
+		i++;
+	while (cd->curpath[i] != '\0' && cd->curpath[i] != '/')
+		i++;
+	return (i);
+}
+
+static int		cd_canonical_getslash(t_cd *cd, size_t *a, size_t *b)
 {
 	size_t	i;
 	size_t	j;
@@ -23,7 +32,8 @@ int		cd_canonical_getslash(t_cd *cd, size_t *a, size_t *b)
 	{
 		if (cd->curpath[i] == '/')
 		{
-			if (cd->curpath[i + j] == '/' || (cd->curpath[i + j] == '\0' && i != 0))
+			if (cd->curpath[i + j] == '/' || (cd->curpath[i + j] == '\0'
+				&& i != 0))
 			{
 				while (cd->curpath[i + j] == '/')
 					j++;
@@ -34,20 +44,18 @@ int		cd_canonical_getslash(t_cd *cd, size_t *a, size_t *b)
 				return (1);
 			}
 		}
-		if (cd->curpath[i] != '\0')
-			i++;
-		while (cd->curpath[i] != '\0' && cd->curpath[i] != '/')
-			i++;
+		i = cd_canonical_getslashbis(cd, i);
 	}
 	return (0);
 }
 
 /*
-** c. An implementation ma further simplify curpath b removing any trailng '/' that are not also leading '/',
-**    replacing multiple consecutive '/' by a single '/', and replacing three or more leading '/' by a single '/'
+** c. An implementation ma further simplify curpath b removing any trailng '/'
+**		that are not also leading '/', replacing multiple consecutive '/' by
+**		a single '/', and replacing three or more leading '/' by a single '/'
 */
 
-int		cd_canonical_c(t_cd *cd)
+int				cd_canonical_c(t_cd *cd)
 {
 	size_t	a;
 	size_t	b;
@@ -61,7 +69,7 @@ int		cd_canonical_c(t_cd *cd)
 		len -= b - a;
 		if (!cd_canonical_del(cd, a, b, len))
 		{
-			dprintf(2,"42sh: cd: error malloc\n");
+			dprintf(STDERR_FILENO, "42sh: cd: error malloc\n");
 			return (1);
 		}
 	}

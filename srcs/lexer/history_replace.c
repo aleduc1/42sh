@@ -6,24 +6,11 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 00:07:18 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/25 18:17:40 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/26 00:30:07 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-void		hist_rep_delstruct(t_hist_rep *to_del)
-{
-	if (!to_del)
-		return ;
-	hist_rep_delstruct(to_del->next);
-	ft_strdel(&(to_del->base));
-	to_del->next = NULL;
-	to_del->value = NULL;
-	free(to_del);
-	to_del = NULL;
-	return ;
-}
 
 int			hist_rep_exists(t_hist_rep *replace, t_pos *pos)
 {
@@ -50,61 +37,27 @@ char		*hist_rep_replace(t_hist_rep *replace, t_pos *pos)
 {
 	t_hist_rep	*curr;
 	char		*new;
-	char		*bin;
 
 	curr = replace;
 	new = ft_strnew(1);
 	while (curr != NULL)
 	{
-		if (curr->isrep == 0)
-		{
-			bin = new;
-			new = ft_strjoin(new, curr->base);
-			ft_strdel(&bin);
-		}
+		if (curr->isrep == 0 && curr->base != NULL)
+			new = hist_rep_rep(new, curr->base);
 		else
 		{
 			if (hist_rep_exists(curr, pos) && curr->value != NULL)
-			{
-				bin = new;
-				new = ft_strjoin(new, curr->value);
-				ft_strdel(&bin);
-			}
+				new = hist_rep_rep(new, curr->value);
 			else
-			{
-				ft_strdel(&new);
-				ft_dprintf(2, "42sh: %s: event not found\n", curr->base);
-				return (NULL);	//  		ERR
-			}
+				return (hist_rep_reperr(&(*new), curr));
 		}
 		curr = curr->next;
 	}
 	return (new);
 }
 
-int			hist_rep_getexp(char *input)
-{
-	int		i;
-
-	i = 1;
-	if (input[i] == '-' || ft_isdigit(input[i]))
-	{
-		++i;
-		while (input && ft_isdigit(input[i]))
-			++i;
-		return (i);
-	}
-	else if (input[i] == '!')
-		return (++i);
-	while (input && input[i] && input[i] != ' ' && input[i] != '\t'
-			&& input[i] != ';' && input[i] != '|' && input[i] != '&'
-			&& input[i] != '(' && input[i] != ')' && input[i] != '<'
-			&& input[i] != '>')
-		++i;
-	return (i);
-}
-
-t_hist_rep	*hist_rep_saveexp(char *input, int start, int i, t_hist_rep *replace)
+t_hist_rep	*hist_rep_saveexp(char *input, int start, int i,
+								t_hist_rep *replace)
 {
 	t_hist_rep		*new;
 	t_hist_rep		*curr;
@@ -174,36 +127,6 @@ t_hist_rep	*hist_rep_save(char *input, int start, int i, t_hist_rep *replace)
 	return (replace);
 }
 
-int			hist_rep_isvalid(char *input)
-{
-	if (input[0] != '!')
-		return (0);
-	else if (input[1] == ' ' || input[1] == '\t' || input[1] == '\0'
-			|| input[1] == '=' || input[1] == '%' || input[1] == '\n')
-		return (0);
-	return (1);
-}
-
-int			hist_rep_isbslashed(char *input, int i, int expand)
-{
-	int		isbsl;
-
-	isbsl = 0;
-	if (expand > 0)
-		return (1);
-	while (i > -1)
-	{
-		if (input[i] != '\\')
-			return (isbsl);
-		if (isbsl == 0)
-			isbsl = 1;
-		else if (isbsl == 1)
-			isbsl = 0;
-		--i;
-	}
-	return (isbsl);
-}
-
 char		*history_replace(char *input, t_pos *pos)
 {
 	char		*new_input;
@@ -221,7 +144,8 @@ char		*history_replace(char *input, t_pos *pos)
 	while (input[i])
 	{
 		expand = manage_is_quote(input, i, expand);
-		if (input[i] == '!' && hist_rep_isvalid(&(input[i])) && expand == 0 && !(hist_rep_isbslashed(input, i - 1, expand)))
+		if (input[i] == '!' && hist_rep_isvalid(&(input[i])) && expand == 0
+			&& !(hist_rep_isbslashed(input, i - 1, expand)))
 		{
 			replace = hist_rep_save(input, start, i, replace);
 			start = i;

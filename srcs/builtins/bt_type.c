@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:09:25 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/24 22:12:34 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/25 21:24:53 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ static int			type_builtin(char *command)
 	return (0);
 }
 
+static int			bt_type_err(char **av, int i)
+{
+	ft_dprintf(STDERR_FILENO, "type: %s: not found\n", av[i]);
+	return (1);
+}
+
 int					bt_type(char **av, t_redirection *r)
 {
 	int		i;
@@ -76,10 +82,7 @@ int					bt_type(char **av, t_redirection *r)
 			ft_strdel(&arg);
 		}
 		else
-		{
-			ft_dprintf(2, "type: %s: not found\n", av[i]);
-			ret = 1;
-		}
+			ret = bt_type_err(av, i);
 		++i;
 	}
 	return (ret);

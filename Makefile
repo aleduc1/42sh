@@ -98,6 +98,7 @@ SRCS_NAMES = main.c \
 			 fc_s.c \
 			 fc_tools.c \
 			 history_fc.c \
+			 prompt_tool.c \
 			 prompt.c \
 			 keyhook.c \
 			 morekeyhook.c \
@@ -145,6 +146,7 @@ SRCS_NAMES = main.c \
 			 add_quote.c\
 			 remove_space_token.c \
 			 interpreter.c \
+			 interpreter_tools.c \
 			 clean_redir.c \
 			 adding_token.c \
 			 handle_stuff.c \

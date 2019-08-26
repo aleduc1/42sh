@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:18:13 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/15 16:38:21 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 03:45:02 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+#include "builtins.h"
 
 char			*ft_strdup_history(const char *s1)
 {

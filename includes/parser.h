@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:34:29 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/01 13:04:33 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/26 05:11:17 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ t_ast				*expr(int rbp);
 t_ast				*ast_parser(t_lex *tokens);
 
 int					solo_tree(t_ast *node, t_pos *pos);
+void				damp_case(t_ast *node, t_pos *pos, int bg);
+void				dpipe_case(t_ast *node, t_pos *pos, int bg);
 int					interpreter(t_ast *node, t_pos *pos, int bg);
+void				edge_case(t_ast *node, t_pos *pos, int bg);
 int					*run_cmd(t_token *cmd_list, t_pos *pos, int bg);
 int					*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe,
 						int bg);

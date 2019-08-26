@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 12:57:27 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 19:54:08 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/26 05:12:18 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ char			*search_and_print(char *input, t_pos *pos)
 	return (NULL);
 }
 
-int				search_keyhook(t_node **input, char buffer[], \
-										char *current_choice)
+int				search_keyhook(t_node **input, char buffer[])
 {
 	if (PRINTABLE)
 	{
@@ -86,7 +85,7 @@ char			*input_search(t_node **input, char *passed_input, \
 	while (read(STDIN_FILENO, &buffer, 4095) < 4095 && \
 			(PRINTABLE || BACKSPACE || CTRL_C || CTRL_D))
 	{
-		*ret = search_keyhook(input, buffer, current_choice);
+		*ret = search_keyhook(input, buffer);
 		ft_bzero(buffer, 4096);
 		ft_putstr(tgetstr("cd", NULL));
 		current_input = search_to_str(*input);

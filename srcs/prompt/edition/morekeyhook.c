@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:18:42 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/20 02:26:28 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 05:00:34 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 extern t_ht_hash	*g_hash_table;
 extern t_ht_hash	*g_alias_table;
 
-t_node	*backwardmod(t_node *lstcursor, t_pos *pos)
+t_node				*backwardmod(t_node *lstcursor, t_pos *pos)
 {
 	if (lstcursor->next && lstcursor->key != ' ' && lstcursor->next->key == ' ')
 	{
@@ -43,7 +43,7 @@ t_node	*backwardmod(t_node *lstcursor, t_pos *pos)
 	return (lstcursor);
 }
 
-t_node	*backwardjump(t_node *lstcursor, char buffer[], t_pos *pos)
+t_node				*backwardjump(t_node *lstcursor, char buffer[], t_pos *pos)
 {
 	if (PG_DOWN)
 	{
@@ -61,7 +61,7 @@ t_node	*backwardjump(t_node *lstcursor, char buffer[], t_pos *pos)
 	return (lstcursor);
 }
 
-t_node	*forwardjump(t_node *lstcursor, char buffer[], t_pos *pos)
+t_node				*forwardjump(t_node *lstcursor, char buffer[], t_pos *pos)
 {
 	if (PG_UP)
 	{
@@ -86,48 +86,41 @@ t_node	*forwardjump(t_node *lstcursor, char buffer[], t_pos *pos)
 	return (lstcursor);
 }
 
-t_node	*home_end(t_node *lstcursor, char buffer[], t_pos *pos)
+t_node				*ctrl_r(t_node *lstcursor, t_node **input, t_pos *pos)
 {
-	if (HOME)
-		while (lstcursor->next != NULL)
-		{
-			if (pos->column == 1)
-				go_upright(pos);
-			else
-				ft_putstr(tgetstr("le", NULL));
-			lstcursor = lstcursor->next;
-			stalk_cursor(pos);
-		}
-	if (END)
-		while (lstcursor->prev != NULL)
-		{
-			if (pos->column == pos->termsize.ws_col)
-				go_downleft(pos);
-			else
-				ft_putstr(tgetstr("nd", NULL));
-			lstcursor = lstcursor->prev;
-			stalk_cursor(pos);
-		}
+	int				i;
+	char			*search_result;
+	t_node			*new;
+	int				ret;
+
+	i = 0;
+	ret = 0;
+	new = NULL;
+	if ((search_result = prompt_search(*input, pos, &ret)) != NULL)
+	{
+		dpush(&new, ' ');
+		while (search_result && search_result[i])
+			insert(new, search_result[i++]);
+		while (*input)
+			ddel(input, *input);
+		*input = new;
+	}
+	if (ret == -1)
+		while ((*input)->next)
+			ddel(input, *input);
+	lstcursor = *input;
+	print_prompt();
+	dprintlist(*input, 0);
 	return (lstcursor);
 }
 
-t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[],
-																t_pos *pos)
+t_node				*ctrl_n_friends(t_node *lstcursor, t_node **input,\
+									char buffer[], t_pos *pos)
 {
-	char	*search_result;
-	int i;
-
-	i = 0;
 	if (CTRL_D && !(*input)->next && pos->multiline != 1)
 	{
 		bt_exit(NULL, pos, NULL);
 		print_prompt();
-		// history_file(pos->history);
-		// default_term_mode();
-		// get_env(1, NULL);
-		// ht_hash_del(g_alias_table);
-		// ht_hash_del(g_hash_table);
-		// exit(0);
 	}
 	if (CTRL_C)
 	{
@@ -141,26 +134,7 @@ t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[],
 	}
 	if (CTRL_R)
 	{
-		t_node *new;
-		int		ret;
-
-		ret = 0;
-		new = NULL;
-		if ((search_result = prompt_search(*input, pos, &ret)) != NULL)
-		{
-			dpush(&new, ' ');
-			while (search_result && search_result[i])
-				insert(new, search_result[i++]);
-			while (*input)
-				ddel(input, *input);
-			*input = new;
-		}
-		if (ret == -1)
-			while ((*input)->next)
-				ddel(input, *input);
-		lstcursor = *input;
-		print_prompt();
-		dprintlist(*input, 0);
+		lstcursor = ctrl_r(lstcursor, input, pos);
 		ft_putstr(tgetstr("le", NULL));
 		ft_putstr(tgetstr("cd", NULL));
 	}

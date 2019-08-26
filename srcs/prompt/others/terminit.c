@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:19:28 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/25 18:34:20 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 05:05:26 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void				fill_shell(int interactive, struct termios term,
 							int pgid)
 {
 	t_shell			*s;
-	
+
 	s = get_shell();
 	s->pgid = pgid;
 	s->term = STDIN_FILENO;
@@ -101,8 +101,8 @@ void				raw_term_mode(void)
 	if (interactive)
 	{
 		pgid = getpgrp();
-	//	while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp()))
-	//		kill(-pgid, SIGTTIN);
+		while (tcgetpgrp(STDIN_FILENO) != (pgid = getpgrp()))
+			kill(-pgid, SIGTTIN);
 		ign_signaux();
 		pgid = getpid();
 		if (setpgid(pgid, pgid) < 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:18:13 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/26 03:45:02 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/26 07:22:01 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void			inserthistory(t_node *prev_node, char *line, t_pos *pos)
 
 	i = -1;
 	something = 0;
-	while (line[++i])
+	while (line && line[++i])
 		if (line[i] != ' ' || line[i] != '\t')
 			something = 1;
 	if (something != 1)

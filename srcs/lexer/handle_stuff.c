@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_stuff.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 20:56:21 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/15 15:58:23 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 07:32:22 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ t_token	*handle_string(char *input, int *i, int *last_t, char c)
 	word = NULL;
 	tok = NULL;
 	(*last_t) = ++(*i);
-	while (input[(*i)] != c)
+	while (input[*i] && input[(*i)] != c)
 		(*i)++;
 	word = ft_strsub(input, *last_t, *i - *last_t);
 	work_dquote = add_dquote_to_str(word);
 	ft_strdel(&word);
 	tok = create_token(work_dquote, WORD);
 	ft_strdel(&work_dquote);
-	(*i)++;
+	if (input[*i])
+		(*i)++;
 	return (tok);
 }
 
@@ -42,14 +43,15 @@ t_token	*handle_string_squote(char *input, int *i, int *last_t, char c)
 	word_squote = NULL;
 	tok = NULL;
 	(*last_t) = ++(*i);
-	while (input[(*i)] != c)
+	while (input[*i] && input[(*i)] != c)
 		(*i)++;
 	word = ft_strsub(input, *last_t, *i - *last_t);
 	word_squote = add_squote_to_str(&word);
 	ft_memdel((void **)&word);
 	tok = create_token(word_squote, WORD);
 	ft_memdel((void **)&word_squote);
-	(*i)++;
+	if (input[*i])
+		(*i)++;
 	return (tok);
 }
 

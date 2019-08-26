@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 18:35:07 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/25 18:39:34 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/26 06:00:34 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		cd_canonical_testprev(t_cd *cd, size_t *a)
 	struct stat	sb;
 
 	if (cd->curpath[*a] == '.' && cd->curpath[*a + 1] == '.'
-							&& cd->curpath[*a + 2] == '/')
+				&& (cd->curpath[*a + 2] == '/' || cd->curpath[*a + 2] == '\0'))
 		return (1);
 	i = *a;
 	while (cd->curpath[i] != '\0' && cd->curpath[i] != '/')
@@ -45,12 +45,17 @@ static size_t	cd_canonical_getprevv(t_cd *cd, size_t i)
 			i--;
 		while (i > 0 && cd->curpath[i] != '/')
 			i--;
-		if (i == 0)
+		if (i == 0 && cd->curpath[0] == '/')
 			return (1);
+		else if (i == 0)
+			return (0);
 		else
 			return (++i);
 	}
-	return (1);
+	if (i == 0 && cd->curpath[0] == '/')
+		return (1);
+	else
+		return (0);
 }
 
 static int		cd_canonical_getprev(t_cd *cd, size_t *a, size_t *b)

@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/26 01:23:04 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/26 05:14:24 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int					bt_exit(t_job *j, t_pos *pos, t_redirection *r);
 int					bt_echo(char **av, t_redirection *r);
 
 int					bt_cd(char **av, t_redirection *r);
+int					cd_dirnull(t_cd *cd);
+int					cd_less(t_cd *cd);
 int					cd_testcdpath(char *path, char *directory, char **test);
 int					cd_testpath(char *path, char *directory, char **test);
 int					cd_getnextpath(char *path);
@@ -263,6 +265,11 @@ void				ft_delrepalias(t_repalias *del);
 int					hp_is_reserved_word(char *str);
 
 char				*history_replace(char *input, t_pos *pos);
+t_hist_rep			*hist_rep_save(char *input, int start, int i,
+				 					t_hist_rep *replace);
+t_hist_rep			*hist_rep_saveexp(char *input, int start, int i,
+										t_hist_rep *replace);
+char				*hist_rep_replace(t_hist_rep *replace, t_pos *pos);
 void				hist_rep_delstruct(t_hist_rep *to_del);
 int					hist_rep_getexp(char *input);
 int					hist_rep_isvalid(char *input);
@@ -270,6 +277,10 @@ int					hist_rep_isbslashed(char *input, int i, int expand);
 char				*hist_rep_reperr(char *new, t_hist_rep *curr);
 char				*hist_rep_rep(char *bin, char *value);
 int					hist_rep_exists(t_hist_rep *replace, t_pos *pos);
+void				hist_rep_savenew(int start, int i, t_hist_rep *new,
+										char *input);
+t_hist_rep			*history_replace_get(char *input, t_hist_rep *replace,
+											int i, int start);
 
 /*
 ** history_fc.c

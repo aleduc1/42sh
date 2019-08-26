@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:56:32 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/26 01:14:24 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/26 05:13:48 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,7 @@ static int	cd_init(char **av, t_cd *cd)
 		return (1);
 	}
 	if (ft_strequ(av[i], "-"))
-	{
-		if (is_env_empty("OLDPWD"))
-		{
-			dprintf(STDERR_FILENO, "42sh: cd: OLDPWD not set\n");
-			return (0);
-		}
-		cd->directory = value_line_path("OLDPWD", 0);
-		if (!cd->directory)
-			return (0);
-		cd->arg__ = 1;
-		return (1);
-	}
+		return (cd_less(cd));
 	cd->directory = ft_strdup(av[i]);
 	return (1);
 }
@@ -117,11 +106,7 @@ int			bt_cd(char **av, t_redirection *r)
 	redirection_fd(r);
 	if (!cd_init(av, &cd))
 		return (1);
-	if (cd.directory == NULL && is_env_empty("HOME"))
-		return (cd_err(&cd));
-	if (cd.directory == NULL)
-		cd.directory = value_line_path("HOME", 0);
-	if (!cd.directory)
+	if (cd_dirnull(&cd))
 		return (cd_err(&cd));
 	if (cd.directory[0] == '/')
 	{

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 00:26:45 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/20 11:38:09 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 02:49:09 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ void		key_occurence(t_node *cursor, t_integrity *count)
 {
 	while (cursor)
 	{
-		if (cursor->key == '"' && (count->quote % 2) == 0)
+		if (cursor->next && cursor->next->key != '\\' \
+		&& cursor->key == '"' && (count->quote % 2) == 0)
 		{
 			count->dquote++;
 			cursor = try_to_match(cursor, count, '"');
 		}
-		if (cursor->key == '\'' && (count->dquote % 2) == 0)
+		if (cursor->next && cursor->next->key != '\\' && \
+		cursor->key == '\'' && (count->dquote % 2) == 0)
 		{
 			count->quote++;
 			cursor = try_to_match(cursor, count, '\'');

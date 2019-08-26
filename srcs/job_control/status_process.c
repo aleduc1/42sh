@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 20:08:36 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 06:24:10 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,46 @@
 #include "builtins.h"
 #include <errno.h>
 
-static void	job_done(t_job *j)
+void	job_done(t_job *j)
 {
 	char	*cmd;
+	char	*cache;
+	char	*stock;
 	char	c;
+	int		verif;
+	int		id;
+	t_job	*lst;
 
-	c = value_char_job(j->current, get_shell()->max_job_current);
-	cmd = cmd_job_s(j);
-	ft_printf("[%d]%c Done	%s\n", j->process_id, c, cmd);
-	j->notif_stop = 1;
-	ft_strdel(&cmd);
+	lst = get_first_job(NULL);
+	id = j->process_id;
+	verif = 1;
+	while (lst)
+	{
+		if (id == lst->process_id && j->pgid != lst->pgid)
+			verif = (job_is_completed(lst)) ? 1 : 0;
+		lst = lst->next;
+	}
+	if (verif == 1 && j->notified == 0)
+	{
+		c = value_char_job(j->current, get_shell()->max_job_current);
+		cmd = ft_strdup("");
+		lst = get_first_job(NULL);
+		while (lst)
+		{
+			if (id == lst->process_id)
+			{
+				cache = cmd_job_s(lst);
+				stock = ft_strjoin(cmd, cache);
+				ft_strdel(&cache);
+				ft_strdel(&cmd);
+				cmd = stock;
+				lst->notified = 1;
+			}
+			lst = lst->next;
+		}
+		ft_dprintf(STDOUT_FILENO, "[%d]%c\tDone\t%s\n", j->process_id, c, cmd);
+		ft_strdel(&cmd);
+	}
 }
 
 static int	check_is_terminated(t_job *j)
@@ -48,7 +78,7 @@ static int	display_stat_process(t_job *j, t_process *p, int notified)
 	{
 		if (j->fg == 0 && job_is_completed(j))
 			bt_jobs_s(j, get_shell()->max_job_current);
-		else if ((!notified) && (j->fg == 0 || job_is_stopped(j)))
+		else if ((!notified) && (j->fg == 1 && job_is_stopped(j)))
 		{
 			ft_putchar('\n');
 			bt_jobs_s(j, get_shell()->max_job_current);
@@ -79,7 +109,7 @@ static void	display_stat_job(t_job *j)
 		return ;
 	}
 	if (j->first_process->fg == 0)
-		if (job_is_completed(j) && j->first_process->status == 0)
+		if (job_is_completed(j))// && j->first_process->status == 0)
 		{
 			job_done(j);
 			return ;
@@ -87,22 +117,37 @@ static void	display_stat_job(t_job *j)
 	p = j->first_process;
 	while (p)
 	{
-		notified = display_stat_process(j, p, notified);
+		if (!j->notified)
+			j->notified = display_stat_process(j, p, j->notified);
 		p = p->next;
 	}
 }
 
 void		job_notif(void)
 {
+	t_process	*p;
 	t_job	*j;
+
 
 	update_status();
 	j = get_first_job(NULL);
 	while (j)
 	{
-		display_stat_job(j);
+		p = j->first_process;
+		while (p)
+		{
+			p->status = convert_value_signal(p->status);
+			p->last_status = p->status;
+			p = p->next;
+		}
 		j = j->next;
 	}
+/*	j = get_first_job(NULL);
+	while (j)
+	{
+		display_stat_job(j);
+		j = j->next;
+	}*/
 	clean_fuck_list(0);
 }
 

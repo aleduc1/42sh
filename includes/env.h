@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 20:21:21 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 05:31:19 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct		s_job
 	int				process_id;
 	int				notified;
 	int				notif_stop;
+	int				signal;
 	struct termios	tmodes;
 	int				len_close;
 	int				*close_fd;
@@ -127,11 +128,15 @@ int					ft_simple_command_fc(char *editor);
 
 void				fill_shell_dumb_mode(void);
 
+int					convert_value_signal(int status);
+
 /*
 ** redirection.c
 */
 
 void				redirection_fd(t_redirection *r);
+
+int					this_signal(t_process *p);
 
 /*
 ** rediretion_bis.c

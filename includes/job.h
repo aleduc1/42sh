@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:17:14 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/18 01:45:00 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 03:10:48 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include "sh21.h"
 #include "env.h"
+
+void			job_done(t_job *j);
 
 /*
 ** shell_struct.c

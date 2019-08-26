@@ -233,7 +233,7 @@ int			launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)
 		display_error_fork(p->r);
 	else
 		edit_pid_shell(pid, j, p);
-	update_status();
+	// update_status();
 	p = p->next;
 	act_job(j, fg);
 	return (verif);

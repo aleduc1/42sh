@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 16:17:56 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 03:25:15 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,34 @@ void		display_lst_job(t_job *j)
 	}
 }
 
+// int			condition_clean_list_bg(t_job *j)
+// {
+// 	t_job	*lst;
+// 	int		verif;
+
+// 	if ((!j) || (!(j->first_process)) || (!(j->first_process->cmd)))
+// 		return (1);
+// 	lst = get_first_job(NULL);
+// 	if (j->first_process->fg == 1)
+// 		return (1);
+// 	verif = 1;
+// 	while (lst)
+// 	{
+// 		if (j->process_id == lst->process_id && j->pgid != lst->pgid)
+// 			verif = (job_is_completed(lst)) ? 1 : 0;
+// 		lst = lst->next;
+// 	}
+// 	if (verif)
+// 		ft_printf("Done\n");
+// 	return (verif);
+// }
+
 static int	condition_clean_list(t_job *j, pid_t pid)
 {
 	if (job_is_completed(j) || (j->first_process->pid == 0
 		&& job_is_stopped(j) == 0)
 		|| j->first_process->pid == pid)
-		return (1);
+			return (1);
 	return (0);
 }
 
@@ -66,6 +88,7 @@ void		clean_fuck_list(pid_t pid)
 
 	j = static_job();
 	h = *j;
+	// display_lst_job(h);
 	last = NULL;
 	while (*j)
 	{

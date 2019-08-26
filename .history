@@ -318,3 +318,12 @@ echo \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 exit
 ls \"
 ls " \" \""
+ls \'
+ls ' asdasd'
+ls '
+make
+ls ' '
+ls \'
+ls -l
+echo \"test
+echo \"test "lol ' "

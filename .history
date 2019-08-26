@@ -340,3 +340,63 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaa
 ls
 ls "
 posix
+ls -l
+echo something
+echo test
+ls \ asdasd
+ls '\ asdasd' '
+echo '\ asdads' '
+ls \ asdad\
+ls '\ '
+echo "\ this is a test"
+echo ''\'
+echo ' '
+echo "'"
+echo ''\'
+ls '\ asdasd'\
+ls '\ asdasd'
+ls '\ asdasdada\
+ls \ \
+ls ' asdasd'
+ls '" '
+ls "\ asdasd"
+ls '\ asdasdasda
+echo '\ asdasdas'
+echo '\ asdasd
+ls '\ sdasdasdad
+make
+echo \ asdasd
+echo \ \
+echo '\ \ ' \ '
+echo \ asdasd
+echo ' asdasd\ asdasd'
+ls \ \
+make
+echo \ 
+echo '\ asda ' '
+echo '\  ' '
+echo '\ '
+echo ' '
+echo '\ '
+echo '\ \ '  
+echo '\ '
+echo '\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ '  '                                  \ \ \ \
+\ \
+echo ' \ ' '
+echo
+echo \ \
+echo '\ '
+echo '\ \ \  '
+echo " asdasd\ asdasd\ adasda"
+\ \ \ \ \ \ \ \ \\ \ \ 
+ls '\ asdaskdasdkjashd '
+ls '\ "asdasdasd\ \ asdasd" '
+make
+echo '\ '
+echo '\\\ '
+echo '\\ '
+echo 'test'
+ls '\\ '
+ls \\\\\\\ \ \\
+echo " dfbgs' "
+exit

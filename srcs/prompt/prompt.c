@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:13:21 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 00:43:52 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 01:14:24 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,6 @@ void			init_prompt(t_pos *pos)
 	pos->stop = 0;
 }
 
-int				check_backslash(t_node *input, t_multi **multi, t_pos *pos, t_integrity **count)
-{
-	t_multi *lstcursor;
-	t_node *cursor;
-	t_node *input_in;
-
-	input_in = input;
-	if (input_in->next && input_in->next->key == '\\')
-	{
-		lstcursor = *multi;
-		multi_push(multi);
-		lstcursor = lstcursor->prev;
-		lstcursor->input = NULL;
-		dpush(&lstcursor->input, ' ');
-		ft_putstr("backslash>");
-		read_input(&lstcursor->input, pos);
-
-		input_in = lstcursor->input;
-		cursor = input_in;
-		while (cursor->next != NULL)
-			cursor = cursor->next;
-		key_occurence(cursor, *count);
-	}
-}
-
 int				check_integrity(t_node *input, t_multi **multi, t_pos *pos,
 													t_integrity *count)
 {
@@ -72,7 +47,8 @@ int				check_integrity(t_node *input, t_multi **multi, t_pos *pos,
 	while (cursor->next != NULL)
 		cursor = cursor->next;
 	key_occurence(cursor, count);
-	check_backslash(input, multi, pos, &count);
+	if (check_backslash(input, multi, pos, count) == -1)
+		return (-1);
 	if ((count->dquote % 2) != 0)
 	{
 		pos->multiline = 1;

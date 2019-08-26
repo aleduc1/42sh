@@ -400,3 +400,6 @@ ls '\\ '
 ls \\\\\\\ \ \\
 echo " dfbgs' "
 exit
+ls
+fc -l
+echo " dfbgs' "

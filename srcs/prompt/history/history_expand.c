@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:31:14 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 19:51:55 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 01:36:28 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 char			*expand_double_schriek(t_pos *pos)
 {
-	if (pos->history->next && pos->history->next->next)
-		return (pos->history->next->next->line);
+	if (pos->history->next)
+		return (pos->history->next->line);
 	else
 		return (NULL);
 }
@@ -32,10 +32,7 @@ char			*expand_schriek_word(t_pos *pos, char *word)
 {
 	t_node		*cursor;
 
-	if (pos->history->next && pos->history->next->next)
-		cursor = pos->history->next->next;
-	else
-		cursor = NULL;
+	cursor = pos->history->next;
 	while (cursor)
 	{
 		if (ft_strncmp(cursor->line, word, ft_strlen(word)) == 0)
@@ -55,10 +52,7 @@ char			*expand_schriek_number(t_pos *pos, int number)
 	int			i;
 
 	i = 1;
-	if (pos->history->next && pos->history->next->next)
-		cursor = pos->history->next->next;
-	else
-		cursor = NULL;
+	cursor = pos->history->next;
 	while (cursor && cursor->next)
 		cursor = cursor->next;
 	while (cursor && cursor->prev)
@@ -81,10 +75,7 @@ char			*expand_schriek_less(t_pos *pos, int number)
 	int			i;
 
 	i = 1;
-	if (pos->history->next && pos->history->next->next)
-		cursor = pos->history->next->next;
-	else
-		cursor = NULL;
+	cursor = pos->history->next;
 	while (cursor)
 	{
 		if (i == number)

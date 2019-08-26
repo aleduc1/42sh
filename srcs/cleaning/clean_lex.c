@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 15:18:28 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/06 22:34:06 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/26 03:24:36 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	clean_lex(t_lex **lex)
 		return ;
 	if ((*lex)->next)
 		clean_lex(&(*lex)->next);
+	ft_putstr("AYUUUUUUUUUUUUUUU :");
+	ft_putendl((*lex)->token->data);
 	clean_redir(&((*lex)->redir));
 	clean_inside_token(&(*lex)->token);
 	free((*lex));

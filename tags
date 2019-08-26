@@ -172,11 +172,13 @@ add_token	srcs/lexer/adding_token.c	/^void	add_token(t_lex **lexer, t_token **to
 add_value_export	srcs/environnement/bt_export.c	/^static int	add_value_export(char **value, int i, int verif)$/;"	f	file:
 affiche_hash	libft/srcs/ft_printf/apply_arg_float.c	/^void	affiche_hash(t_printf **lst, int stock[3], int place)$/;"	f
 affiche_option	libft/srcs/ft_printf/apply_arg_float.c	/^void	affiche_option(t_printf *lst, int neg, int stock[3], int place)$/;"	f
-alias	srcs/lexer/alias_replace.c	/^static t_repalias	*alias;$/;"	v	file:
 alias_change	srcs/lexer/alias_replace.c	/^static char			*alias_change(char *str)$/;"	f	file:
+alias_change_new	srcs/lexer/alias_replace.c	/^static void			alias_change_new(char *val, char *firstword)$/;"	f	file:
 alias_getopt	srcs/builtins/bt_alias.c	/^int					alias_getopt(char **av)$/;"	f
 alias_isreplace	srcs/lexer/alias_replace.c	/^static int			alias_isreplace(char *str)$/;"	f	file:
+alias_isreplacebis	srcs/lexer/alias_replace.c	/^static int			alias_isreplacebis(char *firstword)$/;"	f	file:
 alias_isvalid	srcs/builtins/bt_alias.c	/^static int			alias_isvalid(char *alias)$/;"	f	file:
+alias_rep_getfirstword	srcs/lexer/alias_replace_utils.c	/^char				*alias_rep_getfirstword(char *str)$/;"	f
 alias_replace	srcs/lexer/alias_replace.c	/^char				*alias_replace(char *input)$/;"	f
 alt_bindings	srcs/prompt/selection/text_selection.c	/^t_node		*alt_bindings(t_node **input, t_node *lstcursor, char buffer[],$/;"	f
 anchor_selection	srcs/prompt/selection/text_selection.c	/^t_node		*anchor_selection(t_node *lstcursor, t_pos *pos, int direction)$/;"	f
@@ -224,7 +226,6 @@ bt_5	srcs/builtins/bt_test/precedence_alg.c	/^int		bt_5(void)$/;"	f
 bt_addalias	srcs/builtins/bt_alias.c	/^static int			bt_addalias(char **av, int i, int ret)$/;"	f	file:
 bt_addhash	srcs/builtins/bt_hash.c	/^static int			bt_addhash(char *av, int ret)$/;"	f	file:
 bt_alias	srcs/builtins/bt_alias.c	/^int					bt_alias(char **av, t_redirection *r)$/;"	f
-bt_alias_show	srcs/builtins/bt_alias.c	/^static void			bt_alias_show(void)$/;"	f	file:
 bt_bg	srcs/builtins/bt_jobs/bt_bg.c	/^int			bt_bg(t_job *j, char **av, t_redirection *r)$/;"	f
 bt_cd	srcs/builtins/bt_cd.c	/^int			bt_cd(char **av, t_redirection *r)$/;"	f
 bt_echo	srcs/builtins/bt_echo.c	/^int			bt_echo(char **av, t_redirection *r)$/;"	f
@@ -241,6 +242,7 @@ bt_jobs_s	srcs/builtins/bt_jobs/bt_jobs_display.c	/^void		bt_jobs_s(t_job *j, in
 bt_showalias	srcs/builtins/bt_alias.c	/^static int			bt_showalias(char **av, int i, int ret)$/;"	f	file:
 bt_test	srcs/builtins/bt_test/bt_test.c	/^int		bt_test(char **av, t_redirection *r)$/;"	f
 bt_type	srcs/builtins/bt_type.c	/^int					bt_type(char **av, t_redirection *r)$/;"	f
+bt_type_err	srcs/builtins/bt_type.c	/^static int			bt_type_err(char **av, int i)$/;"	f	file:
 bt_unalias	srcs/builtins/bt_unalias.c	/^int					bt_unalias(char **av, t_redirection *r)$/;"	f
 builtin	srcs/commands/is_builtin.c	/^int			builtin(t_job *j, t_process *p, t_pos *pos, int fg)$/;"	f
 builtin_env	srcs/builtins/builtin_env.c	/^int				builtin_env(t_redirection *r, char **argv, t_pos *pos)$/;"	f
@@ -252,24 +254,26 @@ builtin_fc	srcs/prompt/history/fc/history_fc.c	/^int			builtin_fc(char **av, t_p
 builtin_set	srcs/builtins/builtin_env.c	/^int				builtin_set(t_redirection *r)$/;"	f
 c_test	srcs/builtins/bt_test/unary_primaries.c	/^int		c_test(char *str1, char *str2, char *str3)$/;"	f
 cd_canonical	srcs/builtins/bt_cd_utilstwo.c	/^int		cd_canonical(t_cd *cd)$/;"	f
-cd_canonical_a	srcs/builtins/bt_cd_canonical_a.c	/^int		cd_canonical_a(t_cd *cd)$/;"	f
-cd_canonical_b	srcs/builtins/bt_cd_canonical_b.c	/^int		cd_canonical_b(t_cd *cd)$/;"	f
-cd_canonical_c	srcs/builtins/bt_cd_canonical_c.c	/^int		cd_canonical_c(t_cd *cd)$/;"	f
+cd_canonical_a	srcs/builtins/bt_cd_canonical_a.c	/^int				cd_canonical_a(t_cd *cd)$/;"	f
+cd_canonical_b	srcs/builtins/bt_cd_canonical_b.c	/^int				cd_canonical_b(t_cd *cd)$/;"	f
+cd_canonical_c	srcs/builtins/bt_cd_canonical_c.c	/^int				cd_canonical_c(t_cd *cd)$/;"	f
 cd_canonical_del	srcs/builtins/bt_cd_utilstwo.c	/^int		cd_canonical_del(t_cd *cd, size_t a, size_t b, size_t len)$/;"	f
-cd_canonical_getdot	srcs/builtins/bt_cd_canonical_a.c	/^int		cd_canonical_getdot(t_cd *cd, size_t *a, size_t *b)$/;"	f
-cd_canonical_getprev	srcs/builtins/bt_cd_canonical_b.c	/^int		cd_canonical_getprev(t_cd *cd, size_t *a, size_t *b)$/;"	f
-cd_canonical_getprevv	srcs/builtins/bt_cd_canonical_b.c	/^size_t	cd_canonical_getprevv(t_cd *cd, size_t i)$/;"	f
-cd_canonical_getslash	srcs/builtins/bt_cd_canonical_c.c	/^int		cd_canonical_getslash(t_cd *cd, size_t *a, size_t *b)$/;"	f
-cd_canonical_testprev	srcs/builtins/bt_cd_canonical_b.c	/^int		cd_canonical_testprev(t_cd *cd, size_t *a)$/;"	f
+cd_canonical_getdot	srcs/builtins/bt_cd_canonical_a.c	/^static int		cd_canonical_getdot(t_cd *cd, size_t *a, size_t *b)$/;"	f	file:
+cd_canonical_getprev	srcs/builtins/bt_cd_canonical_b.c	/^static int		cd_canonical_getprev(t_cd *cd, size_t *a, size_t *b)$/;"	f	file:
+cd_canonical_getprevv	srcs/builtins/bt_cd_canonical_b.c	/^static size_t	cd_canonical_getprevv(t_cd *cd, size_t i)$/;"	f	file:
+cd_canonical_getslash	srcs/builtins/bt_cd_canonical_c.c	/^static int		cd_canonical_getslash(t_cd *cd, size_t *a, size_t *b)$/;"	f	file:
+cd_canonical_getslashbis	srcs/builtins/bt_cd_canonical_c.c	/^static int		cd_canonical_getslashbis(t_cd *cd, size_t i)$/;"	f	file:
+cd_canonical_testprev	srcs/builtins/bt_cd_canonical_b.c	/^static int		cd_canonical_testprev(t_cd *cd, size_t *a)$/;"	f	file:
 cd_chdir	srcs/builtins/bt_cd_utilstwo.c	/^int		cd_chdir(t_cd *cd)$/;"	f
+cd_check_and_go	srcs/builtins/bt_cd.c	/^static int	cd_check_and_go(t_cd *cd)$/;"	f	file:
 cd_err	srcs/builtins/bt_cd_utilstwo.c	/^int		cd_err(t_cd *cd)$/;"	f
 cd_getnextpath	srcs/builtins/bt_cd_utils.c	/^int		cd_getnextpath(char *path)$/;"	f
 cd_getopt	srcs/builtins/bt_cd_utilstwo.c	/^int		cd_getopt(char ac, char **av, t_cd *cd)$/;"	f
 cd_init	srcs/builtins/bt_cd.c	/^static int	cd_init(char **av, t_cd *cd)$/;"	f	file:
-cd_stepfive	srcs/builtins/bt_cd.c	/^static int	cd_stepfive(t_cd *cd)$/;"	f	file:
-cd_stepsev	srcs/builtins/bt_cd.c	/^static int	cd_stepsev(t_cd *cd)$/;"	f	file:
-cd_stepten	srcs/builtins/bt_cd.c	/^static int	cd_stepten(t_cd *cd)					\/\/ Step 10$/;"	f	file:
+cd_p_noslash_canonical	srcs/builtins/bt_cd.c	/^static int	cd_p_noslash_canonical(t_cd *cd)$/;"	f	file:
+cd_test_cdpath	srcs/builtins/bt_cd_utils.c	/^int		cd_test_cdpath(t_cd *cd, char *test)$/;"	f
 cd_testcdpath	srcs/builtins/bt_cd_utils.c	/^int		cd_testcdpath(char *path, char *directory, char **test)$/;"	f
+cd_testcdpath_curpath	srcs/builtins/bt_cd.c	/^static int	cd_testcdpath_curpath(t_cd *cd)$/;"	f	file:
 cd_testpath	srcs/builtins/bt_cd_utils.c	/^int		cd_testpath(char *path, char *directory, char **test)$/;"	f
 change_fg_var_job	srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^void			change_fg_var_job(t_job *j, int fg)$/;"	f
 check_double	srcs/lexer/handle_stuff.c	/^void	check_double(char *input, int *i)$/;"	f
@@ -508,6 +512,7 @@ first_process	includes/env.h	/^	t_process		*first_process;$/;"	m	struct:s_job
 flag	libft/includes/ft_printf.h	/^	char			flag;$/;"	m	struct:s_printf
 flags	includes/env.h	/^	int			flags[5];$/;"	m	struct:s_fc
 flags	srcs/main.c	/^void		flags(int argc, char **argv)$/;"	f
+fonction_moche	srcs/lexer/lexer.c	/^int		fonction_moche(int *i, char **input)$/;"	f
 fork_pipe	srcs/job_control/process_pipe.c	/^static void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])$/;"	f	file:
 format	libft/includes/ft_printf.h	/^	char			*format;$/;"	m	struct:s_printf
 forwardjump	srcs/prompt/edition/morekeyhook.c	/^t_node	*forwardjump(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
@@ -567,7 +572,7 @@ ft_create_maillon_redirect_env	srcs/redirection/list_redirect.c	/^int			ft_creat
 ft_debug	libft/srcs/ft_debug.c	/^int		ft_debug(void)$/;"	f
 ft_default	srcs/parser/pre_parser/redirect/redirect.c	/^void	ft_default(t_redir **redir_info)$/;"	f
 ft_del_lst	libft/srcs/ft_printf/ft_printf.c	/^void	ft_del_lst(t_printf **lst)$/;"	f
-ft_delrepalias	srcs/lexer/alias_replace.c	/^static void			ft_delrepalias(t_repalias *del)$/;"	f	file:
+ft_delrepalias	srcs/lexer/alias_replace_utils.c	/^void				ft_delrepalias(t_repalias *del)$/;"	f
 ft_deplace	libft/srcs/ft_deplace.c	/^void	ft_deplace(char (*lst)[BUF_S])$/;"	f
 ft_display	libft/srcs/ft_printf/display.c	/^void	ft_display(char dst[BUF_S], t_printf **lst)$/;"	f
 ft_display_color	libft/srcs/ft_printf/display.c	/^void	ft_display_color(char dst[BUF_S], t_printf **lst)$/;"	f
@@ -754,6 +759,7 @@ ft_unset	srcs/environnement/manage_set.c	/^int			ft_unset(char **value)$/;"	f
 ft_unset_key	srcs/environnement/manage_env.c	/^int			ft_unset_key(char *key, t_env *my_env)$/;"	f
 ft_unsetenv	srcs/environnement/manage_env.c	/^int			ft_unsetenv(char **key)$/;"	f
 ft_valgrind	test.sh	/^ft_valgrind()$/;"	f
+g_alias	srcs/lexer/alias_replace.c	/^static t_repalias	*g_alias;$/;"	v	file:
 g_alias_table	srcs/main.c	/^t_ht_hash	*g_alias_table;$/;"	v
 g_depth	srcs/parser/ast/tree_utils.c	/^static char	g_depth[2056];$/;"	v	file:
 g_di	srcs/parser/ast/tree_utils.c	/^static int	g_di;$/;"	v	file:
@@ -781,7 +787,6 @@ get_end_job	srcs/job_control/add_process.c	/^t_job	*get_end_job(void)$/;"	f
 get_end_line	libft/srcs/get_end_line.c	/^int		get_end_line(char *file)$/;"	f
 get_env	srcs/commands/other_tools.c	/^t_env		*get_env(int is_end, t_env *head)$/;"	f
 get_first_job	srcs/job_control/list_job.c	/^t_job		*get_first_job(t_job *new_job)$/;"	f
-get_first_word	srcs/lexer/alias_replace.c	/^static char			*get_first_word(char *str)$/;"	f	file:
 get_hash	srcs/environnement/path.c	/^static char	*get_hash(char *command)$/;"	f	file:
 get_inputlen	srcs/prompt/edition/editiontools.c	/^void		get_inputlen(t_pos *pos, t_node *input)$/;"	f
 get_next_line	libft/srcs/get_next_line.c	/^int		get_next_line(const int fd, char **line)$/;"	f
@@ -814,19 +819,21 @@ hash	includes/builtins.h	/^	t_hash				*hash;$/;"	m	struct:s_hash_tree
 hash	includes/builtins.h	/^	t_hash	**hash;$/;"	m	struct:s_ht_hash
 hash_del	srcs/hash_table/hash_utils.c	/^void	hash_del(t_hash *hash)$/;"	f
 hash_getopt	srcs/builtins/bt_hash.c	/^static int			hash_getopt(char **av, int *r)$/;"	f	file:
-hash_new_item	srcs/hash_table/hash_utils.c	/^t_hash	*hash_new_item(const char *k, const char *v)  \/\/ PROTECT MALLOC CAREFUL$/;"	f
+hash_new_item	srcs/hash_table/hash_utils.c	/^t_hash	*hash_new_item(const char *k, const char *v)$/;"	f
 heredoc	includes/lexer.h	/^	char	*heredoc;$/;"	m	struct:s_redir
 heredoc	srcs/prompt/multiline/heredoc.c	/^char		*heredoc(char *heredoc, t_pos *pos)$/;"	f
 heredoc_string	srcs/prompt/multiline/heredoc.c	/^char		*heredoc_string(t_node *lstcursor)$/;"	f
 hisbackup	includes/sh21.h	/^	char			*hisbackup;$/;"	m	struct:s_pos
-hist_rep_delstruct	srcs/lexer/history_replace.c	/^void		hist_rep_delstruct(t_hist_rep *to_del)$/;"	f
+hist_rep_delstruct	srcs/lexer/history_replace_utils.c	/^void		hist_rep_delstruct(t_hist_rep *to_del)$/;"	f
 hist_rep_exists	srcs/lexer/history_replace.c	/^int			hist_rep_exists(t_hist_rep *replace, t_pos *pos)$/;"	f
-hist_rep_getexp	srcs/lexer/history_replace.c	/^int			hist_rep_getexp(char *input)$/;"	f
-hist_rep_isbslashed	srcs/lexer/history_replace.c	/^int			hist_rep_isbslashed(char *input, int i, int expand)$/;"	f
-hist_rep_isvalid	srcs/lexer/history_replace.c	/^int			hist_rep_isvalid(char *input)$/;"	f
+hist_rep_getexp	srcs/lexer/history_replace_utils.c	/^int			hist_rep_getexp(char *input)$/;"	f
+hist_rep_isbslashed	srcs/lexer/history_replace_utils.c	/^int			hist_rep_isbslashed(char *input, int i, int expand)$/;"	f
+hist_rep_isvalid	srcs/lexer/history_replace_utils.c	/^int			hist_rep_isvalid(char *input)$/;"	f
+hist_rep_rep	srcs/lexer/history_replace_moreutils.c	/^char		*hist_rep_rep(char *bin, char *value)$/;"	f
+hist_rep_reperr	srcs/lexer/history_replace_moreutils.c	/^char		*hist_rep_reperr(char *new, t_hist_rep *curr)$/;"	f
 hist_rep_replace	srcs/lexer/history_replace.c	/^char		*hist_rep_replace(t_hist_rep *replace, t_pos *pos)$/;"	f
 hist_rep_save	srcs/lexer/history_replace.c	/^t_hist_rep	*hist_rep_save(char *input, int start, int i, t_hist_rep *replace)$/;"	f
-hist_rep_saveexp	srcs/lexer/history_replace.c	/^t_hist_rep	*hist_rep_saveexp(char *input, int start, int i, t_hist_rep *replace)$/;"	f
+hist_rep_saveexp	srcs/lexer/history_replace.c	/^t_hist_rep	*hist_rep_saveexp(char *input, int start, int i,$/;"	f
 history	includes/sh21.h	/^	t_node			*history;$/;"	m	struct:s_pos
 history_downcase	srcs/prompt/history/history.c	/^t_node			*history_downcase(t_node *lstcursor, t_node **input, t_pos *pos)$/;"	f
 history_file	srcs/prompt/history/history_file.c	/^void		history_file(t_node *history)$/;"	f
@@ -836,20 +843,23 @@ history_to_lst	srcs/prompt/history/history.c	/^t_node			*history_to_lst(t_node *
 historycount	includes/sh21.h	/^	int				historycount;$/;"	m	struct:s_pos
 historysum	includes/sh21.h	/^	int				historysum;$/;"	m	struct:s_pos
 home_end	srcs/prompt/edition/morekeyhook.c	/^t_node	*home_end(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
+hp_is_reserved_word	srcs/lexer/alias_replace_utils.c	/^int					hp_is_reserved_word(char *str)$/;"	f
 ht_hash_copy	srcs/hash_table/ht_hash_moreutils.c	/^void		ht_hash_copy(t_ht_hash *ht, t_ht_hash *new_ht)$/;"	f
 ht_hash_del	srcs/hash_table/ht_hash_utils.c	/^void		ht_hash_del(t_ht_hash *ht)$/;"	f
 ht_hash_delete	srcs/hash_table/ht_hash_moreutils.c	/^void		ht_hash_delete(t_ht_hash *ht, const char *key)$/;"	f
+ht_hash_delete_item	srcs/hash_table/ht_hash_moarutils.c	/^void			ht_hash_delete_item(t_ht_hash *ht, const char *key,$/;"	f
 ht_hash_get_hash	srcs/hash_table/ht_hash_utils.c	/^int			ht_hash_get_hash(const char *s, const int num, const int attempt)$/;"	f
 ht_hash_hash	srcs/hash_table/ht_hash_utils.c	/^int			ht_hash_hash(const char *s, const int a, const int m)$/;"	f
 ht_hash_insert	srcs/hash_table/ht_hash_moreutils.c	/^void		ht_hash_insert(t_ht_hash *ht, const char *key, char *value)$/;"	f
+ht_hash_insert_item	srcs/hash_table/ht_hash_moarutils.c	/^void			ht_hash_insert_item(t_ht_hash *ht, const char *key,$/;"	f
 ht_hash_new	srcs/hash_table/ht_hash_utils.c	/^t_ht_hash	*ht_hash_new(void)$/;"	f
-ht_hash_new_sized	srcs/hash_table/ht_hash_utils.c	/^t_ht_hash	*ht_hash_new_sized(const int base_size)   \/\/ PRETOECT MALLOC CAREFUL$/;"	f
+ht_hash_new_sized	srcs/hash_table/ht_hash_utils.c	/^t_ht_hash	*ht_hash_new_sized(const int base_size)$/;"	f
 ht_hash_reset	srcs/hash_table/ht_hash_stillutils.c	/^void				ht_hash_reset(t_ht_hash **ht)$/;"	f
 ht_hash_resize	srcs/hash_table/ht_hash_moreutils.c	/^void		ht_hash_resize(t_ht_hash *ht, const int base_size)$/;"	f
 ht_hash_resize_down	srcs/hash_table/ht_hash_stillutils.c	/^void				ht_hash_resize_down(t_ht_hash *ht)$/;"	f
 ht_hash_resize_up	srcs/hash_table/ht_hash_stillutils.c	/^void				ht_hash_resize_up(t_ht_hash *ht)$/;"	f
 ht_hash_search	srcs/hash_table/ht_hash_moreutils.c	/^char		*ht_hash_search(t_ht_hash *ht, const char *key)$/;"	f
-ht_hash_show	srcs/hash_table/ht_hash_show.c	/^void				ht_hash_show(t_ht_hash *ht, int quote)$/;"	f
+ht_hash_show	srcs/hash_table/ht_hash_show.c	/^void						ht_hash_show(t_ht_hash *ht, int quote)$/;"	f
 ht_hash_table_null	srcs/hash_table/ht_hash_stillutils.c	/^void				ht_hash_table_null(t_hash **hash, int size)$/;"	f
 ht_tree_add	srcs/hash_table/ht_hash_show.c	/^static t_hash_tree			*ht_tree_add(t_hash *hash, t_hash_tree *tree)$/;"	f	file:
 ht_tree_del	srcs/hash_table/ht_hash_show.c	/^static void					ht_tree_del(t_hash_tree *tree)$/;"	f	file:
@@ -894,7 +904,7 @@ is_builtin	srcs/commands/is_builtin.c	/^int			is_builtin(t_job *j, t_process *p,
 is_builtin_env	srcs/commands/is_builtin.c	/^static int	is_builtin_env(t_process *p, char **av, t_pos *pos)$/;"	f	file:
 is_builtin_jobs	srcs/commands/is_builtin.c	/^static int	is_builtin_jobs(t_job *j, char **av, t_redirection *r)$/;"	f	file:
 is_builtin_other	srcs/commands/is_builtin.c	/^static int	is_builtin_other(t_pos *pos, char **av, t_redirection *r)$/;"	f	file:
-is_env_empty	srcs/builtins/bt_cd.c	/^int			is_env_empty(char *value)$/;"	f
+is_env_empty	srcs/builtins/bt_cd_utils.c	/^int		is_env_empty(char *value)$/;"	f
 is_expand_tild	srcs/environnement/parser_var_bis.c	/^int			is_expand_tild(char *value, int index, int expand)$/;"	f
 is_hyph	srcs/lexer/if_checks.c	/^int		is_hyph(char c)$/;"	f
 is_in_path	srcs/environnement/path.c	/^char		*is_in_path(char *command)$/;"	f
@@ -904,7 +914,6 @@ is_not_builtin	srcs/commands/commands.c	/^static int				is_not_builtin(t_job *j,
 is_only_space	srcs/parser/pre_parser/remove_space/remove_space_token.c	/^int		is_only_space(t_lex **node_cmd)$/;"	f
 is_operator	srcs/parser/pre_parser/simple_command/type_check.c	/^int		is_operator(t_type type)$/;"	f
 is_other_expansion	srcs/environnement/parameter_expansion.c	/^int				is_other_expansion(char *tmp, char **dst)$/;"	f
-is_reserved_word	srcs/lexer/alias_replace.c	/^static int			is_reserved_word(char *str)$/;"	f	file:
 is_special_parameters	srcs/environnement/apply_parser_var.c	/^static int	is_special_parameters(char c)$/;"	f	file:
 is_special_variable	srcs/environnement/expansion_tools.c	/^static int	is_special_variable(char *str)$/;"	f	file:
 is_split	libft/srcs/ft_strsplit.c	/^static int	is_split(char c, char spl)$/;"	f	file:
@@ -1084,7 +1093,7 @@ remove_node	srcs/parser/pre_parser/remove_space/remove_space_token.c	/^void	remo
 remove_quote	srcs/environnement/remove_quote.c	/^void		remove_quote(char ***value)$/;"	f
 remove_quote_line	srcs/environnement/remove_quote.c	/^void		remove_quote_line(char **line)$/;"	f
 remove_space_token	srcs/parser/pre_parser/remove_space/remove_space_token.c	/^void	remove_space_token(t_lex **lexer)$/;"	f
-replace_alias	srcs/lexer/alias_replace.c	/^static char			*replace_alias(char *inpu, char *str, char *fir, char *val)$/;"	f	file:
+replace_alias	srcs/lexer/alias_replace_utils.c	/^char				*replace_alias(char *inpu, char *str, char *fir, char *val)$/;"	f
 reset_hash_verif	srcs/environnement/free_env.c	/^void		reset_hash_verif(char *key)$/;"	f
 reset_multi	srcs/prompt/multiline/multiline.c	/^void		reset_multi(t_pos *pos)$/;"	f
 reset_stop	srcs/prompt/others/dlist_plus.c	/^void	reset_stop(char **inputstr, t_pos *pos, t_integrity *count)$/;"	f

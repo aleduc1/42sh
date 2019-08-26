@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:29 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/26 03:11:35 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/26 06:08:22 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ t_lex	*lexer(char *input)
 		return (NULL);
 	}
 	remove_space_token(&lex);
-	dllprinthead(&lex);
+//	dllprinthead(&lex);
 	return (lex);
 }

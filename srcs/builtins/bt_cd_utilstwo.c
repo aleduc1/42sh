@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 18:27:24 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/25 19:12:03 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/26 05:58:44 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int		cd_canonical_del(t_cd *cd, size_t a, size_t b, size_t len)
 			i++;
 		j++;
 	}
+	tmp[len] = '\0';
 	ft_strdel(&(cd->curpath));
 	cd->curpath = tmp;
 	return (1);
@@ -101,7 +102,7 @@ int		cd_canonical(t_cd *cd)
 	if (cd_canonical_b(cd))
 		return (0);
 	cd_canonical_c(cd);
-	if (cd->curpath[0] == '\0')
+	if (!cd->curpath || cd->curpath[0] == '\0')
 	{
 		dprintf(STDERR_FILENO,
 			"42sh: cd: path after canonicalization is null\n");

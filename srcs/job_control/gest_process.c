@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gest_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 00:54:51 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:40:47 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int			choice_gest_return(t_job *j, int status)
 	p = j->first_process;
 	while (p->next)
 		p = p->next;
-	str = is_in_path(p->cmd[0]);
+	str = is_in_path(p->cmd[0], 1);
 	if (str)
 	{
 		ft_strdel(&str);

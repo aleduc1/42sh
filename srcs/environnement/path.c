@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 20:02:16 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:39:08 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static char	*tools_is_in_path(char *command)
 	return (result);
 }
 
-char		*is_in_path(char *command)
+char		*is_in_path(char *command, int hash)
 {
 	struct stat	statbuf;
 	char		*result;
@@ -102,7 +102,7 @@ char		*is_in_path(char *command)
 	if ((result = get_hash(command)))
 		return (result);
 	result = check_env_path(command);
-	if (result)
+	if (result && hash == 1)
 	{
 		ht_hash_insert(g_hash_table, command, result);
 		return (result);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 20:21:49 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:40:08 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int				is_not_builtin(t_job *j, t_process *p, int fg)
 	int	last_return;
 
 	verif = 0;
-	p->cmd_path = is_in_path(p->cmd[0]);
+	p->cmd_path = is_in_path(p->cmd[0], 1);
 	last_return = check_last_command();
 	verif = launch_job(j, fg);
 	if (last_return == -6)

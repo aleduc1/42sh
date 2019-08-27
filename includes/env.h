@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 07:35:14 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:38:32 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int					verif_close(int fd);
 
 int					gest_error_path(char *cmd, t_redirection *r);
 int					gest_return(int verif);
-char				*is_in_path(char *command);
+char				*is_in_path(char *command, int hash);
 t_env				*get_env(int is_end, t_env *head);
 
 /*

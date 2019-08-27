@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 14:52:42 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/25 21:21:30 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:39:23 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int			bt_addhash(char *av, int ret)
 	char	*path;
 
 	path = NULL;
-	path = is_in_path(av);
+	path = is_in_path(av, 0);
 	if (path != NULL)
 	{
 		ht_hash_insert(g_hash_table, av, path);

@@ -2,7 +2,7 @@
 # Debug mode #
 # ---------- #
 
-DEBUG = yes
+DEBUG = no
 
 # --------- #
 # Directory #
@@ -54,7 +54,7 @@ VPATH = objs:\
 
 CC = cc
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Wextra #-g3 -fsanitize=address,undefined
+	CFLAGS = -Wall -Wextra
 else
 	CFLAGS = -Wall -Wextra -Werror
 endif

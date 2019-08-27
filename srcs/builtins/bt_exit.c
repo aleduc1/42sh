@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 13:52:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/24 22:34:50 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/26 23:11:18 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ extern t_ht_hash	*g_hash_table;
 
 /*
 ** exit [n]
-**
+** 
 ** exit utility shall cause shell to exit from current execution env with exit
 ** status specified by unsigned decimal int n
 ** If current execution env is subshell env,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:15:13 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 02:23:14 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 05:51:54 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ enum	e_token_type
 	LESSGREAT,
 	SPACE,
 	AMPGREAT,
-	AMPLESS,
 	LESSAMPHYPH,
 	GREATAMPHYPH,
 	AMP,
@@ -96,6 +95,7 @@ int		is_in_tab(t_tab_type **tab_of_type, char c);
 int		is_amper(char c);
 int		ft_isreallyspace(char c);
 int		is_lesser_greater(char c);
+int		is_greater(char c);
 int		is_hyph(char c);
 int		skip_whitespace(char *str, int i);
 int		dub_possible(char c);
@@ -132,7 +132,6 @@ int		handle_great_and(t_lex **command_node);
 int		handle_and_great(t_lex **command_node);
 int		handle_append(t_lex **command_node);
 int		handle_less(t_lex **command_node);
-int		handle_and_less(t_lex **command_node);
 int		handle_less_and(t_lex **command_node);
 int		handle_heredoc(t_lex **command_node);
 int		handle_great_hyph(t_lex **command_node);
@@ -144,7 +143,6 @@ t_redir	*redir_struct_and_great(t_lex **start);
 t_redir	*redir_struct_append(t_lex **start);
 t_redir	*redir_struct_less(t_lex **start);
 t_redir	*redir_struct_less_and(t_lex **start);
-t_redir	*redir_struct_and_less(t_lex **start);
 t_redir	*redir_struct_heredoc(t_lex **start);
 t_redir	*redir_struct_great_hyph(t_lex **start);
 t_redir	*redir_struct_less_hyph(t_lex **start);

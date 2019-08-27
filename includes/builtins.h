@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/26 05:14:24 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 05:52:21 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,11 +258,11 @@ int					bt_type(char **av, t_redirection *r);
 int					ft_getopt(int ac, char *const *av, const char *optstr);
 void				ft_getopt_reset(void);
 
-char				*alias_replace(char *input);
-char				*replace_alias(char *inpu, char *str, char *fir, char *val);
-char				*alias_rep_getfirstword(char *str);
-void				ft_delrepalias(t_repalias *del);
-int					hp_is_reserved_word(char *str);
+char				*alias_replace(char *input, t_repalias *cur_alias);
+t_repalias			*alias_rep_addalias(t_repalias *cur_alias, char *base,
+										char *val);
+t_repalias			*alias_rep_delalias(t_repalias *cur_alias);
+
 
 char				*history_replace(char *input, t_pos *pos);
 t_hist_rep			*hist_rep_save(char *input, int start, int i,

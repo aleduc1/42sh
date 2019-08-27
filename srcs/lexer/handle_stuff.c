@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 20:56:21 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 02:21:57 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 03:19:13 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	check_double(char *input, int *i)
 			(*i)++;
 		else if (is_amper(input[(*i)]))
 		{
-			if (is_lesser_greater(input[(*i) + 1]))
+			if (is_greater(input[(*i) + 1]))
 				(*i)++;
 		}
 		else if (is_lesser_greater(input[(*i)]))

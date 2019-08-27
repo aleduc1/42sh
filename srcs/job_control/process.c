@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 20:08:10 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 03:01:06 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void		whois_type(int type)
 		ft_printf("type is AMPGREAT\n");
 	if (type == GREATAMP)
 		ft_printf("type is GREATAMP\n");
-	if (type == AMPLESS)
-		ft_printf("type is AMPLESS\n");
 	if (type == LESSAMP)
 		ft_printf("type is LESSAMP\n");
 	if (type == LESSAMPHYPH)

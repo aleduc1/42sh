@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_file.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 16:44:29 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 08:37:18 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 03:02:06 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 ** AMPGREAT -> &>
 ** GREATAMP -> >&
 ** LESSAMP -> <&
-** AMPLESS -> &<
 */
 
 int			verif_file_descriptor(char **src, char *dst)

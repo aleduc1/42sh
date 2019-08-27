@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:00:04 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 02:45:13 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 03:02:26 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_default(t_redir **redir_info)
 		ptr->src_fd[0] = ft_strdup("1");
 		ptr->src_fd[1] = 0;
 	}
-	else if (t == GREATAMP || t == AMPGREAT || t == AMPLESS)
+	else if (t == GREATAMP || t == AMPGREAT)
 	{
 		ptr->src_fd[0] = ft_strdup("1");
 		ptr->src_fd[1] = ft_strdup("2");
@@ -55,8 +55,6 @@ int		handle_needed_redir(t_lex **command_node, t_lex **redir_node)
 		ret = handle_less(command_node);
 	else if ((*redir_node)->token->type == LESSAMP)
 		ret = handle_less_and(command_node);
-	else if ((*redir_node)->token->type == AMPLESS)
-		ret = handle_and_less(command_node);
 	else if ((*redir_node)->token->type == DLESS)
 		ret = handle_heredoc(command_node);
 	else if ((*redir_node)->token->type == GREATAMPHYPH)

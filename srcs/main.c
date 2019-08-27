@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 01:40:02 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 05:52:28 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		run(char *input, t_pos *pos)
 
 	lex = NULL;
 	ast = NULL;
-	input = alias_replace(input);
+	input = alias_replace(input, NULL);
 	verif = check_whitespace_input(input);
 	if (verif && (lex = lexer(input)))
 		if ((ast = ast_parser(lex)) && (solo_tree(ast, pos) < 0))

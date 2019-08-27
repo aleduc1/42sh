@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:37 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/26 00:18:20 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 03:34:21 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,23 @@ void	set_tab_types_2(t_tab_type **tab_of_types)
 	(*tab_of_types)[8].type = SPACE;
 	(*tab_of_types)[9].str = "&>";
 	(*tab_of_types)[9].type = AMPGREAT;
-	(*tab_of_types)[10].str = "&<";
-	(*tab_of_types)[10].type = AMPLESS;
-	(*tab_of_types)[11].str = "<&-";
-	(*tab_of_types)[11].type = LESSAMPHYPH;
-	(*tab_of_types)[12].str = ">&-";
-	(*tab_of_types)[12].type = GREATAMPHYPH;
-	(*tab_of_types)[13].str = "&";
-	(*tab_of_types)[13].type = AMP;
-	(*tab_of_types)[14].str = "&&";
-	(*tab_of_types)[14].type = DAMP;
-	(*tab_of_types)[15].str = "||";
-	(*tab_of_types)[15].type = DPIPE;
-	(*tab_of_types)[16].str = NULL;
-	(*tab_of_types)[16].type = NUL;
+	(*tab_of_types)[10].str = "<&-";
+	(*tab_of_types)[10].type = LESSAMPHYPH;
+	(*tab_of_types)[11].str = ">&-";
+	(*tab_of_types)[11].type = GREATAMPHYPH;
+	(*tab_of_types)[12].str = "&";
+	(*tab_of_types)[12].type = AMP;
+	(*tab_of_types)[13].str = "&&";
+	(*tab_of_types)[13].type = DAMP;
+	(*tab_of_types)[14].str = "||";
+	(*tab_of_types)[14].type = DPIPE;
+	(*tab_of_types)[15].str = NULL;
+	(*tab_of_types)[15].type = NUL;
 }
 
 void	set_tab_types(t_tab_type **tab_of_types)
 {
-	if (!((*tab_of_types) = (t_tab_type *)ft_memalloc(sizeof(t_tab_type) * 17)))
+	if (!((*tab_of_types) = (t_tab_type *)ft_memalloc(sizeof(t_tab_type) * 16)))
 		return ;
 	(*tab_of_types)[0].str = "|";
 	(*tab_of_types)[0].type = SPIPE;

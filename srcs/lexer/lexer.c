@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:29 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 02:27:42 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 03:50:36 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ t_lex	*lexer(char *input)
 
 	lex = NULL;
 	reading_input(input, &lex);
-	dllprinthead(&lex);
+//	dllprinthead(&lex);
 	lex = add_delim(&lex);
 	handle_quotes(&lex);
 	simple_command(&lex);
-//	dllprinthead(&lex);
+	dllprinthead(&lex);
 	if (handle_redir(&lex))
 	{
 		clean_lex(&lex);
@@ -104,7 +104,7 @@ t_lex	*lexer(char *input)
 		return (NULL);
 	}
 	remove_space_token(&lex);
-	ft_putendl("\n\n");
-	dllprinthead(&lex);
+	ft_putendl("");
+//	dllprinthead(&lex);
 	return (lex);
 }

@@ -45,7 +45,8 @@ VPATH = objs:\
 		srcs/builtins/bt_jobs:\
 		srcs/builtins/bt_test:\
 		srcs/redirection:\
-		srcs/hash_table
+		srcs/hash_table\
+		srcs/history_alias_expand:
 
 # ------------------ #
 # Compiler and flags #
@@ -120,7 +121,6 @@ SRCS_NAMES = main.c \
 			 handle_append.c \
 			 handle_less.c \
 			 handle_less_and.c \
-			 handle_and_less.c \
 			 handle_heredoc.c \
 			 handle_great_hyph.c \
 			 handle_less_hyph.c \
@@ -152,6 +152,7 @@ SRCS_NAMES = main.c \
 			 handle_stuff.c \
 			 reading_tools.c \
 			 if_checks.c \
+			 if_greater.c \
 			 bt_exit.c \
 			 bt_echo.c\
 			 add_job.c\

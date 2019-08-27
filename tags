@@ -153,7 +153,7 @@ VPATH	Makefile	/^VPATH = objs:\\$/;"	m
 VPATH	libft/Makefile	/^VPATH = .:\\$/;"	m
 WORD	includes/lexer.h	/^	WORD,$/;"	e	enum:e_token_type
 act_job	srcs/job_control/process_tools.c	/^void	act_job(t_job *j, int fg)$/;"	f
-action_process_signal	srcs/job_control/gest_process.c	/^static void	action_process_signal(t_job *j, t_process *p, int status)$/;"	f	file:
+action_process_signal	srcs/job_control/gest_process.c	/^static int	action_process_signal(t_job *j, t_process *p, int status)$/;"	f	file:
 action_process_status	srcs/job_control/gest_process.c	/^static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)$/;"	f	file:
 actualize	srcs/prompt/edition/editline.c	/^void		actualize(t_pos *pos, t_node *lstcursor, t_node **input,$/;"	f
 add_apply	libft/srcs/ft_printf/add_float.c	/^void	add_apply(int stock, char (*lst)[BUF_S], int i)$/;"	f
@@ -210,8 +210,8 @@ attach_redir_node	srcs/parser/pre_parser/simple_command/attach.c	/^void	attach_r
 b_test	srcs/builtins/bt_test/unary_primaries.c	/^int		b_test(char *str1, char *str2, char *str3)$/;"	f
 background_case	srcs/interpreter/interpreter.c	/^void		background_case(t_ast *node, t_pos *pos, int *bg)$/;"	f
 backspace	srcs/prompt/edition/del_keyhook.c	/^t_node	*backspace(t_node *lstcursor, t_node **input, char buffer[], t_pos *pos)$/;"	f
-backwardjump	srcs/prompt/edition/morekeyhook.c	/^t_node	*backwardjump(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
-backwardmod	srcs/prompt/edition/morekeyhook.c	/^t_node	*backwardmod(t_node *lstcursor, t_pos *pos)$/;"	f
+backwardjump	srcs/prompt/edition/morekeyhook.c	/^t_node				*backwardjump(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
+backwardmod	srcs/prompt/edition/morekeyhook.c	/^t_node				*backwardmod(t_node *lstcursor, t_pos *pos)$/;"	f
 base	includes/builtins.h	/^	char				*base;$/;"	m	struct:s_hist_rep
 base	includes/env.h	/^	int					base;$/;"	m	struct:s_redirect
 base_redirection	srcs/redirection/list_redirection.c	/^t_redirection	*base_redirection(void)$/;"	f
@@ -266,16 +266,19 @@ cd_canonical_getslashbis	srcs/builtins/bt_cd_canonical_c.c	/^static int		cd_cano
 cd_canonical_testprev	srcs/builtins/bt_cd_canonical_b.c	/^static int		cd_canonical_testprev(t_cd *cd, size_t *a)$/;"	f	file:
 cd_chdir	srcs/builtins/bt_cd_utilstwo.c	/^int		cd_chdir(t_cd *cd)$/;"	f
 cd_check_and_go	srcs/builtins/bt_cd.c	/^static int	cd_check_and_go(t_cd *cd)$/;"	f	file:
+cd_dirnull	srcs/builtins/bt_cd_moreutils.c	/^int			cd_dirnull(t_cd *cd)$/;"	f
 cd_err	srcs/builtins/bt_cd_utilstwo.c	/^int		cd_err(t_cd *cd)$/;"	f
 cd_getnextpath	srcs/builtins/bt_cd_utils.c	/^int		cd_getnextpath(char *path)$/;"	f
 cd_getopt	srcs/builtins/bt_cd_utilstwo.c	/^int		cd_getopt(char ac, char **av, t_cd *cd)$/;"	f
 cd_init	srcs/builtins/bt_cd.c	/^static int	cd_init(char **av, t_cd *cd)$/;"	f	file:
+cd_less	srcs/builtins/bt_cd_moreutils.c	/^int			cd_less(t_cd *cd)$/;"	f
 cd_p_noslash_canonical	srcs/builtins/bt_cd.c	/^static int	cd_p_noslash_canonical(t_cd *cd)$/;"	f	file:
 cd_test_cdpath	srcs/builtins/bt_cd_utils.c	/^int		cd_test_cdpath(t_cd *cd, char *test)$/;"	f
 cd_testcdpath	srcs/builtins/bt_cd_utils.c	/^int		cd_testcdpath(char *path, char *directory, char **test)$/;"	f
 cd_testcdpath_curpath	srcs/builtins/bt_cd.c	/^static int	cd_testcdpath_curpath(t_cd *cd)$/;"	f	file:
 cd_testpath	srcs/builtins/bt_cd_utils.c	/^int		cd_testpath(char *path, char *directory, char **test)$/;"	f
 change_fg_var_job	srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^void			change_fg_var_job(t_job *j, int fg)$/;"	f
+check_backslash	srcs/prompt/prompt_tool.c	/^int				check_backslash(t_node *input, t_multi **multi, t_pos *pos,\\$/;"	f
 check_double	srcs/lexer/handle_stuff.c	/^void	check_double(char *input, int *i)$/;"	f
 check_env_path	srcs/environnement/path.c	/^static char	*check_env_path(char *command)$/;"	f	file:
 check_exec_path	srcs/environnement/path.c	/^static void	check_exec_path(char **str)$/;"	f	file:
@@ -340,6 +343,8 @@ copy_selection_right	srcs/prompt/selection/copy_paste.c	/^void		copy_selection_r
 copy_value	srcs/environnement/parser_var_bis.c	/^void		copy_value(char *src, char **dst, int start, int end)$/;"	f
 count	includes/builtins.h	/^	int		count;$/;"	m	struct:s_ht_hash
 count_env	srcs/environnement/manage_env.c	/^static int	count_env(int env)$/;"	f	file:
+count_escape_backslash	srcs/prompt/prompt_tool.c	/^int				count_escape_backslash(t_node *input)$/;"	f
+cpt_signal_process	srcs/job_control/gest_process.c	/^void		cpt_signal_process(t_job *j)$/;"	f
 cpy_redirection	srcs/commands/commands.c	/^static t_redirection	*cpy_redirection(t_redirection *r)$/;"	f	file:
 cpy_std	srcs/main.c	/^static void	cpy_std(int in, int out, int error)$/;"	f	file:
 create_binary_list	srcs/builtins/bt_test/unary_lists.c	/^void	create_binary_list(t_unary_tab **tab_lst)$/;"	f
@@ -351,7 +356,8 @@ create_new_line_env	srcs/environnement/tools_env.c	/^int			create_new_line_env(t
 create_the_node	srcs/parser/pre_parser/handle_quotes/handle_quotes.c	/^t_lex	*create_the_node(char **str)$/;"	f
 create_token	srcs/lexer/token/token.c	/^t_token		*create_token(char *str, t_type types)$/;"	f
 create_unary_list	srcs/builtins/bt_test/unary_lists.c	/^void	create_unary_list(t_unary_tab **tab_lst)$/;"	f
-ctrl_n_friends	srcs/prompt/edition/morekeyhook.c	/^t_node	*ctrl_n_friends(t_node *lstcursor, t_node **input, char buffer[],$/;"	f
+ctrl_n_friends	srcs/prompt/edition/morekeyhook.c	/^t_node				*ctrl_n_friends(t_node *lstcursor, t_node **input,\\$/;"	f
+ctrl_r	srcs/prompt/edition/morekeyhook.c	/^t_node				*ctrl_r(t_node *lstcursor, t_node **input, t_pos *pos)$/;"	f
 curpath	includes/builtins.h	/^	char	*curpath;$/;"	m	struct:s_cd
 current	includes/env.h	/^	int				current;$/;"	m	struct:s_job
 currentline	includes/sh21.h	/^	size_t			currentline;$/;"	m	struct:s_pos
@@ -359,7 +365,7 @@ cursorback	srcs/prompt/edition/stalkcursor.c	/^void			cursorback(t_pos *pos)$/;"
 custom_redirection	srcs/redirection/redirection.c	/^static void	custom_redirection(t_redirect *lst)$/;"	f	file:
 cycle_redirect	srcs/parser/pre_parser/redirect/redirect.c	/^int		cycle_redirect(t_lex **command_node)$/;"	f
 d_test	srcs/builtins/bt_test/unary_primaries.c	/^int		d_test(char *str1, char *str2, char *str3)$/;"	f
-damp_case	srcs/interpreter/interpreter.c	/^void	damp_case(t_ast *node, t_pos *pos, int bg)$/;"	f
+damp_case	srcs/interpreter/interpreter_tools.c	/^void	damp_case(t_ast *node, t_pos *pos, int bg)$/;"	f
 data	includes/lexer.h	/^	char	*data;$/;"	m	struct:s_token
 data	libft/includes/libft.h	/^	void			*data;$/;"	m	struct:s_dlist
 data_size	libft/includes/libft.h	/^	size_t			data_size;$/;"	m	struct:s_dlist
@@ -416,7 +422,7 @@ dlllastnode	srcs/lexer/dll_lex/dll_iter.c	/^t_lex	*dlllastnode(t_lex **head)$/;"
 dllprinthead	srcs/lexer/dll_lex/dll_iter.c	/^void	dllprinthead(t_lex **head)$/;"	f
 dllprinttail	srcs/lexer/dll_lex/dll_iter.c	/^void	dllprinttail(t_lex **tail)$/;"	f
 down	srcs/prompt/edition/keyhook.c	/^t_node		*down(t_node *lstcursor, t_node **input, char buffer[], t_pos *pos)$/;"	f
-dpipe_case	srcs/interpreter/interpreter.c	/^void	dpipe_case(t_ast *node, t_pos *pos, int bg)$/;"	f
+dpipe_case	srcs/interpreter/interpreter_tools.c	/^void	dpipe_case(t_ast *node, t_pos *pos, int bg)$/;"	f
 dprintlist	srcs/prompt/others/dlist.c	/^void		dprintlist(t_node *node, int direction)$/;"	f
 dpush	srcs/prompt/others/dlist.c	/^void		dpush(t_node **head, char key)$/;"	f
 dquote	includes/sh21.h	/^	int				dquote;$/;"	m	struct:s_integerity
@@ -425,7 +431,7 @@ dub_possible	srcs/lexer/lexer.c	/^int		dub_possible(char c)$/;"	f
 e_test	srcs/builtins/bt_test/unary_primaries.c	/^int		e_test(char *str1, char *str2, char *str3)$/;"	f
 e_token_type	includes/lexer.h	/^enum	e_token_type$/;"	g
 echo_arg	srcs/builtins/bt_echo.c	/^static int	echo_arg(char **av)$/;"	f	file:
-edge_case	srcs/interpreter/interpreter.c	/^void	edge_case(t_ast *node, t_pos *pos, int bg)$/;"	f
+edge_case	srcs/interpreter/interpreter_tools.c	/^void	edge_case(t_ast *node, t_pos *pos, int bg)$/;"	f
 edit_current_value	srcs/job_control/add_job.c	/^void		edit_current_value(int value)$/;"	f
 edit_export	srcs/environnement/manage_env.c	/^int			edit_export(char *key)$/;"	f
 edit_pid_shell	srcs/job_control/process_tools.c	/^void	edit_pid_shell(int pid, t_job *j, t_process *p)$/;"	f
@@ -515,7 +521,7 @@ flags	srcs/main.c	/^void		flags(int argc, char **argv)$/;"	f
 fonction_moche	srcs/lexer/lexer.c	/^int		fonction_moche(int *i, char **input)$/;"	f
 fork_pipe	srcs/job_control/process_pipe.c	/^static void	fork_pipe(t_job *j, t_process *p, int fg, int fd[2])$/;"	f	file:
 format	libft/includes/ft_printf.h	/^	char			*format;$/;"	m	struct:s_printf
-forwardjump	srcs/prompt/edition/morekeyhook.c	/^t_node	*forwardjump(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
+forwardjump	srcs/prompt/edition/morekeyhook.c	/^t_node				*forwardjump(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
 free_all_job	srcs/job_control/free_job.c	/^void		free_all_job(void)$/;"	f
 free_arr	srcs/prompt/edition/editiontools.c	/^void		free_arr(char **cmd)$/;"	f
 free_env	srcs/environnement/free_env.c	/^void		free_env(t_env **lst)$/;"	f
@@ -834,15 +840,17 @@ hist_rep_reperr	srcs/lexer/history_replace_moreutils.c	/^char		*hist_rep_reperr(
 hist_rep_replace	srcs/lexer/history_replace.c	/^char		*hist_rep_replace(t_hist_rep *replace, t_pos *pos)$/;"	f
 hist_rep_save	srcs/lexer/history_replace.c	/^t_hist_rep	*hist_rep_save(char *input, int start, int i, t_hist_rep *replace)$/;"	f
 hist_rep_saveexp	srcs/lexer/history_replace.c	/^t_hist_rep	*hist_rep_saveexp(char *input, int start, int i,$/;"	f
+hist_rep_savenew	srcs/lexer/history_replace_moreutils.c	/^void		hist_rep_savenew(int start, int i, t_hist_rep *new, char *input)$/;"	f
 history	includes/sh21.h	/^	t_node			*history;$/;"	m	struct:s_pos
 history_downcase	srcs/prompt/history/history.c	/^t_node			*history_downcase(t_node *lstcursor, t_node **input, t_pos *pos)$/;"	f
 history_file	srcs/prompt/history/history_file.c	/^void		history_file(t_node *history)$/;"	f
 history_no_double	srcs/prompt/history/history_file.c	/^char		*history_no_double(t_pos *pos)$/;"	f
 history_replace	srcs/lexer/history_replace.c	/^char		*history_replace(char *input, t_pos *pos)$/;"	f
+history_replace_get	srcs/lexer/history_replace_moreutils.c	/^t_hist_rep	*history_replace_get(char *input, t_hist_rep *replace, int i,$/;"	f
 history_to_lst	srcs/prompt/history/history.c	/^t_node			*history_to_lst(t_node *lstcursor, char *historyline,$/;"	f
 historycount	includes/sh21.h	/^	int				historycount;$/;"	m	struct:s_pos
 historysum	includes/sh21.h	/^	int				historysum;$/;"	m	struct:s_pos
-home_end	srcs/prompt/edition/morekeyhook.c	/^t_node	*home_end(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
+home_end	srcs/prompt/edition/keyhook.c	/^t_node		*home_end(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
 hp_is_reserved_word	srcs/lexer/alias_replace_utils.c	/^int					hp_is_reserved_word(char *str)$/;"	f
 ht_hash_copy	srcs/hash_table/ht_hash_moreutils.c	/^void		ht_hash_copy(t_ht_hash *ht, t_ht_hash *new_ht)$/;"	f
 ht_hash_del	srcs/hash_table/ht_hash_utils.c	/^void		ht_hash_del(t_ht_hash *ht)$/;"	f
@@ -920,7 +928,7 @@ is_split	libft/srcs/ft_strsplit.c	/^static int	is_split(char c, char spl)$/;"	f	
 is_split	libft/srcs/ft_strsplit_commands.c	/^static int	is_split(char *str)$/;"	f	file:
 isrep	includes/builtins.h	/^	int					isrep;$/;"	m	struct:s_hist_rep
 j	libft/includes/libft.h	/^	int				j;$/;"	m	struct:s_merge
-job_done	srcs/job_control/status_process.c	/^static void	job_done(t_job *j)$/;"	f	file:
+job_done	srcs/job_control/status_process.c	/^void	job_done(t_job *j)$/;"	f
 job_for_bg_fg	srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^t_job			*job_for_bg_fg(char **av)$/;"	f
 job_for_bg_fg_opt	srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^static t_job	*job_for_bg_fg_opt(char **av)$/;"	f	file:
 job_is_completed	srcs/job_control/tools_job.c	/^int			job_is_completed(t_job *job)$/;"	f
@@ -962,6 +970,7 @@ len_close	includes/env.h	/^	int				len_close;$/;"	m	struct:s_job
 len_float	libft/srcs/ft_printf/tools_float_bis.c	/^int		len_float(t_printf **lst, int stock[3], int neg)$/;"	f
 lexer	srcs/lexer/lexer.c	/^t_lex	*lexer(char *input)$/;"	f
 line	includes/sh21.h	/^	char			*line;$/;"	m	struct:s_node
+line_to_history	srcs/prompt/prompt_tool.c	/^void			line_to_history(char **inputstr, t_pos *pos)$/;"	f
 lst_to_str	srcs/prompt/others/othertools.c	/^char		*lst_to_str(t_multi **multi, char *inputstr)$/;"	f
 lst_to_str_loop	srcs/prompt/others/othertools.c	/^char		*lst_to_str_loop(t_multi *lstcursor, char *inputstr)$/;"	f
 lst_to_str_mod	srcs/prompt/others/othertools.c	/^char		*lst_to_str_mod(t_multi *lstcursor, char *temp)$/;"	f
@@ -1009,6 +1018,7 @@ next	srcs/parser/ast/ast_parser_tools.c	/^t_token			*next(void)$/;"	f
 node_ast	srcs/parser/ast/tree_utils.c	/^t_ast		*node_ast(t_token *token, t_ast *l, t_ast *r)$/;"	f
 notequal_test	srcs/builtins/bt_test/binary_primaries.c	/^int		notequal_test(char *str1, char *str2, char *str3)$/;"	f
 notif_stop	includes/env.h	/^	int				notif_stop;$/;"	m	struct:s_job
+notif_stop	srcs/job_control/status_process.c	/^void		notif_stop(t_job *j)$/;"	f
 notified	includes/env.h	/^	int				notified;$/;"	m	struct:s_job
 nud	srcs/parser/ast/ast_parser.c	/^t_ast			*nud(t_token *t)$/;"	f
 open_file_command	srcs/redirection/manage_file.c	/^int			open_file_command(t_redir *redir, t_pos *pos)$/;"	f
@@ -1146,7 +1156,7 @@ search_and_print	srcs/prompt/history/history_search.c	/^char			*search_and_print
 search_conversion	libft/srcs/ft_printf/parser.c	/^void	search_conversion(t_printf **lst)$/;"	f
 search_good_expansion	srcs/environnement/parameter_expansion.c	/^int				search_good_expansion(char *tmp)$/;"	f
 search_job	srcs/builtins/bt_jobs/bt_jobs_options.c	/^t_job			*search_job(char *av)$/;"	f
-search_keyhook	srcs/prompt/history/history_search.c	/^int				search_keyhook(t_node **input, char buffer[], \\$/;"	f
+search_keyhook	srcs/prompt/history/history_search.c	/^int				search_keyhook(t_node **input, char buffer[])$/;"	f
 search_to_str	srcs/prompt/history/history_search.c	/^char			*search_to_str(t_node *input)$/;"	f
 search_var	srcs/environnement/parser_var_bis.c	/^char		*search_var(char *src)$/;"	f
 see_env	includes/env.h	/^	int				see_env;$/;"	m	struct:s_env
@@ -1162,9 +1172,10 @@ set_tab_types_2	srcs/lexer/types.c	/^void	set_tab_types_2(t_tab_type **tab_of_ty
 shift_left	srcs/prompt/selection/text_selection.c	/^t_node		*shift_left(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
 shift_right	srcs/prompt/selection/text_selection.c	/^t_node		*shift_right(t_node *lstcursor, char buffer[], t_pos *pos)$/;"	f
 siginthandler	srcs/main.c	/^int			siginthandler(int signum)$/;"	f
+signal	includes/env.h	/^	int				signal;$/;"	m	struct:s_job
 simple_command	srcs/parser/pre_parser/simple_command/simple_command.c	/^void	simple_command(t_lex **head)$/;"	f
 size	includes/builtins.h	/^	int		size;$/;"	m	struct:s_ht_hash
-solo_tree	srcs/interpreter/interpreter.c	/^int		solo_tree(t_ast *node, t_pos *pos)$/;"	f
+solo_tree	srcs/interpreter/interpreter_tools.c	/^int		solo_tree(t_ast *node, t_pos *pos)$/;"	f
 spipe_case	srcs/interpreter/interpreter.c	/^void	spipe_case(t_ast *node, t_pos *pos, int bg)$/;"	f
 split_once	libft/srcs/split_once.c	/^char		**split_once(char *str, char c)$/;"	f
 src_fd	includes/lexer.h	/^	char	**src_fd;$/;"	m	struct:s_redir

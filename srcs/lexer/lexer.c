@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:29 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/26 23:04:48 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 02:27:42 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ int		fonction_moche(int *i, char **input)
 	return (1);
 }
 
+int		ft_isreallyspace(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\v'
+			|| c == '\f' || c == '\r')
+		return (1);
+	return (0);
+}
+
 void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)
 {
 	int		i;
@@ -49,7 +57,7 @@ void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)
 		last_t = i;
 		while (input[i] && !(to_check))
 		{
-			if (ft_isspace(input[i]) && (i != last_t))
+			if (ft_isreallyspace(input[i]) && (i != last_t))
 				to_check = 1;
 			else if (input[i] == '\\' && (i != last_t))
 				to_check = 1;
@@ -84,7 +92,7 @@ t_lex	*lexer(char *input)
 
 	lex = NULL;
 	reading_input(input, &lex);
-//	dllprinthead(&lex);
+	dllprinthead(&lex);
 	lex = add_delim(&lex);
 	handle_quotes(&lex);
 	simple_command(&lex);
@@ -96,6 +104,7 @@ t_lex	*lexer(char *input)
 		return (NULL);
 	}
 	remove_space_token(&lex);
-//	dllprinthead(&lex);
+	ft_putendl("\n\n");
+	dllprinthead(&lex);
 	return (lex);
 }

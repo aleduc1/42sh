@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:15:13 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/25 06:22:14 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 02:23:14 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int		handle_whitespace(char *input, int i, t_lex **lex);
 int		ft_isnumbers(char *str);
 int		is_in_tab(t_tab_type **tab_of_type, char c);
 int		is_amper(char c);
+int		ft_isreallyspace(char c);
 int		is_lesser_greater(char c);
 int		is_hyph(char c);
 int		skip_whitespace(char *str, int i);

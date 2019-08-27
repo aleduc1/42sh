@@ -253,7 +253,10 @@ SRCS_NAMES = main.c \
 			 value_job_control.c\
 			 bt_jobs_p.c\
 			 assembly_command.c\
-			 create_commands.c
+			 create_commands.c\
+			 init_heredoc.c\
+			 reading_input.c\
+			 remove_element.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

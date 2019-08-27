@@ -12,27 +12,6 @@
 
 #include "env.h"
 
-int			ft_remove_element(char **line, int i, int expand)
-{
-	ft_strremove_char(line, i);
-	if ((*line)[i] && (*line)[i] == '\\')
-		++i;
-	else if (!(*line)[i])
-		return (1);
-	else if ((*line)[i] == '\n')
-	{
-		ft_strremove_char(line, i);
-		--i;
-	}
-	else if (((*line)[i] == '"' || (*line)[i] == '\'')
-			&& (expand == 0 || expand > 0))
-	{
-		ft_strremove_char(line, i);
-		--i;
-	}
-	return (0);
-}
-
 void		removebackslash(char **line)
 {
 	int		i;

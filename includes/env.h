@@ -476,6 +476,8 @@ void				remove_quote(char ***value);
 void				remove_quote_line(char **line);
 void				removebackslash(char **line);
 
+int					ft_remove_element(char **line, int i, int expand);
+
 /*
 ** dup_restore.c
 */

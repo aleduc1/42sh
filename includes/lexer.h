@@ -78,6 +78,9 @@ struct	s_redir
 	int		close;
 };
 
+void	reading_input(char *input, t_lex **lex);
+void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t);
+
 int		init_variables(t_token **tok, int *to_check, int *i, t_tab_type **t);
 
 void	set_tab_types(t_tab_type **tab_of_types);

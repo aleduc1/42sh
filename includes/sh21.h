@@ -110,6 +110,8 @@ void				welcome(void);
 void				default_term_mode(void);
 void				raw_term_mode(void);
 
+void				init_heredoc(t_pos *pos);
+
 t_node				*check_input(t_node *lstcursor, t_node **input, \
 										char buffer[], t_pos *pos);
 void				wrapping(t_pos *pos);

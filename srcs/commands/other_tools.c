@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 21:43:35 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 21:57:27 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			gest_error_path(char *cmd, t_redirection *r)
 		gest_return(126);
 		return (126);
 	}
-	display_command_not_found(r, cmd);	
+	display_command_not_found(r, cmd);
 	gest_return(127);
 	return (127);
 }

@@ -63,15 +63,6 @@ void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)
 	}
 }
 
-void	reading_input(char *input, t_lex **lex)
-{
-	t_token		*tok;
-	t_tab_type	*tab_of_type;
-
-	reading_loop(input, lex, &tok, &tab_of_type);
-	ft_memdel((void **)&tab_of_type);
-}
-
 void	prepare_input(char *input)
 {
 	int		i;

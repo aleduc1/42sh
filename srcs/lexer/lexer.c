@@ -6,16 +6,16 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:29 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 10:02:26 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:51:40 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int		handle_backslash(int *i, char **input)
+int		handle_backslash(int *i, char *input)
 {
 	(*i)++;
-	if ((*input)[(*i)] && (*input)[(*i) + 1] && (*input)[(*i) + 2])
+	if (input[(*i)])
 		(*i)++;
 	return (1);
 }
@@ -30,7 +30,7 @@ int		lexer_begin_loop(char *input, int *i, int last_t)
 	else if (input[*i] == '\\' && (*i != last_t))
 		to_check = 1;
 	else if (input[*i] == '\\')
-		to_check = handle_backslash(i, &input);
+		to_check = handle_backslash(i, input);
 	return (to_check);
 }
 
@@ -72,11 +72,30 @@ void	reading_input(char *input, t_lex **lex)
 	ft_memdel((void **)&tab_of_type);
 }
 
+void	prepare_input(char *input)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	j = 0;
+	while ((tmp = ft_strchr(input, '\\')) != NULL && *(tmp + 1) == '\n')
+	{
+		i = tmp + 2 - input;
+		j = tmp - input;
+		while (input[i] != '\0')
+			input[j++] = input[i++];
+		input[j] = '\0';
+	}
+}
+
 t_lex	*lexer(char *input)
 {
 	t_lex	*lex;
 
 	lex = NULL;
+	prepare_input(input);
 	reading_input(input, &lex);
 	lex = add_delim(&lex);
 	handle_quotes(&lex);

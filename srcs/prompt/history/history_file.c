@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 08:32:42 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 19:53:25 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 16:04:52 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		history_file(t_node *history)
 	int		fd;
 
 	cursor = history;
-	fd = open(".history", O_RDWR | O_CREAT, 0666);
+	fd = open("/tmp/.history", O_RDWR | O_CREAT, 0666);
 	while (cursor->next)
 		cursor = cursor->next;
 	while (cursor->prev)
@@ -37,7 +37,8 @@ void		file_to_history(t_pos *pos)
 	char	*history_line;
 
 	history_line = NULL;
-	fd = open(".history", O_RDWR | O_CREAT, 0666);
+	fd = open("/tmp/.history", O_RDWR | O_CREAT, 0666);
+	inserthistory(pos->history, " ", pos); 
 	while (get_next_line(fd, &history_line) > 0)
 	{
 		inserthistory(pos->history, history_line, pos);

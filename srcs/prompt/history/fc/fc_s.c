@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:13:03 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/25 19:48:05 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 15:56:35 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int			fc_s_all(t_fc *fc, t_node *lstcursor, t_pos *pos, int count)
 	command = NULL;
 	if (fc_get_index(lstcursor, count, &fc->first_index, fc->first) == -1)
 		return (fc_usage(-1, fc, 2));
-	while (lstcursor->next && ++i < count - fc->first_index)
+	while (lstcursor && lstcursor->next && ++i < count - fc->first_index)
 		lstcursor = lstcursor->next;
-	if (fc->pat_rep && !ft_strequ(fc->pat_rep, "--"))
+	if (lstcursor->line && fc->pat_rep && !ft_strequ(fc->pat_rep, "--"))
 		command = fc_rep(lstcursor->line, fc->pat_rep);
 	else
 		command = ft_strdup(lstcursor->line);

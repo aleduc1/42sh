@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:12:35 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/26 04:44:10 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 15:51:57 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ int			fc_e_basic(t_fc *fc, t_node *lstcursor, t_pos *pos)
 	int		fd;
 
 	fc_check_editor(fc);
-	fc->cmd = ft_strdup(lstcursor->line);
+	if (lstcursor)
+		fc->cmd = ft_strdup(lstcursor->line);
 	fd = open("/tmp/42sh-fc.file", O_RDWR | O_CREAT | O_TRUNC, 0666);
-	write(fd, fc->cmd, ft_strlen(fc->cmd));
+	if (fc->cmd)
+		write(fd, fc->cmd, ft_strlen(fc->cmd));
+	else
+		write(fd, " ", 1);
 	write(fd, "\n", 1);
 	ft_simple_command_fc(fc->editor);
 	close(fd);

@@ -70,7 +70,9 @@ LFLAGS = -lncurses
 NAME = 42sh
 
 SRCS_NAMES = main.c \
+			 setup_main.c \
 			 lexer.c \
+			 lex_check.c \
 			 types.c \
 			 dll_new.c \
 			 dll_ins.c \
@@ -188,7 +190,6 @@ SRCS_NAMES = main.c \
 			 alias_replace.c\
 			 alias_replace_utils.c\
 			 get_options.c\
-			 display.c\
 			 bt_cd.c\
 			 bt_cd_utilstwo.c\
 			 bt_cd_utils.c\

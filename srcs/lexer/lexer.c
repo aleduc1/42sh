@@ -6,18 +6,11 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:29 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 05:58:05 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:04:44 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-int		dub_possible(char c)
-{
-	if (c == '|' || c == '&' || c == '>' || c == '<' || c == ';')
-		return (1);
-	return (0);
-}
 
 int		init_variables(t_token **tok, int *to_check, int *i, t_tab_type **t)
 {
@@ -28,20 +21,12 @@ int		init_variables(t_token **tok, int *to_check, int *i, t_tab_type **t)
 	return (0);
 }
 
-int		fonction_moche(int *i, char **input)
+int		handle_backslash(int *i, char **input)
 {
 	(*i)++;
 	if ((*input)[(*i)] && (*input)[(*i) + 1] && (*input)[(*i) + 2])
 		(*i)++;
 	return (1);
-}
-
-int		ft_isreallyspace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\v'
-			|| c == '\f' || c == '\r')
-		return (1);
-	return (0);
 }
 
 void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)
@@ -62,7 +47,7 @@ void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)
 			else if (input[i] == '\\' && (i != last_t))
 				to_check = 1;
 			else if (input[i] == '\\')
-				to_check = fonction_moche(&i, &input);
+				to_check = handle_backslash(&i, &input);
 			else if (input[i] == '\"' || input[i] == '\'')
 				to_check = handle_string_case(&i, &last_t, &input, tok);
 			else if (is_in_tab(t, input[i]))

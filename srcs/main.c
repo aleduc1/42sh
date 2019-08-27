@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 05:57:35 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:10:55 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@
 t_ht_hash	*g_hash_table;
 t_ht_hash	*g_alias_table;
 
-int			siginthandler(int signum)
-{
-	(void)signum;
-	ft_printf("signal handler\n");
-	return (0);
-}
-
 void		flags(int argc, char **argv)
 {
 	g_print_ast = 0;
@@ -38,74 +31,6 @@ void		flags(int argc, char **argv)
 			g_print_ast = 1;
 	}
 	return ;
-}
-
-int			check_whitespace_input(char *input)
-{
-	int		i;
-
-	i = 0;
-	while (input && input[i])
-	{
-		if (ft_isspace(input[i]))
-			i++;
-		else
-			return (1);
-	}
-	return (0);
-}
-
-void		run(char *input, t_pos *pos)
-{
-	t_lex	*lex;
-	t_ast	*ast;
-	int		verif;
-
-	lex = NULL;
-	ast = NULL;
-	input = alias_replace(input, NULL);
-	verif = check_whitespace_input(input);
-	if (verif && (lex = lexer(input)))
-		if ((ast = ast_parser(lex)) && (solo_tree(ast, pos) < 0))
-			interpreter(ast, pos, 0);
-	if (input)
-	{
-		ft_strdel(&input);
-		clean_lex(&lex);
-		clean_ast(ast);
-	}
-}
-
-static void	cpy_std(int in, int out, int error)
-{
-	char	*s_in;
-	char	*s_out;
-	char	*s_error;
-
-	s_in = ft_itoa(in);
-	s_out = ft_itoa(out);
-	s_error = ft_itoa(error);
-	add_set_value_perm("STDIN", s_in, 3);
-	add_set_value_perm("STDOUT", s_out, 3);
-	add_set_value_perm("STDERR", s_error, 3);
-	ft_strdel(&s_in);
-	ft_strdel(&s_out);
-	ft_strdel(&s_error);
-}
-
-static void	ft_name_exec(char *name_exec)
-{
-	int		len;
-	char	*cache;
-
-	len = ft_strlen(name_exec);
-	if (len < 3)
-		return ;
-	cache = ft_strsub(name_exec, 2, len);
-	add_set_value("0", cache);
-	add_set_value("EDITOR", "vim");
-	add_set_value("FCEDIT", "vim");
-	ft_strdel(&cache);
 }
 
 static void	edit_shell(char *name_exec)
@@ -130,22 +55,25 @@ static void	edit_shell(char *name_exec)
 	ft_name_exec(name_exec);
 }
 
-static void	init_alias(void)
+void		run(char *input, t_pos *pos)
 {
-	g_hash_table = ht_hash_new();
-	g_alias_table = ht_hash_new();
-	if (OS == 0)
-		ht_hash_insert(g_alias_table, "ls", "ls -G");
-	else
+	t_lex	*lex;
+	t_ast	*ast;
+	int		verif;
+
+	lex = NULL;
+	ast = NULL;
+	input = alias_replace(input, NULL);
+	verif = check_whitespace_input(input);
+	if (verif && (lex = lexer(input)))
+		if ((ast = ast_parser(lex)) && (solo_tree(ast, pos) < 0))
+			interpreter(ast, pos, 0);
+	if (input)
 	{
-		free_maillon_env("LS_COLORS", 0);
-		ht_hash_insert(g_alias_table, "ls", "ls --color");
+		ft_strdel(&input);
+		clean_lex(&lex);
+		clean_ast(ast);
 	}
-	ht_hash_insert(g_alias_table, "b", "base64 /dev/urandom");
-	ht_hash_insert(g_alias_table, "..", "cd ..");
-	ht_hash_insert(g_alias_table, "-", "cd -");
-	ht_hash_insert(g_alias_table, "?", "echo $?");
-	ht_hash_insert(g_alias_table, "posix", "bash --posix");
 }
 
 int			main(int argc, char **argv, char **environ)

@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 20:46:40 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/07 20:47:19 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 08:12:37 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 int		is_operator(t_type type)
 {
-	if (type == SPIPE || type == DPIPE || type == AMP || type == DAMP || type == SCOLON)
+	if (type == SPIPE || type == DPIPE || type == AMP \
+			|| type == DAMP || type == SCOLON)
 		return (1);
 	return (0);
 }

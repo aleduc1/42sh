@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 17:18:54 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/26 03:29:27 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 08:12:25 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int		is_only_space(t_lex **node_cmd)
 	ptr = (*node_cmd)->token->command;
 	if (ptr->next == NULL && ptr->token->type == SPACE)
 		return (1);
-	if (ptr->token->type == DELIM && ptr->next->token->type == SPACE && ptr->next->next == NULL)
+	if (ptr->token->type == DELIM && ptr->next->token->type == SPACE \
+			&& ptr->next->next == NULL)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 06:42:32 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 20:50:01 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ void		job_notif(void)
 			bt_jobs_s(j, get_shell()->max_job_current);
 		else if (job_is_stopped(j))
 			notif_stop(j);
-		else if (WIFSIGNALED(j->first_process->status))
+		else if (WIFSIGNALED(j->first_process->status)
+				&& WTERMSIG(j->first_process->status) != 1
+				&& WTERMSIG(j->first_process->status) != 13)
 			bt_jobs_s(j, get_shell()->max_job_current);
 		j = j->next;
 	}

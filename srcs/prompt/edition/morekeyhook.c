@@ -137,6 +137,7 @@ t_node				*ctrl_n_friends(t_node *lstcursor, t_node **input,\
 		lstcursor = ctrl_r(lstcursor, input, pos);
 		ft_putstr(tgetstr("le", NULL));
 		ft_putstr(tgetstr("cd", NULL));
+		stalk_cursor(pos);
 	}
 	return (lstcursor);
 }

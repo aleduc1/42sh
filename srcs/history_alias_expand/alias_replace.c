@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 09:05:19 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 20:28:41 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 21:02:26 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char				*alias_rep_word(char *base, int *isrep,
 	t_repalias	*curr;
 	char		*new;
 
+	if (!base)
+		return (base);
 	val = ht_hash_search(g_alias_table, base);
 	if (val == NULL)
 		return (base);

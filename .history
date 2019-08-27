@@ -414,3 +414,21 @@ l\ >
 clear
 l\ s
 exit
+posix
+ls & <oui
+ls &<oui
+make
+.
+>
+<<
+>>
+> > < < 
+ls &<oui
+ls
+rm oui
+ls &<oui
+cat oui
+posix
+< oui
+ls & ; < oui
+ls & < oui

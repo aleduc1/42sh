@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:40:12 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/09 07:31:49 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 02:44:10 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_redir	*redir_struct_and_less(t_lex **start)
 	ptr = *start;
 	if (!(redir_info = (t_redir *)ft_memalloc(sizeof(t_redir))))
 		return (NULL);
-	if (!(redir_info->src_fd = (char **)ft_memalloc(sizeof(char *) * 2)))
+	if (!(redir_info->src_fd = (char **)ft_memalloc(sizeof(char *) * 3)))
 		return (NULL);
 	redir_info->type = AMPLESS;
 	ft_default(&redir_info);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 07:46:11 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 08:28:25 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 14:12:29 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int						cd_dirnull(t_cd *cd);
 int						cd_less(t_cd *cd);
 int						cd_testcdpath(char *path, char *directory, char **test);
 int						cd_testpath(char *path, char *directory, char **test);
-int						cd_getnextpath(char *path);
+int						cd_getnextpath(char *path, int tozero);
 int						cd_test_cdpath(t_cd *cd, char *test);
 int						cd_canonical(t_cd *cd);
 int						cd_canonical_a(t_cd *cd);

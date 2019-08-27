@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 17:22:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 10:11:35 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 14:17:58 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ int		cd_test_cdpath(t_cd *cd, char *test)
 	int		j;
 	char	*path;
 
-	path = value_line_path("CDPATH", 0);
-	j = 7;
+	if ((path = value_line_path("CDPATH", 0)) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: cd: Failed to malloc\n");
+		return (0);
+	}
+	j = 0;
 	while (path[j] != '\0')
 	{
 		if ((cd_testcdpath(&(path[j]), cd->directory, &test)))
@@ -27,7 +31,7 @@ int		cd_test_cdpath(t_cd *cd, char *test)
 			ft_strdel(&path);
 			return (1);
 		}
-		j += cd_getnextpath(&(path[j]));
+		j += cd_getnextpath(&(path[j]), 0);
 	}
 	ft_strdel(&path);
 	return (0);
@@ -54,7 +58,7 @@ int		is_env_empty(char *value)
 	return (1);
 }
 
-int		cd_getnextpath(char *path)
+int		cd_getnextpath(char *path, int tozero)
 {
 	int	i;
 
@@ -62,7 +66,7 @@ int		cd_getnextpath(char *path)
 	while (path[i] != '\0' && path[i] != ':')
 		i++;
 	if (path[i] != '\0')
-		return (i + 1);
+		return (i + 1 - tozero);
 	return (i);
 }
 
@@ -94,14 +98,19 @@ int		cd_testcdpath(char *path, char *directory, char **test)
 	int		i;
 	int		j;
 	char	*tmp;
+	char	sav;
 
-	i = cd_getnextpath(path);
+	i = cd_getnextpath(path, 1);
 	if ((tmp = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, "42sh: cd: Failed to malloc\n");
 		return (0);
 	}
+	sav = path[i];
+	path[i] = '\0';
+	tmp = ft_strcpy(tmp, path);
 	j = cd_testpath(tmp, directory, test);
+	path[i] = sav;
 	ft_strdel(&tmp);
 	return (j);
 }

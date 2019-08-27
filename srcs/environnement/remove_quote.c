@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 01:35:32 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 05:31:35 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,39 @@ void		ft_strremove_char(char **src, int i)
 	ft_strdel(&tmp_bis);
 }
 
+void		removebackslash(char **line)
+{
+	int		i;
+	int		expand;
+
+	i = 0;
+	expand = 0;
+	if ((!line) || (!(*line)))
+		return ;
+	while ((*line) && (*line)[i])
+	{
+		expand = manage_is_quote((*line), i, expand);
+		if ((*line)[i] == '\\' && expand > 0)
+		{
+			ft_strremove_char(line, i);
+			if ((*line)[i] && (*line)[i] == '\\')
+				++i;
+			else if (!(*line)[i])
+				break ;
+		}
+		else if ((*line)[i] == '\\' && expand == 0)
+		{
+			ft_strremove_char(line, i);
+			if ((*line)[i] && (*line)[i] == '\\')
+				++i;
+			else if (!(*line)[i])
+				break ;
+		}
+		else
+			++i;
+	}
+}
+
 void		remove_quote_line(char **line)
 {
 	int	i;
@@ -44,42 +77,23 @@ void		remove_quote_line(char **line)
 		return ;
 	while ((*line)[++i])
 	{
-		ft_printf("je suis la %c %d\n", (*line)[i],  (*line)[i]);
 		expand = manage_is_quote((*line), i, expand);
 		if ((((*line)[i] == '\'' && expand > 0)
-			|| ((*line)[i] == '"' && expand < 0)
-			|| ((*line)[i] == '\\' && expand < 0))
+			|| ((*line)[i] == '"' && expand < 0))
 			&& (i - 1 < 0 || (*line)[i - 1] != '\\'))
 		{
-			if ((*line)[i] == '\\' && (*line)[i + 1] && (*line)[i + 1] == '\n')
-			{
-				ft_strremove_char(line, i + 1);
-				--i;
-			}
-			else
-			{
-				ft_strremove_char(line, i);
-				--i;
-			}
+			ft_strremove_char(line, i);
+			--i;
 		}
 		else if ((((*line)[i] == '\'' && expand == 0)
-				|| ((*line)[i] == '"' && expand == 0)
-				|| ((*line)[i] == '\\' && expand ==0))
+				|| ((*line)[i] == '"' && expand == 0))
 				&& (i - 1 < 0 || (*line)[i - 1] != '\\'))
 		{
-			if ((*line)[i] == '\\' && (*line)[i + 1] && (*line)[i + 1] == '\n')
-			{
-				ft_strremove_char(line, i + 1);
-				--i;
-			}
-			else
-			{
-				ft_strremove_char(line, i);
-				--i;
-			}
+			ft_strremove_char(line, i);
+			--i;
 		}
 	}
-	ft_printf("fin\n");
+	removebackslash(line);
 }
 
 void		remove_quote(char ***value)

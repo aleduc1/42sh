@@ -20,7 +20,8 @@ int					g_print_ast;
 t_lex				*g_stream;
 int					g_out;
 
-# define OPERATORS (t->type == SCOLON || t->type == SPIPE || t->type == DELIM)
+# define OPERATORS (t->type == SCOLON || t->type == SPIPE || t->type == AMP ||\
+					t->type == DAMP || t->type == DPIPE || t->type == DELIM)
 
 typedef struct		s_ast
 {

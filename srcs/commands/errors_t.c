@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 08:06:38 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 19:58:58 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,10 @@ void	display_no_current_job(char *name)
 
 void	display_no_job_control(char *name)
 {
-	char	*name_shell;
 	char	*data;
 	char	*cache;
 
-	name_shell = name_exec_error();
-	cache = ft_strjoin(name_shell, name);
-	ft_strdel(&name);
+	cache = ft_strjoin("42sh: ", name);
 	data = ft_strjoin(cache, ": no job control\n");
 	ft_putstr_fd(data, STDERR_FILENO);
 	ft_strdel(&cache);

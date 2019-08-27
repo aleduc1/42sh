@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 05:52:21 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:43:27 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,10 @@ int					d_test(char *str1, char *str2, char *str3);
 int					e_test(char *str1, char *str2, char *str3);
 int					f_test(char *str1, char *str2, char *str3);
 int					g_test(char *str1, char *str2, char *str3);
-int					L_test(char *str1, char *str2, char *str3);
+int					upper_l_test(char *str1, char *str2, char *str3);
 int					p_test(char *str1, char *str2, char *str3);
 int					r_test(char *str1, char *str2, char *str3);
-int					S_test(char *str1, char *str2, char *str3);
+int					upper_s_test(char *str1, char *str2, char *str3);
 int					s_test(char *str1, char *str2, char *str3);
 int					u_test(char *str1, char *str2, char *str3);
 int					w_test(char *str1, char *str2, char *str3);
@@ -328,4 +328,4 @@ int			fc_get_index(t_node *lstcursor, int count, int *fc_index, \
 												char *fc_first_last);
 int			builtin_fc(char **av, t_pos *pos);
 
-#	endif
+#endif

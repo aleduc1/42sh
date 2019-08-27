@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 00:46:12 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/23 05:37:22 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 07:38:59 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		e_test(char *str1, char *str2, char *str3)
 	struct stat	sb;
 
 	if (stat(str2, &sb) != -1)
-			return (0);
+		return (0);
 	(void)str1;
 	(void)str3;
 	return (1);
@@ -93,7 +93,7 @@ int		g_test(char *str1, char *str2, char *str3)
 	return (1);
 }
 
-int		L_test(char *str1, char *str2, char *str3)
+int		upper_l_test(char *str1, char *str2, char *str3)
 {
 	struct stat	sb;
 
@@ -135,7 +135,7 @@ int		r_test(char *str1, char *str2, char *str3)
 	return (1);
 }
 
-int		S_test(char *str1, char *str2, char *str3)
+int		upper_s_test(char *str1, char *str2, char *str3)
 {
 	struct stat	sb;
 

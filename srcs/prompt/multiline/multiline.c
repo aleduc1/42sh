@@ -33,7 +33,7 @@ t_node		*try_to_match(t_node *cursor, t_integrity *count, char type)
 	{
 		if (cursor->key == type)
 		{
-			if (type == '"')
+			if (cursor->next->key != '\\' && type == '"')
 				count->dquote++;
 			if (type == '\'')
 				count->quote++;

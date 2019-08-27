@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 03:48:07 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 05:27:43 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,39 @@ void		ft_strremove_char(char **src, int i)
 	(*src) = ft_strjoin(tmp, tmp_bis);
 	ft_strdel(&tmp);
 	ft_strdel(&tmp_bis);
+}
+
+void		removebackslash(char **line)
+{
+	int		i;
+	int		expand;
+
+	i = 0;
+	expand = 0;
+	if ((!line) || (!(*line)))
+		return ;
+	while ((*line) && (*line)[i])
+	{
+		expand = manage_is_quote((*line), i, expand);
+		if ((*line)[i] == '\\' && expand > 0)
+		{
+			ft_strremove_char(line, i);
+			if ((*line)[i] && (*line)[i] == '\\')
+				++i;
+			else if (!(*line)[i])
+				break ;
+		}
+		else if ((*line)[i] == '\\' && expand == 0)
+		{
+			ft_strremove_char(line, i);
+			if ((*line)[i] && (*line)[i] == '\\')
+				++i;
+			else if (!(*line)[i])
+				break ;
+		}
+		else
+			++i;
+	}
 }
 
 void		remove_quote_line(char **line)
@@ -60,6 +93,7 @@ void		remove_quote_line(char **line)
 			--i;
 		}
 	}
+	removebackslash(line);
 }
 
 void		remove_quote(char ***value)

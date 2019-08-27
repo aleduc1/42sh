@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 08:04:40 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:14:16 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,6 @@ static int	verif_set(char **argv, int nb, t_redirection *r, char *name)
 **	setenv -> edit_setenv(av[1], av[2]);
 **	unsetenv -> ft_unsetenv(av);
 */
-
-static	int	is_test(t_process *p, t_redirection *r, t_pos *pos)
-{
-	// int		i;
-	int		verif;
-	// char	*str;
-
-	// i = -1;
-	// verif = 0;
-	// while (p->cmd[++i])
-	// 	verif = ft_strequ("env", p->cmd[i]) ? 1 : 0;
-	// if (verif)
-	// {
-	// 	str = ft_strdup(p->cmd[0]);
-	// 	ft_strdel(&(p->cmd[i - 1]));
-	// 	p->cmd[i - 1] = str;
-	// 	ft_strdel(&(p->cmd[0]));
-	// 	p->cmd[0] = ft_strdup("env");
-	// 	ft_simple_command_redirection(p->cmd, r, pos, p->fg);
-	// }
-	// else
-		verif = edit_set(p->cmd, r, pos);
-	return (verif);	
-}
 
 static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 {
@@ -154,6 +130,6 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	else
 		verif = -1;
 	if (verif != -1)
-		restore_and_return_builtin(verif, j, p);
+		restore_and_return_builtin(verif);
 	return (verif);
 }

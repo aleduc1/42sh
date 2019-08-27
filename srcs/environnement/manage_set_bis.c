@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 08:17:34 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:14:55 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	apply_edit_set_no_command(char *key, char **value, int i, int cnt)
 {
 	reset_hash_verif(key);
 	edit_setenv(key, value[i] + cnt + 1);
-	// add_set_value(key, value[i] + cnt + 1);
 }
 
 void		apply_edit_set_no_command_env(char *key, char **value, int i,

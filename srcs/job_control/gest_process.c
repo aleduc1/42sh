@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 09:31:03 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:51:51 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 			p->completed = 1;
 			if ((!j->notified) && WIFSIGNALED(status)
 					&& (WTERMSIG(status) == 3))
-			{
 				j->notified = 1;
-				bt_jobs_s(j, get_shell()->max_job_current);
-			}
 		}
 		return (0);
 	}
@@ -142,12 +139,10 @@ void		wait_for_job(t_job *j)
 			|| job_is_completed(j))
 			break ;
 	}
-
-	// ft_printf("%d %d %d\n", WSTOPSIG(status), WEXITSTATUS(status), WTERMSIG(status));
 	if (WIFSTOPPED(status))
 		gest_return(WSTOPSIG(status));
 	else if (WIFSIGNALED(status))
 		gest_return(WTERMSIG(status));
 	else
-		gest_return(WTERMSIG(status));//choice_gest_return(j, status));
+		gest_return(WTERMSIG(status));
 }

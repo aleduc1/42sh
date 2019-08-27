@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 08:04:42 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:23:13 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ void		restore_redirection(void)
 ** if exist and good execution return 0 otherwise return -2
 */
 
-void		restore_and_return_builtin(int verif, t_job *j, t_process *p)
+void		restore_and_return_builtin(int verif)
 {
 	restore_redirection();
 	if (verif == -2)
 		gest_return(1);
 	else
 	{
-		// if (j && p->cmd && p->cmd[0] && (ft_strequ(p->cmd[0], "fg") || ft_strequ(p->cmd[0], "bg")))
-			gest_return(verif);
+		gest_return(verif);
 	}
 }

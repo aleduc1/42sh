@@ -214,8 +214,7 @@ void				check_exec_path(char **str);
 ** restore_redir_builtin.c
 */
 
-void				restore_and_return_builtin(int verif, t_job *j,
-			t_process *p);
+void				restore_and_return_builtin(int verif);
 
 /*
 ** is_builtin.c

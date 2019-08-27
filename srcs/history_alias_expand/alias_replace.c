@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 09:05:19 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 11:31:13 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 14:46:01 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char				*alias_rep_word(char *base, int *isrep,
 	*isrep = 1;
 	if (!(new = ft_strdup(val)))
 		return (NULL);
+	if (*new == '\0')
+		return (new);
 	cur_alias = alias_rep_addalias(cur_alias, base, val);
 	new = alias_replace(new, cur_alias);
 	cur_alias = alias_rep_delalias(cur_alias);

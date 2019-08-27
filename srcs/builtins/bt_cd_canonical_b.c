@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 18:35:07 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 10:14:36 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 20:39:43 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int				cd_canonical_b(t_cd *cd)
 		if (!cd_canonical_testprev(cd, &a))
 		{
 			ft_dprintf(STDERR_FILENO,
-					"42sh: cd: no such file or directory: %s\n", cd->directory);
+					"42sh: cd: %s: no such file or directory\n", cd->directory);
 			return (1);
 		}
 		len = ft_strlen(cd->curpath);

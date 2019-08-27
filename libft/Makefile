@@ -89,7 +89,7 @@ SRCS_NAMES = ft_atoi.c ft_bzero.c ft_fill_str.c ft_isalnum.c ft_isalpha.c ft_isa
 			 ft_dlstdel.c ft_dlstprint.c ft_madeby.c ft_debug.c ft_arraydel.c ft_arraydelline.c ft_arraydisplay.c ft_arraydup.c ft_arrayjoin.c \
 			 ft_arraylen.c ft_arraysub.c ft_chr_index.c ft_strchr_exist.c ft_numlen.c ft_pow_array_fix.c ft_reverse_tablo.c ft_strsub_tab_fix.c \
 			 ft_deplace.c ft_isstrnum.c ft_jointhree.c ft_remove_last_chr.c ft_strsplit_commands.c ft_lpow.c ft_prime.c \
-			 ft_sqrt.c ft_strptrdel.c $(SRCS_FT_PRINTF)
+			 ft_sqrt.c ft_strptrdel.c ft_strremove_char.c $(SRCS_FT_PRINTF)
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 

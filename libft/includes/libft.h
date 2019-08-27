@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 16:33:26 by aleduc            #+#    #+#             */
-/*   Updated: 2019/07/07 18:14:08 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 11:02:08 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_merge
 	int				k;
 }					t_merge;
 
+void				ft_strremove_char(char **src, int i);
 char				*ft_strsubfree(char *s, unsigned int start, size_t len);
 int					ft_strnchr(char *line, char c);
 char				*ft_strjoinfree(char *s1, char *s2, int tofree);

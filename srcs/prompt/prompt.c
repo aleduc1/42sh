@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:13:21 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 19:41:54 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 01:14:24 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ char			*prompt(t_multi *multi, t_pos *pos)
 		inputstr = lst_to_str(&multi, inputstr);
 		line_to_history(&inputstr, pos);
 	}
-	ddellist(multi)(&inputstr, pos, &count);
+	ddellist(multi);
+	reset_stop(&inputstr, pos, &count);
 	pos->historycount = 0;
 	default_term_mode();
 	return (inputstr) ? inputstr : NULL;

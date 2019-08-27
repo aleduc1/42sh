@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 08:10:13 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 21:46:32 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ static void	custom_redirection(t_redirect *lst)
 				lst->new_fd = open(lst->name_file, O_RDWR);
 		}
 		if (lst->type == LESSAMPHYPH)
-			close(STDIN_FILENO);
+			close(lst->base);
 		else if (lst->type == GREATAMPHYPH)
-			close(STDOUT_FILENO);
+			close(lst->base);
 		else
 			other_redir(lst);
 	}

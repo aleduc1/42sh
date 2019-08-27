@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 03:02:22 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/27 07:45:54 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:54:29 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		**get_argv(t_token *cmd_list)
 	return (argv);
 }
 
-int		files_handler(char ***argv, t_token *cmd_list, t_pos *pos)
+int			files_handler(char ***argv, t_token *cmd_list, t_pos *pos)
 {
 	t_lex	*cursor;
 

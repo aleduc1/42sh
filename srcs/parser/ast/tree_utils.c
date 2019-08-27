@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:33:01 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/06/27 00:43:59 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:54:57 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,3 @@ t_ast		*ast_parser(t_lex *tokens)
 	}
 	return (ast);
 }
-

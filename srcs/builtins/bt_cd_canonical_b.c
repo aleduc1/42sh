@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 18:35:07 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/26 06:00:34 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 10:14:36 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,15 @@ int				cd_canonical_b(t_cd *cd)
 	{
 		if (!cd_canonical_testprev(cd, &a))
 		{
-			dprintf(STDERR_FILENO, "42sh: cd: no such file or directory: %s\n",
-					cd->directory);
+			ft_dprintf(STDERR_FILENO,
+					"42sh: cd: no such file or directory: %s\n", cd->directory);
 			return (1);
 		}
 		len = ft_strlen(cd->curpath);
 		len -= b - a;
 		if (!cd_canonical_del(cd, a, b, len))
 		{
-			dprintf(STDERR_FILENO, "42sh: cd: error malloc\n");
+			ft_dprintf(STDERR_FILENO, "42sh: cd: error malloc\n");
 			return (1);
 		}
 	}

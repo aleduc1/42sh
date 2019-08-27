@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:47:29 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/26 05:42:34 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 10:10:22 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				cd_canonical_a(t_cd *cd)
 		len -= b - a;
 		if (!cd_canonical_del(cd, a, b, len))
 		{
-			dprintf(STDERR_FILENO, "42sh: cd: error malloc\n");
+			ft_dprintf(STDERR_FILENO, "42sh: cd: error malloc\n");
 			return (1);
 		}
 	}

@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:29 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 08:04:44 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 10:02:26 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-int		init_variables(t_token **tok, int *to_check, int *i, t_tab_type **t)
-{
-	*tok = NULL;
-	*to_check = 0;
-	*i = 0;
-	set_tab_types(t);
-	return (0);
-}
 
 int		handle_backslash(int *i, char **input)
 {
@@ -27,6 +18,20 @@ int		handle_backslash(int *i, char **input)
 	if ((*input)[(*i)] && (*input)[(*i) + 1] && (*input)[(*i) + 2])
 		(*i)++;
 	return (1);
+}
+
+int		lexer_begin_loop(char *input, int *i, int last_t)
+{
+	int		to_check;
+
+	to_check = 0;
+	if (ft_isreallyspace(input[*i]) && (*i != last_t))
+		to_check = 1;
+	else if (input[*i] == '\\' && (*i != last_t))
+		to_check = 1;
+	else if (input[*i] == '\\')
+		to_check = handle_backslash(i, &input);
+	return (to_check);
 }
 
 void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)
@@ -42,12 +47,8 @@ void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)
 		last_t = i;
 		while (input[i] && !(to_check))
 		{
-			if (ft_isreallyspace(input[i]) && (i != last_t))
-				to_check = 1;
-			else if (input[i] == '\\' && (i != last_t))
-				to_check = 1;
-			else if (input[i] == '\\')
-				to_check = handle_backslash(&i, &input);
+			if ((to_check = lexer_begin_loop(input, &i, last_t)))
+				;
 			else if (input[i] == '\"' || input[i] == '\'')
 				to_check = handle_string_case(&i, &last_t, &input, tok);
 			else if (is_in_tab(t, input[i]))

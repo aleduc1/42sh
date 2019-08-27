@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 17:22:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/25 19:03:42 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 10:11:35 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		cd_testcdpath(char *path, char *directory, char **test)
 	i = cd_getnextpath(path);
 	if ((tmp = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
 	{
-		dprintf(STDERR_FILENO, "42sh: cd: Failed to malloc\n");
+		ft_dprintf(STDERR_FILENO, "42sh: cd: Failed to malloc\n");
 		return (0);
 	}
 	j = cd_testpath(tmp, directory, test);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:15:13 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 05:51:54 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 10:03:08 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ struct	s_redir
 	char	*heredoc;
 	int		close;
 };
+
+int		init_variables(t_token **tok, int *to_check, int *i, t_tab_type **t);
 
 void	set_tab_types(t_tab_type **tab_of_types);
 void	set_tab_types_2(t_tab_type **tab_of_types);

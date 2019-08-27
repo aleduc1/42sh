@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 04:11:47 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/26 06:05:53 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 10:11:21 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			cd_less(t_cd *cd)
 {
 	if (is_env_empty("OLDPWD"))
 	{
-		dprintf(STDERR_FILENO, "42sh: cd: OLDPWD null or not set\n");
+		ft_dprintf(STDERR_FILENO, "42sh: cd: OLDPWD null or not set\n");
 		return (0);
 	}
 	cd->directory = value_line_path("OLDPWD", 0);

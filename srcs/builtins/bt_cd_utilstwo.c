@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 18:27:24 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 00:10:08 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 10:11:53 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		cd_chdir(t_cd *cd)
 
 	if (chdir(cd->curpath) == -1)
 	{
-		dprintf(STDERR_FILENO, "42sh: cd: permission denied: %s\n",
+		ft_dprintf(STDERR_FILENO, "42sh: cd: permission denied: %s\n",
 				cd->directory);
 		return (cd_err(cd));
 	}
@@ -104,7 +104,7 @@ int		cd_canonical(t_cd *cd)
 	cd_canonical_c(cd);
 	if (!cd->curpath || cd->curpath[0] == '\0')
 	{
-		dprintf(STDERR_FILENO,
+		ft_dprintf(STDERR_FILENO,
 			"42sh: cd: path after canonicalization is null\n");
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:01:05 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 05:52:21 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:19:26 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ char				*alias_replace(char *input, t_repalias *cur_alias);
 t_repalias			*alias_rep_addalias(t_repalias *cur_alias, char *base,
 										char *val);
 t_repalias			*alias_rep_delalias(t_repalias *cur_alias);
+void				alias_handle_redir(t_lex **lex, t_lex *ptr);
 
 
 char				*history_replace(char *input, t_pos *pos);

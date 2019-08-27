@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 09:05:19 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 05:52:42 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:31:12 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 extern t_ht_hash	*g_alias_table;
 
-char				*alias_rep_word(char *base, int *isrep, t_repalias *cur_alias)
+char				*alias_rep_word(char *base, int *isrep,
+									t_repalias *cur_alias)
 {
 	char		*val;
 	t_repalias	*curr;
 	char		*new;
 
+	removebackslash(&base);
 	val = ht_hash_search(g_alias_table, base);
 	if (val == NULL)
 		return (base);
@@ -44,7 +46,7 @@ void				alias_rep_cmd(t_lex **lex, t_repalias *cur_alias)
 	t_lex	*ptr;
 	char	*bin;
 	int		isrep;
-	
+
 	ptr = *lex;
 	isrep = 0;
 	while (ptr)
@@ -60,7 +62,7 @@ void				alias_rep_cmd(t_lex **lex, t_repalias *cur_alias)
 			}
 			if (isrep != 0)
 				ft_strdel(&bin);
-			if(ptr->token->data[0] != '\0')
+			if (ptr->token->data[0] != '\0')
 				return ;
 			isrep = 0;
 		}
@@ -71,7 +73,7 @@ void				alias_rep_cmd(t_lex **lex, t_repalias *cur_alias)
 void				alias_rep_recursive(t_lex **lex, t_repalias *cur_alias)
 {
 	t_lex	*ptr;
-	
+
 	ptr = *lex;
 	while (ptr)
 	{
@@ -85,7 +87,7 @@ char				*alias_rep_redo_input(t_lex **lex, char *new)
 {
 	t_lex	*ptr;
 	char	*bin;
-	
+
 	ptr = *lex;
 	while (ptr)
 	{
@@ -120,8 +122,7 @@ char				*alias_replace(char *input, t_repalias *cur_alias)
 	lex = add_delim(&lex);
 	handle_quotes(&lex);
 	simple_command(&lex);
-//	alias_handle_redir(&lex);
-//	dllprinthead(&lex);
+	alias_handle_redir(&lex, NULL);
 	alias_rep_recursive(&lex, cur_alias);
 	ft_strdel(&input);
 	if ((new_input = ft_strnew(1)) == NULL)
@@ -131,40 +132,6 @@ char				*alias_replace(char *input, t_repalias *cur_alias)
 		return (NULL);
 	}
 	new_input = alias_rep_redo_input(&lex, new_input);
-//	ft_printf("input = '%s'\n", new_input);
 	clean_lex(&lex);
 	return (new_input);
 }
-/*
-** Num perd son alias oppotunity si comme word apres redir ou avant, sans espaces
-** il ne le perd pas devant ampgreat
-*/
-
-/*
-enum	e_token_type
-{
-	SPIPE,			//0		|
-	SCOLON,			//1		;
-	LESS,			//2		<
-	DLESS,			//3		<<
-	LESSAMP,		//4		<&
-	GREAT,			//5		>
-	DGREAT,			//6		>>
-	GREATPIPE,		//7
-	GREATAMP,		//8		>&
-	LESSGREAT,		//9
-	SPACE,			//10
-	AMPGREAT,		//11	&>
-	LESSAMPHYPH,	//13	<&-
-	GREATAMPHYPH,	//14	>&-
-	AMP,			//15	&
-	DAMP,			//16	&&
-	DPIPE,			//17	||
-	NUMBER,
-	WORD,
-	CMD,
-	DELIM,
-	REDIR,
-	NUL,
-};
-*/

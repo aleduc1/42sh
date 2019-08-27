@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/26 05:31:19 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:35:14 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -434,6 +434,7 @@ int					close_file_command(t_lex *lex, t_redirection **r);
 
 void				remove_quote(char ***value);
 void				remove_quote_line(char **line);
+void				removebackslash(char **line);
 
 /*
 ** dup_restore.c

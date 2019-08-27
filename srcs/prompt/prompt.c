@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:13:21 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/26 03:56:51 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 01:14:24 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int				check_integrity(t_node *input, t_multi **multi, t_pos *pos,
 	while (cursor->next != NULL)
 		cursor = cursor->next;
 	key_occurence(cursor, count);
+	if (check_backslash(input, multi, pos, count) == -1)
+		return (-1);
 	if ((count->dquote % 2) != 0)
 	{
 		pos->multiline = 1;

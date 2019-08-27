@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:17:27 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/26 05:11:56 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 01:16:00 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,9 @@ int					check_integrity(t_node *input, t_multi **multi, \
 
 void				init_prompt(t_pos *pos);
 t_node				*read_input(t_node **input, t_pos *pos);
+int					count_escape_backslash(t_node *input);
+int					check_backslash(t_node *input, t_multi **multi,\
+									 t_pos *pos, t_integrity *count);
 void				line_to_history(char **inputstr, t_pos *pos);
 char				*prompt(t_multi *input, t_pos *pos);
 

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/26 06:35:46 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 00:54:51 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,28 @@ static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 {
 	if (p->pid == pid)
 	{
-		p->last_status = p->status;
 //		j->notified = 0;
 		p->status = status;
 		if (WIFSTOPPED(status))
 		{
-			if (!j->notif_stop)
-			{
-				bt_jobs_s(j, get_shell()->max_job_current);
-				cpt_signal_process(j);
-				j->notif_stop = 1;
-			}
-			gest_return(146);
+//			gest_return(146);
 			p->stopped = 1;
 		}
 		else if (WIFCONTINUED(status))
+		{
+			j->notified = 0;
 			p->stopped = 0;
+		}
 		else
 		{
 			p->completed = 1;
-			if (WIFSIGNALED(status) && (j->fg == 0 || status != 13))
-				action_process_signal(j, p, status);
+			if ((!j->notified) && WIFSIGNALED(status) && (WTERMSIG(status) == 3))
+			{
+				j->notified = 1;
+				bt_jobs_s(j, get_shell()->max_job_current);
+//				ft_printf("sig kill\n");
+			}
+//				action_process_signal(j, p, status);
 		}
 		return (0);
 	}
@@ -106,7 +107,6 @@ int			mark_process_status(pid_t pid, int status)
 		j = get_first_job(NULL);
 		while (j)
 		{
-		// j->notified = 0;
 			p = j->first_process;
 			while (p)
 			{

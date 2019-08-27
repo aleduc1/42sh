@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 20:56:21 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/26 07:32:22 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 02:21:57 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		handle_whitespace(char *input, int i, t_lex **lex)
 
 	tok = NULL;
 	cpy = i;
-	while (input[i] && ft_isspace(input[i]))
+	while (input[i] && ft_isreallyspace(input[i]))
 		i++;
 	if (i != cpy)
 	{

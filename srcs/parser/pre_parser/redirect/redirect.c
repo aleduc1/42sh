@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:00:04 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/23 06:11:43 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 02:45:13 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,21 @@ void	ft_default(t_redir **redir_info)
 	t = ptr->type;
 	if (t == GREAT || t == DGREAT || t == GREATAMPHYPH
 		|| t == LESSAMPHYPH)
+	{
 		ptr->src_fd[0] = ft_strdup("1");
+		ptr->src_fd[1] = 0;
+	}
 	else if (t == GREATAMP || t == AMPGREAT || t == AMPLESS)
 	{
 		ptr->src_fd[0] = ft_strdup("1");
 		ptr->src_fd[1] = ft_strdup("2");
+		ptr->src_fd[2] = 0;
 	}
 	else if (t == LESS || t == LESSAMP || t == DLESS)
+	{
 		ptr->src_fd[0] = ft_strdup("0");
+		ptr->src_fd[1] = 0;
+	}
 }
 
 int		handle_needed_redir(t_lex **command_node, t_lex **redir_node)

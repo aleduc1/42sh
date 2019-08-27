@@ -340,3 +340,161 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaa
 ls
 ls "
 posix
+ls -l
+echo something
+echo test
+ls \ asdasd
+ls '\ asdasd' '
+echo '\ asdads' '
+ls \ asdad\
+ls '\ '
+echo "\ this is a test"
+echo ''\'
+echo ' '
+echo "'"
+echo ''\'
+ls '\ asdasd'\
+ls '\ asdasd'
+ls '\ asdasdada\
+ls \ \
+ls ' asdasd'
+ls '" '
+ls "\ asdasd"
+ls '\ asdasdasda
+echo '\ asdasdas'
+echo '\ asdasd
+ls '\ sdasdasdad
+make
+echo \ asdasd
+echo \ \
+echo '\ \ ' \ '
+echo \ asdasd
+echo ' asdasd\ asdasd'
+ls \ \
+make
+echo \ 
+echo '\ asda ' '
+echo '\  ' '
+echo '\ '
+echo ' '
+echo '\ '
+echo '\ \ '  
+echo '\ '
+echo '\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ '  '                                  \ \ \ \
+\ \
+echo ' \ ' '
+echo
+echo \ \
+echo '\ '
+echo '\ \ \  '
+echo " asdasd\ asdasd\ adasda"
+\ \ \ \ \ \ \ \ \\ \ \ 
+ls '\ asdaskdasdkjashd '
+ls '\ "asdasdasd\ \ asdasd" '
+make
+echo '\ '
+echo '\\\ '
+echo '\\ '
+echo 'test'
+ls '\\ '
+ls \\\\\\\ \ \\
+echo " dfbgs' "
+exit
+ls
+fc -l
+echo " dfbgs' "
+ls -l
+l\ s
+exit
+l\ s
+exit
+l\s
+l\ s
+l\ >
+clear
+l\ s
+exit
+l\ s
+ls\ > co
+posix
+exit
+ls\ > co
+exit
+l\ s
+ls\ > co
+ls\  > co
+exit
+ls -l
+ls \  >co
+echo "\ test"
+echo "\  test"
+ls \  > co
+ls \ >co
+exit
+rm co
+ls -l
+cat tags
+clear
+ls -l
+exit
+ls
+ls &< co
+posix
+>co
+rm co
+>co
+ls
+rm co
+ls
+> xo
+ls&>co
+cat co
+ls dfghjhg&>co
+cat co
+ls dfghjhg .&>co
+cat co
+l's ; '
+l\ s
+fg
+git pull
+rm .history
+git pull
+make
+ls
+l\ s
+posix
+ls\ > co
+cat co
+rm\ co
+posix
+rm\  co
+ls
+\ ls
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \'
+\ ' \' " " '
+posix
+echo """"""""""""""""""""
+echo """""""""""""""""""" | cat -e
+echo """""""""""""""""""""" | cat -e
+echo """""""""""""""''""""""" | cat -e
+echo """"""""""""""''"''""""""" | cat -e
+echo """"""""""""""''''''''''"''""''''""""" | cat -e
+echo """"""""""""""''''''''''"''""""""" | cat -e
+echo \'
+echo \'$TERM\'
+echo \\\\\\\\\\\\\\\\
+echo \\ \\ \\ \\ \\ \\ \\
+exit
+ls
+make
+ls
+make
+ls
+l\ s
+ls
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+echo \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+echo \\
+posix
+ls
+exit

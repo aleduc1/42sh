@@ -26,8 +26,8 @@ C	/Users/sbelondr/Desktop/42sh/Makefile	/^C = $(words $N)$(eval N := x $N)$/;"	m
 C	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^C = $(words $N)$(eval N := x $N)$/;"	m
 CC	/Users/sbelondr/Desktop/42sh/Makefile	/^CC = cc$/;"	m
 CC	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^CC = gcc$/;"	m
+CFLAGS	/Users/sbelondr/Desktop/42sh/Makefile	/^	CFLAGS = -Wall -Wextra #-g3 -fsanitize=address,undefined$/;"	m
 CFLAGS	/Users/sbelondr/Desktop/42sh/Makefile	/^	CFLAGS = -Wall -Wextra -Werror$/;"	m
-CFLAGS	/Users/sbelondr/Desktop/42sh/Makefile	/^	CFLAGS = -Wall -Wextra -g3$/;"	m
 CFLAGS	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^	CFLAGS = -Wall -Wextra -Werror$/;"	m
 CFLAGS	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^	CFLAGS = -Wall -Wextra -g3$/;"	m
 CLOSE	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^CLOSE = \\033[0m$/;"	m
@@ -283,7 +283,7 @@ check_env_path	/Users/sbelondr/Desktop/42sh/srcs/environnement/path.c	/^static c
 check_exec_path	/Users/sbelondr/Desktop/42sh/srcs/environnement/check_path.c	/^void	check_exec_path(char **str)$/;"	f
 check_fd_is_good	/Users/sbelondr/Desktop/42sh/srcs/redirection/redirection.c	/^static int	check_fd_is_good(t_redirection *r)$/;"	f	file:
 check_format_variable	/Users/sbelondr/Desktop/42sh/srcs/environnement/expansion_tools.c	/^int			check_format_variable(char *str)$/;"	f
-check_heredoc	/Users/sbelondr/Desktop/42sh/srcs/prompt/multiline/heredoc.c	/^int			check_heredoc(t_node *input, char *heredoc)$/;"	f
+check_heredoc	/Users/sbelondr/Desktop/42sh/srcs/prompt/multiline/heredoc.c	/^int			check_heredoc(t_node **input, char *heredoc)$/;"	f
 check_hyph	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/more_binary_primaries.c	/^void	check_hyph(char *str1, int *i)$/;"	f
 check_input	/Users/sbelondr/Desktop/42sh/srcs/prompt/edition/editline.c	/^t_node		*check_input(t_node *lstcursor, t_node **input, char buffer[],$/;"	f
 check_integrity	/Users/sbelondr/Desktop/42sh/srcs/prompt/prompt.c	/^int				check_integrity(t_node *input, t_multi **multi, t_pos *pos,$/;"	f
@@ -789,7 +789,7 @@ go_downleft	/Users/sbelondr/Desktop/42sh/srcs/prompt/edition/cursortools.c	/^voi
 go_upright	/Users/sbelondr/Desktop/42sh/srcs/prompt/edition/cursortools.c	/^void		go_upright(t_pos *pos)$/;"	f
 handle_and_great	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/redirect/handle_and_great.c	/^int		handle_and_great(t_lex **command_node)$/;"	f
 handle_append	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/redirect/handle_append.c	/^int		handle_append(t_lex **command_node)$/;"	f
-handle_backslash	/Users/sbelondr/Desktop/42sh/srcs/lexer/lexer.c	/^int		handle_backslash(int *i, char **input)$/;"	f
+handle_backslash	/Users/sbelondr/Desktop/42sh/srcs/lexer/lexer.c	/^int		handle_backslash(int *i, char *input)$/;"	f
 handle_classic_case	/Users/sbelondr/Desktop/42sh/srcs/lexer/reading_tools.c	/^int		handle_classic_case(int *i, int *last_t, char **input)$/;"	f
 handle_great	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/redirect/handle_great.c	/^int		handle_great(t_lex **command_node)$/;"	f
 handle_great_and	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/redirect/handle_great_and.c	/^int		handle_great_and(t_lex **command_node)$/;"	f
@@ -1027,7 +1027,7 @@ parameter_moins	/Users/sbelondr/Desktop/42sh/srcs/environnement/formats_paramete
 parameter_percents	/Users/sbelondr/Desktop/42sh/srcs/environnement/expansion_percent.c	/^char		*parameter_percents(char *value)$/;"	f
 parameter_plus	/Users/sbelondr/Desktop/42sh/srcs/environnement/formats_parameter_bis.c	/^char	*parameter_plus(char *parameter, char *word)$/;"	f
 parser_var	/Users/sbelondr/Desktop/42sh/srcs/environnement/parser_var.c	/^void		parser_var(char ***value)$/;"	f
-parser_var_simple	/Users/sbelondr/Desktop/42sh/srcs/environnement/parser_var.c	/^void		parser_var_simple(char **value)$/;"	f
+parser_var_simple	/Users/sbelondr/Desktop/42sh/srcs/environnement/parser_var.c	/^void		parser_var_simple(char **value, uint8_t flag)$/;"	f
 paste_clipboard	/Users/sbelondr/Desktop/42sh/srcs/prompt/selection/copy_paste.c	/^t_node		*paste_clipboard(t_node **input, t_node *lstcursor, t_pos *pos)$/;"	f
 pat_rep	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	char		*pat_rep;$/;"	m	struct:s_fc
 path_of_commands	/Users/sbelondr/Desktop/42sh/srcs/environnement/path.c	/^static char	*path_of_commands(char *command, char **split)$/;"	f	file:
@@ -1041,6 +1041,7 @@ precision	/Users/sbelondr/Desktop/42sh/libft/includes/ft_printf.h	/^	int				prec
 precision_n	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/apply_arg_n.c	/^char		*precision_n(char *str, t_printf **lst, int neg)$/;"	f
 precision_s	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/apply_arg_s.c	/^char		*precision_s(char *str, t_printf **lst)$/;"	f
 prepare_exec_pipe	/Users/sbelondr/Desktop/42sh/srcs/commands/commands_pipe.c	/^static void	prepare_exec_pipe(int fg)$/;"	f	file:
+prepare_input	/Users/sbelondr/Desktop/42sh/srcs/lexer/lexer.c	/^void	prepare_input(char *input)$/;"	f
 prepare_verif_syntax_key	/Users/sbelondr/Desktop/42sh/srcs/commands/builtins.c	/^int			prepare_verif_syntax_key(char *cmd)$/;"	f
 pretty_print	/Users/sbelondr/Desktop/42sh/srcs/parser/ast/tree_utils.c	/^void		pretty_print(t_ast *tree)$/;"	f
 prev	/Users/sbelondr/Desktop/42sh/includes/lexer.h	/^	t_lex	*prev;$/;"	m	struct:s_lex
@@ -1213,6 +1214,7 @@ tailrow	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	size_t			tailrow;$/;"	m	
 term	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	int				term;$/;"	m	struct:s_shell
 term_shell	/Users/sbelondr/Desktop/42sh/includes/env.h	/^	struct termios	term_shell;$/;"	m	struct:s_shell	typeref:struct:s_shell::termios
 termsize	/Users/sbelondr/Desktop/42sh/includes/sh21.h	/^	struct winsize	termsize;$/;"	m	struct:s_pos	typeref:struct:s_pos::winsize
+test	/Users/sbelondr/Desktop/42sh/srcs/prompt/multiline/heredoc.c	/^void test(t_node **input, char *temp)$/;"	f
 test_quote	/Users/sbelondr/Desktop/42sh/srcs/redirection/test_quote.c	/^int			test_quote(char *name)$/;"	f
 test_verif_close	/Users/sbelondr/Desktop/42sh/srcs/redirection/delete_redirection.c	/^static int	test_verif_close(char *str, int fd, int verif)$/;"	f	file:
 this_signal	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_jobs_display.c	/^int			this_signal(t_process *p)$/;"	f

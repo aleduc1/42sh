@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:56:32 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/26 05:13:48 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:28:16 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int	cd_check_and_go(t_cd *cd)
 
 	if (stat(cd->curpath, &sb) == -1)
 	{
-		dprintf(STDERR_FILENO, "42sh: cd: permission denied\n");
+		dprintf(STDERR_FILENO, "42sh: cd: no such file or directory: %s\n",
+				cd->directory);
 		return (cd_err(cd));
 	}
 	if ((sb.st_mode & S_IFMT) != S_IFDIR)
@@ -86,8 +87,12 @@ static int	cd_init(char **av, t_cd *cd)
 	ac = 1;
 	while (av[ac])
 		ac++;
-	if (!(i = cd_getopt(ac, av, cd)))
+	if (!(i = cd_getopt(ac, av, cd)) || i < ac - 1)
+	{
+		if (i != 0)
+			ft_dprintf(STDERR_FILENO, "42sh: cd: too many arguments\n");
 		return (0);
+	}
 	if (!av[i])
 	{
 		cd->directory = NULL;

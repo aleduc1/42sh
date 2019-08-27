@@ -6,13 +6,42 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 21:26:38 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 05:49:19 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:19:07 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
 extern t_ht_hash	*g_alias_table;
+
+void				alias_handle_redir(t_lex **lex, t_lex *ptr)
+{
+	t_lex	*tmp;
+
+	ptr = *lex;
+	while (ptr)
+	{
+		if (is_a_redirect(ptr->token->type))
+		{
+			tmp = ptr->prev;
+			if (tmp && tmp->token->type == NUMBER)
+				tmp->token->type = REDIR;
+			tmp = ptr->next;
+			while (tmp)
+			{
+				if (tmp->token->type == WORD || tmp->token->type == NUMBER)
+				{
+					tmp->token->type = REDIR;
+					break ;
+				}
+				tmp = tmp->next;
+			}
+		}
+		if (ptr->token->type == CMD)
+			alias_handle_redir(&ptr->token->command, NULL);
+		ptr = ptr->next;
+	}
+}
 
 t_repalias			*alias_rep_delalias(t_repalias *cur_alias)
 {

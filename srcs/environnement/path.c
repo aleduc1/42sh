@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 09:27:11 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 13:38:01 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ char		*is_in_path(char *command, int hash)
 	if ((result = get_hash(command)))
 		return (result);
 	result = check_env_path(command);
-	if (result && hash == 1)
+	if (result)
 	{
-		ht_hash_insert(g_hash_table, command, result);
+		if (hash)
+			ht_hash_insert(g_hash_table, command, result);
 		return (result);
 	}
 	if (stat(command, &statbuf) != 0)

@@ -6,7 +6,11 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/08/27 08:29:46 by mbellaic         ###   ########.fr       */
+=======
+/*   Updated: 2019/08/27 08:38:32 by apruvost         ###   ########.fr       */
+>>>>>>> 7b18b0ad1bf4ce47ddc2c800e1b2da18f879a990
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +198,7 @@ int					verif_close(int fd);
 
 int					gest_error_path(char *cmd, t_redirection *r);
 int					gest_return(int verif);
-char				*is_in_path(char *command);
+char				*is_in_path(char *command, int hash);
 t_env				*get_env(int is_end, t_env *head);
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 08:04:24 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:40:59 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	exec_pipe(t_job *j, t_process *p, int fg)
 	}
 	if ((verif = is_builtin(j, p, NULL)) == -1)
 	{
-		p->cmd_path = is_in_path(p->cmd[0]);
+		p->cmd_path = is_in_path(p->cmd[0], 1);
 		if (p->cmd_path)
 			launch_process_pipe(p);
 		else

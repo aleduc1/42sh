@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 09:05:19 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 07:31:12 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 11:31:13 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char				*alias_rep_word(char *base, int *isrep,
 	t_repalias	*curr;
 	char		*new;
 
-	removebackslash(&base);
 	val = ht_hash_search(g_alias_table, base);
 	if (val == NULL)
 		return (base);
@@ -41,10 +40,9 @@ char				*alias_rep_word(char *base, int *isrep,
 	return (new);
 }
 
-void				alias_rep_cmd(t_lex **lex, t_repalias *cur_alias)
+void				alias_rep_cmd(t_lex **lex, t_repalias *cur_alias, char *bn)
 {
 	t_lex	*ptr;
-	char	*bin;
 	int		isrep;
 
 	ptr = *lex;
@@ -53,15 +51,16 @@ void				alias_rep_cmd(t_lex **lex, t_repalias *cur_alias)
 	{
 		if (ptr->token->type == WORD || ptr->token->type == NUMBER)
 		{
-			bin = ptr->token->data;
+			removebackslash(&(ptr->token->data));
+			bn = ptr->token->data;
 			if (!(ptr->token->data = alias_rep_word(ptr->token->data,
 														&isrep, cur_alias)))
 			{
-				ft_strdel(&bin);
+				ft_strdel(&bn);
 				return ;
 			}
 			if (isrep != 0)
-				ft_strdel(&bin);
+				ft_strdel(&bn);
 			if (ptr->token->data[0] != '\0')
 				return ;
 			isrep = 0;
@@ -78,7 +77,7 @@ void				alias_rep_recursive(t_lex **lex, t_repalias *cur_alias)
 	while (ptr)
 	{
 		if (ptr->token->type == CMD)
-			alias_rep_cmd(&ptr->token->command, cur_alias);
+			alias_rep_cmd(&ptr->token->command, cur_alias, NULL);
 		ptr = ptr->next;
 	}
 }

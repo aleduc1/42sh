@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 04:04:52 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 20:41:10 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ static int	expand_authorize(char c)
 
 int			is_expand_tild(char *value, int index, int expand)
 {
+	if (index != 0)
+		return (0);
 	if (expand != 0)
 		return (0);
 	if (index - 1 < 0

@@ -54,7 +54,7 @@ VPATH = objs:\
 
 CC = cc
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Wextra -g3
+	CFLAGS = -Wall -Wextra #-g3 -fsanitize=address,undefined
 else
 	CFLAGS = -Wall -Wextra -Werror
 endif

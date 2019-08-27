@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 01:15:00 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 19:18:06 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			count_slash(char *line, int i)
 ** Args:	char **value -> adresse d'un char*
 */
 
-void		parser_var_simple(char **value)
+void		parser_var_simple(char **value, uint8_t flag)
 {
 	int		i;
 	int		expand;
@@ -68,7 +68,7 @@ void		parser_var_simple(char **value)
 	dst = ft_strdup("");
 	while (++i < len)
 	{
-		expand = manage_is_quote((*value), i, expand);
+		expand = flag == 0 ? 0 : manage_is_quote((*value), i, expand);
 		if (expand <= 0 && (i - 1 < 0 || (!count_slash((*value), i)))
 			&& ((*value)[i] == '$'
 			|| ((*value)[i] == '~' && is_expand_tild(*value, i, expand))))
@@ -78,7 +78,8 @@ void		parser_var_simple(char **value)
 		copy_value(*value, &dst, last, i);
 	ft_strdel(value);
 	*value = dst;
-	remove_quote_line(value);
+	if (flag == 1)
+		remove_quote_line(value);
 }
 
 /*
@@ -95,5 +96,5 @@ void		parser_var(char ***value)
 	if ((!value) || (!*value))
 		return ;
 	while ((*value)[++i])
-		parser_var_simple(&((*value)[i]));
+		parser_var_simple(&((*value)[i]), 1);
 }

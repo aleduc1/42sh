@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 09:34:22 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 19:15:02 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ int					is_builtin(t_job *j, t_process *p, t_pos *pos);
 */
 
 void				parser_var(char ***value);
-void				parser_var_simple(char **value);
+void				parser_var_simple(char **value, uint8_t flag);
 
 /*
 ** parser_var_bis.c

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/05/15 16:31:34 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 19:41:52 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,30 @@ char		*heredoc_string(t_node *lstcursor)
 	return (temp);
 }
 
-int			check_heredoc(t_node *input, char *heredoc)
+void test(t_node **input, char *temp)
+{
+	int i;
+
+	i = 0;
+	while (temp[i])
+		dpush(input, temp[i++]);
+	dpush(input, temp[i]);
+}
+
+int			check_heredoc(t_node **input, char *heredoc)
 {
 	char	*temp;
 	t_node	*lstcursor;
+	t_node *new;
 
-	lstcursor = input;
+	lstcursor = *input;
 	temp = heredoc_string(lstcursor);
-	parser_var_simple(&temp);
+	parser_var_simple(&temp, 0);
+	new = NULL;
+	test(&new, temp);
+	while (lstcursor)
+		ddel(&lstcursor, lstcursor);
+	*input = new;
 	if (ft_strcmp(heredoc, temp) == 0)
 	{
 		free(temp);
@@ -82,7 +98,7 @@ int			input_heredoc(t_multi *lstcursor, t_multi **multi, t_pos *pos,
 	dpush(&lstcursor->input, ' ');
 	ft_putstr("heredoc>");
 	read_input(&lstcursor->input, pos);
-	return (check_heredoc(lstcursor->input, heredoc));
+	return (check_heredoc(&lstcursor->input, heredoc));
 }
 
 char		*heredoc(char *heredoc, t_pos *pos)
@@ -99,7 +115,7 @@ char		*heredoc(char *heredoc, t_pos *pos)
 	multi->input = NULL;
 	dpush(&multi->input, ' ');
 	init_heredoc(pos);
-	parser_var_simple(&heredoc);
+	parser_var_simple(&heredoc, 1);
 	while (((input_heredoc(lstcursor, &multi, pos, heredoc)) < 0)
 			&& pos->stop != 1)
 		init_heredoc(pos);

@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 16:44:29 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 03:02:06 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 19:14:14 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	open_file_command_bis(t_redir **redir)
 	verif = 0;
 	if ((*redir)->filename)
 	{
-		parser_var_simple(&((*redir)->filename));
+		parser_var_simple(&((*redir)->filename), 1);
 		verif = file_exist((*redir)->filename, (*redir)->type);
 		open_file_great(*redir);
 	}

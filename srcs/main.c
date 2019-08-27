@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:01:09 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/26 03:39:02 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 01:40:02 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,10 @@ int			main(int argc, char **argv, char **environ)
 	{
 		if (argc && argv && environ)
 			if ((input = prompt(multi_input, &pos)))
+			{
+				ft_printf("input = %s\n", input);
 				run(input, &pos);
+			}
 		job_notif();
 		manage_id_job(0);
 	}

@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/24 03:48:07 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 01:35:32 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,42 @@ void		remove_quote_line(char **line)
 		return ;
 	while ((*line)[++i])
 	{
+		ft_printf("je suis la %c %d\n", (*line)[i],  (*line)[i]);
 		expand = manage_is_quote((*line), i, expand);
 		if ((((*line)[i] == '\'' && expand > 0)
-			|| ((*line)[i] == '"' && expand < 0))
+			|| ((*line)[i] == '"' && expand < 0)
+			|| ((*line)[i] == '\\' && expand < 0))
 			&& (i - 1 < 0 || (*line)[i - 1] != '\\'))
 		{
-			ft_strremove_char(line, i);
-			--i;
+			if ((*line)[i] == '\\' && (*line)[i + 1] && (*line)[i + 1] == '\n')
+			{
+				ft_strremove_char(line, i + 1);
+				--i;
+			}
+			else
+			{
+				ft_strremove_char(line, i);
+				--i;
+			}
 		}
 		else if ((((*line)[i] == '\'' && expand == 0)
-				|| ((*line)[i] == '"' && expand == 0))
+				|| ((*line)[i] == '"' && expand == 0)
+				|| ((*line)[i] == '\\' && expand ==0))
 				&& (i - 1 < 0 || (*line)[i - 1] != '\\'))
 		{
-			ft_strremove_char(line, i);
-			--i;
+			if ((*line)[i] == '\\' && (*line)[i + 1] && (*line)[i + 1] == '\n')
+			{
+				ft_strremove_char(line, i + 1);
+				--i;
+			}
+			else
+			{
+				ft_strremove_char(line, i);
+				--i;
+			}
 		}
 	}
+	ft_printf("fin\n");
 }
 
 void		remove_quote(char ***value)

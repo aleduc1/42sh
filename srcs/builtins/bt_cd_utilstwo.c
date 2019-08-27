@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 18:27:24 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 10:11:53 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 20:39:19 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		cd_chdir(t_cd *cd)
 
 	if (chdir(cd->curpath) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "42sh: cd: permission denied: %s\n",
+		ft_dprintf(STDERR_FILENO, "42sh: cd: %s: permission denied\n",
 				cd->directory);
 		return (cd_err(cd));
 	}

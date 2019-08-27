@@ -414,21 +414,87 @@ l\ >
 clear
 l\ s
 exit
+l\ s
+ls\ > co
 posix
-ls & <oui
-ls &<oui
-make
-.
->
-<<
->>
-> > < < 
-ls &<oui
+exit
+ls\ > co
+exit
+l\ s
+ls\ > co
+ls\  > co
+exit
+ls -l
+ls \  >co
+echo "\ test"
+echo "\  test"
+ls \  > co
+ls \ >co
+exit
+rm co
+ls -l
+cat tags
+clear
+ls -l
+exit
 ls
-rm oui
-ls &<oui
-cat oui
+ls &< co
 posix
-< oui
-ls & ; < oui
-ls & < oui
+>co
+rm co
+>co
+ls
+rm co
+ls
+> xo
+ls&>co
+cat co
+ls dfghjhg&>co
+cat co
+ls dfghjhg .&>co
+cat co
+l's ; '
+l\ s
+fg
+git pull
+rm .history
+git pull
+make
+ls
+l\ s
+posix
+ls\ > co
+cat co
+rm\ co
+posix
+rm\  co
+ls
+\ ls
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \'
+\ ' \' " " '
+posix
+echo """"""""""""""""""""
+echo """""""""""""""""""" | cat -e
+echo """""""""""""""""""""" | cat -e
+echo """""""""""""""''""""""" | cat -e
+echo """"""""""""""''"''""""""" | cat -e
+echo """"""""""""""''''''''''"''""''''""""" | cat -e
+echo """"""""""""""''''''''''"''""""""" | cat -e
+echo \'
+echo \'$TERM\'
+echo \\\\\\\\\\\\\\\\
+echo \\ \\ \\ \\ \\ \\ \\
+exit
+ls
+make
+ls
+make
+ls
+l\ s
+ls
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+echo \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+echo \\
+posix
+ls
+exit

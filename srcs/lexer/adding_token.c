@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 20:54:24 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 01:49:42 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 03:31:41 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ void	compare_types(t_tab_type **tab_of_type, t_token **token, char *word)
 		i++;
 	}
 	if (!(*token))
-	{
-		ft_putendl(word);
 		*token = word_or_number(word);
-	}
 }
 
 t_token	*check_type(t_tab_type **tab_of_type, char *input, int start, int end)

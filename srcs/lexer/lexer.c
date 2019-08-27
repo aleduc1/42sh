@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:21:29 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 02:27:42 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 03:29:36 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		fonction_moche(int *i, char **input)
 {
 	(*i)++;
 	if ((*input)[(*i)] && (*input)[(*i) + 1] && (*input)[(*i) + 2])
-		(*i) = (*i) + 2;
+		(*i)++;
 	return (1);
 }
 
@@ -92,11 +92,9 @@ t_lex	*lexer(char *input)
 
 	lex = NULL;
 	reading_input(input, &lex);
-	dllprinthead(&lex);
 	lex = add_delim(&lex);
 	handle_quotes(&lex);
 	simple_command(&lex);
-//	dllprinthead(&lex);
 	if (handle_redir(&lex))
 	{
 		clean_lex(&lex);
@@ -104,7 +102,5 @@ t_lex	*lexer(char *input)
 		return (NULL);
 	}
 	remove_space_token(&lex);
-	ft_putendl("\n\n");
-	dllprinthead(&lex);
 	return (lex);
 }

@@ -231,7 +231,10 @@ SRCS_NAMES = main.c \
 			 precedence_alg.c \
 			 unary_lists.c \
 			 unary_primaries.c \
+			 more_unary_primaries.c \
+			 last_unary_primaries.c \
 			 binary_primaries.c \
+			 more_binary_primaries.c \
 			 handle_quotes.c \
 			 identify_limits.c \
 			 ht_hash_moarutils.c

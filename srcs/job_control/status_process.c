@@ -6,88 +6,13 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 00:54:49 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 06:42:32 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
 #include "builtins.h"
 #include <errno.h>
-
-void	job_done(t_job *j)
-{
-	char	*cmd;
-	char	*cache;
-	char	*stock;
-	char	c;
-	int		verif;
-	int		id;
-	t_job	*lst;
-
-	lst = get_first_job(NULL);
-	id = j->process_id;
-	verif = 1;
-	while (lst)
-	{
-		if (id == lst->process_id && j->pgid != lst->pgid)
-			verif = (job_is_completed(lst)) ? 1 : 0;
-		lst = lst->next;
-	}
-	if (verif == 1 && j->notified == 0)
-	{
-		c = value_char_job(j->current, get_shell()->max_job_current);
-		cmd = ft_strdup("");
-		lst = get_first_job(NULL);
-		while (lst)
-		{
-			if (id == lst->process_id)
-			{
-				cache = cmd_job_s(lst);
-				stock = ft_strjoin(cmd, cache);
-				ft_strdel(&cache);
-				ft_strdel(&cmd);
-				cmd = stock;
-				lst->notified = 1;
-			}
-			lst = lst->next;
-		}
-		ft_dprintf(STDOUT_FILENO, "[%d]%c\tDone\t%s\n", j->process_id, c, cmd);
-		ft_strdel(&cmd);
-	}
-}
-
-static int	check_is_terminated(t_job *j)
-{
-	int			num_sig;
-	t_process	*p;
-
-	p = j->first_process;
-	while (p)
-	{
-		num_sig = (p->status < 32) ? p->status : WSTOPSIG(p->status);
-		if (num_sig < 13 && num_sig > 15)
-			return (0);
-		p = p->next;
-	}
-	return (0);
-}
-
-static int	display_stat_process(t_job *j, t_process *p, int notified)
-{
-	if ((!notified) && (p->status != p->last_status && p->status != 2))
-	{
-		if (j->fg == 0 && job_is_completed(j))
-			bt_jobs_s(j, get_shell()->max_job_current);
-		else if ((!notified) && (j->fg == 1 && job_is_stopped(j)))
-		{
-			ft_putchar('\n');
-			bt_jobs_s(j, get_shell()->max_job_current);
-		}
-		notified = 1;
-	}
-	p->last_status = p->status;
-	return (notified);
-}
 
 /*
 ** Parcours chaque process d'un job et utilise la fonction
@@ -96,33 +21,6 @@ static int	display_stat_process(t_job *j, t_process *p, int notified)
 ** Args:	t_job *j -> process a check
 */
 
-static void	display_stat_job(t_job *j)
-{
-	int			notified;
-	t_process	*p;
-
-	notified = 0;
-	if (check_is_terminated(j))
-	{
-		if (j->first_process->status != 0)
-			bt_jobs_s(j, get_shell()->max_job_current);
-		return ;
-	}
-	if (j->first_process->fg == 0)
-		if (job_is_completed(j))// && j->first_process->status == 0)
-		{
-			job_done(j);
-			return ;
-		}
-	p = j->first_process;
-	while (p)
-	{
-		if (!j->notified)
-			j->notified = display_stat_process(j, p, j->notified);
-		p = p->next;
-	}
-}
-
 void		notif_stop(t_job *j)
 {
 	t_process *p;
@@ -130,21 +28,12 @@ void		notif_stop(t_job *j)
 	p = j->first_process;
 	while (p)
 	{
-//		ft_printf("salut %d %d\n", p->status, WTERMSIG(p->status));
 		if (WIFSIGNALED(p->status) && WTERMSIG(p->status) != p->last_status)
-			bt_jobs_s(j, get_shell()->max_job_current);// ft_printf("%d %s\n", WTERMSIG(p->status), p->cmd[0]);
+			bt_jobs_s(j, get_shell()->max_job_current);
 		else if (WIFSTOPPED(p->status) && (!j->notified))
 		{
 			j->notified = 1;
 			bt_jobs_s(j, get_shell()->max_job_current);
-//			ft_printf("%d %s\n", WSTOPSIG(p->status), p->cmd[0]);
-		}
-		else
-		{
-//			if (WEXITSTATUS(p->status) > 0
-//					&& WTERMSIG(p->status) != p->last_status)
-//				ft_printf("Done%d %s\n", WTERMSIG(p->status), p->cmd[0]);
-//			break ;
 		}
 		p->last_status = p->status;
 		p = p->next;
@@ -153,9 +42,7 @@ void		notif_stop(t_job *j)
 
 void		job_notif(void)
 {
-	t_process	*p;
 	t_job	*j;
-
 
 	update_status();
 	j = get_first_job(NULL);
@@ -164,27 +51,11 @@ void		job_notif(void)
 		if (job_is_completed(j) && (j->fg == 0
 					|| (j->fg && j->first_process->stopped == 1)))
 			bt_jobs_s(j, get_shell()->max_job_current);
-//			ft_dprintf(STDOUT_FILENO, "Done %s\n", j->first_process->cmd[0]);
-		else if (job_is_stopped(j))// && j->notified == 0)
+		else if (job_is_stopped(j))
 			notif_stop(j);
 		j = j->next;
 	}
 	clean_fuck_list(0);
-
-/*		p = j->first_process;
-		while (p)
-		{
-			p->status = convert_value_signal(p->status);
-			p->last_status = p->status;
-			p = p->next;
-		}*/
-//		j = j->next;
-/*	j = get_first_job(NULL);
-	while (j)
-	{
-		display_stat_job(j);
-		j = j->next;
-	}*/
 }
 
 void		job_running(t_job *j)

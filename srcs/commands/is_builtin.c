@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 19:53:59 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:04:40 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,39 +106,6 @@ static int	is_builtin_other(t_pos *pos, char **av, t_redirection *r)
 	return (verif);
 }
 
-void		restore_redirection(void)
-{
-	char	*fd_s;
-	int		fd;
-
-	fd_s = value_line_path("STDIN", 0);
-	fd = ft_atoi(fd_s);
-	ft_strdel(&fd_s);
-	dup2(fd, STDIN_FILENO);
-	fd_s = value_line_path("STDOUT", 0);
-	fd = ft_atoi(fd_s);
-	ft_strdel(&fd_s);
-	dup2(fd, STDOUT_FILENO);
-	fd_s = value_line_path("STDERR", 0);
-	fd = ft_atoi(fd_s);
-	ft_strdel(&fd_s);
-	dup2(fd, STDERR_FILENO);
-}
-
-/*
-** if builtin not exist return -1
-** if exist and good execution return 0 otherwise return -2
-*/
-
-void		restore_and_return_builtin(int verif)
-{
-	restore_redirection();
-	if (verif == -2)
-		gest_return(1);
-	else
-		gest_return(verif);
-}
-
 int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 {
 	int		verif;
@@ -164,93 +131,5 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 		verif = -1;
 	if (verif != -1)
 		restore_and_return_builtin(verif);
-	return (verif);
-}
-
-int			prepare_verif_syntax_key(char *cmd)
-{
-	char	*value;
-	int		index;
-
-	index = ft_chr_index(cmd, '=');
-	if (index > 0)
-	{
-		value = ft_strsub(cmd, 0, index);
-		if (verif_syntax_key(value))
-		{
-			ft_strdel(&value);
-			return (1);
-		}
-		ft_strdel(&value);
-	}
-	return (0);
-}
-
-int			builtin_exist(char *cmd)
-{
-	if (ft_strequ(cmd, "echo") || ft_strequ(cmd, "cd") || ft_strequ(cmd, "exit")
-		|| ft_strequ(cmd, "fc") || ft_strequ(cmd, "test")
-		|| ft_strequ(cmd, "alias") || ft_strequ(cmd, "unalias")
-		|| ft_strequ(cmd, "hash") || ft_strequ(cmd, "type")
-		|| ft_strequ(cmd, "jobs") || ft_strequ(cmd, "fg")
-		|| ft_strequ(cmd, "bg") || ft_strequ(cmd, "set")
-		|| ft_strequ(cmd, "export") || ft_strequ(cmd, "unset")
-		|| (ft_strchr_exist(cmd, '=') && prepare_verif_syntax_key(cmd)))
-		return (1);
-	return (0);
-}
-
-/*
-** Folowing of launch_job_blt function
-*/
-
-int			launch_process_blt(t_job *j, t_process *p, t_pos *pos,
-				int fg)
-{
-	int		verif;
-
-	config_pid_process(j->pgid, fg);
-	redirection_fd(p->r);
-	verif = is_builtin(j, p, pos);
-	execve_bin_test();
-	exit(verif);
-}
-
-/*
-** launch builtin in fork if is background command
-*/
-
-int			launch_job_blt(t_job *j, t_process *p, t_pos *pos, int fg)
-{
-	pid_t		pid;
-	int			verif;
-
-	verif = 0;
-	pid = fork();
-	if (pid == 0)
-		verif = launch_process_blt(j, p, pos, fg);
-	else if (pid < 0)
-		display_error_fork(p->r);
-	else
-		edit_pid_shell(pid, j, p);
-	// update_status();
-	p = p->next;
-	act_job(j, fg);
-	return (verif);
-}
-
-/*
-** Launch builtin command
-*/
-
-int			builtin(t_job *j, t_process *p, t_pos *pos, int fg)
-{
-	int		verif;
-
-	verif = -1;
-	if (fg == 1)
-		return (is_builtin(j, p, pos));
-	else
-		verif = launch_job_blt(j, p, pos, fg);
 	return (verif);
 }

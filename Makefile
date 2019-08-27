@@ -238,7 +238,17 @@ SRCS_NAMES = main.c \
 			 more_binary_primaries.c \
 			 handle_quotes.c \
 			 identify_limits.c \
-			 ht_hash_moarutils.c
+			 ht_hash_moarutils.c\
+			 builtins.c\
+			 commands_env.c\
+			 errors_d.c\
+			 errors_t.c\
+			 errors_q.c\
+			 restore_redir_builtin.c\
+			 check_path.c\
+			 manage_export.c\
+			 manage_set_bis.c
+
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 HEADERS_NAMES = sh21.h lexer.h parser.h env.h builtins.h job.h

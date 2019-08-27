@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:42:05 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 03:01:06 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 06:46:41 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int			launch_job(t_job *j, int fg)
 			display_error_fork(p->r);
 		else
 			edit_pid_shell(pid, j, p);
-		// update_status();
 		p = p->next;
 	}
 	act_job(j, fg);

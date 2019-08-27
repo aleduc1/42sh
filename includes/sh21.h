@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 02:17:27 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/27 08:13:59 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 08:34:21 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,11 @@ t_node				*backwardjump(t_node *lstcursor, char buffer[], t_pos *pos);
 t_node				*forwardjump(t_node *lstcursor, char buffer[], t_pos *pos);
 t_node				*ctrl_n_friends(t_node *lstcursor, t_node **input, \
 											char buffer[], t_pos *pos);
+
+void				cpy_std(int in, int out, int error);
+void				ft_name_exec(char *name_exec);
+void				init_alias(void);
+int					check_whitespace_input(char *input);
 
 void				dpush(t_node **head, char key);
 void				dprintlist(t_node *node, int direction);

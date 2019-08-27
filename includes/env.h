@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 07:35:14 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:29:46 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,14 @@ int					convert_value_signal(int status);
 */
 
 void				redirection_fd(t_redirection *r);
-
+void				standard_redirection(t_redirection *r);
 int					this_signal(t_process *p);
+
+/*
+** redirection_bis.c
+*/
+
+void				redirection_fd_bis(t_redirection *r);
 
 /*
 ** rediretion_bis.c
@@ -192,6 +198,18 @@ char				*is_in_path(char *command);
 t_env				*get_env(int is_end, t_env *head);
 
 /*
+** check_path.c
+*/
+
+void				check_exec_path(char **str);
+
+/*
+* restore_redir_builtin.c
+*/
+
+void				restore_and_return_builtin(int verif);
+
+/*
 ** is_builtin.c
 */
 
@@ -234,10 +252,24 @@ char				**create_list_env(t_env *my_env, int env);
 ** manage_set.c
 */
 
-int					verif_syntax_key(char *key);
 int					edit_set(char **value, t_redirection *r, t_pos *pos);
 int					ft_unset(char **value);
 int					edit_set_command_env(char *str, t_env *my_env);
+
+/*
+** manage_set_bis.c
+*/
+
+int					verif_syntax_key(char *key);
+int					edit_set_no_command(char **value);
+void				apply_edit_set_no_command_env(char *key, char **value, int i,
+				int cnt);
+
+/*
+* manage_export.c
+*/
+
+int					edit_export(char *key);
 
 /*
 ** add_set_value.c
@@ -314,6 +346,7 @@ int					ft_simple_command(char **argv, t_token *lex, t_pos *pos,
 						int bg);
 int					ft_simple_command_redirection(char **argv,
 						t_redirection *r, t_pos *pos, int fg);
+int					is_not_builtin(t_job *j, t_process *p, int fg);
 
 /*
 ** errors.c

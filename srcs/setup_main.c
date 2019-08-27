@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 08:07:54 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 08:10:51 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 08:31:39 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@
 #include "job.h"
 #include "builtins.h"
 
-int			siginthandler(int signum)
+extern t_ht_hash	*g_hash_table;
+extern t_ht_hash	*g_alias_table;
+
+int					siginthandler(int signum)
 {
 	(void)signum;
 	ft_printf("signal handler\n");
 	return (0);
 }
 
-static void	cpy_std(int in, int out, int error)
+void				cpy_std(int in, int out, int error)
 {
 	char	*s_in;
 	char	*s_out;
@@ -41,7 +44,7 @@ static void	cpy_std(int in, int out, int error)
 	ft_strdel(&s_error);
 }
 
-int			check_whitespace_input(char *input)
+int					check_whitespace_input(char *input)
 {
 	int		i;
 
@@ -56,7 +59,7 @@ int			check_whitespace_input(char *input)
 	return (0);
 }
 
-static void	ft_name_exec(char *name_exec)
+void				ft_name_exec(char *name_exec)
 {
 	int		len;
 	char	*cache;
@@ -71,7 +74,7 @@ static void	ft_name_exec(char *name_exec)
 	ft_strdel(&cache);
 }
 
-static void	init_alias(void)
+void				init_alias(void)
 {
 	g_hash_table = ht_hash_new();
 	g_alias_table = ht_hash_new();

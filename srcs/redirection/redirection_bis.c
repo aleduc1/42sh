@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection.c                                      :+:      :+:    :+:   */
+/*   redirection_bis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 20:25:07 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:10:27 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,16 @@ void	other_redir(t_redirect *r)
 		if (verif_close(new_fd))
 			close(new_fd);
 	}
+}
+
+void	redirection_fd_bis(t_redirection *r)
+{
+	standard_redirection(r);
+	if (verif_close(r->in) && ft_fd_redirect_exist(r->redirect, STDIN_FILENO))
+		close(r->in);
+	if (verif_close(r->out) && ft_fd_redirect_exist(r->redirect, STDOUT_FILENO))
+		close(r->out);
+	if (verif_close(r->error)
+		&& ft_fd_redirect_exist(r->redirect, STDERR_FILENO))
+		close(r->error);
 }

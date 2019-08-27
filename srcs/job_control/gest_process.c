@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 00:54:51 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 06:36:47 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void		cpt_signal_process(t_job *j)
 	t_process	*p;
 
 	p = j->first_process;
-	// update_status();
 	while (p)
 	{
 		p->status = convert_value_signal(p->status);
@@ -35,41 +34,13 @@ void		cpt_signal_process(t_job *j)
 	}
 }
 
-static int	action_process_signal(t_job *j, t_process *p, int status)
-{
-	int	num_sig;
-
-	status = convert_value_signal(status);
-	if ((!j->notified) && status != p->last_status)
-	{
-		num_sig = this_signal(p);
-		if ( (j->fg != 0 || (num_sig != 0 || (job_is_completed(j) && j->fg == 0))))
-		{
-			ft_printf("la\n");
-			bt_jobs_s(j, get_shell()->max_job_current);
-			j->signal = num_sig;
-			if (num_sig == 3)
-				j->notified = 1;
-			cpt_signal_process(j);
-			return (1);
-		}
-		gest_return(WTERMSIG(p->status));
-	}
-	p->last_status = status;
-	return (0);
-}
-
 static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 {
 	if (p->pid == pid)
 	{
-//		j->notified = 0;
 		p->status = status;
 		if (WIFSTOPPED(status))
-		{
-//			gest_return(146);
 			p->stopped = 1;
-		}
 		else if (WIFCONTINUED(status))
 		{
 			j->notified = 0;
@@ -78,13 +49,12 @@ static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 		else
 		{
 			p->completed = 1;
-			if ((!j->notified) && WIFSIGNALED(status) && (WTERMSIG(status) == 3))
+			if ((!j->notified) && WIFSIGNALED(status)
+					&& (WTERMSIG(status) == 3))
 			{
 				j->notified = 1;
 				bt_jobs_s(j, get_shell()->max_job_current);
-//				ft_printf("sig kill\n");
 			}
-//				action_process_signal(j, p, status);
 		}
 		return (0);
 	}

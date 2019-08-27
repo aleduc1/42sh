@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 20:02:16 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 08:14:47 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,6 @@ static char	*get_hash(char *command)
 	if (!str)
 		return (NULL);
 	return (ft_strdup(str));
-}
-
-/*
-** split is all the path
-*/
-
-static void	check_exec_path(char **str)
-{
-	if (access(*str, X_OK) >= 0)
-		return ;
-	gest_return(-6);
-	ft_strdel(str);
-	return ;
 }
 
 static char	*path_of_commands(char *command, char **split)

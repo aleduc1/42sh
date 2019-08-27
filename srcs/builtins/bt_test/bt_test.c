@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:04:50 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/23 05:48:37 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 15:20:17 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int		unary_test(char *str1, char *str2)
 		}
 		i++;
 	}
-	return (1);
+	clean_test_tab(&u_tab);
+	return (30);
 }
 
 int		binary_test(char *str1, char *str2, char *str3)
@@ -55,7 +56,8 @@ int		binary_test(char *str1, char *str2, char *str3)
 		}
 		i++;
 	}
-	return (1);
+	clean_test_tab(&b_tab);
+	return (30);
 }
 
 int		is_binary(char *str2)

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   value_job_control.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 14:28:27 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 09:34:50 by mbellaic         ###   ########.fr       */
+/*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
+/*   Updated: 2019/08/27 09:45:24 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "job.h"
+#include "builtins.h"
 
-char				*ft_strncpy(char *dst, const char *src, size_t len)
+char		value_char_job(int current, int max)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (src && (i < len))
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
+	if (current == max)
+		return ('+');
+	if (current == max - 1)
+		return ('-');
+	return (' ');
 }

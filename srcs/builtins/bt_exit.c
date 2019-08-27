@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 13:52:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/26 23:11:18 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 09:42:42 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ extern t_ht_hash	*g_hash_table;
 
 /*
 ** exit [n]
-** 
+**
 ** exit utility shall cause shell to exit from current execution env with exit
 ** status specified by unsigned decimal int n
 ** If current execution env is subshell env,
@@ -66,20 +66,6 @@ extern t_ht_hash	*g_hash_table;
 ** Remplacer tous les g_status par la variable $? des variables locales ou la
 ** valeur de retour du shell
 */
-
-static int	jobs_running(void)
-{
-	t_job	*j;
-
-	j = get_first_job(NULL);
-	while (j)
-	{
-		if (job_is_stopped(j))
-			return (1);
-		j = j->next;
-	}
-	return (0);
-}
 
 static void	close_std(void)
 {
@@ -129,11 +115,16 @@ static void	close_base_std(void)
 	close(STDERR_FILENO);
 }
 
+void		bt_exit_condition(int ret, t_pos *pos)
+{
+	exec_reset_shell(pos);
+	ft_dprintf(STDERR_FILENO, "exit\n");
+	close_base_std();
+	exit(ret);
+}
+
 int			bt_exit(t_job *j, t_pos *pos, t_redirection *r)
 {
-	int	rt;
-	int	ret;
-
 	if (r)
 		redirection_fd(r);
 	if (jobs_running())
@@ -142,23 +133,11 @@ int			bt_exit(t_job *j, t_pos *pos, t_redirection *r)
 		return (1);
 	}
 	if ((!j) || (!j->first_process->cmd) || (!j->first_process->cmd[1]))
-	{
-		ret = check_last_command();
-		exec_reset_shell(pos);
-		ft_dprintf(STDERR_FILENO, "exit\n");
-		close_base_std();
-		exit(ret);
-	}
+		bt_exit_condition(check_last_command(), pos);
 	if (ft_isstrnum(j->first_process->cmd[1]))
 	{
 		if (!j->first_process->cmd[2])
-		{
-			rt = ft_atoi(j->first_process->cmd[1]);
-			exec_reset_shell(pos);
-			ft_dprintf(STDERR_FILENO, "exit\n");
-			close_base_std();
-			exit(rt);
-		}
+			bt_exit_condition(ft_atoi(j->first_process->cmd[1]), pos);
 		ft_dprintf(STDERR_FILENO, "42sh: exit: too many arguments\n");
 		return (1);
 	}

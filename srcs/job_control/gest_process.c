@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gest_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/08/27 06:36:47 by mbellaic         ###   ########.fr       */
-=======
-/*   Updated: 2019/08/27 08:40:47 by apruvost         ###   ########.fr       */
->>>>>>> 7b18b0ad1bf4ce47ddc2c800e1b2da18f879a990
+/*   Updated: 2019/08/27 09:31:03 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +20,6 @@
 ** WIFSTOPPED -> True if the process has not terminated, but has stopped
 **					and can be restarted.
 */
-
-void		cpt_signal_process(t_job *j)
-{
-	t_process	*p;
-
-	p = j->first_process;
-	while (p)
-	{
-		p->status = convert_value_signal(p->status);
-		p->last_status = p->status;
-		p = p->next;
-	}
-}
 
 static int	action_process_status(t_job *j, pid_t pid, int status, t_process *p)
 {

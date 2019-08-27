@@ -247,7 +247,12 @@ SRCS_NAMES = main.c \
 			 restore_redir_builtin.c\
 			 check_path.c\
 			 manage_export.c\
-			 manage_set_bis.c
+			 manage_set_bis.c\
+			 kill.c\
+			 job_running.c\
+			 value_job_control.c\
+			 bt_jobs_p.c\
+			 assembly_command.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:17:14 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 06:39:39 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 09:48:59 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 #include "sh21.h"
 #include "env.h"
+
+void			assembly_command_s(t_process *p, char **str);
+
+/*
+** job_running.c
+*/
+
+int				jobs_running(void);
 
 /*
 ** shell_struct.c

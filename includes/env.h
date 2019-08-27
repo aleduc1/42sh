@@ -6,11 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 13:33:53 by sbelondr          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/08/27 08:29:46 by mbellaic         ###   ########.fr       */
-=======
-/*   Updated: 2019/08/27 08:38:32 by apruvost         ###   ########.fr       */
->>>>>>> 7b18b0ad1bf4ce47ddc2c800e1b2da18f879a990
+/*   Updated: 2019/08/27 09:34:22 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +130,10 @@ void				fill_shell_dumb_mode(void);
 
 int					convert_value_signal(int status);
 
+char				*name_exec_error(void);
+
+void				kill_pgid(t_shell *shell, t_job *j);
+
 /*
 ** redirection.c
 */
@@ -208,7 +208,7 @@ t_env				*get_env(int is_end, t_env *head);
 void				check_exec_path(char **str);
 
 /*
-* restore_redir_builtin.c
+** restore_redir_builtin.c
 */
 
 void				restore_and_return_builtin(int verif);
@@ -266,11 +266,11 @@ int					edit_set_command_env(char *str, t_env *my_env);
 
 int					verif_syntax_key(char *key);
 int					edit_set_no_command(char **value);
-void				apply_edit_set_no_command_env(char *key, char **value, int i,
-				int cnt);
+void				apply_edit_set_no_command_env(char *key, char **value,
+			int i, int cnt);
 
 /*
-* manage_export.c
+** manage_export.c
 */
 
 int					edit_export(char *key);

@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   bt_jobs_p.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 14:28:27 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 09:34:50 by mbellaic         ###   ########.fr       */
+/*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
+/*   Updated: 2019/08/27 09:46:58 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "job.h"
+#include "builtins.h"
 
-char				*ft_strncpy(char *dst, const char *src, size_t len)
+void		bt_jobs_p(t_job *j, int max_current)
 {
-	unsigned int	i;
+	t_process	*p;
 
-	i = 0;
-	while (src && (i < len))
+	(void)max_current;
+	p = j->first_process;
+	ft_dprintf(STDOUT_FILENO, "[%d]", j->process_id);
+	while (p)
 	{
-		dst[i] = src[i];
-		i++;
+		ft_dprintf(STDOUT_FILENO, " %d", p->pid);
+		p = p->next;
 	}
-	dst[i] = '\0';
-	return (dst);
+	ft_dprintf(STDOUT_FILENO, "\n");
 }

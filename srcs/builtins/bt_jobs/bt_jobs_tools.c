@@ -3,58 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   bt_jobs_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/26 05:24:58 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 09:49:21 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
 #include "builtins.h"
-
-char		*assembly_cmd_process(t_process *p)
-{
-	char	*str;
-	char	*tmp;
-	char	*cache;
-	int		i;
-
-	i = -1;
-	str = ft_strdup(p->cmd[++i]);
-	while (p->cmd[++i])
-	{
-		tmp = ft_strjoin(str, " ");
-		cache = ft_strjoin(tmp, p->cmd[i]);
-		ft_strdel(&str);
-		ft_strdel(&tmp);
-		str = cache;
-	}
-	return (str);
-}
-
-static void	assembly_command_s(t_process *p, char **str)
-{
-	char		*tmp;
-	char		*cache;
-
-	if (!(*str))
-		(*str) = assembly_cmd_process(p);
-	else
-	{
-		tmp = assembly_cmd_process(p);
-		cache = ft_strjoin(*str, tmp);
-		ft_strdel(str);
-		ft_strdel(&tmp);
-		(*str) = cache;
-	}
-	if (p->next)
-	{
-		cache = ft_strjoin(*str, " | ");
-		ft_strdel(str);
-		(*str) = cache;
-	}
-}
 
 char		*cmd_job_s(t_job *j)
 {

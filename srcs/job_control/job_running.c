@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   job_running.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 14:28:27 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/27 09:34:50 by mbellaic         ###   ########.fr       */
+/*   Created: 2019/03/21 13:52:06 by apruvost          #+#    #+#             */
+/*   Updated: 2019/08/27 09:42:55 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "env.h"
+#include "job.h"
 
-char				*ft_strncpy(char *dst, const char *src, size_t len)
+int	jobs_running(void)
 {
-	unsigned int	i;
+	t_job	*j;
 
-	i = 0;
-	while (src && (i < len))
+	j = get_first_job(NULL);
+	while (j)
 	{
-		dst[i] = src[i];
-		i++;
+		if (job_is_stopped(j))
+			return (1);
+		j = j->next;
 	}
-	dst[i] = '\0';
-	return (dst);
+	return (0);
 }

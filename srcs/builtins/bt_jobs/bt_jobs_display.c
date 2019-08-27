@@ -3,39 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   bt_jobs_display.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/26 05:26:44 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 09:47:04 by mbellaic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "job.h"
 #include "builtins.h"
-
-char		value_char_job(int current, int max)
-{
-	if (current == max)
-		return ('+');
-	if (current == max - 1)
-		return ('-');
-	return (' ');
-}
-
-void		bt_jobs_p(t_job *j, int max_current)
-{
-	t_process	*p;
-
-	(void)max_current;
-	p = j->first_process;
-	ft_dprintf(STDOUT_FILENO, "[%d]", j->process_id);
-	while (p)
-	{
-		ft_dprintf(STDOUT_FILENO, " %d", p->pid);
-		p = p->next;
-	}
-	ft_dprintf(STDOUT_FILENO, "\n");
-}
 
 static int	bt_jobs_l_display(t_process *p, int last)
 {

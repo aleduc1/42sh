@@ -2,7 +2,7 @@
 # Debug mode #
 # ---------- #
 
-DEBUG = yes
+DEBUG = no
 
 # ----- #
 # Shell #
@@ -35,7 +35,7 @@ VPATH = .:\
 
 CC = gcc
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Wextra -g3
+	CFLAGS = -Wall -Wextra
 else
 	CFLAGS = -Wall -Wextra -Werror
 endif
@@ -153,7 +153,6 @@ $(NAME) : $(OBJS_NAMES)
 	@$(CREATE) $(OBJDIR)
 	$(ADD_VAL)
 	@$(CC) -o $(OBJDIR)$@ -c $< $(CFLAGS) $(CPPFLAGS)
-	@echo -ne "$(BLUE)libft$(CLOSE): compil $(compteur)/$(TOTAL)     "\\r
 
 clean :
 	@$(DEL) $(OBJDIR)

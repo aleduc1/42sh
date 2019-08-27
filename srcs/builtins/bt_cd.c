@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:56:32 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 10:10:08 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 20:36:32 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	cd_check_and_go(t_cd *cd)
 	}
 	if ((sb.st_mode & S_IFMT) != S_IFDIR)
 	{
-		ft_dprintf(STDERR_FILENO, "42sh: cd: no such file or directory: %s\n",
+		ft_dprintf(STDERR_FILENO, "42sh: cd: not a directory: %s\n",
 				cd->directory);
 		return (cd_err(cd));
 	}

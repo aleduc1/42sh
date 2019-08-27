@@ -6,7 +6,7 @@
 /*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 17:22:06 by apruvost          #+#    #+#             */
-/*   Updated: 2019/08/27 14:17:58 by apruvost         ###   ########.fr       */
+/*   Updated: 2019/08/27 15:19:32 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int		cd_test_cdpath(t_cd *cd, char *test)
 		j += cd_getnextpath(&(path[j]), 0);
 	}
 	ft_strdel(&path);
-	return (0);
+	if (!cd_testpath(".", cd->directory, &test))
+		return (0);
+	cd->curpath = test;
+	return (1);
 }
 
 int		is_env_empty(char *value)
@@ -100,7 +103,8 @@ int		cd_testcdpath(char *path, char *directory, char **test)
 	char	*tmp;
 	char	sav;
 
-	i = cd_getnextpath(path, 1);
+	if ((i = cd_getnextpath(path, 1)) < 2)
+		return (0);
 	if ((tmp = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, "42sh: cd: Failed to malloc\n");

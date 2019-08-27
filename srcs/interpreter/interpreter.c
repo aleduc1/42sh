@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   interpreter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:10:40 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/26 05:09:51 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:44:04 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "job.h"
 
-void		background_case(t_ast *node, t_pos *pos, int *bg)
+void			background_case(t_ast *node, t_pos *pos, int *bg)
 {
 	if (node->token->type == AMP)
 	{
@@ -30,7 +30,7 @@ void		background_case(t_ast *node, t_pos *pos, int *bg)
 	}
 }
 
-void	scolon_case(t_ast *node, t_pos *pos, int bg)
+void			scolon_case(t_ast *node, t_pos *pos, int bg)
 {
 	if (node->token->type == SCOLON)
 	{
@@ -44,7 +44,7 @@ void	scolon_case(t_ast *node, t_pos *pos, int bg)
 	}
 }
 
-void	spipe_case(t_ast *node, t_pos *pos, int bg)
+void			spipe_case(t_ast *node, t_pos *pos, int bg)
 {
 	static int state;
 
@@ -62,9 +62,9 @@ void	spipe_case(t_ast *node, t_pos *pos, int bg)
 	}
 }
 
-int		interpreter(t_ast *node, t_pos *pos, int background)
+int				interpreter(t_ast *node, t_pos *pos, int background)
 {
-	static int bg;
+	static int	bg;
 
 	(void)background;
 	if (!node)

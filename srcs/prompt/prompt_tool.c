@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_tool.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 03:56:27 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/27 01:16:20 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:42:56 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				count_escape_backslash(t_node *input)
 }
 
 int				check_backslash(t_node *input, t_multi **multi, t_pos *pos,\
-														 t_integrity *count)
+														t_integrity *count)
 {
 	t_multi		*lstcursor;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hab <hab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 03:02:22 by mbellaic          #+#    #+#             */
-/*   Updated: 2019/08/23 05:20:20 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 07:45:54 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,8 @@ int			*run_pipe(t_token *cmd_list, t_pos *pos, int end_pipe, int bg)
 	char	**argv;
 
 	argv = get_argv(cmd_list);
-//	if (files_handler(cmd_list, pos) != -1)
 	files_handler(&argv, cmd_list, pos);
-		ft_pipe(argv, cmd_list, end_pipe, bg);
+	ft_pipe(argv, cmd_list, end_pipe, bg);
 	ft_arraydel(&argv);
 	return (0);
 }
@@ -90,15 +89,4 @@ int			*run_cmd(t_token *cmd_list, t_pos *pos, int bg)
 		ft_simple_command(argv, cmd_list, pos, bg);
 	ft_arraydel(&argv);
 	return (0);
-}
-
-int			check_last(void)
-{
-	int		check;
-	char	*str;
-
-	str = value_line_path("?", 0);
-	check = ft_atoi(str);
-	ft_strdel(&str);
-	return (check);
 }

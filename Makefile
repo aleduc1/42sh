@@ -129,6 +129,7 @@ SRCS_NAMES = main.c \
 			 ast_parser.c \
 			 ast_parser_tools.c \
 			 tree_utils.c \
+			 cmd_parser_tools.c \
 			 cmd_parser.c \
 			 builtin_env.c\
 			 commands.c\

@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 08:00:49 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:12:54 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ int						ft_simple_command_redirection(char **argv,
 	cpy = cpy_redirection(r);
 	j = create_new_job(argv, NULL, cpy, fg);
 	p = j->first_process;
-
-
-// p = j->first_process;
-	p->final_str = NULL;//ft_construct_redirection(t, pos);
+	p->final_str = NULL;
 	if (check_last_command() == -5)
 	{
 		gest_return(1);
@@ -74,17 +71,5 @@ int						ft_simple_command_redirection(char **argv,
 		return (1);
 	}
 	verif = exec_ft_simple_command(j, p, pos, fg);
-return (0);
-
-	if (check_last_command() == -5)
-	{
-		gest_return(1);
-		clean_fuck_list(0);
-		return (1);
-	}
-	if (!builtin_exist(p->cmd[0]))
-		verif = is_not_builtin(j, p, fg);
-	else
-		verif = builtin(j, p, pos, fg);
-	return (verif);
+	return (0);
 }

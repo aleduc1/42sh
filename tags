@@ -330,7 +330,7 @@ compteur	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^compteur = 0$/;"	m
 condition_clean_list	/Users/sbelondr/Desktop/42sh/srcs/commands/clean_commands.c	/^static int	condition_clean_list(t_job *j, pid_t pid)$/;"	f	file:
 config_pid_process	/Users/sbelondr/Desktop/42sh/srcs/job_control/process_tools.c	/^void	config_pid_process(pid_t pgid, int fg)$/;"	f
 construct_dst_redir	/Users/sbelondr/Desktop/42sh/srcs/commands/create_commands.c	/^char		*construct_dst_redir(t_redir *redir, char *final)$/;"	f
-construct_redir	/Users/sbelondr/Desktop/42sh/srcs/commands/create_commands.c	/^void        construct_redir(t_redir *redir, char **str)$/;"	f
+construct_redir	/Users/sbelondr/Desktop/42sh/srcs/commands/create_commands.c	/^void		construct_redir(t_redir *redir, char **str)$/;"	f
 construct_str_redir	/Users/sbelondr/Desktop/42sh/srcs/commands/create_commands.c	/^char		*construct_str_redir(t_redir *redir, char *type)$/;"	f
 content	/Users/sbelondr/Desktop/42sh/libft/includes/libft.h	/^	void			*content;$/;"	m	struct:s_list
 content_size	/Users/sbelondr/Desktop/42sh/libft/includes/libft.h	/^	size_t			content_size;$/;"	m	struct:s_list
@@ -436,7 +436,7 @@ edit_current_value	/Users/sbelondr/Desktop/42sh/srcs/job_control/add_job.c	/^voi
 edit_export	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_export.c	/^int			edit_export(char *key)$/;"	f
 edit_pid_shell	/Users/sbelondr/Desktop/42sh/srcs/job_control/process_tools.c	/^void	edit_pid_shell(int pid, t_job *j, t_process *p)$/;"	f
 edit_set	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_set.c	/^int			edit_set(char **value, t_redirection *r, t_pos *pos)$/;"	f
-edit_set_command	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_set.c	/^int			edit_set_command(char **value, t_redirection *r, t_pos *pos,$/;"	f
+edit_set_command	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_set.c	/^int			edit_set_command(char **value, t_redirection *r, t_pos *pos)$/;"	f
 edit_set_command_env	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_set.c	/^int			edit_set_command_env(char *str, t_env *my_env)$/;"	f
 edit_set_no_command	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_set_bis.c	/^int			edit_set_no_command(char **value)$/;"	f
 edit_set_no_command_env	/Users/sbelondr/Desktop/42sh/srcs/environnement/manage_set.c	/^int			edit_set_no_command_env(char **value)$/;"	f
@@ -911,7 +911,6 @@ is_special_parameters	/Users/sbelondr/Desktop/42sh/srcs/environnement/apply_pars
 is_special_variable	/Users/sbelondr/Desktop/42sh/srcs/environnement/expansion_tools.c	/^static int	is_special_variable(char *str)$/;"	f	file:
 is_split	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_strsplit.c	/^static int	is_split(char c, char spl)$/;"	f	file:
 is_split	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_strsplit_commands.c	/^static int	is_split(char *str)$/;"	f	file:
-is_test	/Users/sbelondr/Desktop/42sh/srcs/commands/is_builtin.c	/^static	int	is_test(t_process *p, t_redirection *r, t_pos *pos)$/;"	f	file:
 isrep	/Users/sbelondr/Desktop/42sh/includes/builtins.h	/^	int					isrep;$/;"	m	struct:s_hist_rep
 j	/Users/sbelondr/Desktop/42sh/libft/includes/libft.h	/^	int				j;$/;"	m	struct:s_merge
 job_for_bg_fg	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_jobs/bt_fg_bg_tools.c	/^t_job			*job_for_bg_fg(char **av)$/;"	f
@@ -1085,6 +1084,7 @@ redirection_fd_bis	/Users/sbelondr/Desktop/42sh/srcs/redirection/redirection_bis
 redraw	/Users/sbelondr/Desktop/42sh/srcs/prompt/edition/editline.c	/^void		redraw(t_pos *pos, t_node *lstcursor)$/;"	f
 remove_node	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/remove_space/remove_space_token.c	/^void	remove_node(t_lex **node_cmd_space)$/;"	f
 remove_quote	/Users/sbelondr/Desktop/42sh/srcs/environnement/remove_quote.c	/^void		remove_quote(char ***value)$/;"	f
+remove_quote_bis	/Users/sbelondr/Desktop/42sh/srcs/environnement/remove_quote.c	/^void		remove_quote_bis(int *i, char **line)$/;"	f
 remove_quote_line	/Users/sbelondr/Desktop/42sh/srcs/environnement/remove_quote.c	/^void		remove_quote_line(char **line)$/;"	f
 remove_quote_line_first	/Users/sbelondr/Desktop/42sh/srcs/environnement/remove_quote.c	/^void		remove_quote_line_first(char **line)$/;"	f
 remove_space_token	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/remove_space/remove_space_token.c	/^void	remove_space_token(t_lex **lexer)$/;"	f
@@ -1092,7 +1092,7 @@ removebackslash	/Users/sbelondr/Desktop/42sh/srcs/environnement/remove_quote.c	/
 reset_hash_verif	/Users/sbelondr/Desktop/42sh/srcs/environnement/free_env.c	/^void		reset_hash_verif(char *key)$/;"	f
 reset_multi	/Users/sbelondr/Desktop/42sh/srcs/prompt/multiline/multiline.c	/^void		reset_multi(t_pos *pos)$/;"	f
 reset_stop	/Users/sbelondr/Desktop/42sh/srcs/prompt/others/dlist_plus.c	/^void	reset_stop(char **inputstr, t_pos *pos, t_integrity *count)$/;"	f
-restore_and_return_builtin	/Users/sbelondr/Desktop/42sh/srcs/commands/restore_redir_builtin.c	/^void		restore_and_return_builtin(int verif, t_job *j, t_process *p)$/;"	f
+restore_and_return_builtin	/Users/sbelondr/Desktop/42sh/srcs/commands/restore_redir_builtin.c	/^void		restore_and_return_builtin(int verif)$/;"	f
 restore_redirection	/Users/sbelondr/Desktop/42sh/srcs/commands/restore_redir_builtin.c	/^void		restore_redirection(void)$/;"	f
 result_null	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/tools_bis.c	/^void		result_null(t_printf **lst, char (*str)[BUF_S])$/;"	f
 return_good_dst	/Users/sbelondr/Desktop/42sh/srcs/environnement/expansion_hash.c	/^char		*return_good_dst(char *stock, char *parameter)$/;"	f
@@ -1229,7 +1229,7 @@ type	/Users/sbelondr/Desktop/42sh/includes/lexer.h	/^	t_type	type;$/;"	m	struct:
 type	/Users/sbelondr/Desktop/42sh/includes/lexer.h	/^	t_type	type;$/;"	m	struct:s_token
 type_alias_hash	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_type.c	/^static int			type_alias_hash(char *command)$/;"	f	file:
 type_builtin	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_type.c	/^static int			type_builtin(char *command)$/;"	f	file:
-type_redir	/Users/sbelondr/Desktop/42sh/srcs/commands/create_commands.c	/^char        *type_redir(t_type type)$/;"	f
+type_redir	/Users/sbelondr/Desktop/42sh/srcs/commands/create_commands.c	/^char		*type_redir(t_type type)$/;"	f
 type_to_end_on	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/simple_command/type_check.c	/^int		type_to_end_on(t_type type)$/;"	f
 type_to_ignore	/Users/sbelondr/Desktop/42sh/srcs/parser/pre_parser/simple_command/type_check.c	/^int		type_to_ignore(t_type type)$/;"	f
 u_test	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/unary_primaries.c	/^int		u_test(char *str1, char *str2, char *str3)$/;"	f

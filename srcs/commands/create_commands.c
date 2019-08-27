@@ -6,7 +6,7 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 11:33:20 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 18:10:09 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:11:21 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ char		*construct_dst_redir(t_redir *redir, char *final)
 
 	if (redir->type == DLESS)
 		cache = ft_strjoin(final, redir->heredoc);
-	else if  (redir->filename)
+	else if (redir->filename)
 		cache = ft_strjoin(final, redir->filename);
 	else if (redir->type == LESSAMPHYPH || redir->type == GREATAMPHYPH)
 		cache = ft_strjoin(final, "");
-	else	
+	else
 		cache = ft_strjoin(final, redir->dest_fd);
 	return (cache);
 }

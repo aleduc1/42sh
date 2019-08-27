@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:54:24 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 08:13:03 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:21:19 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int			edit_set_no_command_env(char **value)
 	return (i);
 }
 
-int			edit_set_command(char **value, t_redirection *r, t_pos *pos,
-		int index)
+int			edit_set_command(char **value, t_redirection *r, t_pos *pos)
 {
 	t_env	*cpy_env;
 	int		result;
@@ -71,7 +70,7 @@ int			edit_set(char **value, t_redirection *r, t_pos *pos)
 	if (!value[i])
 		result = edit_set_no_command(value);
 	else
-		edit_set_command(value, r, pos, i);
+		edit_set_command(value, r, pos);
 	return (result != -1 ? 0 : 1);
 }
 

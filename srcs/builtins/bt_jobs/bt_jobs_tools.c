@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 09:49:21 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:48:06 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		*cmd_job_s(t_job *j)
 	char		*cache;
 
 	p = j->first_process;
-	str = NULL;
+	str = 0;
 	while (p)
 	{
 		assembly_command_s(p, &str);

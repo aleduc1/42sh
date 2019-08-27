@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 11:34:26 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 18:51:51 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 22:36:46 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,5 @@ void		wait_for_job(t_job *j)
 	else if (WIFSIGNALED(status))
 		gest_return(WTERMSIG(status));
 	else
-		gest_return(WTERMSIG(status));
+		gest_return(status);
 }

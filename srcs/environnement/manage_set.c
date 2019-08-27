@@ -48,7 +48,7 @@ int			edit_set_command(char **value, t_redirection *r, t_pos *pos)
 
 	signal(SIGTTOU, SIG_IGN);
 	cpy_env = ft_cpy_env();
-	result = edit_set_no_command(value);
+	result = edit_set_no_command(value, 1);
 	ft_simple_command_redirection(value + result, r, pos, 1);
 	get_env(1, NULL);
 	get_env(0, cpy_env);
@@ -68,7 +68,7 @@ int			edit_set(char **value, t_redirection *r, t_pos *pos)
 	if (i == 0)
 		return (-1);
 	if (!value[i])
-		result = edit_set_no_command(value);
+		result = edit_set_no_command(value, 0);
 	else
 		edit_set_command(value, r, pos);
 	return (result != -1 ? 0 : 1);

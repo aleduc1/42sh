@@ -99,6 +99,7 @@ LIBDIR	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^LIBDIR = libs\/$/;"	m
 LIBFT_H	/Users/sbelondr/Desktop/42sh/libft/includes/libft.h	/^#	define LIBFT_H$/;"	d
 LIBS	/Users/sbelondr/Desktop/42sh/Makefile	/^LIBS = $(addprefix $(PATHLIBDIR), $(LIBS_NAMES))$/;"	m
 LIBS_NAMES	/Users/sbelondr/Desktop/42sh/Makefile	/^LIBS_NAMES = libft.a$/;"	m
+MORE_OP	/Users/sbelondr/Desktop/42sh/includes/parser.h	/^# define MORE_OP /;"	d
 N	/Users/sbelondr/Desktop/42sh/Makefile	/^N = 0$/;"	m
 N	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^N = 0$/;"	m
 NAME	/Users/sbelondr/Desktop/42sh/Makefile	/^NAME = 42sh$/;"	m
@@ -111,7 +112,7 @@ OBJDIR	/Users/sbelondr/Desktop/42sh/Makefile	/^OBJDIR = objs\/$/;"	m
 OBJDIR	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^OBJDIR = objs\/$/;"	m
 OBJS_NAMES	/Users/sbelondr/Desktop/42sh/Makefile	/^OBJS_NAMES = $(SRCS_NAMES:.c=.o)$/;"	m
 OBJS_NAMES	/Users/sbelondr/Desktop/42sh/libft/Makefile	/^OBJS_NAMES = $(SRCS_NAMES:.c=.o)$/;"	m
-OPERATORS	/Users/sbelondr/Desktop/42sh/includes/parser.h	/^# define OPERATORS /;"	d
+OP	/Users/sbelondr/Desktop/42sh/includes/parser.h	/^# define OP /;"	d
 OS	/Users/sbelondr/Desktop/42sh/includes/env.h	/^#	define OS /;"	d
 PARSER_H	/Users/sbelondr/Desktop/42sh/includes/parser.h	/^# define PARSER_H$/;"	d
 PATHLIBDIR	/Users/sbelondr/Desktop/42sh/Makefile	/^PATHLIBDIR = libft\/libs\/$/;"	m
@@ -685,7 +686,7 @@ ft_putnbr_fd	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_putnbr_fd.c	/^void	ft_pu
 ft_putnbrln	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_putnbrln.c	/^void	ft_putnbrln(int n)$/;"	f
 ft_putstr	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_putstr.c	/^void	ft_putstr(char const *s)$/;"	f
 ft_putstr_fd	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_putstr_fd.c	/^void	ft_putstr_fd(char const *s, int fd)$/;"	f
-ft_remove_element	/Users/sbelondr/Desktop/42sh/srcs/environnement/remove_quote.c	/^int			ft_remove_element(char **line, int i, int expand)$/;"	f
+ft_remove_element	/Users/sbelondr/Desktop/42sh/srcs/environnement/remove_element.c	/^int			ft_remove_element(char **line, int i, int expand)$/;"	f
 ft_remove_last_chr	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_remove_last_chr.c	/^void		ft_remove_last_chr(char **str)$/;"	f
 ft_reset_value	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/prepare.c	/^void	ft_reset_value(t_printf **lst)$/;"	f
 ft_reverse_tablo	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_reverse_tablo.c	/^void	ft_reverse_tablo(char (*lst)[BUF_S])$/;"	f
@@ -870,7 +871,7 @@ init_array	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/gest_flag.c	/^stati
 init_array	/Users/sbelondr/Desktop/42sh/srcs/environnement/gest_expansion.c	/^static char		*(**init_array(void))(char*, char*)$/;"	f	file:
 init_env	/Users/sbelondr/Desktop/42sh/srcs/environnement/list_env.c	/^t_env		*init_env(void)$/;"	f
 init_fc	/Users/sbelondr/Desktop/42sh/srcs/prompt/history/fc/history_fc.c	/^void		init_fc(t_fc *fc)$/;"	f
-init_heredoc	/Users/sbelondr/Desktop/42sh/srcs/prompt/multiline/heredoc.c	/^void		init_heredoc(t_pos *pos)$/;"	f
+init_heredoc	/Users/sbelondr/Desktop/42sh/srcs/prompt/multiline/init_heredoc.c	/^void		init_heredoc(t_pos *pos)$/;"	f
 init_job	/Users/sbelondr/Desktop/42sh/srcs/job_control/list_job.c	/^t_job		*init_job(void)$/;"	f
 init_maillon_env	/Users/sbelondr/Desktop/42sh/srcs/environnement/list_env.c	/^t_env		*init_maillon_env(void)$/;"	f
 init_process	/Users/sbelondr/Desktop/42sh/srcs/job_control/list_job.c	/^t_process	*init_process(void)$/;"	f
@@ -1063,7 +1064,7 @@ r	/Users/sbelondr/Desktop/42sh/includes/parser.h	/^	struct s_ast	*r;$/;"	m	struc
 r_test	/Users/sbelondr/Desktop/42sh/srcs/builtins/bt_test/last_unary_primaries.c	/^int		r_test(char *str1, char *str2, char *str3)$/;"	f
 raw_term_mode	/Users/sbelondr/Desktop/42sh/srcs/prompt/others/terminit.c	/^void				raw_term_mode(void)$/;"	f
 read_input	/Users/sbelondr/Desktop/42sh/srcs/prompt/prompt.c	/^t_node			*read_input(t_node **input, t_pos *pos)$/;"	f
-reading_input	/Users/sbelondr/Desktop/42sh/srcs/lexer/lexer.c	/^void	reading_input(char *input, t_lex **lex)$/;"	f
+reading_input	/Users/sbelondr/Desktop/42sh/srcs/lexer/reading_input.c	/^void	reading_input(char *input, t_lex **lex)$/;"	f
 reading_loop	/Users/sbelondr/Desktop/42sh/srcs/lexer/lexer.c	/^void	reading_loop(char *input, t_lex **lex, t_token **tok, t_tab_type **t)$/;"	f
 recup_char	/Users/sbelondr/Desktop/42sh/libft/srcs/ft_printf/parser.c	/^char	recup_char(t_printf **lst, int n)$/;"	f
 redir	/Users/sbelondr/Desktop/42sh/includes/lexer.h	/^	t_redir	*redir;$/;"	m	struct:s_lex

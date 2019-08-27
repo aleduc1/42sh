@@ -268,7 +268,7 @@ int					edit_set_command_env(char *str, t_env *my_env);
 */
 
 int					verif_syntax_key(char *key);
-int					edit_set_no_command(char **value);
+int					edit_set_no_command(char **value, int env);
 void				apply_edit_set_no_command_env(char *key, char **value,
 			int i, int cnt);
 

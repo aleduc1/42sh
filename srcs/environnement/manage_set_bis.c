@@ -26,7 +26,7 @@ int			verif_syntax_key(char *key)
 static void	apply_edit_set_no_command(char *key, char **value, int i, int cnt)
 {
 	reset_hash_verif(key);
-	edit_setenv(key, value[i] + cnt + 1);
+	add_set_value_perm(key, value[i] + cnt + 1, 0);
 }
 
 void		apply_edit_set_no_command_env(char *key, char **value, int i,
@@ -36,31 +36,27 @@ void		apply_edit_set_no_command_env(char *key, char **value, int i,
 	edit_setenv(key, value[i] + cnt + 1);
 }
 
-int			edit_set_no_command(char **value)
+int			edit_set_no_command(char **value, int env)
 {
 	char	*key;
 	int		i;
 	int		cnt;
 
 	i = -1;
-	while (value[++i])
+	while (value[++i] && ((cnt = ft_chr_index(value[i], '=')) > 0))
 	{
-		if ((cnt = ft_chr_index(value[i], '=')) > 0)
+		key = ft_strsub(value[i], 0, cnt);
+		if (verif_syntax_key(key) == 0)
 		{
-			key = ft_strsub(value[i], 0, cnt);
-			if (verif_syntax_key(key) == 0)
-			{
-				ft_strdel(&key);
-				return (-1);
-			}
-			else if (key && ft_strlen(key) > 0)
-			{
-				apply_edit_set_no_command(key, value, i, cnt);
-				ft_strdel(&key);
-			}
+			ft_strdel(&key);
+			return (-1);
 		}
-		else
-			break ;
+		else if (key && ft_strlen(key) > 0)
+		{
+			(env) ? apply_edit_set_no_command_env(key, value, i, cnt)
+				: apply_edit_set_no_command(key, value, i, cnt);
+			ft_strdel(&key);
+		}
 	}
 	return (i);
 }

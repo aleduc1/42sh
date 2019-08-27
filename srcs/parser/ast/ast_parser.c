@@ -18,7 +18,7 @@ t_ast			*nud(t_token *t)
 {
 	if (t->type == CMD)
 		return (node_ast(t, NULL, NULL));
-	else if (OPERATORS)
+	else if (OP && MORE_OP)
 	{
 		ft_putstr("42sh: parse error near: ");
 		ft_putendl(t->data);

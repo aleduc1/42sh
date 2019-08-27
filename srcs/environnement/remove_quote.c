@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:31:02 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 20:32:45 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 20:59:45 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void		removebackslash(char **line)
 
 	i = 0;
 	expand = 0;
-	if ((!line) || (!(*line)) || **line == '\\')
+	if ((!line) || (!(*line)))
+		return ;
+	if (**line == '\\' && *(*line + 1) != '\n')
 		return ;
 	while ((*line) && (*line)[i])
 	{

@@ -61,9 +61,9 @@ int			verif_close(int fd)
 	in = value_line_path("STDIN", 3);
 	out = value_line_path("STDOUT", 3);
 	error = value_line_path("STDERR", 3);
-	test_verif_close(in, fd, verif);
-	test_verif_close(out, fd, verif);
-	test_verif_close(error, fd, verif);
+	verif = test_verif_close(in, fd, verif);
+	verif = test_verif_close(out, fd, verif);
+	verif = test_verif_close(error, fd, verif);
 	ft_strdel(&in);
 	ft_strdel(&out);
 	ft_strdel(&error);

@@ -75,6 +75,7 @@ int						ft_simple_command(char **argv, t_token *t, t_pos *pos,
 	fg = (bg > 0) ? 0 : 1;
 	j = create_new_job(argv, t, NULL, fg);
 	p = j->first_process;
+	p->final_str = ft_construct_redirection(t, pos);
 	if (check_last_command() == -5)
 	{
 		gest_return(1);

@@ -252,7 +252,8 @@ SRCS_NAMES = main.c \
 			 job_running.c\
 			 value_job_control.c\
 			 bt_jobs_p.c\
-			 assembly_command.c
+			 assembly_command.c\
+			 create_commands.c
 
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

@@ -85,6 +85,7 @@ typedef struct		s_shell
 
 typedef struct		s_process
 {
+	char				*final_str;
 	char				*cmd_path;
 	char				**cmd;
 	pid_t				pid;
@@ -121,7 +122,7 @@ typedef struct		s_job
 }					t_job;
 
 void				edit_current_value(int value);
-
+char				*ft_construct_redirection(t_token *token, t_pos *pos);
 void				reset_hash_verif(char *key);
 
 int					ft_simple_command_fc(char *editor);

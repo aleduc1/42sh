@@ -24,6 +24,7 @@ void		free_process(t_job **j)
 	{
 		next = p->next;
 		ft_strdel(&(p->cmd_path));
+		ft_strdel(&(p->final_str));
 		if (p->cmd)
 			ft_arraydel(&(p->cmd));
 		free(p);

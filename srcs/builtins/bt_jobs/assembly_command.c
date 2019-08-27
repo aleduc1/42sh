@@ -6,7 +6,7 @@
 /*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 10:54:45 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 09:48:33 by mbellaic         ###   ########.fr       */
+/*   Updated: 2019/08/27 11:13:16 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ char	*assembly_cmd_process(t_process *p)
 		ft_strdel(&tmp);
 		str = cache;
 	}
+	// ft_printf("[%s]\n", p->final_str);
+	cache = ft_strjoin(str, " ");
+	ft_strdel(&str);
+	str = ft_strjoin(cache, p->final_str);
+	ft_strdel(&cache);
 	return (str);
 }
 

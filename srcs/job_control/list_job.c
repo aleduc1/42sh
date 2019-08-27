@@ -22,6 +22,7 @@ t_process	*init_process(void)
 	p->cmd = NULL;
 	p->pid = 0;
 	p->completed = 0;
+	p->final_str = 0;
 	p->stopped = 0;
 	p->status = 0;
 	p->fg = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbellaic <mbellaic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apruvost <apruvost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 17:57:48 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/23 05:33:43 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 21:43:35 by apruvost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,21 @@
 
 int			gest_error_path(char *cmd, t_redirection *r)
 {
+	struct stat sb;
+
 	if (check_last_command() == -6)
 	{
 		display_permission_denied(r, cmd);
 		gest_return(126);
 		return (126);
 	}
-	display_command_not_found(r, cmd);
+	if (stat(cmd, &sb) == 0 && S_ISDIR(sb.st_mode))
+	{
+		ft_dprintf(r->error, "42sh: %s: Is a directory\n", cmd);
+		gest_return(126);
+		return (126);
+	}
+	display_command_not_found(r, cmd);	
 	gest_return(127);
 	return (127);
 }

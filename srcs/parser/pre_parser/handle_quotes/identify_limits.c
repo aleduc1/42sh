@@ -6,7 +6,7 @@
 /*   By: aleduc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 05:29:33 by aleduc            #+#    #+#             */
-/*   Updated: 2019/08/25 05:40:55 by aleduc           ###   ########.fr       */
+/*   Updated: 2019/08/27 20:52:24 by aleduc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_lex	*identify_start(t_lex **head)
 
 	ptr = (*head);
 	start = NULL;
-	while (ptr->next->token->type != DELIM)
+	while (ptr->next != NULL && ptr->next->token->type != DELIM)
 	{
 		if (ptr->token->type == WORD)
 		{

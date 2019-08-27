@@ -46,4 +46,5 @@ void	add_process(char **av, t_token *t, int fg)
 	parser_var(&(p->cmd));
 	p->fg = fg;
 	p->r = (t) ? fill_redirection(t) : NULL;
+	p->final_str = ft_construct_redirection(t);
 }

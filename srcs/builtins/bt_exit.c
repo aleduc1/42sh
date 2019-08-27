@@ -118,7 +118,7 @@ static void	close_base_std(void)
 void		bt_exit_condition(int ret, t_pos *pos)
 {
 	exec_reset_shell(pos);
-	ft_dprintf(STDERR_FILENO, "exit\n");
+	ft_dprintf(STDOUT_FILENO, "exit\n");
 	close_base_std();
 	exit(ret);
 }
@@ -138,10 +138,10 @@ int			bt_exit(t_job *j, t_pos *pos, t_redirection *r)
 	{
 		if (!j->first_process->cmd[2])
 			bt_exit_condition(ft_atoi(j->first_process->cmd[1]), pos);
-		ft_dprintf(STDERR_FILENO, "42sh: exit: too many arguments\n");
+		ft_dprintf(STDOUT_FILENO, "42sh: exit: too many arguments\n");
 		return (1);
 	}
-	ft_dprintf(STDERR_FILENO, "42sh: exit: %s: numeric argument required\n",
+	ft_dprintf(STDOUT_FILENO, "42sh: exit: %s: numeric argument required\n",
 			j->first_process->cmd[1]);
 	exec_reset_shell(pos);
 	close_base_std();

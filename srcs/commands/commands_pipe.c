@@ -6,7 +6,7 @@
 /*   By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:50:50 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/25 18:38:26 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:08:19 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static void	prepare_exec_pipe(int fg)
 
 	j = get_end_job();
 	j->fg = fg;
-	if (verif_is_fork(j->first_process) == -1)
-		return ;
 	launch_job_pipe(j, fg);
 }
 

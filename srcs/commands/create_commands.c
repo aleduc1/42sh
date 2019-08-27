@@ -6,16 +6,16 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 11:33:20 by sbelondr          #+#    #+#             */
-/*   Updated: 2019/08/27 11:37:16 by sbelondr         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:10:09 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "job.h"
 
-char        *type_redir(t_type type)
+char		*type_redir(t_type type)
 {
-	char    *result;
+	char	*result;
 
 	if (type == LESS)
 		result = ft_strdup("<");
@@ -44,7 +44,7 @@ char		*construct_str_redir(t_redir *redir, char *type)
 {
 	char	*final;
 
-	if  (redir->type != AMPGREAT)
+	if (redir->type != AMPGREAT)
 		final = ft_strjoin(redir->src_fd[0], type);
 	else
 		final = ft_strjoin("", type);
@@ -66,14 +66,12 @@ char		*construct_dst_redir(t_redir *redir, char *final)
 	return (cache);
 }
 
-
-void        construct_redir(t_redir *redir, char **str, t_pos *pos)
+void		construct_redir(t_redir *redir, char **str)
 {
 	char	*final;
 	char	*cache;
 	char	*type;
 
-	(void)pos;
 	type = type_redir(redir->type);
 	final = construct_str_redir(redir, type);
 	cache = construct_dst_redir(redir, final);
@@ -90,10 +88,10 @@ void        construct_redir(t_redir *redir, char **str, t_pos *pos)
 		(*str) = cache;
 }
 
-char		*ft_construct_redirection(t_token *token, t_pos *pos)
+char		*ft_construct_redirection(t_token *token)
 {
-	t_lex   *lex;
-	char    *str;
+	t_lex	*lex;
+	char	*str;
 	char	*tmp;
 
 	lex = token->command;
@@ -101,7 +99,7 @@ char		*ft_construct_redirection(t_token *token, t_pos *pos)
 	while (lex)
 	{
 		if (lex->redir)
-		 construct_redir(lex->redir, &str, pos);
+			construct_redir(lex->redir, &str);
 		if (str)
 		{
 			tmp = ft_strjoin(str, " ");
@@ -112,6 +110,5 @@ char		*ft_construct_redirection(t_token *token, t_pos *pos)
 	}
 	if (!str)
 		str = ft_strdup("");
-	// ft_printf("[%s]\n", str);
 	return (str);
 }

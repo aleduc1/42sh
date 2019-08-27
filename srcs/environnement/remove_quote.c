@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-int			ft_remove_element(char **line, int i)
+int			ft_remove_element(char **line, int i, int expand)
 {
 	ft_strremove_char(line, i);
 	if ((*line)[i] && (*line)[i] == '\\')
@@ -20,6 +20,11 @@ int			ft_remove_element(char **line, int i)
 	else if (!(*line)[i])
 		return (1);
 	else if ((*line)[i] == '\n')
+	{
+		ft_strremove_char(line, i);
+		--i;
+	}
+	else if (((*line)[i] == '"' || (*line)[i] == '\'') && (expand == 0 || expand > 0))
 	{
 		ft_strremove_char(line, i);
 		--i;
@@ -41,12 +46,12 @@ void		removebackslash(char **line)
 		expand = manage_is_quote((*line), i, expand);
 		if ((*line)[i] == '\\' && expand > 0)
 		{
-			if (ft_remove_element(line, i))
+			if (ft_remove_element(line, i, expand))
 				return ;
 		}
 		else if ((*line)[i] == '\\' && expand == 0)
 		{
-			if (ft_remove_element(line, i))
+			if (ft_remove_element(line, i, expand))
 				return ;
 		}
 		else
@@ -59,34 +64,40 @@ void		remove_quote_line_first(char **line)
 	int	i;
 	int	expand;
 
-	i = -1;
+	i = 0;
 	expand = 0;
 	if ((!line) || (!(*line)))
 		return ;
-	while ((*line)[++i])
+	while ((*line)[i])
 	{
 		expand = manage_is_quote((*line), i, expand);
-		if ((((*line)[i] == '\'' && expand > 0)
-			|| ((*line)[i] == '"' && expand < 0))
-			&& (i - 1 < 0 || (*line)[i - 1] != '\\'))
+		if (expand <= 0 && (*line)[i] == '\\')
 		{
+			ft_strremove_char(line, i);
+			if ((*line)[i] && (*line)[i] == '\n')
+				ft_strremove_char(line, i);
+			else
+				++i;
+		}
+		else if ((*line)[i] && expand > 0 && (*line)[i] == '\'')
+		{
+			ft_strremove_char(line, i);
+			i = ft_chr_index((*line), '\'');
 			ft_strremove_char(line, i);
 			--i;
 		}
-		else if ((((*line)[i] == '\'' && expand == 0)
-				|| ((*line)[i] == '"' && expand == 0))
-				&& (i - 1 < 0 || (*line)[i - 1] != '\\'))
+		else if ((*line)[i] && expand <= 0 && (*line)[i] == '"')
 		{
 			ft_strremove_char(line, i);
-			--i;
 		}
+		else
+			++i;
 	}
 }
 
 void		remove_quote_line(char **line)
 {
 	remove_quote_line_first(line);
-	removebackslash(line);
 }
 
 void		remove_quote(char ***value)

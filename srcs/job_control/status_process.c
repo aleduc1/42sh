@@ -53,6 +53,8 @@ void		job_notif(void)
 			bt_jobs_s(j, get_shell()->max_job_current);
 		else if (job_is_stopped(j))
 			notif_stop(j);
+		else if (WIFSIGNALED(j->first_process->status))
+			bt_jobs_s(j, get_shell()->max_job_current);
 		j = j->next;
 	}
 	clean_fuck_list(0);

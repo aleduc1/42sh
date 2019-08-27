@@ -26,7 +26,8 @@ int			verif_syntax_key(char *key)
 static void	apply_edit_set_no_command(char *key, char **value, int i, int cnt)
 {
 	reset_hash_verif(key);
-	add_set_value(key, value[i] + cnt + 1);
+	edit_setenv(key, value[i] + cnt + 1);
+	// add_set_value(key, value[i] + cnt + 1);
 }
 
 void		apply_edit_set_no_command_env(char *key, char **value, int i,

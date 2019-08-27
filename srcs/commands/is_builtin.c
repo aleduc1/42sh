@@ -54,6 +54,30 @@ static int	verif_set(char **argv, int nb, t_redirection *r, char *name)
 **	unsetenv -> ft_unsetenv(av);
 */
 
+static	int	is_test(t_process *p, t_redirection *r, t_pos *pos)
+{
+	// int		i;
+	int		verif;
+	// char	*str;
+
+	// i = -1;
+	// verif = 0;
+	// while (p->cmd[++i])
+	// 	verif = ft_strequ("env", p->cmd[i]) ? 1 : 0;
+	// if (verif)
+	// {
+	// 	str = ft_strdup(p->cmd[0]);
+	// 	ft_strdel(&(p->cmd[i - 1]));
+	// 	p->cmd[i - 1] = str;
+	// 	ft_strdel(&(p->cmd[0]));
+	// 	p->cmd[0] = ft_strdup("env");
+	// 	ft_simple_command_redirection(p->cmd, r, pos, p->fg);
+	// }
+	// else
+		verif = edit_set(p->cmd, r, pos);
+	return (verif);	
+}
+
 static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 {
 	int	verif;
@@ -65,7 +89,7 @@ static int	is_builtin_env(t_process *p, char **av, t_pos *pos)
 	else if (ft_strequ(av[0], "unset"))
 		verif = ft_unset(av);
 	else if (ft_strchr_exist(av[0], '='))
-		verif = edit_set(av, p->r, pos);
+		verif = edit_set(p->cmd, p->r, pos);
 	else
 		verif = -1;
 	return (verif);
@@ -130,6 +154,6 @@ int			is_builtin(t_job *j, t_process *p, t_pos *pos)
 	else
 		verif = -1;
 	if (verif != -1)
-		restore_and_return_builtin(verif);
+		restore_and_return_builtin(verif, j, p);
 	return (verif);
 }

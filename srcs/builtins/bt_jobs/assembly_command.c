@@ -30,7 +30,6 @@ char	*assembly_cmd_process(t_process *p)
 		ft_strdel(&tmp);
 		str = cache;
 	}
-	// ft_printf("[%s]\n", p->final_str);
 	cache = ft_strjoin(str, " ");
 	ft_strdel(&str);
 	str = ft_strjoin(cache, p->final_str);

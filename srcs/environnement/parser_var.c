@@ -31,6 +31,23 @@ int			apply_parser_var(char *value, char **dst, int *i, int last)
 	return ((*i) + 1);
 }
 
+int			count_slash(char *line, int i)
+{
+	int	j;
+	int	cnt;
+	int	expand;
+
+	j = -1;
+	cnt = 0;
+	expand = 0;
+	while (--i >= 0 && line[i] && line[i] == '\\')
+	{
+		++cnt;
+	}
+	cnt %= 2;
+	return (cnt);
+}
+
 /*
 ** Parcours un char* pour chercher les valeurs a remplacer
 ** Args:	char **value -> adresse d'un char*
@@ -52,7 +69,7 @@ void		parser_var_simple(char **value)
 	while (++i < len)
 	{
 		expand = manage_is_quote((*value), i, expand);
-		if (expand <= 0 && (i - 1 < 0 || (*value)[i - 1] != '\\')
+		if (expand <= 0 && (i - 1 < 0 || (!count_slash((*value), i)))
 			&& ((*value)[i] == '$'
 			|| ((*value)[i] == '~' && is_expand_tild(*value, i, expand))))
 			last = apply_parser_var(*value, &dst, &i, last);

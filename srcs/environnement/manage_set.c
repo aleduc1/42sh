@@ -47,11 +47,9 @@ int			edit_set_command(char **value, t_redirection *r, t_pos *pos,
 	t_env	*cpy_env;
 	int		result;
 
+	signal(SIGTTOU, SIG_IGN);
 	cpy_env = ft_cpy_env();
-	if (ft_strequ(value[index], "env"))
-		result = edit_set_no_command_env(value);
-	else
-		result = edit_set_no_command(value);
+	result = edit_set_no_command(value);
 	ft_simple_command_redirection(value + result, r, pos, 1);
 	get_env(1, NULL);
 	get_env(0, cpy_env);

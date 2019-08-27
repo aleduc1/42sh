@@ -63,6 +63,19 @@ int						ft_simple_command_redirection(char **argv,
 	cpy = cpy_redirection(r);
 	j = create_new_job(argv, NULL, cpy, fg);
 	p = j->first_process;
+
+
+// p = j->first_process;
+	p->final_str = NULL;//ft_construct_redirection(t, pos);
+	if (check_last_command() == -5)
+	{
+		gest_return(1);
+		clean_fuck_list(0);
+		return (1);
+	}
+	verif = exec_ft_simple_command(j, p, pos, fg);
+return (0);
+
 	if (check_last_command() == -5)
 	{
 		gest_return(1);

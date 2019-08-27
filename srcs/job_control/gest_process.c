@@ -142,5 +142,12 @@ void		wait_for_job(t_job *j)
 			|| job_is_completed(j))
 			break ;
 	}
-	gest_return(choice_gest_return(j, status));
+
+	// ft_printf("%d %d %d\n", WSTOPSIG(status), WEXITSTATUS(status), WTERMSIG(status));
+	if (WIFSTOPPED(status))
+		gest_return(WSTOPSIG(status));
+	else if (WIFSIGNALED(status))
+		gest_return(WTERMSIG(status));
+	else
+		gest_return(WTERMSIG(status));//choice_gest_return(j, status));
 }

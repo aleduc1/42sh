@@ -121,8 +121,10 @@ typedef struct		s_job
 	int				current;
 }					t_job;
 
+int					exec_ft_simple_command(t_job *j, t_process *p,
+		t_pos *pos, int fg);
 void				edit_current_value(int value);
-char				*ft_construct_redirection(t_token *token, t_pos *pos);
+char				*ft_construct_redirection(t_token *token);
 void				reset_hash_verif(char *key);
 
 int					ft_simple_command_fc(char *editor);
@@ -212,7 +214,8 @@ void				check_exec_path(char **str);
 ** restore_redir_builtin.c
 */
 
-void				restore_and_return_builtin(int verif);
+void				restore_and_return_builtin(int verif, t_job *j,
+			t_process *p);
 
 /*
 ** is_builtin.c

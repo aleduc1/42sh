@@ -38,11 +38,14 @@ void		restore_redirection(void)
 ** if exist and good execution return 0 otherwise return -2
 */
 
-void		restore_and_return_builtin(int verif)
+void		restore_and_return_builtin(int verif, t_job *j, t_process *p)
 {
 	restore_redirection();
 	if (verif == -2)
 		gest_return(1);
 	else
-		gest_return(verif);
+	{
+		// if (j && p->cmd && p->cmd[0] && (ft_strequ(p->cmd[0], "fg") || ft_strequ(p->cmd[0], "bg")))
+			gest_return(verif);
+	}
 }
